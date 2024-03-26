@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsRoomMapper">
+    
+    <resultMap type="HsRoom" id="HsRoomResult">
+        <result property="id"    column="id"    />
+        <result property="roomNumber"    column="room_number"    />
+        <result property="roomType"    column="room_type"    />
+        <result property="bedType"    column="bed_type"    />
+        <result property="roomPrice"    column="room_price"    />
+        <result property="roomStatus"    column="room_status"    />
+        <result property="maxOccupancy"    column="max_occupancy"    />
+        <result property="amenities"    column="amenities"    />
+        <result property="roomDescription"    column="room_description"    />
+        <result property="checkInTime"    column="check_in_time"    />
+        <result property="checkOutTime"    column="check_out_time"    />
+    </resultMap>
+
+    <sql id="selectHsRoomVo">
+        select id, room_number, room_type, bed_type, room_price, room_status, max_occupancy, amenities, room_description, check_in_time, check_out_time from hs_room
+    </sql>
+
+    <select id="selectHsRoomList" parameterType="HsRoom" resultMap="HsRoomResult">
+        <include refid="selectHsRoomVo"/>
+        <where>  
+            <if test="roomNumber != null "> and room_number = #{roomNumber}</if>
+            <if test="roomType != null  and roomType != ''"> and room_type = #{roomType}</if>
+            <if test="bedType != null  and bedType != ''"> and bed_type = #{bedType}</if>
+            <if test="roomPrice != null "> and room_price = #{roomPrice}</if>
+            <if test="roomStatus != null  and roomStatus != ''"> and room_status = #{roomStatus}</if>
+            <if test="maxOccupancy != null "> and max_occupancy = #{maxOccupancy}</if>
+            <if test="amenities != null  and amenities != ''"> and amenities = #{amenities}</if>
+            <if test="roomDescription != null  and roomDescription != ''"> and room_description = #{roomDescription}</if>
+            <if test="checkInTime != null "> and check_in_time = #{checkInTime}</if>
+            <if test="checkOutTime != null "> and check_out_time = #{checkOutTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsRoomById" parameterType="Long" resultMap="HsRoomResult">
+        <include refid="selectHsRoomVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsRoom" parameterType="HsRoom">
+        insert into hs_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="roomNumber != null">room_number,</if>
+            <if test="roomType != null">room_type,</if>
+            <if test="bedType != null and bedType != ''">bed_type,</if>
+            <if test="roomPrice != null">room_price,</if>
+            <if test="roomStatus != null">room_status,</if>
+            <if test="maxOccupancy != null">max_occupancy,</if>
+            <if test="amenities != null">amenities,</if>
+            <if test="roomDescription != null">room_description,</if>
+            <if test="checkInTime != null">check_in_time,</if>
+            <if test="checkOutTime != null">check_out_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="roomNumber != null">#{roomNumber},</if>
+            <if test="roomType != null">#{roomType},</if>
+            <if test="bedType != null and bedType != ''">#{bedType},</if>
+            <if test="roomPrice != null">#{roomPrice},</if>
+            <if test="roomStatus != null">#{roomStatus},</if>
+            <if test="maxOccupancy != null">#{maxOccupancy},</if>
+            <if test="amenities != null">#{amenities},</if>
+            <if test="roomDescription != null">#{roomDescription},</if>
+            <if test="checkInTime != null">#{checkInTime},</if>
+            <if test="checkOutTime != null">#{checkOutTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsRoom" parameterType="HsRoom">
+        update hs_room
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roomNumber != null">room_number = #{roomNumber},</if>
+            <if test="roomType != null">room_type = #{roomType},</if>
+            <if test="bedType != null and bedType != ''">bed_type = #{bedType},</if>
+            <if test="roomPrice != null">room_price = #{roomPrice},</if>
+            <if test="roomStatus != null">room_status = #{roomStatus},</if>
+            <if test="maxOccupancy != null">max_occupancy = #{maxOccupancy},</if>
+            <if test="amenities != null">amenities = #{amenities},</if>
+            <if test="roomDescription != null">room_description = #{roomDescription},</if>
+            <if test="checkInTime != null">check_in_time = #{checkInTime},</if>
+            <if test="checkOutTime != null">check_out_time = #{checkOutTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsRoomById" parameterType="Long">
+        delete from hs_room where id = #{id}
+    </delete>
+
+    <delete id="deleteHsRoomByIds" parameterType="String">
+        delete from hs_room where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
