@@ -38,7 +38,7 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
-        source: "RuoYi-Cloud/ruoyi-auth/target/ruoyi-auth.jar"
+        source: "RuoYi-Cloud/ruoyi-auth/target/ruoyi-auth.jar,RuoYi-Cloud/ruoyi-gateway/target/ruoyi-gateway.jar"
         target: "~/spring/"
 
     # 在服务器上运行jar文件
@@ -51,7 +51,7 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           java -jar ~/spring/ruoyi-auth.jar &
-          # java -jar ~/spring/ruoyi-gateway.jar &
+          java -jar ~/spring/ruoyi-gateway.jar &
           # java -jar ~/spring/ruoyi-modules-system.jar &
           # java -jar ~/spring/ruoyi-modules-job.jar &
           # java -jar ~/spring/ruoyi-modules-gen.jar &
