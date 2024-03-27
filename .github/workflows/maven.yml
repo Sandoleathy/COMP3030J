@@ -38,7 +38,7 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
-        source: "RuoYi-Cloud/ruoyi-auth/target/ruoyi-auth.jar,RuoYi-Cloud/ruoyi-gateway/target/ruoyi-gateway.jar"
+        source: "RuoYi-Cloud/ruoyi-auth/target/ruoyi-auth.jar,RuoYi-Cloud/ruoyi-gateway/target/ruoyi-gateway.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-system/target/ruoyi-modules-system.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-job/target/ruoyi-modules-job.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-gen/target/ruoyi-modules-gen.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-file/target/ruoyi-modules-file.jar,RuoYi-Cloud/ruoyi-modules/homestay/target/homestay.jar,RuoYi-Cloud/ruoyi-visual/ruoyi-monitor/target/ruoyi-visual-monitor.jar"
         target: "~/spring/"
 
     # 在服务器上运行jar文件
@@ -52,12 +52,12 @@ jobs:
         script: |
           java -jar ~/spring/ruoyi-auth.jar &
           java -jar ~/spring/ruoyi-gateway.jar &
-          # java -jar ~/spring/ruoyi-modules-system.jar &
-          # java -jar ~/spring/ruoyi-modules-job.jar &
-          # java -jar ~/spring/ruoyi-modules-gen.jar &
-          # java -jar ~/spring/ruoyi-modules-file.jar &
-          # java -jar ~/spring/homestay.jar &
-          # java -jar ~/spring/ruoyi-visual-monitor.jar &
+          java -jar ~/spring/ruoyi-modules-system.jar &
+          java -jar ~/spring/ruoyi-modules-job.jar &
+          java -jar ~/spring/ruoyi-modules-gen.jar &
+          java -jar ~/spring/ruoyi-modules-file.jar &
+          java -jar ~/spring/homestay.jar &
+          java -jar ~/spring/ruoyi-visual-monitor.jar &
           # cd ruoyi-ui
           # npm install
           # npm run dev
