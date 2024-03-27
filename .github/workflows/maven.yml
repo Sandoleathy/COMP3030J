@@ -51,13 +51,13 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           java -jar ~/spring/ruoyi-auth.jar &
-          java -jar ~/spring/ruoyi-gateway.jar &
-          java -jar ~/spring/ruoyi-modules-system.jar &
-          java -jar ~/spring/ruoyi-modules-job.jar &
-          java -jar ~/spring/ruoyi-modules-gen.jar &
-          java -jar ~/spring/ruoyi-modules-file.jar &
-          java -jar ~/spring/homestay.jar &
-          java -jar ~/spring/ruoyi-visual-monitor.jar &
-          cd ruoyi-ui
-          npm install
-          npm run dev
+          # java -jar ~/spring/ruoyi-gateway.jar &
+          # java -jar ~/spring/ruoyi-modules-system.jar &
+          # java -jar ~/spring/ruoyi-modules-job.jar &
+          # java -jar ~/spring/ruoyi-modules-gen.jar &
+          # java -jar ~/spring/ruoyi-modules-file.jar &
+          # java -jar ~/spring/homestay.jar &
+          # java -jar ~/spring/ruoyi-visual-monitor.jar &
+          # cd ruoyi-ui
+          # npm install
+          # npm run dev
