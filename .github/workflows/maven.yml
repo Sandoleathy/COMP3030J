@@ -50,14 +50,12 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          java -jar ~/spring/ruoyi-auth.jar &
-          java -jar ~/spring/ruoyi-gateway.jar &
-          java -jar ~/spring/ruoyi-modules-system.jar &
-          java -jar ~/spring/ruoyi-modules-job.jar &
-          java -jar ~/spring/ruoyi-modules-gen.jar &
-          java -jar ~/spring/ruoyi-modules-file.jar &
-          java -jar ~/spring/homestay.jar &
-          java -jar ~/spring/ruoyi-visual-monitor.jar &
-          # cd ruoyi-ui
-          # npm install
-          # npm run dev
+          cd ~/spring/RuoYi-Cloud
+          java -jar ruoyi-auth/target/ruoyi-auth.jar &
+          java -jar ruoyi-gateway/target/ruoyi-gateway.jar &
+          java -jar ruoyi-modules/ruoyi-system/target/ruoyi-modules-system.jar &
+          java -jar ruoyi-modules/ruoyi-job/target/ruoyi-modules-job.jar &
+          java -jar ruoyi-modules/ruoyi-gen/target/ruoyi-modules-gen.jar &
+          java -jar ruoyi-modules/ruoyi-file/target/ruoyi-modules-file.jar &
+          java -jar ruoyi-modules/homestay/target/homestay.jar &
+          java -jar ruoyi-visual/ruoyi-monitor/target/ruoyi-visual-monitor.jar &
