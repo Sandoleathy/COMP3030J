@@ -22,7 +22,7 @@ jobs:
       - name: Deploy to Server
         run: |
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} << EOF
-            cd ~/vue
+            cd ~/vue/COMP3030J/RuoYi-Cloud/ruoyi-ui
             git pull
             npm install
             pm2 restart all
