@@ -46,8 +46,8 @@ jobs:
     - name: Executing remote SSH commands
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USERNAME }}
+        host: csi6220-1-vm2.ucd.ie
+        username: student
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
@@ -56,8 +56,4 @@ jobs:
           java -jar ruoyi-auth/target/ruoyi-auth.jar &
           java -jar ruoyi-gateway/target/ruoyi-gateway.jar &
           java -jar ruoyi-modules/ruoyi-system/target/ruoyi-modules-system.jar &
-          java -jar ruoyi-modules/ruoyi-job/target/ruoyi-modules-job.jar &
-          java -jar ruoyi-modules/ruoyi-gen/target/ruoyi-modules-gen.jar &
-          java -jar ruoyi-modules/ruoyi-file/target/ruoyi-modules-file.jar &
           java -jar ruoyi-modules/homestay/target/homestay.jar &
-          java -jar ruoyi-visual/ruoyi-monitor/target/ruoyi-visual-monitor.jar &
