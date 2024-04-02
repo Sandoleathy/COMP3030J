@@ -25,5 +25,5 @@ jobs:
             cd ~/vue/COMP3030J/RuoYi-Cloud/ruoyi-ui
             git pull
             npm install
-            npm run dev
+            nohup npm run dev > /dev/null 2>&1 &
           EOF
