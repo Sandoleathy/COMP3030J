@@ -9,7 +9,7 @@ import { isRelogin } from '@/utils/request'
 NProgress.configure({ showSpinner: false })
 
 //添加了空路由和index白名单，让用户可以直接访问主页面
-const whiteList = ['/login', '/register', '/index', '/']
+const whiteList = ['/login', '/register']
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
