@@ -51,7 +51,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          stopspring
+          /home/student/command/stop-spring.sh
           cd ~/spring/RuoYi-Cloud
           java -jar ruoyi-auth/target/ruoyi-auth.jar &
           java -jar ruoyi-gateway/target/ruoyi-gateway.jar &
