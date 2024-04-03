@@ -17,7 +17,7 @@ public class HsRoom extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    /** id */
     private Long id;
 
     /** 房间号 */

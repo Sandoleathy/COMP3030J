@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="房间id" prop="roomId">
+      <el-form-item label="房间号" prop="roomNumber">
         <el-input
-          v-model="queryParams.roomId"
-          placeholder="请输入房间id"
+          v-model="queryParams.roomNumber"
+          placeholder="请输入房间号"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -49,12 +49,12 @@
           placeholder="请选择预订时间">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="" prop="checkoutTime">
+      <el-form-item label="搬出时间" prop="checkoutTime">
         <el-date-picker clearable
           v-model="queryParams.checkoutTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择">
+          placeholder="请选择搬出时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -111,9 +111,9 @@
 
     <el-table v-loading="loading" :data="reservationList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="" align="center" prop="id" />
+      <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="客户联系方式" align="center" prop="contactInformation" />
-      <el-table-column label="房间id" align="center" prop="roomId" />
+      <el-table-column label="房间号" align="center" prop="roomNumber" />
       <el-table-column label="入住时间" align="center" prop="checkinTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkinTime, '{y}-{m}-{d}') }}</span>
@@ -128,7 +128,7 @@
         </template>
       </el-table-column>
       <el-table-column label="客户要求" align="center" prop="requests" />
-      <el-table-column label="" align="center" prop="checkoutTime" width="180">
+      <el-table-column label="搬出时间" align="center" prop="checkoutTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkoutTime, '{y}-{m}-{d}') }}</span>
         </template>
@@ -167,8 +167,8 @@
         <el-form-item label="客户联系方式" prop="contactInformation">
           <el-input v-model="form.contactInformation" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="房间id" prop="roomId">
-          <el-input v-model="form.roomId" placeholder="请输入房间id" />
+        <el-form-item label="房间号" prop="roomNumber">
+          <el-input v-model="form.roomNumber" placeholder="请输入房间号" />
         </el-form-item>
         <el-form-item label="入住时间" prop="checkinTime">
           <el-date-picker clearable
@@ -198,67 +198,14 @@
         <el-form-item label="客户要求" prop="requests">
           <el-input v-model="form.requests" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="checkoutTime">
+        <el-form-item label="搬出时间" prop="checkoutTime">
           <el-date-picker clearable
             v-model="form.checkoutTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择">
+            placeholder="请选择搬出时间">
           </el-date-picker>
         </el-form-item>
-        <el-divider content-position="center">民宿房间信息</el-divider>
-        <el-row :gutter="10" class="mb8">
-          <el-col :span="1.5">
-            <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddHsRoom">添加</el-button>
-          </el-col>
-          <el-col :span="1.5">
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteHsRoom">删除</el-button>
-          </el-col>
-        </el-row>
-        <el-table :data="hsRoomList" :row-class-name="rowHsRoomIndex" @selection-change="handleHsRoomSelectionChange" ref="hsRoom">
-          <el-table-column type="selection" width="50" align="center" />
-          <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="房间号" prop="roomNumber" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.roomNumber" placeholder="请输入房间号" />
-            </template>
-          </el-table-column>
-          <el-table-column label="房间类型" prop="roomType" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.roomType" placeholder="请输入房间类型" />
-            </template>
-          </el-table-column>
-          <el-table-column label="床类型" prop="bedType" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.bedType" placeholder="请输入床类型" />
-            </template>
-          </el-table-column>
-          <el-table-column label="价格" prop="roomPrice" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.roomPrice" placeholder="请输入价格" />
-            </template>
-          </el-table-column>
-          <el-table-column label="状态" prop="roomStatus" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.roomStatus" placeholder="请输入状态" />
-            </template>
-          </el-table-column>
-          <el-table-column label="最大人数" prop="maxOccupancy" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.maxOccupancy" placeholder="请输入最大人数" />
-            </template>
-          </el-table-column>
-          <el-table-column label="入住时间" prop="checkIntTime" width="240">
-            <template slot-scope="scope">
-              <el-date-picker clearable v-model="scope.row.checkIntTime" type="date" value-format="yyyy-MM-dd" placeholder="请选择入住时间" />
-            </template>
-          </el-table-column>
-          <el-table-column label="搬出时间" prop="checkOutTime" width="240">
-            <template slot-scope="scope">
-              <el-date-picker clearable v-model="scope.row.checkOutTime" type="date" value-format="yyyy-MM-dd" placeholder="请选择搬出时间" />
-            </template>
-          </el-table-column>
-        </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -279,8 +226,6 @@ export default {
       loading: true,
       // 选中数组
       ids: [],
-      // 子表选中数据
-      checkedHsRoom: [],
       // 非单个禁用
       single: true,
       // 非多个禁用
@@ -291,8 +236,6 @@ export default {
       total: 0,
       // 民宿预订表格数据
       reservationList: [],
-      // 民宿房间表格数据
-      hsRoomList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -302,7 +245,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         contactInformation: null,
-        roomId: null,
+        roomNumber: null,
         checkinTime: null,
         numberOfRooms: null,
         numberOfGuests: null,
@@ -315,8 +258,8 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        roomId: [
-          { required: true, message: "房间id不能为空", trigger: "blur" }
+        roomNumber: [
+          { required: true, message: "房间号不能为空", trigger: "blur" }
         ],
       }
     };
@@ -344,7 +287,7 @@ export default {
       this.form = {
         id: null,
         contactInformation: null,
-        roomId: null,
+        roomNumber: null,
         checkinTime: null,
         numberOfRooms: null,
         numberOfGuests: null,
@@ -353,7 +296,6 @@ export default {
         requests: null,
         checkoutTime: null
       };
-      this.hsRoomList = [];
       this.resetForm("form");
     },
     /** 搜索按钮操作 */
@@ -384,7 +326,6 @@ export default {
       const id = row.id || this.ids
       getReservation(id).then(response => {
         this.form = response.data;
-        this.hsRoomList = response.data.hsRoomList;
         this.open = true;
         this.title = "修改民宿预订";
       });
@@ -393,7 +334,6 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          this.form.hsRoomList = this.hsRoomList;
           if (this.form.id != null) {
             updateReservation(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
@@ -419,42 +359,6 @@ export default {
         this.getList();
         this.$modal.msgSuccess("删除成功");
       }).catch(() => {});
-    },
-	/** 民宿房间序号 */
-    rowHsRoomIndex({ row, rowIndex }) {
-      row.index = rowIndex + 1;
-    },
-    /** 民宿房间添加按钮操作 */
-    handleAddHsRoom() {
-      let obj = {};
-      obj.roomNumber = "";
-      obj.roomType = "";
-      obj.bedType = "";
-      obj.roomPrice = "";
-      obj.roomStatus = "";
-      obj.maxOccupancy = "";
-      obj.amenities = "";
-      obj.roomDescription = "";
-      obj.checkIntTime = "";
-      obj.checkOutTime = "";
-      obj.customerDemand = "";
-      this.hsRoomList.push(obj);
-    },
-    /** 民宿房间删除按钮操作 */
-    handleDeleteHsRoom() {
-      if (this.checkedHsRoom.length == 0) {
-        this.$modal.msgError("请先选择要删除的民宿房间数据");
-      } else {
-        const hsRoomList = this.hsRoomList;
-        const checkedHsRoom = this.checkedHsRoom;
-        this.hsRoomList = hsRoomList.filter(function(item) {
-          return checkedHsRoom.indexOf(item.index) == -1
-        });
-      }
-    },
-    /** 复选框选中数据 */
-    handleHsRoomSelectionChange(selection) {
-      this.checkedHsRoom = selection.map(item => item.index)
     },
     /** 导出按钮操作 */
     handleExport() {

@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="HsReservation" id="HsReservationResult">
         <result property="id"    column="id"    />
         <result property="contactInformation"    column="contact_information"    />
-        <result property="roomId"    column="room_id"    />
+        <result property="roomNumber"    column="room_number"    />
         <result property="checkinTime"    column="checkin_time"    />
         <result property="numberOfRooms"    column="number_of_rooms"    />
         <result property="numberOfGuests"    column="number_of_guests"    />
@@ -17,34 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="checkoutTime"    column="checkout_time"    />
     </resultMap>
 
-    <resultMap id="HsReservationHsRoomResult" type="HsReservation" extends="HsReservationResult">
-        <collection property="hsRoomList" notNullColumn="sub_id" javaType="java.util.List" resultMap="HsRoomResult" />
-    </resultMap>
-
-    <resultMap type="HsRoom" id="HsRoomResult">
-        <result property="id"    column="sub_id"    />
-        <result property="roomNumber"    column="sub_room_number"    />
-        <result property="roomType"    column="sub_room_type"    />
-        <result property="bedType"    column="sub_bed_type"    />
-        <result property="roomPrice"    column="sub_room_price"    />
-        <result property="roomStatus"    column="sub_room_status"    />
-        <result property="maxOccupancy"    column="sub_max_occupancy"    />
-        <result property="amenities"    column="sub_amenities"    />
-        <result property="roomDescription"    column="sub_room_description"    />
-        <result property="checkIntTime"    column="sub_check_int_time"    />
-        <result property="checkOutTime"    column="sub_check_out_time"    />
-        <result property="customerDemand"    column="sub_customer_demand"    />
-    </resultMap>
-
     <sql id="selectHsReservationVo">
-        select id, contact_information, room_id, checkin_time, number_of_rooms, number_of_guests, reservation_status, reservation_time, requests, checkout_time from hs_reservation
+        select id, contact_information, room_number, checkin_time, number_of_rooms, number_of_guests, reservation_status, reservation_time, requests, checkout_time from hs_reservation
     </sql>
 
     <select id="selectHsReservationList" parameterType="HsReservation" resultMap="HsReservationResult">
         <include refid="selectHsReservationVo"/>
         <where>  
             <if test="contactInformation != null  and contactInformation != ''"> and contact_information = #{contactInformation}</if>
-            <if test="roomId != null "> and room_id = #{roomId}</if>
+            <if test="roomNumber != null "> and room_number = #{roomNumber}</if>
             <if test="checkinTime != null "> and checkin_time = #{checkinTime}</if>
             <if test="numberOfRooms != null "> and number_of_rooms = #{numberOfRooms}</if>
             <if test="numberOfGuests != null "> and number_of_guests = #{numberOfGuests}</if>
@@ -55,19 +36,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectHsReservationById" parameterType="Long" resultMap="HsReservationHsRoomResult">
-        select a.id, a.contact_information, a.room_id, a.checkin_time, a.number_of_rooms, a.number_of_guests, a.reservation_status, a.reservation_time, a.requests, a.checkout_time,
- b.id as sub_id, b.room_number as sub_room_number, b.room_type as sub_room_type, b.bed_type as sub_bed_type, b.room_price as sub_room_price, b.room_status as sub_room_status, b.max_occupancy as sub_max_occupancy, b.amenities as sub_amenities, b.room_description as sub_room_description, b.check_int_time as sub_check_int_time, b.check_out_time as sub_check_out_time, b.customer_demand as sub_customer_demand
-        from hs_reservation a
-        left join hs_room b on b.id = a.id
-        where a.id = #{id}
+    <select id="selectHsReservationById" parameterType="Long" resultMap="HsReservationResult">
+        <include refid="selectHsReservationVo"/>
+        where id = #{id}
     </select>
         
     <insert id="insertHsReservation" parameterType="HsReservation" useGeneratedKeys="true" keyProperty="id">
         insert into hs_reservation
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="contactInformation != null">contact_information,</if>
-            <if test="roomId != null">room_id,</if>
+            <if test="roomNumber != null">room_number,</if>
             <if test="checkinTime != null">checkin_time,</if>
             <if test="numberOfRooms != null">number_of_rooms,</if>
             <if test="numberOfGuests != null">number_of_guests,</if>
@@ -78,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="contactInformation != null">#{contactInformation},</if>
-            <if test="roomId != null">#{roomId},</if>
+            <if test="roomNumber != null">#{roomNumber},</if>
             <if test="checkinTime != null">#{checkinTime},</if>
             <if test="numberOfRooms != null">#{numberOfRooms},</if>
             <if test="numberOfGuests != null">#{numberOfGuests},</if>
@@ -93,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update hs_reservation
         <trim prefix="SET" suffixOverrides=",">
             <if test="contactInformation != null">contact_information = #{contactInformation},</if>
-            <if test="roomId != null">room_id = #{roomId},</if>
+            <if test="roomNumber != null">room_number = #{roomNumber},</if>
             <if test="checkinTime != null">checkin_time = #{checkinTime},</if>
             <if test="numberOfRooms != null">number_of_rooms = #{numberOfRooms},</if>
             <if test="numberOfGuests != null">number_of_guests = #{numberOfGuests},</if>
@@ -115,22 +93,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
-    <delete id="deleteHsRoomByIds" parameterType="String">
-        delete from hs_room where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
-
-    <delete id="deleteHsRoomById" parameterType="Long">
-        delete from hs_room where id = #{id}
-    </delete>
-
-    <insert id="batchHsRoom">
-        insert into hs_room( id, room_number, room_type, bed_type, room_price, room_status, max_occupancy, amenities, room_description, check_int_time, check_out_time, customer_demand) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.roomNumber}, #{item.roomType}, #{item.bedType}, #{item.roomPrice}, #{item.roomStatus}, #{item.maxOccupancy}, #{item.amenities}, #{item.roomDescription}, #{item.checkIntTime}, #{item.checkOutTime}, #{item.customerDemand})
-        </foreach>
-    </insert>
 </mapper>

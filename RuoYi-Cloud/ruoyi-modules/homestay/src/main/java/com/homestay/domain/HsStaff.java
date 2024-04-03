@@ -15,7 +15,7 @@ public class HsStaff extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** $column.columnComment */
+    /** id */
     private Long id;
 
     /** 姓名 */
@@ -26,16 +26,16 @@ public class HsStaff extends BaseEntity
     @Excel(name = "职位", readConverterExp = "权=限")
     private String position;
 
-    /**  */
-    @Excel(name = "")
+    /** 负责区域 */
+    @Excel(name = "负责区域")
     private String department;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 联系方式 */
+    @Excel(name = "联系方式")
     private Long contactNumber;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 邮箱 */
+    @Excel(name = "邮箱")
     private String email;
 
     /** 是否在岗 */

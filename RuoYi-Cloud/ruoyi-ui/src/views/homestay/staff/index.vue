@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="${comment}" prop="contactNumber">
+      <el-form-item label="联系方式" prop="contactNumber">
         <el-input
           v-model="queryParams.contactNumber"
-          placeholder="请输入${comment}"
+          placeholder="请输入联系方式"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -63,12 +63,12 @@
 
     <el-table v-loading="loading" :data="staffList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="姓名" align="center" prop="employeeName" />
       <el-table-column label="职位" align="center" prop="position" />
-      <el-table-column label="" align="center" prop="department" />
-      <el-table-column label="${comment}" align="center" prop="contactNumber" />
-      <el-table-column label="${comment}" align="center" prop="email" />
+      <el-table-column label="负责区域" align="center" prop="department" />
+      <el-table-column label="联系方式" align="center" prop="contactNumber" />
+      <el-table-column label="邮箱" align="center" prop="email" />
       <el-table-column label="是否在岗" align="center" prop="onDuty" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -107,13 +107,13 @@
         <el-form-item label="职位" prop="position">
           <el-input v-model="form.position" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="department">
+        <el-form-item label="负责区域" prop="department">
           <el-input v-model="form.department" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="${comment}" prop="contactNumber">
-          <el-input v-model="form.contactNumber" placeholder="请输入${comment}" />
+        <el-form-item label="联系方式" prop="contactNumber">
+          <el-input v-model="form.contactNumber" placeholder="请输入联系方式" />
         </el-form-item>
-        <el-form-item label="${comment}" prop="email">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="form.email" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="是否在岗" prop="onDuty">

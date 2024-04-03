@@ -1,6 +1,5 @@
 package com.homestay.domain;
 
-import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,16 +17,16 @@ public class HsReservation extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /**  */
+    /** id */
     private Long id;
 
     /** 客户联系方式 */
     @Excel(name = "客户联系方式")
     private String contactInformation;
 
-    /** 房间id */
-    @Excel(name = "房间id")
-    private Long roomId;
+    /** 房间号 */
+    @Excel(name = "房间号")
+    private Long roomNumber;
 
     /** 入住时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -55,13 +54,10 @@ public class HsReservation extends BaseEntity
     @Excel(name = "客户要求")
     private String requests;
 
-    /**  */
+    /** 搬出时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "搬出时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date checkoutTime;
-
-    /** 民宿房间信息 */
-    private List<HsRoom> hsRoomList;
 
     public void setId(Long id) 
     {
@@ -81,14 +77,14 @@ public class HsReservation extends BaseEntity
     {
         return contactInformation;
     }
-    public void setRoomId(Long roomId) 
+    public void setRoomNumber(Long roomNumber) 
     {
-        this.roomId = roomId;
+        this.roomNumber = roomNumber;
     }
 
-    public Long getRoomId() 
+    public Long getRoomNumber() 
     {
-        return roomId;
+        return roomNumber;
     }
     public void setCheckinTime(Date checkinTime) 
     {
@@ -154,22 +150,12 @@ public class HsReservation extends BaseEntity
         return checkoutTime;
     }
 
-    public List<HsRoom> getHsRoomList()
-    {
-        return hsRoomList;
-    }
-
-    public void setHsRoomList(List<HsRoom> hsRoomList)
-    {
-        this.hsRoomList = hsRoomList;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("contactInformation", getContactInformation())
-            .append("roomId", getRoomId())
+            .append("roomNumber", getRoomNumber())
             .append("checkinTime", getCheckinTime())
             .append("numberOfRooms", getNumberOfRooms())
             .append("numberOfGuests", getNumberOfGuests())
@@ -177,7 +163,6 @@ public class HsReservation extends BaseEntity
             .append("reservationTime", getReservationTime())
             .append("requests", getRequests())
             .append("checkoutTime", getCheckoutTime())
-            .append("hsRoomList", getHsRoomList())
             .toString();
     }
 }

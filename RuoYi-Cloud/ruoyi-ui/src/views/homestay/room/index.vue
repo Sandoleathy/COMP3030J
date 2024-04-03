@@ -119,7 +119,7 @@
 
     <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="房间号" align="center" prop="roomNumber" />
       <el-table-column label="房间类型" align="center" prop="roomType" />
       <el-table-column label="床类型" align="center" prop="bedType" />
