@@ -14,12 +14,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="maxOccupancy"    column="max_occupancy"    />
         <result property="amenities"    column="amenities"    />
         <result property="roomDescription"    column="room_description"    />
-        <result property="checkInTime"    column="check_in_time"    />
+        <result property="checkIntTime"    column="check_int_time"    />
         <result property="checkOutTime"    column="check_out_time"    />
+        <result property="customerDemand"    column="customer_demand"    />
     </resultMap>
 
     <sql id="selectHsRoomVo">
-        select id, room_number, room_type, bed_type, room_price, room_status, max_occupancy, amenities, room_description, check_in_time, check_out_time from hs_room
+        select id, room_number, room_type, bed_type, room_price, room_status, max_occupancy, amenities, room_description, check_int_time, check_out_time, customer_demand from hs_room
     </sql>
 
     <select id="selectHsRoomList" parameterType="HsRoom" resultMap="HsRoomResult">
@@ -33,8 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="maxOccupancy != null "> and max_occupancy = #{maxOccupancy}</if>
             <if test="amenities != null  and amenities != ''"> and amenities = #{amenities}</if>
             <if test="roomDescription != null  and roomDescription != ''"> and room_description = #{roomDescription}</if>
-            <if test="checkInTime != null "> and check_in_time = #{checkInTime}</if>
+            <if test="checkIntTime != null "> and check_int_time = #{checkIntTime}</if>
             <if test="checkOutTime != null "> and check_out_time = #{checkOutTime}</if>
+            <if test="customerDemand != null  and customerDemand != ''"> and customer_demand = #{customerDemand}</if>
         </where>
     </select>
     
@@ -43,33 +45,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertHsRoom" parameterType="HsRoom">
+    <insert id="insertHsRoom" parameterType="HsRoom" useGeneratedKeys="true" keyProperty="id">
         insert into hs_room
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">id,</if>
             <if test="roomNumber != null">room_number,</if>
-            <if test="roomType != null">room_type,</if>
-            <if test="bedType != null and bedType != ''">bed_type,</if>
+            <if test="roomType != null and roomType != ''">room_type,</if>
+            <if test="bedType != null">bed_type,</if>
             <if test="roomPrice != null">room_price,</if>
             <if test="roomStatus != null">room_status,</if>
             <if test="maxOccupancy != null">max_occupancy,</if>
             <if test="amenities != null">amenities,</if>
             <if test="roomDescription != null">room_description,</if>
-            <if test="checkInTime != null">check_in_time,</if>
+            <if test="checkIntTime != null">check_int_time,</if>
             <if test="checkOutTime != null">check_out_time,</if>
+            <if test="customerDemand != null">customer_demand,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">#{id},</if>
             <if test="roomNumber != null">#{roomNumber},</if>
-            <if test="roomType != null">#{roomType},</if>
-            <if test="bedType != null and bedType != ''">#{bedType},</if>
+            <if test="roomType != null and roomType != ''">#{roomType},</if>
+            <if test="bedType != null">#{bedType},</if>
             <if test="roomPrice != null">#{roomPrice},</if>
             <if test="roomStatus != null">#{roomStatus},</if>
             <if test="maxOccupancy != null">#{maxOccupancy},</if>
             <if test="amenities != null">#{amenities},</if>
             <if test="roomDescription != null">#{roomDescription},</if>
-            <if test="checkInTime != null">#{checkInTime},</if>
+            <if test="checkIntTime != null">#{checkIntTime},</if>
             <if test="checkOutTime != null">#{checkOutTime},</if>
+            <if test="customerDemand != null">#{customerDemand},</if>
          </trim>
     </insert>
 
@@ -77,15 +79,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update hs_room
         <trim prefix="SET" suffixOverrides=",">
             <if test="roomNumber != null">room_number = #{roomNumber},</if>
-            <if test="roomType != null">room_type = #{roomType},</if>
-            <if test="bedType != null and bedType != ''">bed_type = #{bedType},</if>
+            <if test="roomType != null and roomType != ''">room_type = #{roomType},</if>
+            <if test="bedType != null">bed_type = #{bedType},</if>
             <if test="roomPrice != null">room_price = #{roomPrice},</if>
             <if test="roomStatus != null">room_status = #{roomStatus},</if>
             <if test="maxOccupancy != null">max_occupancy = #{maxOccupancy},</if>
             <if test="amenities != null">amenities = #{amenities},</if>
             <if test="roomDescription != null">room_description = #{roomDescription},</if>
-            <if test="checkInTime != null">check_in_time = #{checkInTime},</if>
+            <if test="checkIntTime != null">check_int_time = #{checkIntTime},</if>
             <if test="checkOutTime != null">check_out_time = #{checkOutTime},</if>
+            <if test="customerDemand != null">customer_demand = #{customerDemand},</if>
         </trim>
         where id = #{id}
     </update>

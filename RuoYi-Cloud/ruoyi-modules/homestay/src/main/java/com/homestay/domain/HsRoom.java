@@ -11,7 +11,7 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * 民宿房间对象 hs_room
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 public class HsRoom extends BaseEntity
 {
@@ -20,47 +20,51 @@ public class HsRoom extends BaseEntity
     /** $column.columnComment */
     private Long id;
 
-    /**  */
-    @Excel(name = "")
+    /** 房间号 */
+    @Excel(name = "房间号")
     private Long roomNumber;
 
-    /**  */
-    @Excel(name = "")
+    /** 房间类型 */
+    @Excel(name = "房间类型")
     private String roomType;
 
-    /**  */
-    @Excel(name = "")
+    /** 床类型 */
+    @Excel(name = "床类型")
     private String bedType;
 
-    /**  */
-    @Excel(name = "")
+    /** 价格 */
+    @Excel(name = "价格")
     private Long roomPrice;
 
-    /**  */
-    @Excel(name = "")
+    /** 状态 */
+    @Excel(name = "状态")
     private String roomStatus;
 
-    /**  */
-    @Excel(name = "")
+    /** 最大人数 */
+    @Excel(name = "最大人数")
     private Long maxOccupancy;
 
-    /**  */
-    @Excel(name = "")
+    /** 设施 */
+    @Excel(name = "设施")
     private String amenities;
 
-    /**  */
-    @Excel(name = "")
+    /** 描述 */
+    @Excel(name = "描述")
     private String roomDescription;
 
-    /**  */
+    /** 入住时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date checkInTime;
+    @Excel(name = "入住时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date checkIntTime;
 
-    /**  */
+    /** 搬出时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "搬出时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date checkOutTime;
+
+    /** 客户要求 */
+    @Excel(name = "客户要求")
+    private String customerDemand;
 
     public void setId(Long id) 
     {
@@ -143,14 +147,14 @@ public class HsRoom extends BaseEntity
     {
         return roomDescription;
     }
-    public void setCheckInTime(Date checkInTime) 
+    public void setCheckIntTime(Date checkIntTime) 
     {
-        this.checkInTime = checkInTime;
+        this.checkIntTime = checkIntTime;
     }
 
-    public Date getCheckInTime() 
+    public Date getCheckIntTime() 
     {
-        return checkInTime;
+        return checkIntTime;
     }
     public void setCheckOutTime(Date checkOutTime) 
     {
@@ -160,6 +164,15 @@ public class HsRoom extends BaseEntity
     public Date getCheckOutTime() 
     {
         return checkOutTime;
+    }
+    public void setCustomerDemand(String customerDemand) 
+    {
+        this.customerDemand = customerDemand;
+    }
+
+    public String getCustomerDemand() 
+    {
+        return customerDemand;
     }
 
     @Override
@@ -174,8 +187,9 @@ public class HsRoom extends BaseEntity
             .append("maxOccupancy", getMaxOccupancy())
             .append("amenities", getAmenities())
             .append("roomDescription", getRoomDescription())
-            .append("checkInTime", getCheckInTime())
+            .append("checkIntTime", getCheckIntTime())
             .append("checkOutTime", getCheckOutTime())
+            .append("customerDemand", getCustomerDemand())
             .toString();
     }
 }

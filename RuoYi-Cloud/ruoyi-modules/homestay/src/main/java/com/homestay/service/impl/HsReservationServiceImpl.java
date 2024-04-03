@@ -12,10 +12,10 @@ import com.homestay.domain.HsReservation;
 import com.homestay.service.IHsReservationService;
 
 /**
- * 房间预定Service业务层处理
+ * 民宿预订Service业务层处理
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 @Service
 public class HsReservationServiceImpl implements IHsReservationService 
@@ -24,10 +24,10 @@ public class HsReservationServiceImpl implements IHsReservationService
     private HsReservationMapper hsReservationMapper;
 
     /**
-     * 查询房间预定
+     * 查询民宿预订
      * 
-     * @param id 房间预定主键
-     * @return 房间预定
+     * @param id 民宿预订主键
+     * @return 民宿预订
      */
     @Override
     public HsReservation selectHsReservationById(Long id)
@@ -36,10 +36,10 @@ public class HsReservationServiceImpl implements IHsReservationService
     }
 
     /**
-     * 查询房间预定列表
+     * 查询民宿预订列表
      * 
-     * @param hsReservation 房间预定
-     * @return 房间预定
+     * @param hsReservation 民宿预订
+     * @return 民宿预订
      */
     @Override
     public List<HsReservation> selectHsReservationList(HsReservation hsReservation)
@@ -48,9 +48,9 @@ public class HsReservationServiceImpl implements IHsReservationService
     }
 
     /**
-     * 新增房间预定
+     * 新增民宿预订
      * 
-     * @param hsReservation 房间预定
+     * @param hsReservation 民宿预订
      * @return 结果
      */
     @Transactional
@@ -63,52 +63,52 @@ public class HsReservationServiceImpl implements IHsReservationService
     }
 
     /**
-     * 修改房间预定
+     * 修改民宿预订
      * 
-     * @param hsReservation 房间预定
+     * @param hsReservation 民宿预订
      * @return 结果
      */
     @Transactional
     @Override
     public int updateHsReservation(HsReservation hsReservation)
     {
-        hsReservationMapper.deleteHsRoomByRoomNumber(hsReservation.getId());
+        hsReservationMapper.deleteHsRoomById(hsReservation.getId());
         insertHsRoom(hsReservation);
         return hsReservationMapper.updateHsReservation(hsReservation);
     }
 
     /**
-     * 批量删除房间预定
+     * 批量删除民宿预订
      * 
-     * @param ids 需要删除的房间预定主键
+     * @param ids 需要删除的民宿预订主键
      * @return 结果
      */
     @Transactional
     @Override
     public int deleteHsReservationByIds(Long[] ids)
     {
-        hsReservationMapper.deleteHsRoomByRoomNumbers(ids);
+        hsReservationMapper.deleteHsRoomByIds(ids);
         return hsReservationMapper.deleteHsReservationByIds(ids);
     }
 
     /**
-     * 删除房间预定信息
+     * 删除民宿预订信息
      * 
-     * @param id 房间预定主键
+     * @param id 民宿预订主键
      * @return 结果
      */
     @Transactional
     @Override
     public int deleteHsReservationById(Long id)
     {
-        hsReservationMapper.deleteHsRoomByRoomNumber(id);
+        hsReservationMapper.deleteHsRoomById(id);
         return hsReservationMapper.deleteHsReservationById(id);
     }
 
     /**
      * 新增民宿房间信息
      * 
-     * @param hsReservation 房间预定对象
+     * @param hsReservation 民宿预订对象
      */
     public void insertHsRoom(HsReservation hsReservation)
     {
@@ -119,7 +119,7 @@ public class HsReservationServiceImpl implements IHsReservationService
             List<HsRoom> list = new ArrayList<HsRoom>();
             for (HsRoom hsRoom : hsRoomList)
             {
-                hsRoom.setRoomNumber(id);
+                hsRoom.setId(id);
                 list.add(hsRoom);
             }
             if (list.size() > 0)

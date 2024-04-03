@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询房间预定列表
+// 查询民宿预订列表
 export function listReservation(query) {
   return request({
     url: '/homestay/reservation/list',
@@ -9,7 +9,7 @@ export function listReservation(query) {
   })
 }
 
-// 查询房间预定详细
+// 查询民宿预订详细
 export function getReservation(id) {
   return request({
     url: '/homestay/reservation/' + id,
@@ -17,7 +17,7 @@ export function getReservation(id) {
   })
 }
 
-// 新增房间预定
+// 新增民宿预订
 export function addReservation(data) {
   return request({
     url: '/homestay/reservation',
@@ -26,7 +26,7 @@ export function addReservation(data) {
   })
 }
 
-// 修改房间预定
+// 修改民宿预订
 export function updateReservation(data) {
   return request({
     url: '/homestay/reservation',
@@ -35,7 +35,7 @@ export function updateReservation(data) {
   })
 }
 
-// 删除房间预定
+// 删除民宿预订
 export function delReservation(id) {
   return request({
     url: '/homestay/reservation/' + id,

@@ -5,55 +5,55 @@ import com.homestay.domain.HsReservation;
 import com.homestay.domain.HsRoom;
 
 /**
- * 房间预定Mapper接口
+ * 民宿预订Mapper接口
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 public interface HsReservationMapper 
 {
     /**
-     * 查询房间预定
+     * 查询民宿预订
      * 
-     * @param id 房间预定主键
-     * @return 房间预定
+     * @param id 民宿预订主键
+     * @return 民宿预订
      */
     public HsReservation selectHsReservationById(Long id);
 
     /**
-     * 查询房间预定列表
+     * 查询民宿预订列表
      * 
-     * @param hsReservation 房间预定
-     * @return 房间预定集合
+     * @param hsReservation 民宿预订
+     * @return 民宿预订集合
      */
     public List<HsReservation> selectHsReservationList(HsReservation hsReservation);
 
     /**
-     * 新增房间预定
+     * 新增民宿预订
      * 
-     * @param hsReservation 房间预定
+     * @param hsReservation 民宿预订
      * @return 结果
      */
     public int insertHsReservation(HsReservation hsReservation);
 
     /**
-     * 修改房间预定
+     * 修改民宿预订
      * 
-     * @param hsReservation 房间预定
+     * @param hsReservation 民宿预订
      * @return 结果
      */
     public int updateHsReservation(HsReservation hsReservation);
 
     /**
-     * 删除房间预定
+     * 删除民宿预订
      * 
-     * @param id 房间预定主键
+     * @param id 民宿预订主键
      * @return 结果
      */
     public int deleteHsReservationById(Long id);
 
     /**
-     * 批量删除房间预定
+     * 批量删除民宿预订
      * 
      * @param ids 需要删除的数据主键集合
      * @return 结果
@@ -66,7 +66,7 @@ public interface HsReservationMapper
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteHsRoomByRoomNumbers(Long[] ids);
+    public int deleteHsRoomByIds(Long[] ids);
     
     /**
      * 批量新增民宿房间
@@ -78,10 +78,10 @@ public interface HsReservationMapper
     
 
     /**
-     * 通过房间预定主键删除民宿房间信息
+     * 通过民宿预订主键删除民宿房间信息
      * 
-     * @param id 房间预定ID
+     * @param id 民宿预订ID
      * @return 结果
      */
-    public int deleteHsRoomByRoomNumber(Long id);
+    public int deleteHsRoomById(Long id);
 }

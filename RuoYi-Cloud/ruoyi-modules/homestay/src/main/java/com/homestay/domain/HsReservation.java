@@ -9,10 +9,10 @@ import com.ruoyi.common.core.annotation.Excel;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
- * 房间预定对象 hs_reservation
+ * 民宿预订对象 hs_reservation
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 public class HsReservation extends BaseEntity
 {
@@ -21,44 +21,44 @@ public class HsReservation extends BaseEntity
     /**  */
     private Long id;
 
-    /**  */
-    @Excel(name = "")
+    /** 客户联系方式 */
+    @Excel(name = "客户联系方式")
     private String contactInformation;
 
-    /**  */
-    @Excel(name = "")
-    private Long roomNumber;
+    /** 房间id */
+    @Excel(name = "房间id")
+    private Long roomId;
 
-    /**  */
+    /** 入住时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date checkinDate;
+    @Excel(name = "入住时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date checkinTime;
 
-    /**  */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date checkoutDate;
-
-    /**  */
-    @Excel(name = "")
+    /** 房间数 */
+    @Excel(name = "房间数")
     private Long numberOfRooms;
 
-    /**  */
-    @Excel(name = "")
+    /** 客户数 */
+    @Excel(name = "客户数")
     private Long numberOfGuests;
 
-    /**  */
-    @Excel(name = "")
+    /** 预订状态 */
+    @Excel(name = "预订状态")
     private String reservationStatus;
+
+    /** 预订时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "预订时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date reservationTime;
+
+    /** 客户要求 */
+    @Excel(name = "客户要求")
+    private String requests;
 
     /**  */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date reservationTime;
-
-    /**  */
-    @Excel(name = "")
-    private String specialRequests;
+    private Date checkoutTime;
 
     /** 民宿房间信息 */
     private List<HsRoom> hsRoomList;
@@ -81,32 +81,23 @@ public class HsReservation extends BaseEntity
     {
         return contactInformation;
     }
-    public void setRoomNumber(Long roomNumber) 
+    public void setRoomId(Long roomId) 
     {
-        this.roomNumber = roomNumber;
+        this.roomId = roomId;
     }
 
-    public Long getRoomNumber() 
+    public Long getRoomId() 
     {
-        return roomNumber;
+        return roomId;
     }
-    public void setCheckinDate(Date checkinDate) 
+    public void setCheckinTime(Date checkinTime) 
     {
-        this.checkinDate = checkinDate;
-    }
-
-    public Date getCheckinDate() 
-    {
-        return checkinDate;
-    }
-    public void setCheckoutDate(Date checkoutDate) 
-    {
-        this.checkoutDate = checkoutDate;
+        this.checkinTime = checkinTime;
     }
 
-    public Date getCheckoutDate() 
+    public Date getCheckinTime() 
     {
-        return checkoutDate;
+        return checkinTime;
     }
     public void setNumberOfRooms(Long numberOfRooms) 
     {
@@ -144,14 +135,23 @@ public class HsReservation extends BaseEntity
     {
         return reservationTime;
     }
-    public void setSpecialRequests(String specialRequests) 
+    public void setRequests(String requests) 
     {
-        this.specialRequests = specialRequests;
+        this.requests = requests;
     }
 
-    public String getSpecialRequests() 
+    public String getRequests() 
     {
-        return specialRequests;
+        return requests;
+    }
+    public void setCheckoutTime(Date checkoutTime) 
+    {
+        this.checkoutTime = checkoutTime;
+    }
+
+    public Date getCheckoutTime() 
+    {
+        return checkoutTime;
     }
 
     public List<HsRoom> getHsRoomList()
@@ -169,14 +169,14 @@ public class HsReservation extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("contactInformation", getContactInformation())
-            .append("roomNumber", getRoomNumber())
-            .append("checkinDate", getCheckinDate())
-            .append("checkoutDate", getCheckoutDate())
+            .append("roomId", getRoomId())
+            .append("checkinTime", getCheckinTime())
             .append("numberOfRooms", getNumberOfRooms())
             .append("numberOfGuests", getNumberOfGuests())
             .append("reservationStatus", getReservationStatus())
             .append("reservationTime", getReservationTime())
-            .append("specialRequests", getSpecialRequests())
+            .append("requests", getRequests())
+            .append("checkoutTime", getCheckoutTime())
             .append("hsRoomList", getHsRoomList())
             .toString();
     }

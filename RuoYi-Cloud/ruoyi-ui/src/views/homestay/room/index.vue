@@ -1,44 +1,68 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="" prop="roomNumber">
+      <el-form-item label="房间号" prop="roomNumber">
         <el-input
           v-model="queryParams.roomNumber"
-          placeholder="请输入"
+          placeholder="请输入房间号"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="" prop="roomPrice">
+      <el-form-item label="房间类型" prop="roomType">
+        <el-input
+          v-model="queryParams.roomType"
+          placeholder="请输入房间类型"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="床类型" prop="bedType">
+        <el-input
+          v-model="queryParams.bedType"
+          placeholder="请输入床类型"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="价格" prop="roomPrice">
         <el-input
           v-model="queryParams.roomPrice"
-          placeholder="请输入"
+          placeholder="请输入价格"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="" prop="maxOccupancy">
+      <el-form-item label="状态" prop="roomStatus">
+        <el-input
+          v-model="queryParams.roomStatus"
+          placeholder="请输入状态"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="最大人数" prop="maxOccupancy">
         <el-input
           v-model="queryParams.maxOccupancy"
-          placeholder="请输入"
+          placeholder="请输入最大人数"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="" prop="checkInTime">
+      <el-form-item label="入住时间" prop="checkIntTime">
         <el-date-picker clearable
-          v-model="queryParams.checkInTime"
+          v-model="queryParams.checkIntTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择">
+          placeholder="请选择入住时间">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="" prop="checkOutTime">
+      <el-form-item label="搬出时间" prop="checkOutTime">
         <el-date-picker clearable
           v-model="queryParams.checkOutTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择">
+          placeholder="请选择搬出时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -96,24 +120,25 @@
     <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="${comment}" align="center" prop="id" />
-      <el-table-column label="" align="center" prop="roomNumber" />
-      <el-table-column label="" align="center" prop="roomType" />
-      <el-table-column label="" align="center" prop="bedType" />
-      <el-table-column label="" align="center" prop="roomPrice" />
-      <el-table-column label="" align="center" prop="roomStatus" />
-      <el-table-column label="" align="center" prop="maxOccupancy" />
-      <el-table-column label="" align="center" prop="amenities" />
-      <el-table-column label="" align="center" prop="roomDescription" />
-      <el-table-column label="" align="center" prop="checkInTime" width="180">
+      <el-table-column label="房间号" align="center" prop="roomNumber" />
+      <el-table-column label="房间类型" align="center" prop="roomType" />
+      <el-table-column label="床类型" align="center" prop="bedType" />
+      <el-table-column label="价格" align="center" prop="roomPrice" />
+      <el-table-column label="状态" align="center" prop="roomStatus" />
+      <el-table-column label="最大人数" align="center" prop="maxOccupancy" />
+      <el-table-column label="设施" align="center" prop="amenities" />
+      <el-table-column label="描述" align="center" prop="roomDescription" />
+      <el-table-column label="入住时间" align="center" prop="checkIntTime" width="180">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.checkInTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.checkIntTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="" align="center" prop="checkOutTime" width="180">
+      <el-table-column label="搬出时间" align="center" prop="checkOutTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkOutTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="客户要求" align="center" prop="customerDemand" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -145,33 +170,48 @@
     <!-- 添加或修改民宿房间对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="" prop="roomPrice">
-          <el-input v-model="form.roomPrice" placeholder="请输入" />
+        <el-form-item label="房间号" prop="roomNumber">
+          <el-input v-model="form.roomNumber" placeholder="请输入房间号" />
         </el-form-item>
-        <el-form-item label="" prop="maxOccupancy">
-          <el-input v-model="form.maxOccupancy" placeholder="请输入" />
+        <el-form-item label="房间类型" prop="roomType">
+          <el-input v-model="form.roomType" placeholder="请输入房间类型" />
         </el-form-item>
-        <el-form-item label="" prop="amenities">
+        <el-form-item label="床类型" prop="bedType">
+          <el-input v-model="form.bedType" placeholder="请输入床类型" />
+        </el-form-item>
+        <el-form-item label="价格" prop="roomPrice">
+          <el-input v-model="form.roomPrice" placeholder="请输入价格" />
+        </el-form-item>
+        <el-form-item label="状态" prop="roomStatus">
+          <el-input v-model="form.roomStatus" placeholder="请输入状态" />
+        </el-form-item>
+        <el-form-item label="最大人数" prop="maxOccupancy">
+          <el-input v-model="form.maxOccupancy" placeholder="请输入最大人数" />
+        </el-form-item>
+        <el-form-item label="设施" prop="amenities">
           <el-input v-model="form.amenities" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="roomDescription">
+        <el-form-item label="描述" prop="roomDescription">
           <el-input v-model="form.roomDescription" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="checkInTime">
+        <el-form-item label="入住时间" prop="checkIntTime">
           <el-date-picker clearable
-            v-model="form.checkInTime"
+            v-model="form.checkIntTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择">
+            placeholder="请选择入住时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="" prop="checkOutTime">
+        <el-form-item label="搬出时间" prop="checkOutTime">
           <el-date-picker clearable
             v-model="form.checkOutTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择">
+            placeholder="请选择搬出时间">
           </el-date-picker>
+        </el-form-item>
+        <el-form-item label="客户要求" prop="customerDemand">
+          <el-input v-model="form.customerDemand" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -219,18 +259,22 @@ export default {
         maxOccupancy: null,
         amenities: null,
         roomDescription: null,
-        checkInTime: null,
-        checkOutTime: null
+        checkIntTime: null,
+        checkOutTime: null,
+        customerDemand: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
         roomNumber: [
-          { required: true, message: "不能为空", trigger: "blur" }
+          { required: true, message: "房间号不能为空", trigger: "blur" }
         ],
-        bedType: [
-          { required: true, message: "不能为空", trigger: "change" }
+        roomType: [
+          { required: true, message: "房间类型不能为空", trigger: "blur" }
+        ],
+        roomPrice: [
+          { required: true, message: "价格不能为空", trigger: "blur" }
         ],
       }
     };
@@ -265,8 +309,9 @@ export default {
         maxOccupancy: null,
         amenities: null,
         roomDescription: null,
-        checkInTime: null,
-        checkOutTime: null
+        checkIntTime: null,
+        checkOutTime: null,
+        customerDemand: null
       };
       this.resetForm("form");
     },

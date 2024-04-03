@@ -12,12 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="contactNumber"    column="contact_number"    />
         <result property="email"    column="email"    />
         <result property="onDuty"    column="onDuty"    />
-        <result property="permissionLevel"    column="permission_level"    />
-        <result property="salary"    column="salary"    />
     </resultMap>
 
     <sql id="selectHsStaffVo">
-        select id, employee_name, position, department, contact_number, email, onDuty, permission_level, salary from hs_staff
+        select id, employee_name, position, department, contact_number, email, onDuty from hs_staff
     </sql>
 
     <select id="selectHsStaffList" parameterType="HsStaff" resultMap="HsStaffResult">
@@ -26,11 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="employeeName != null  and employeeName != ''"> and employee_name like concat('%', #{employeeName}, '%')</if>
             <if test="position != null  and position != ''"> and position = #{position}</if>
             <if test="department != null  and department != ''"> and department = #{department}</if>
-            <if test="contactNumber != null  and contactNumber != ''"> and contact_number = #{contactNumber}</if>
+            <if test="contactNumber != null "> and contact_number = #{contactNumber}</if>
             <if test="email != null  and email != ''"> and email = #{email}</if>
-            <if test="onDuty != null "> and onDuty = #{onDuty}</if>
-            <if test="permissionLevel != null "> and permission_level = #{permissionLevel}</if>
-            <if test="salary != null "> and salary = #{salary}</if>
+            <if test="onDuty != null  and onDuty != ''"> and onDuty = #{onDuty}</if>
         </where>
     </select>
     
@@ -39,29 +35,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
         
-    <insert id="insertHsStaff" parameterType="HsStaff">
+    <insert id="insertHsStaff" parameterType="HsStaff" useGeneratedKeys="true" keyProperty="id">
         insert into hs_staff
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">id,</if>
             <if test="employeeName != null">employee_name,</if>
             <if test="position != null">position,</if>
             <if test="department != null">department,</if>
             <if test="contactNumber != null">contact_number,</if>
             <if test="email != null">email,</if>
             <if test="onDuty != null">onDuty,</if>
-            <if test="permissionLevel != null">permission_level,</if>
-            <if test="salary != null">salary,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">#{id},</if>
             <if test="employeeName != null">#{employeeName},</if>
             <if test="position != null">#{position},</if>
             <if test="department != null">#{department},</if>
             <if test="contactNumber != null">#{contactNumber},</if>
             <if test="email != null">#{email},</if>
             <if test="onDuty != null">#{onDuty},</if>
-            <if test="permissionLevel != null">#{permissionLevel},</if>
-            <if test="salary != null">#{salary},</if>
          </trim>
     </insert>
 
@@ -74,8 +64,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contactNumber != null">contact_number = #{contactNumber},</if>
             <if test="email != null">email = #{email},</if>
             <if test="onDuty != null">onDuty = #{onDuty},</if>
-            <if test="permissionLevel != null">permission_level = #{permissionLevel},</if>
-            <if test="salary != null">salary = #{salary},</if>
         </trim>
         where id = #{id}
     </update>

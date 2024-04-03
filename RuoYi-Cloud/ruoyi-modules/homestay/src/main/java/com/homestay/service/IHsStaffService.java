@@ -7,7 +7,7 @@ import com.homestay.domain.HsStaff;
  * 民宿员工Service接口
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 public interface IHsStaffService 
 {

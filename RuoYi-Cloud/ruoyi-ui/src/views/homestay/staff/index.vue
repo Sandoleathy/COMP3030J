@@ -1,66 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="" prop="employeeName">
-        <el-input
-          v-model="queryParams.employeeName"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="position">
-        <el-input
-          v-model="queryParams.position"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="department">
-        <el-input
-          v-model="queryParams.department"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="contactNumber">
+      <el-form-item label="${comment}" prop="contactNumber">
         <el-input
           v-model="queryParams.contactNumber"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="email">
-        <el-input
-          v-model="queryParams.email"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="onDuty">
-        <el-input
-          v-model="queryParams.onDuty"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="permissionLevel">
-        <el-input
-          v-model="queryParams.permissionLevel"
-          placeholder="请输入"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="" prop="salary">
-        <el-input
-          v-model="queryParams.salary"
-          placeholder="请输入"
+          placeholder="请输入${comment}"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -119,15 +63,13 @@
 
     <el-table v-loading="loading" :data="staffList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="" align="center" prop="id" />
-      <el-table-column label="" align="center" prop="employeeName" />
-      <el-table-column label="" align="center" prop="position" />
+      <el-table-column label="${comment}" align="center" prop="id" />
+      <el-table-column label="姓名" align="center" prop="employeeName" />
+      <el-table-column label="职位" align="center" prop="position" />
       <el-table-column label="" align="center" prop="department" />
-      <el-table-column label="" align="center" prop="contactNumber" />
-      <el-table-column label="" align="center" prop="email" />
-      <el-table-column label="" align="center" prop="onDuty" />
-      <el-table-column label="" align="center" prop="permissionLevel" />
-      <el-table-column label="" align="center" prop="salary" />
+      <el-table-column label="${comment}" align="center" prop="contactNumber" />
+      <el-table-column label="${comment}" align="center" prop="email" />
+      <el-table-column label="是否在岗" align="center" prop="onDuty" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -159,29 +101,23 @@
     <!-- 添加或修改民宿员工对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="" prop="employeeName">
-          <el-input v-model="form.employeeName" placeholder="请输入" />
+        <el-form-item label="姓名" prop="employeeName">
+          <el-input v-model="form.employeeName" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="position">
-          <el-input v-model="form.position" placeholder="请输入" />
+        <el-form-item label="职位" prop="position">
+          <el-input v-model="form.position" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="" prop="department">
-          <el-input v-model="form.department" placeholder="请输入" />
+          <el-input v-model="form.department" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="contactNumber">
-          <el-input v-model="form.contactNumber" placeholder="请输入" />
+        <el-form-item label="${comment}" prop="contactNumber">
+          <el-input v-model="form.contactNumber" placeholder="请输入${comment}" />
         </el-form-item>
-        <el-form-item label="" prop="email">
-          <el-input v-model="form.email" placeholder="请输入" />
+        <el-form-item label="${comment}" prop="email">
+          <el-input v-model="form.email" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="" prop="onDuty">
-          <el-input v-model="form.onDuty" placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="" prop="permissionLevel">
-          <el-input v-model="form.permissionLevel" placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="" prop="salary">
-          <el-input v-model="form.salary" placeholder="请输入" />
+        <el-form-item label="是否在岗" prop="onDuty">
+          <el-input v-model="form.onDuty" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -226,9 +162,7 @@ export default {
         department: null,
         contactNumber: null,
         email: null,
-        onDuty: null,
-        permissionLevel: null,
-        salary: null
+        onDuty: null
       },
       // 表单参数
       form: {},
@@ -264,9 +198,7 @@ export default {
         department: null,
         contactNumber: null,
         email: null,
-        onDuty: null,
-        permissionLevel: null,
-        salary: null
+        onDuty: null
       };
       this.resetForm("form");
     },

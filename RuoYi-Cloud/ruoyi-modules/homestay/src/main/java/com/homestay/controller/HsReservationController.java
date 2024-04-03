@@ -23,10 +23,10 @@ import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * 房间预定Controller
+ * 民宿预订Controller
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 @RestController
 @RequestMapping("/reservation")
@@ -36,7 +36,7 @@ public class HsReservationController extends BaseController
     private IHsReservationService hsReservationService;
 
     /**
-     * 查询房间预定列表
+     * 查询民宿预订列表
      */
     @RequiresPermissions("homestay:reservation:list")
     @GetMapping("/list")
@@ -48,20 +48,20 @@ public class HsReservationController extends BaseController
     }
 
     /**
-     * 导出房间预定列表
+     * 导出民宿预订列表
      */
     @RequiresPermissions("homestay:reservation:export")
-    @Log(title = "房间预定", businessType = BusinessType.EXPORT)
+    @Log(title = "民宿预订", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsReservation hsReservation)
     {
         List<HsReservation> list = hsReservationService.selectHsReservationList(hsReservation);
         ExcelUtil<HsReservation> util = new ExcelUtil<HsReservation>(HsReservation.class);
-        util.exportExcel(response, list, "房间预定数据");
+        util.exportExcel(response, list, "民宿预订数据");
     }
 
     /**
-     * 获取房间预定详细信息
+     * 获取民宿预订详细信息
      */
     @RequiresPermissions("homestay:reservation:query")
     @GetMapping(value = "/{id}")
@@ -71,10 +71,10 @@ public class HsReservationController extends BaseController
     }
 
     /**
-     * 新增房间预定
+     * 新增民宿预订
      */
     @RequiresPermissions("homestay:reservation:add")
-    @Log(title = "房间预定", businessType = BusinessType.INSERT)
+    @Log(title = "民宿预订", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HsReservation hsReservation)
     {
@@ -82,10 +82,10 @@ public class HsReservationController extends BaseController
     }
 
     /**
-     * 修改房间预定
+     * 修改民宿预订
      */
     @RequiresPermissions("homestay:reservation:edit")
-    @Log(title = "房间预定", businessType = BusinessType.UPDATE)
+    @Log(title = "民宿预订", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsReservation hsReservation)
     {
@@ -93,10 +93,10 @@ public class HsReservationController extends BaseController
     }
 
     /**
-     * 删除房间预定
+     * 删除民宿预订
      */
     @RequiresPermissions("homestay:reservation:remove")
-    @Log(title = "房间预定", businessType = BusinessType.DELETE)
+    @Log(title = "民宿预订", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

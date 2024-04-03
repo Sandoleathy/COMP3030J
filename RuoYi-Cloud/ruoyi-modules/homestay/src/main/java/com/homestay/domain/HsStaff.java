@@ -9,46 +9,38 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * 民宿员工对象 hs_staff
  * 
  * @author ruoyi
- * @date 2024-03-26
+ * @date 2024-04-03
  */
 public class HsStaff extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /**  */
+    /** $column.columnComment */
     private Long id;
 
-    /**  */
-    @Excel(name = "")
+    /** 姓名 */
+    @Excel(name = "姓名")
     private String employeeName;
 
-    /**  */
-    @Excel(name = "")
+    /** 职位（权限） */
+    @Excel(name = "职位", readConverterExp = "权=限")
     private String position;
 
     /**  */
     @Excel(name = "")
     private String department;
 
-    /**  */
-    @Excel(name = "")
-    private String contactNumber;
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    private Long contactNumber;
 
-    /**  */
-    @Excel(name = "")
+    /** $column.columnComment */
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private String email;
 
-    /**  */
-    @Excel(name = "")
-    private Integer onDuty;
-
-    /**  */
-    @Excel(name = "")
-    private Long permissionLevel;
-
-    /**  */
-    @Excel(name = "")
-    private Long salary;
+    /** 是否在岗 */
+    @Excel(name = "是否在岗")
+    private String onDuty;
 
     public void setId(Long id) 
     {
@@ -86,12 +78,12 @@ public class HsStaff extends BaseEntity
     {
         return department;
     }
-    public void setContactNumber(String contactNumber) 
+    public void setContactNumber(Long contactNumber) 
     {
         this.contactNumber = contactNumber;
     }
 
-    public String getContactNumber() 
+    public Long getContactNumber() 
     {
         return contactNumber;
     }
@@ -104,32 +96,14 @@ public class HsStaff extends BaseEntity
     {
         return email;
     }
-    public void setOnDuty(Integer onDuty) 
+    public void setOnDuty(String onDuty) 
     {
         this.onDuty = onDuty;
     }
 
-    public Integer getOnDuty() 
+    public String getOnDuty() 
     {
         return onDuty;
-    }
-    public void setPermissionLevel(Long permissionLevel) 
-    {
-        this.permissionLevel = permissionLevel;
-    }
-
-    public Long getPermissionLevel() 
-    {
-        return permissionLevel;
-    }
-    public void setSalary(Long salary) 
-    {
-        this.salary = salary;
-    }
-
-    public Long getSalary() 
-    {
-        return salary;
     }
 
     @Override
@@ -142,8 +116,6 @@ public class HsStaff extends BaseEntity
             .append("contactNumber", getContactNumber())
             .append("email", getEmail())
             .append("onDuty", getOnDuty())
-            .append("permissionLevel", getPermissionLevel())
-            .append("salary", getSalary())
             .toString();
     }
 }
