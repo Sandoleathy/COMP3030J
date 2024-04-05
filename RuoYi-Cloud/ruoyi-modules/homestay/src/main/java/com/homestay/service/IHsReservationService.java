@@ -6,8 +6,8 @@ import com.homestay.domain.HsReservation;
 /**
  * 民宿预订Service接口
  * 
- * @author ruoyi
- * @date 2024-04-03
+ * @author paru
+ * @date 2024-04-05
  */
 public interface IHsReservationService 
 {

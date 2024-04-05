@@ -17,45 +17,45 @@
           placeholder="请选择入住时间">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="房间数" prop="numberOfRooms">
-        <el-input
-          v-model="queryParams.numberOfRooms"
-          placeholder="请输入房间数"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="客户数" prop="numberOfGuests">
-        <el-input
-          v-model="queryParams.numberOfGuests"
-          placeholder="请输入客户数"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="预订状态" prop="reservationStatus">
-        <el-input
-          v-model="queryParams.reservationStatus"
-          placeholder="请输入预订状态"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="预订时间" prop="reservationTime">
-        <el-date-picker clearable
-          v-model="queryParams.reservationTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择预订时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="搬出时间" prop="checkoutTime">
+      <el-form-item label="退房时间" prop="checkoutTime">
         <el-date-picker clearable
           v-model="queryParams.checkoutTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择搬出时间">
+          placeholder="请选择退房时间">
         </el-date-picker>
+      </el-form-item>
+      <el-form-item label="客户数量" prop="numberOfGuests">
+        <el-input
+          v-model="queryParams.numberOfGuests"
+          placeholder="请输入客户数量"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="订单状态" prop="reservationStatus">
+        <el-input
+          v-model="queryParams.reservationStatus"
+          placeholder="请输入订单状态"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="订单创建/结束时间" prop="reservationTime">
+        <el-date-picker clearable
+          v-model="queryParams.reservationTime"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择订单创建/结束时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="总价格" prop="totalPrice">
+        <el-input
+          v-model="queryParams.totalPrice"
+          placeholder="请输入总价格"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -119,20 +119,20 @@
           <span>{{ parseTime(scope.row.checkinTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="房间数" align="center" prop="numberOfRooms" />
-      <el-table-column label="客户数" align="center" prop="numberOfGuests" />
-      <el-table-column label="预订状态" align="center" prop="reservationStatus" />
-      <el-table-column label="预订时间" align="center" prop="reservationTime" width="180">
+      <el-table-column label="退房时间" align="center" prop="checkoutTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.checkoutTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="客户数量" align="center" prop="numberOfGuests" />
+      <el-table-column label="订单状态" align="center" prop="reservationStatus" />
+      <el-table-column label="订单创建/结束时间" align="center" prop="reservationTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.reservationTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="客户要求" align="center" prop="requests" />
-      <el-table-column label="搬出时间" align="center" prop="checkoutTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.checkoutTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="总价格" align="center" prop="totalPrice" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -178,33 +178,33 @@
             placeholder="请选择入住时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="房间数" prop="numberOfRooms">
-          <el-input v-model="form.numberOfRooms" placeholder="请输入房间数" />
+        <el-form-item label="退房时间" prop="checkoutTime">
+          <el-date-picker clearable
+            v-model="form.checkoutTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择退房时间">
+          </el-date-picker>
         </el-form-item>
-        <el-form-item label="客户数" prop="numberOfGuests">
-          <el-input v-model="form.numberOfGuests" placeholder="请输入客户数" />
+        <el-form-item label="客户数量" prop="numberOfGuests">
+          <el-input v-model="form.numberOfGuests" placeholder="请输入客户数量" />
         </el-form-item>
-        <el-form-item label="预订状态" prop="reservationStatus">
-          <el-input v-model="form.reservationStatus" placeholder="请输入预订状态" />
+        <el-form-item label="订单状态" prop="reservationStatus">
+          <el-input v-model="form.reservationStatus" placeholder="请输入订单状态" />
         </el-form-item>
-        <el-form-item label="预订时间" prop="reservationTime">
+        <el-form-item label="订单创建/结束时间" prop="reservationTime">
           <el-date-picker clearable
             v-model="form.reservationTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择预订时间">
+            placeholder="请选择订单创建/结束时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="客户要求" prop="requests">
           <el-input v-model="form.requests" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="搬出时间" prop="checkoutTime">
-          <el-date-picker clearable
-            v-model="form.checkoutTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择搬出时间">
-          </el-date-picker>
+        <el-form-item label="总价格" prop="totalPrice">
+          <el-input v-model="form.totalPrice" placeholder="请输入总价格" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -247,12 +247,12 @@ export default {
         contactInformation: null,
         roomNumber: null,
         checkinTime: null,
-        numberOfRooms: null,
+        checkoutTime: null,
         numberOfGuests: null,
         reservationStatus: null,
         reservationTime: null,
         requests: null,
-        checkoutTime: null
+        totalPrice: null
       },
       // 表单参数
       form: {},
@@ -289,12 +289,12 @@ export default {
         contactInformation: null,
         roomNumber: null,
         checkinTime: null,
-        numberOfRooms: null,
+        checkoutTime: null,
         numberOfGuests: null,
         reservationStatus: null,
         reservationTime: null,
         requests: null,
-        checkoutTime: null
+        totalPrice: null
       };
       this.resetForm("form");
     },

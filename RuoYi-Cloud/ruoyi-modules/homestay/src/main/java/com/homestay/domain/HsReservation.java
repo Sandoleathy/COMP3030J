@@ -10,8 +10,8 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
 /**
  * 民宿预订对象 hs_reservation
  * 
- * @author ruoyi
- * @date 2024-04-03
+ * @author paru
+ * @date 2024-04-05
  */
 public class HsReservation extends BaseEntity
 {
@@ -33,31 +33,31 @@ public class HsReservation extends BaseEntity
     @Excel(name = "入住时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date checkinTime;
 
-    /** 房间数 */
-    @Excel(name = "房间数")
-    private Long numberOfRooms;
+    /** 退房时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "退房时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date checkoutTime;
 
-    /** 客户数 */
-    @Excel(name = "客户数")
+    /** 客户数量 */
+    @Excel(name = "客户数量")
     private Long numberOfGuests;
 
-    /** 预订状态 */
-    @Excel(name = "预订状态")
+    /** 订单状态 */
+    @Excel(name = "订单状态")
     private String reservationStatus;
 
-    /** 预订时间 */
+    /** 订单创建/结束时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "预订时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "订单创建/结束时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date reservationTime;
 
     /** 客户要求 */
     @Excel(name = "客户要求")
     private String requests;
 
-    /** 搬出时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "搬出时间", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date checkoutTime;
+    /** 总价格 */
+    @Excel(name = "总价格")
+    private Long totalPrice;
 
     public void setId(Long id) 
     {
@@ -95,14 +95,14 @@ public class HsReservation extends BaseEntity
     {
         return checkinTime;
     }
-    public void setNumberOfRooms(Long numberOfRooms) 
+    public void setCheckoutTime(Date checkoutTime) 
     {
-        this.numberOfRooms = numberOfRooms;
+        this.checkoutTime = checkoutTime;
     }
 
-    public Long getNumberOfRooms() 
+    public Date getCheckoutTime() 
     {
-        return numberOfRooms;
+        return checkoutTime;
     }
     public void setNumberOfGuests(Long numberOfGuests) 
     {
@@ -140,14 +140,14 @@ public class HsReservation extends BaseEntity
     {
         return requests;
     }
-    public void setCheckoutTime(Date checkoutTime) 
+    public void setTotalPrice(Long totalPrice) 
     {
-        this.checkoutTime = checkoutTime;
+        this.totalPrice = totalPrice;
     }
 
-    public Date getCheckoutTime() 
+    public Long getTotalPrice() 
     {
-        return checkoutTime;
+        return totalPrice;
     }
 
     @Override
@@ -157,12 +157,12 @@ public class HsReservation extends BaseEntity
             .append("contactInformation", getContactInformation())
             .append("roomNumber", getRoomNumber())
             .append("checkinTime", getCheckinTime())
-            .append("numberOfRooms", getNumberOfRooms())
+            .append("checkoutTime", getCheckoutTime())
             .append("numberOfGuests", getNumberOfGuests())
             .append("reservationStatus", getReservationStatus())
             .append("reservationTime", getReservationTime())
             .append("requests", getRequests())
-            .append("checkoutTime", getCheckoutTime())
+            .append("totalPrice", getTotalPrice())
             .toString();
     }
 }
