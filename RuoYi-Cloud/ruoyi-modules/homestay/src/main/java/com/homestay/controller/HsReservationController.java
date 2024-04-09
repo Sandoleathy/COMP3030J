@@ -102,4 +102,16 @@ public class HsReservationController extends BaseController
     {
         return toAjax(hsReservationService.deleteHsReservationByIds(ids));
     }
+
+    /**
+     * 查询所有状态为“已完成”的预订，并按房间类型和预订时间降序排列
+     */
+    @RequiresPermissions("homestay:reservation:finance")
+    @GetMapping("/finance")
+    public TableDataInfo listCompletedReservationsFinance()
+    {
+        startPage();
+        List<HsReservation> list = hsReservationService.selectCompletedReservationsFinance();
+        return getDataTable(list);
+    }
 }

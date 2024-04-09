@@ -93,4 +93,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectCompletedReservationsFinance" resultMap="HsReservationResult">
+        select r.*
+        from hs_reservation r
+                 join hs_room rm on r.room_number = rm.room_number
+        where r.reservation_status = '已完成'
+        order by rm.room_type, r.reservation_time desc
+    </select>
+
 </mapper>

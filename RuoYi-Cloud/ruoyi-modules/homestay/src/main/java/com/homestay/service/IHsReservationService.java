@@ -58,4 +58,11 @@ public interface IHsReservationService
      * @return 结果
      */
     public int deleteHsReservationById(Long id);
+
+    /**
+     * 查询所有状态为“已完成”的预订，并按房间类型和预订时间降序排列
+     *
+     * @return 民宿预订集合
+     */
+    List<HsReservation> selectCompletedReservationsFinance();
 }
