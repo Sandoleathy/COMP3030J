@@ -6,8 +6,8 @@ import com.homestay.domain.HsRoom;
 /**
  * 民宿房间Mapper接口
  * 
- * @author ruoyi
- * @date 2024-04-03
+ * @author paru
+ * @date 2024-04-09
  */
 public interface HsRoomMapper 
 {

@@ -1,14 +1,6 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="房间号" prop="roomNumber">
-        <el-input
-          v-model="queryParams.roomNumber"
-          placeholder="请输入房间号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="入住时间" prop="checkinTime">
         <el-date-picker clearable
           v-model="queryParams.checkinTime"
@@ -33,10 +25,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="订单状态" prop="reservationStatus">
+      <el-form-item label="房间数量" prop="numberOfRooms">
         <el-input
-          v-model="queryParams.reservationStatus"
-          placeholder="请输入订单状态"
+          v-model="queryParams.numberOfRooms"
+          placeholder="请输入房间数量"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -53,6 +45,22 @@
         <el-input
           v-model="queryParams.totalPrice"
           placeholder="请输入总价格"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="是否支付" prop="pay">
+        <el-input
+          v-model="queryParams.pay"
+          placeholder="请输入是否支付"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="订单状态" prop="reservationStatus">
+        <el-input
+          v-model="queryParams.reservationStatus"
+          placeholder="请输入订单状态"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -113,7 +121,6 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="客户联系方式" align="center" prop="contactInformation" />
-      <el-table-column label="房间号" align="center" prop="roomNumber" />
       <el-table-column label="入住时间" align="center" prop="checkinTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkinTime, '{y}-{m}-{d}') }}</span>
@@ -125,14 +132,16 @@
         </template>
       </el-table-column>
       <el-table-column label="客户数量" align="center" prop="numberOfGuests" />
-      <el-table-column label="订单状态" align="center" prop="reservationStatus" />
+      <el-table-column label="房间数量" align="center" prop="numberOfRooms" />
       <el-table-column label="订单创建/结束时间" align="center" prop="reservationTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.reservationTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="客户要求" align="center" prop="requests" />
+      <el-table-column label="备注" align="center" prop="requests" />
       <el-table-column label="总价格" align="center" prop="totalPrice" />
+      <el-table-column label="是否支付" align="center" prop="pay" />
+      <el-table-column label="订单状态" align="center" prop="reservationStatus" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -167,9 +176,6 @@
         <el-form-item label="客户联系方式" prop="contactInformation">
           <el-input v-model="form.contactInformation" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="房间号" prop="roomNumber">
-          <el-input v-model="form.roomNumber" placeholder="请输入房间号" />
-        </el-form-item>
         <el-form-item label="入住时间" prop="checkinTime">
           <el-date-picker clearable
             v-model="form.checkinTime"
@@ -189,8 +195,8 @@
         <el-form-item label="客户数量" prop="numberOfGuests">
           <el-input v-model="form.numberOfGuests" placeholder="请输入客户数量" />
         </el-form-item>
-        <el-form-item label="订单状态" prop="reservationStatus">
-          <el-input v-model="form.reservationStatus" placeholder="请输入订单状态" />
+        <el-form-item label="房间数量" prop="numberOfRooms">
+          <el-input v-model="form.numberOfRooms" placeholder="请输入房间数量" />
         </el-form-item>
         <el-form-item label="订单创建/结束时间" prop="reservationTime">
           <el-date-picker clearable
@@ -200,11 +206,17 @@
             placeholder="请选择订单创建/结束时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="客户要求" prop="requests">
+        <el-form-item label="备注" prop="requests">
           <el-input v-model="form.requests" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="总价格" prop="totalPrice">
           <el-input v-model="form.totalPrice" placeholder="请输入总价格" />
+        </el-form-item>
+        <el-form-item label="是否支付" prop="pay">
+          <el-input v-model="form.pay" placeholder="请输入是否支付" />
+        </el-form-item>
+        <el-form-item label="订单状态" prop="reservationStatus">
+          <el-input v-model="form.reservationStatus" placeholder="请输入订单状态" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -245,22 +257,20 @@ export default {
         pageNum: 1,
         pageSize: 10,
         contactInformation: null,
-        roomNumber: null,
         checkinTime: null,
         checkoutTime: null,
         numberOfGuests: null,
-        reservationStatus: null,
+        numberOfRooms: null,
         reservationTime: null,
         requests: null,
-        totalPrice: null
+        totalPrice: null,
+        pay: null,
+        reservationStatus: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        roomNumber: [
-          { required: true, message: "房间号不能为空", trigger: "blur" }
-        ],
       }
     };
   },
@@ -287,14 +297,15 @@ export default {
       this.form = {
         id: null,
         contactInformation: null,
-        roomNumber: null,
         checkinTime: null,
         checkoutTime: null,
         numberOfGuests: null,
-        reservationStatus: null,
+        numberOfRooms: null,
         reservationTime: null,
         requests: null,
-        totalPrice: null
+        totalPrice: null,
+        pay: null,
+        reservationStatus: null
       };
       this.resetForm("form");
     },

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsBedTypeMapper">
+    
+    <resultMap type="HsBedType" id="HsBedTypeResult">
+        <result property="id"    column="id"    />
+        <result property="bedName"    column="bed_name"    />
+        <result property="maxPeople"    column="max_people"    />
+        <result property="width"    column="width"    />
+        <result property="length"    column="length"    />
+    </resultMap>
+
+    <sql id="selectHsBedTypeVo">
+        select id, bed_name, max_people, width, length from hs_bed_type
+    </sql>
+
+    <select id="selectHsBedTypeList" parameterType="HsBedType" resultMap="HsBedTypeResult">
+        <include refid="selectHsBedTypeVo"/>
+        <where>  
+            <if test="bedName != null  and bedName != ''"> and bed_name like concat('%', #{bedName}, '%')</if>
+            <if test="maxPeople != null "> and max_people = #{maxPeople}</if>
+            <if test="width != null "> and width = #{width}</if>
+            <if test="length != null "> and length = #{length}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsBedTypeById" parameterType="Long" resultMap="HsBedTypeResult">
+        <include refid="selectHsBedTypeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsBedType" parameterType="HsBedType" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_bed_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bedName != null and bedName != ''">bed_name,</if>
+            <if test="maxPeople != null">max_people,</if>
+            <if test="width != null">width,</if>
+            <if test="length != null">length,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bedName != null and bedName != ''">#{bedName},</if>
+            <if test="maxPeople != null">#{maxPeople},</if>
+            <if test="width != null">#{width},</if>
+            <if test="length != null">#{length},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsBedType" parameterType="HsBedType">
+        update hs_bed_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bedName != null and bedName != ''">bed_name = #{bedName},</if>
+            <if test="maxPeople != null">max_people = #{maxPeople},</if>
+            <if test="width != null">width = #{width},</if>
+            <if test="length != null">length = #{length},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsBedTypeById" parameterType="Long">
+        delete from hs_bed_type where id = #{id}
+    </delete>
+
+    <delete id="deleteHsBedTypeByIds" parameterType="String">
+        delete from hs_bed_type where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

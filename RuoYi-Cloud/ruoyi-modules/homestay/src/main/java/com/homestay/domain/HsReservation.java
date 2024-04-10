@@ -11,7 +11,7 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * 民宿预订对象 hs_reservation
  * 
  * @author paru
- * @date 2024-04-05
+ * @date 2024-04-09
  */
 public class HsReservation extends BaseEntity
 {
@@ -23,10 +23,6 @@ public class HsReservation extends BaseEntity
     /** 客户联系方式 */
     @Excel(name = "客户联系方式")
     private String contactInformation;
-
-    /** 房间号 */
-    @Excel(name = "房间号")
-    private Long roomNumber;
 
     /** 入住时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -42,22 +38,30 @@ public class HsReservation extends BaseEntity
     @Excel(name = "客户数量")
     private Long numberOfGuests;
 
-    /** 订单状态 */
-    @Excel(name = "订单状态")
-    private String reservationStatus;
+    /** 房间数量 */
+    @Excel(name = "房间数量")
+    private Long numberOfRooms;
 
     /** 订单创建/结束时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "订单创建/结束时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date reservationTime;
 
-    /** 客户要求 */
-    @Excel(name = "客户要求")
+    /** 备注 */
+    @Excel(name = "备注")
     private String requests;
 
     /** 总价格 */
     @Excel(name = "总价格")
     private Long totalPrice;
+
+    /** 是否支付 */
+    @Excel(name = "是否支付")
+    private Integer pay;
+
+    /** 订单状态 */
+    @Excel(name = "订单状态")
+    private String reservationStatus;
 
     public void setId(Long id) 
     {
@@ -76,15 +80,6 @@ public class HsReservation extends BaseEntity
     public String getContactInformation() 
     {
         return contactInformation;
-    }
-    public void setRoomNumber(Long roomNumber) 
-    {
-        this.roomNumber = roomNumber;
-    }
-
-    public Long getRoomNumber() 
-    {
-        return roomNumber;
     }
     public void setCheckinTime(Date checkinTime) 
     {
@@ -113,14 +108,14 @@ public class HsReservation extends BaseEntity
     {
         return numberOfGuests;
     }
-    public void setReservationStatus(String reservationStatus) 
+    public void setNumberOfRooms(Long numberOfRooms) 
     {
-        this.reservationStatus = reservationStatus;
+        this.numberOfRooms = numberOfRooms;
     }
 
-    public String getReservationStatus() 
+    public Long getNumberOfRooms() 
     {
-        return reservationStatus;
+        return numberOfRooms;
     }
     public void setReservationTime(Date reservationTime) 
     {
@@ -149,20 +144,39 @@ public class HsReservation extends BaseEntity
     {
         return totalPrice;
     }
+    public void setPay(Integer pay) 
+    {
+        this.pay = pay;
+    }
+
+    public Integer getPay() 
+    {
+        return pay;
+    }
+    public void setReservationStatus(String reservationStatus) 
+    {
+        this.reservationStatus = reservationStatus;
+    }
+
+    public String getReservationStatus() 
+    {
+        return reservationStatus;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("contactInformation", getContactInformation())
-            .append("roomNumber", getRoomNumber())
             .append("checkinTime", getCheckinTime())
             .append("checkoutTime", getCheckoutTime())
             .append("numberOfGuests", getNumberOfGuests())
-            .append("reservationStatus", getReservationStatus())
+            .append("numberOfRooms", getNumberOfRooms())
             .append("reservationTime", getReservationTime())
             .append("requests", getRequests())
             .append("totalPrice", getTotalPrice())
+            .append("pay", getPay())
+            .append("reservationStatus", getReservationStatus())
             .toString();
     }
 }

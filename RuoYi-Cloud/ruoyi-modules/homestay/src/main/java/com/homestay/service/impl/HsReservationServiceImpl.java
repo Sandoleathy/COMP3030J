@@ -11,7 +11,7 @@ import com.homestay.service.IHsReservationService;
  * 民宿预订Service业务层处理
  * 
  * @author paru
- * @date 2024-04-05
+ * @date 2024-04-09
  */
 @Service
 public class HsReservationServiceImpl implements IHsReservationService 
@@ -89,16 +89,5 @@ public class HsReservationServiceImpl implements IHsReservationService
     public int deleteHsReservationById(Long id)
     {
         return hsReservationMapper.deleteHsReservationById(id);
-    }
-
-    /**
-     * 查询所有状态为“已完成”的预订，并按房间类型和预订时间降序排列
-     *
-     * @return 民宿预订集合
-     */
-    @Override
-    public List<HsReservation> selectCompletedReservationsFinance()
-    {
-        return hsReservationMapper.selectCompletedReservationsFinance();
     }
 }

@@ -1,10 +1,50 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="联系方式" prop="contactNumber">
+      <el-form-item label="栋类型" prop="buildingType">
         <el-input
-          v-model="queryParams.contactNumber"
-          placeholder="请输入联系方式"
+          v-model="queryParams.buildingType"
+          placeholder="请输入栋类型"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="是否提供早餐" prop="breakfast">
+        <el-input
+          v-model="queryParams.breakfast"
+          placeholder="请输入是否提供早餐"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="是否允许抽烟" prop="allowSmoking">
+        <el-input
+          v-model="queryParams.allowSmoking"
+          placeholder="请输入是否允许抽烟"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="是否有浴缸" prop="bathtub">
+        <el-input
+          v-model="queryParams.bathtub"
+          placeholder="请输入是否有浴缸"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="是否有淋浴设施" prop="bathroomAmenities">
+        <el-input
+          v-model="queryParams.bathroomAmenities"
+          placeholder="请输入是否有淋浴设施"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="是否有功能性设施" prop="functionalAmenities">
+        <el-input
+          v-model="queryParams.functionalAmenities"
+          placeholder="请输入是否有功能性设施"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -23,7 +63,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['homestay:staff:add']"
+          v-hasPermi="['homestay:buildingType:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -34,7 +74,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['homestay:staff:edit']"
+          v-hasPermi="['homestay:buildingType:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -45,7 +85,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['homestay:staff:remove']"
+          v-hasPermi="['homestay:buildingType:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -55,21 +95,21 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['homestay:staff:export']"
+          v-hasPermi="['homestay:buildingType:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="staffList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="buildingTypeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="姓名" align="center" prop="employeeName" />
-      <el-table-column label="职位" align="center" prop="position" />
-      <el-table-column label="负责区域" align="center" prop="department" />
-      <el-table-column label="联系方式" align="center" prop="contactNumber" />
-      <el-table-column label="邮箱" align="center" prop="email" />
-      <el-table-column label="是否在岗" align="center" prop="onDuty" />
+      <el-table-column label="栋类型" align="center" prop="buildingType" />
+      <el-table-column label="是否提供早餐" align="center" prop="breakfast" />
+      <el-table-column label="是否允许抽烟" align="center" prop="allowSmoking" />
+      <el-table-column label="是否有浴缸" align="center" prop="bathtub" />
+      <el-table-column label="是否有淋浴设施" align="center" prop="bathroomAmenities" />
+      <el-table-column label="是否有功能性设施" align="center" prop="functionalAmenities" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -77,14 +117,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['homestay:staff:edit']"
+            v-hasPermi="['homestay:buildingType:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['homestay:staff:remove']"
+            v-hasPermi="['homestay:buildingType:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -98,26 +138,26 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改民宿员工对话框 -->
+    <!-- 添加或修改民宿栋类型对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="姓名" prop="employeeName">
-          <el-input v-model="form.employeeName" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="栋类型" prop="buildingType">
+          <el-input v-model="form.buildingType" placeholder="请输入栋类型" />
         </el-form-item>
-        <el-form-item label="职位" prop="position">
-          <el-input v-model="form.position" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="是否提供早餐" prop="breakfast">
+          <el-input v-model="form.breakfast" placeholder="请输入是否提供早餐" />
         </el-form-item>
-        <el-form-item label="负责区域" prop="department">
-          <el-input v-model="form.department" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="是否允许抽烟" prop="allowSmoking">
+          <el-input v-model="form.allowSmoking" placeholder="请输入是否允许抽烟" />
         </el-form-item>
-        <el-form-item label="联系方式" prop="contactNumber">
-          <el-input v-model="form.contactNumber" placeholder="请输入联系方式" />
+        <el-form-item label="是否有浴缸" prop="bathtub">
+          <el-input v-model="form.bathtub" placeholder="请输入是否有浴缸" />
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="form.email" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="是否有淋浴设施" prop="bathroomAmenities">
+          <el-input v-model="form.bathroomAmenities" placeholder="请输入是否有淋浴设施" />
         </el-form-item>
-        <el-form-item label="是否在岗" prop="onDuty">
-          <el-input v-model="form.onDuty" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="是否有功能性设施" prop="functionalAmenities">
+          <el-input v-model="form.functionalAmenities" placeholder="请输入是否有功能性设施" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -129,10 +169,10 @@
 </template>
 
 <script>
-import { listStaff, getStaff, delStaff, addStaff, updateStaff } from "@/api/homestay/staff";
+import { listBuildingType, getBuildingType, delBuildingType, addBuildingType, updateBuildingType } from "@/api/homestay/buildingType";
 
 export default {
-  name: "Staff",
+  name: "BuildingType",
   data() {
     return {
       // 遮罩层
@@ -147,8 +187,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 民宿员工表格数据
-      staffList: [],
+      // 民宿栋类型表格数据
+      buildingTypeList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -157,17 +197,20 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        employeeName: null,
-        position: null,
-        department: null,
-        contactNumber: null,
-        email: null,
-        onDuty: null
+        buildingType: null,
+        breakfast: null,
+        allowSmoking: null,
+        bathtub: null,
+        bathroomAmenities: null,
+        functionalAmenities: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
+        buildingType: [
+          { required: true, message: "栋类型不能为空", trigger: "blur" }
+        ],
       }
     };
   },
@@ -175,11 +218,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询民宿员工列表 */
+    /** 查询民宿栋类型列表 */
     getList() {
       this.loading = true;
-      listStaff(this.queryParams).then(response => {
-        this.staffList = response.rows;
+      listBuildingType(this.queryParams).then(response => {
+        this.buildingTypeList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -193,12 +236,12 @@ export default {
     reset() {
       this.form = {
         id: null,
-        employeeName: null,
-        position: null,
-        department: null,
-        contactNumber: null,
-        email: null,
-        onDuty: null
+        buildingType: null,
+        breakfast: null,
+        allowSmoking: null,
+        bathtub: null,
+        bathroomAmenities: null,
+        functionalAmenities: null
       };
       this.resetForm("form");
     },
@@ -222,16 +265,16 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加民宿员工";
+      this.title = "添加民宿栋类型";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getStaff(id).then(response => {
+      getBuildingType(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改民宿员工";
+        this.title = "修改民宿栋类型";
       });
     },
     /** 提交按钮 */
@@ -239,13 +282,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateStaff(this.form).then(response => {
+            updateBuildingType(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addStaff(this.form).then(response => {
+            addBuildingType(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -257,8 +300,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除民宿员工编号为"' + ids + '"的数据项？').then(function() {
-        return delStaff(ids);
+      this.$modal.confirm('是否确认删除民宿栋类型编号为"' + ids + '"的数据项？').then(function() {
+        return delBuildingType(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -266,9 +309,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('homestay/staff/export', {
+      this.download('homestay/buildingType/export', {
         ...this.queryParams
-      }, `staff_${new Date().getTime()}.xlsx`)
+      }, `buildingType_${new Date().getTime()}.xlsx`)
     }
   }
 };
