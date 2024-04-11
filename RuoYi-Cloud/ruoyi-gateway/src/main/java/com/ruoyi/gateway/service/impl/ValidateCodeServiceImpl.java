@@ -44,10 +44,12 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
      * 生成验证码
      */
     @Override
-    public AjaxResult createCaptcha() throws IOException, CaptchaException
+    public AjaxResult createCaptcha(boolean needCode) throws IOException, CaptchaException
     {
         AjaxResult ajax = AjaxResult.success();
+        //这里是验证码启用与否的开关
         boolean captchaEnabled = captchaProperties.getEnabled();
+        captchaEnabled=needCode;
         ajax.put("captchaEnabled", captchaEnabled);
         if (!captchaEnabled)
         {
@@ -101,7 +103,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
     {
         if (StringUtils.isEmpty(code))
         {
-            throw new CaptchaException("验证码不能为空");
+            throw new CaptchaException("验证码不能为空!!!!!");
         }
         if (StringUtils.isEmpty(uuid))
         {

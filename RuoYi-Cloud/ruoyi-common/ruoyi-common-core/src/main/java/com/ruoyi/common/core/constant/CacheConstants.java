@@ -28,6 +28,11 @@ public class CacheConstants
     public final static long PASSWORD_LOCK_TIME = 10;
 
     /**
+     * Ip需要验证码的错误尝试次数
+     */
+    public static final int NEED_CODE_FAIL_TIME = 3;
+
+    /**
      * 权限缓存前缀
      */
     public final static String LOGIN_TOKEN_KEY = "login_tokens:";
@@ -56,4 +61,12 @@ public class CacheConstants
      * 登录IP黑名单 cache key
      */
     public static final String SYS_LOGIN_BLACKIPLIST = SYS_CONFIG_KEY + "sys.login.blackIPList";
+
+    /**
+     * IP错误登陆次数
+     */
+    public static final String SYS_LOGIN_FAIL_TIME="sys_risk_ip:";
+
+
+
 }

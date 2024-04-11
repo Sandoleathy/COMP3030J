@@ -89,7 +89,7 @@ export default {
       },
       loading: false,
       // 验证码开关
-      captchaEnabled: true,
+      captchaEnabled: false,
       // 注册开关
       register: false,
       redirect: undefined
@@ -110,6 +110,7 @@ export default {
   methods: {
     getCode() {
       getCodeImg().then(res => {
+        console.log("this.captchaEnabled: "+this.captchaEnabled)
         this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled;
         if (this.captchaEnabled) {
           this.codeUrl = "data:image/gif;base64," + res.img;
@@ -144,9 +145,9 @@ export default {
             this.$router.push({ path: this.redirect || "/" }).catch(()=>{});
           }).catch(() => {
             this.loading = false;
-            if (this.captchaEnabled) {
+
               this.getCode();
-            }
+
           });
         }
       });

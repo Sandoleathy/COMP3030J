@@ -1,8 +1,12 @@
 package com.ruoyi.gateway.filter;
 
+import java.net.InetSocketAddress;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicReference;
+
+import com.ruoyi.common.core.utils.ip.IpUtils;
+import com.ruoyi.gateway.handler.ValidateCodeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -38,6 +42,11 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory<Object>
 
     private static final String UUID = "uuid";
 
+    @Autowired
+    private ValidateCodeHandler validateCodeHandler;
+
+
+
     @Override
     public GatewayFilter apply(Object config)
     {
@@ -45,7 +54,7 @@ public class ValidateCodeFilter extends AbstractGatewayFilterFactory<Object>
             ServerHttpRequest request = exchange.getRequest();
 
             // 非登录/注册请求或验证码关闭，不处理
-            if (!StringUtils.equalsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !captchaProperties.getEnabled())
+            if (!StringUtils.equalsAnyIgnoreCase(request.getURI().getPath(), VALIDATE_URL) || !captchaProperties.getEnabled()|| !validateCodeHandler.needCode(IpUtils.getIpAddr(request)))
             {
                 return chain.filter(exchange);
             }

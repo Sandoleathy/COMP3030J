@@ -1,10 +1,13 @@
 package com.ruoyi.common.core.utils.ip;
 
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import javax.servlet.http.HttpServletRequest;
 import com.ruoyi.common.core.utils.ServletUtils;
 import com.ruoyi.common.core.utils.StringUtils;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.reactive.function.server.ServerRequest;
 
 /**
  * 获取IP方法
@@ -67,6 +70,42 @@ public class IpUtils
 
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : getMultistageReverseProxyIp(ip);
     }
+
+    public static String getIpAddr(ServerRequest serverRequest) {
+        ServerHttpRequest request = serverRequest.exchange().getRequest();
+
+        // 尝试从 X-Forwarded-For 头部获取 IP 地址
+        String xForwardedForHeader = request.getHeaders().getFirst("X-Forwarded-For");
+        if (xForwardedForHeader != null && !xForwardedForHeader.isEmpty()) {
+            // 如果存在 X-Forwarded-For 头部，取第一个 IP 地址（客户端的实际 IP 地址）
+            return xForwardedForHeader.split(",")[0].trim();
+        } else {
+            // 如果不存在 X-Forwarded-For 头部，获取连接的远程地址
+            InetSocketAddress remoteAddress = request.getRemoteAddress();
+            if (remoteAddress != null) {
+                return remoteAddress.getAddress().getHostAddress();
+            }
+        }
+        return "Unknown";
+    }
+
+    public static String getIpAddr(ServerHttpRequest request) {
+        String forwardedHeader = request.getHeaders().getFirst("X-Forwarded-For");
+        if (forwardedHeader != null) {
+            // X-Forwarded-For 可能包含多个IP地址，以逗号分隔。第一个IP地址通常是客户端的实际IP。
+            return forwardedHeader.split(",")[0];
+        } else {
+            InetSocketAddress remoteAddress = request.getRemoteAddress();
+            if (remoteAddress != null) {
+                return remoteAddress.getAddress().getHostAddress();
+            }
+        }
+        return "Unknown";
+    }
+
+
+
+
 
     /**
      * 检查是否为内部IP地址

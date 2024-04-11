@@ -1,6 +1,8 @@
 package com.ruoyi.auth.service;
 
 import java.util.concurrent.TimeUnit;
+
+import com.ruoyi.common.core.utils.ip.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.ruoyi.common.core.constant.CacheConstants;
@@ -9,6 +11,8 @@ import com.ruoyi.common.core.exception.ServiceException;
 import com.ruoyi.common.redis.service.RedisService;
 import com.ruoyi.common.security.utils.SecurityUtils;
 import com.ruoyi.system.api.domain.SysUser;
+
+import static com.ruoyi.common.core.constant.CacheConstants.SYS_LOGIN_FAIL_TIME;
 
 /**
  * 登录密码方法
@@ -39,6 +43,15 @@ public class SysPasswordService
         return CacheConstants.PWD_ERR_CNT_KEY + username;
     }
 
+    private void recordFailLoginIp(){
+        String ipKey=SYS_LOGIN_FAIL_TIME+IpUtils.getIpAddr();
+        if(redisService.hasKey(ipKey)){
+            redisService.setCacheObject(ipKey,(int)redisService.getCacheObject(ipKey)+1);
+        }else {
+            redisService.setCacheObject(ipKey,1);
+        }
+    }
+
     public void validate(SysUser user, String password)
     {
         String username = user.getUserName();
@@ -62,6 +75,8 @@ public class SysPasswordService
             retryCount = retryCount + 1;
             recordLogService.recordLogininfor(username, Constants.LOGIN_FAIL, String.format("密码输入错误%s次", retryCount));
             redisService.setCacheObject(getCacheKey(username), retryCount, lockTime, TimeUnit.MINUTES);
+            //将IP计入错误输入名单
+            recordFailLoginIp();
             throw new ServiceException("用户不存在/密码错误");
         }
         else
