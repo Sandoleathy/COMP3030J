@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsGuestMapper">
+    
+    <resultMap type="HsGuest" id="HsGuestResult">
+        <result property="id"    column="id"    />
+        <result property="guestId"    column="guest_id"    />
+        <result property="reservationId"    column="reservation_id"    />
+    </resultMap>
+
+    <sql id="selectHsGuestVo">
+        select id, guest_id, reservation_id from hs_guest
+    </sql>
+
+    <select id="selectHsGuestList" parameterType="HsGuest" resultMap="HsGuestResult">
+        <include refid="selectHsGuestVo"/>
+        <where>  
+            <if test="guestId != null "> and guest_id = #{guestId}</if>
+            <if test="reservationId != null "> and reservation_id = #{reservationId}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsGuestById" parameterType="Long" resultMap="HsGuestResult">
+        <include refid="selectHsGuestVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsGuest" parameterType="HsGuest" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_guest
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="guestId != null">guest_id,</if>
+            <if test="reservationId != null">reservation_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="guestId != null">#{guestId},</if>
+            <if test="reservationId != null">#{reservationId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsGuest" parameterType="HsGuest">
+        update hs_guest
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="guestId != null">guest_id = #{guestId},</if>
+            <if test="reservationId != null">reservation_id = #{reservationId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsGuestById" parameterType="Long">
+        delete from hs_guest where id = #{id}
+    </delete>
+
+    <delete id="deleteHsGuestByIds" parameterType="String">
+        delete from hs_guest where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

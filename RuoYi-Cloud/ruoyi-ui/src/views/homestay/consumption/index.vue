@@ -1,34 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="房间类型" prop="roomType">
+      <el-form-item label="房间id" prop="roomId">
         <el-input
-          v-model="queryParams.roomType"
-          placeholder="请输入房间类型"
+          v-model="queryParams.roomId"
+          placeholder="请输入房间id"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="房间号" prop="roomNumber">
+      <el-form-item label="价格" prop="price">
         <el-input
-          v-model="queryParams.roomNumber"
-          placeholder="请输入房间号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="栋类型" prop="buildingType">
-        <el-input
-          v-model="queryParams.buildingType"
-          placeholder="请输入栋类型"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="床类型" prop="bedType">
-        <el-input
-          v-model="queryParams.bedType"
-          placeholder="请输入床类型"
+          v-model="queryParams.price"
+          placeholder="请输入价格"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -47,7 +31,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['homestay:room:add']"
+          v-hasPermi="['homestay:consumption:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -58,7 +42,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['homestay:room:edit']"
+          v-hasPermi="['homestay:consumption:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -69,7 +53,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['homestay:room:remove']"
+          v-hasPermi="['homestay:consumption:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -79,19 +63,18 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['homestay:room:export']"
+          v-hasPermi="['homestay:consumption:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="consumptionList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="房间类型" align="center" prop="roomType" />
-      <el-table-column label="房间号" align="center" prop="roomNumber" />
-      <el-table-column label="栋类型" align="center" prop="buildingType" />
-      <el-table-column label="床类型" align="center" prop="bedType" />
+      <el-table-column label="房间id" align="center" prop="roomId" />
+      <el-table-column label="消费项目" align="center" prop="detail" />
+      <el-table-column label="价格" align="center" prop="price" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -99,14 +82,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['homestay:room:edit']"
+            v-hasPermi="['homestay:consumption:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['homestay:room:remove']"
+            v-hasPermi="['homestay:consumption:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -120,20 +103,17 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改民宿房间对话框 -->
+    <!-- 添加或修改民宿消费对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="房间类型" prop="roomType">
-          <el-input v-model="form.roomType" placeholder="请输入房间类型" />
+        <el-form-item label="房间id" prop="roomId">
+          <el-input v-model="form.roomId" placeholder="请输入房间id" />
         </el-form-item>
-        <el-form-item label="房间号" prop="roomNumber">
-          <el-input v-model="form.roomNumber" placeholder="请输入房间号" />
+        <el-form-item label="消费项目" prop="detail">
+          <el-input v-model="form.detail" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="栋类型" prop="buildingType">
-          <el-input v-model="form.buildingType" placeholder="请输入栋类型" />
-        </el-form-item>
-        <el-form-item label="床类型" prop="bedType">
-          <el-input v-model="form.bedType" placeholder="请输入床类型" />
+        <el-form-item label="价格" prop="price">
+          <el-input v-model="form.price" placeholder="请输入价格" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -145,10 +125,10 @@
 </template>
 
 <script>
-import { listRoom, getRoom, delRoom, addRoom, updateRoom } from "@/api/homestay/room";
+import { listConsumption, getConsumption, delConsumption, addConsumption, updateConsumption } from "@/api/homestay/consumption";
 
 export default {
-  name: "Room",
+  name: "Consumption",
   data() {
     return {
       // 遮罩层
@@ -163,8 +143,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 民宿房间表格数据
-      roomList: [],
+      // 民宿消费表格数据
+      consumptionList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -173,20 +153,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        roomType: null,
-        roomNumber: null,
-        buildingType: null,
-        bedType: null
+        roomId: null,
+        detail: null,
+        price: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        buildingType: [
-          { required: true, message: "栋类型不能为空", trigger: "blur" }
+        roomId: [
+          { required: true, message: "房间id不能为空", trigger: "blur" }
         ],
-        bedType: [
-          { required: true, message: "床类型不能为空", trigger: "blur" }
+        price: [
+          { required: true, message: "价格不能为空", trigger: "blur" }
         ]
       }
     };
@@ -195,11 +174,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询民宿房间列表 */
+    /** 查询民宿消费列表 */
     getList() {
       this.loading = true;
-      listRoom(this.queryParams).then(response => {
-        this.roomList = response.rows;
+      listConsumption(this.queryParams).then(response => {
+        this.consumptionList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -213,10 +192,9 @@ export default {
     reset() {
       this.form = {
         id: null,
-        roomType: null,
-        roomNumber: null,
-        buildingType: null,
-        bedType: null
+        roomId: null,
+        detail: null,
+        price: null
       };
       this.resetForm("form");
     },
@@ -240,16 +218,16 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加民宿房间";
+      this.title = "添加民宿消费";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getRoom(id).then(response => {
+      getConsumption(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改民宿房间";
+        this.title = "修改民宿消费";
       });
     },
     /** 提交按钮 */
@@ -257,13 +235,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateRoom(this.form).then(response => {
+            updateConsumption(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addRoom(this.form).then(response => {
+            addConsumption(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -275,8 +253,8 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除民宿房间编号为"' + ids + '"的数据项？').then(function() {
-        return delRoom(ids);
+      this.$modal.confirm('是否确认删除民宿消费编号为"' + ids + '"的数据项？').then(function() {
+        return delConsumption(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -284,9 +262,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('homestay/room/export', {
+      this.download('homestay/consumption/export', {
         ...this.queryParams
-      }, `room_${new Date().getTime()}.xlsx`)
+      }, `consumption_${new Date().getTime()}.xlsx`)
     }
   }
 };

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsBuildingTypeMapper">
+    
+    <resultMap type="HsBuildingType" id="HsBuildingTypeResult">
+        <result property="id"    column="id"    />
+        <result property="buildingType"    column="building_type"    />
+        <result property="breakfast"    column="breakfast"    />
+        <result property="allowSmoking"    column="allow_smoking"    />
+        <result property="bathtub"    column="bathtub"    />
+        <result property="bathroomAmenities"    column="bathroom_amenities"    />
+        <result property="functionalAmenities"    column="functional_amenities"    />
+    </resultMap>
+
+    <sql id="selectHsBuildingTypeVo">
+        select id, building_type, breakfast, allow_smoking, bathtub, bathroom_amenities, functional_amenities from hs_building_type
+    </sql>
+
+    <select id="selectHsBuildingTypeList" parameterType="HsBuildingType" resultMap="HsBuildingTypeResult">
+        <include refid="selectHsBuildingTypeVo"/>
+        <where>  
+            <if test="buildingType != null  and buildingType != ''"> and building_type = #{buildingType}</if>
+            <if test="breakfast != null "> and breakfast = #{breakfast}</if>
+            <if test="allowSmoking != null "> and allow_smoking = #{allowSmoking}</if>
+            <if test="bathtub != null "> and bathtub = #{bathtub}</if>
+            <if test="bathroomAmenities != null "> and bathroom_amenities = #{bathroomAmenities}</if>
+            <if test="functionalAmenities != null "> and functional_amenities = #{functionalAmenities}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsBuildingTypeById" parameterType="Long" resultMap="HsBuildingTypeResult">
+        <include refid="selectHsBuildingTypeVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsBuildingType" parameterType="HsBuildingType" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_building_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buildingType != null and buildingType != ''">building_type,</if>
+            <if test="breakfast != null">breakfast,</if>
+            <if test="allowSmoking != null">allow_smoking,</if>
+            <if test="bathtub != null">bathtub,</if>
+            <if test="bathroomAmenities != null">bathroom_amenities,</if>
+            <if test="functionalAmenities != null">functional_amenities,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="buildingType != null and buildingType != ''">#{buildingType},</if>
+            <if test="breakfast != null">#{breakfast},</if>
+            <if test="allowSmoking != null">#{allowSmoking},</if>
+            <if test="bathtub != null">#{bathtub},</if>
+            <if test="bathroomAmenities != null">#{bathroomAmenities},</if>
+            <if test="functionalAmenities != null">#{functionalAmenities},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsBuildingType" parameterType="HsBuildingType">
+        update hs_building_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="buildingType != null and buildingType != ''">building_type = #{buildingType},</if>
+            <if test="breakfast != null">breakfast = #{breakfast},</if>
+            <if test="allowSmoking != null">allow_smoking = #{allowSmoking},</if>
+            <if test="bathtub != null">bathtub = #{bathtub},</if>
+            <if test="bathroomAmenities != null">bathroom_amenities = #{bathroomAmenities},</if>
+            <if test="functionalAmenities != null">functional_amenities = #{functionalAmenities},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsBuildingTypeById" parameterType="Long">
+        delete from hs_building_type where id = #{id}
+    </delete>
+
+    <delete id="deleteHsBuildingTypeByIds" parameterType="String">
+        delete from hs_building_type where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

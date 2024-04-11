@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsConsumptionMapper">
+    
+    <resultMap type="HsConsumption" id="HsConsumptionResult">
+        <result property="id"    column="id"    />
+        <result property="roomId"    column="room_id"    />
+        <result property="detail"    column="detail"    />
+        <result property="price"    column="price"    />
+    </resultMap>
+
+    <sql id="selectHsConsumptionVo">
+        select id, room_id, detail, price from hs_consumption
+    </sql>
+
+    <select id="selectHsConsumptionList" parameterType="HsConsumption" resultMap="HsConsumptionResult">
+        <include refid="selectHsConsumptionVo"/>
+        <where>  
+            <if test="roomId != null "> and room_id = #{roomId}</if>
+            <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
+            <if test="price != null "> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsConsumptionById" parameterType="Long" resultMap="HsConsumptionResult">
+        <include refid="selectHsConsumptionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsConsumption" parameterType="HsConsumption" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_consumption
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roomId != null">room_id,</if>
+            <if test="detail != null">detail,</if>
+            <if test="price != null">price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roomId != null">#{roomId},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="price != null">#{price},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsConsumption" parameterType="HsConsumption">
+        update hs_consumption
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roomId != null">room_id = #{roomId},</if>
+            <if test="detail != null">detail = #{detail},</if>
+            <if test="price != null">price = #{price},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsConsumptionById" parameterType="Long">
+        delete from hs_consumption where id = #{id}
+    </delete>
+
+    <delete id="deleteHsConsumptionByIds" parameterType="String">
+        delete from hs_consumption where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

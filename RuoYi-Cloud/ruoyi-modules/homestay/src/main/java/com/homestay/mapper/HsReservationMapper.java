@@ -7,7 +7,7 @@ import com.homestay.domain.HsReservation;
  * 民宿预订Mapper接口
  * 
  * @author paru
- * @date 2024-04-05
+ * @date 2024-04-09
  */
 public interface HsReservationMapper 
 {

@@ -7,32 +7,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="HsReservation" id="HsReservationResult">
         <result property="id"    column="id"    />
         <result property="contactInformation"    column="contact_information"    />
-        <result property="roomNumber"    column="room_number"    />
         <result property="checkinTime"    column="checkin_time"    />
         <result property="checkoutTime"    column="checkout_time"    />
         <result property="numberOfGuests"    column="number_of_guests"    />
-        <result property="reservationStatus"    column="reservation_status"    />
+        <result property="numberOfRooms"    column="number_of_rooms"    />
         <result property="reservationTime"    column="reservation_time"    />
         <result property="requests"    column="requests"    />
         <result property="totalPrice"    column="total_price"    />
+        <result property="pay"    column="pay"    />
+        <result property="reservationStatus"    column="reservation_status"    />
     </resultMap>
 
     <sql id="selectHsReservationVo">
-        select id, contact_information, room_number, checkin_time, checkout_time, number_of_guests, reservation_status, reservation_time, requests, total_price from hs_reservation
+        select id, contact_information, checkin_time, checkout_time, number_of_guests, number_of_rooms, reservation_time, requests, total_price, pay, reservation_status from hs_reservation
     </sql>
 
     <select id="selectHsReservationList" parameterType="HsReservation" resultMap="HsReservationResult">
         <include refid="selectHsReservationVo"/>
         <where>  
             <if test="contactInformation != null  and contactInformation != ''"> and contact_information = #{contactInformation}</if>
-            <if test="roomNumber != null "> and room_number = #{roomNumber}</if>
             <if test="checkinTime != null "> and checkin_time = #{checkinTime}</if>
             <if test="checkoutTime != null "> and checkout_time = #{checkoutTime}</if>
             <if test="numberOfGuests != null "> and number_of_guests = #{numberOfGuests}</if>
-            <if test="reservationStatus != null  and reservationStatus != ''"> and reservation_status = #{reservationStatus}</if>
+            <if test="numberOfRooms != null "> and number_of_rooms = #{numberOfRooms}</if>
             <if test="reservationTime != null "> and reservation_time = #{reservationTime}</if>
             <if test="requests != null  and requests != ''"> and requests = #{requests}</if>
             <if test="totalPrice != null "> and total_price = #{totalPrice}</if>
+            <if test="pay != null "> and pay = #{pay}</if>
+            <if test="reservationStatus != null  and reservationStatus != ''"> and reservation_status = #{reservationStatus}</if>
         </where>
     </select>
     
@@ -45,25 +47,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into hs_reservation
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="contactInformation != null">contact_information,</if>
-            <if test="roomNumber != null">room_number,</if>
             <if test="checkinTime != null">checkin_time,</if>
             <if test="checkoutTime != null">checkout_time,</if>
             <if test="numberOfGuests != null">number_of_guests,</if>
-            <if test="reservationStatus != null">reservation_status,</if>
+            <if test="numberOfRooms != null">number_of_rooms,</if>
             <if test="reservationTime != null">reservation_time,</if>
             <if test="requests != null">requests,</if>
             <if test="totalPrice != null">total_price,</if>
+            <if test="pay != null">pay,</if>
+            <if test="reservationStatus != null">reservation_status,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="contactInformation != null">#{contactInformation},</if>
-            <if test="roomNumber != null">#{roomNumber},</if>
             <if test="checkinTime != null">#{checkinTime},</if>
             <if test="checkoutTime != null">#{checkoutTime},</if>
             <if test="numberOfGuests != null">#{numberOfGuests},</if>
-            <if test="reservationStatus != null">#{reservationStatus},</if>
+            <if test="numberOfRooms != null">#{numberOfRooms},</if>
             <if test="reservationTime != null">#{reservationTime},</if>
             <if test="requests != null">#{requests},</if>
             <if test="totalPrice != null">#{totalPrice},</if>
+            <if test="pay != null">#{pay},</if>
+            <if test="reservationStatus != null">#{reservationStatus},</if>
          </trim>
     </insert>
 
@@ -71,14 +75,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update hs_reservation
         <trim prefix="SET" suffixOverrides=",">
             <if test="contactInformation != null">contact_information = #{contactInformation},</if>
-            <if test="roomNumber != null">room_number = #{roomNumber},</if>
             <if test="checkinTime != null">checkin_time = #{checkinTime},</if>
             <if test="checkoutTime != null">checkout_time = #{checkoutTime},</if>
             <if test="numberOfGuests != null">number_of_guests = #{numberOfGuests},</if>
-            <if test="reservationStatus != null">reservation_status = #{reservationStatus},</if>
+            <if test="numberOfRooms != null">number_of_rooms = #{numberOfRooms},</if>
             <if test="reservationTime != null">reservation_time = #{reservationTime},</if>
             <if test="requests != null">requests = #{requests},</if>
             <if test="totalPrice != null">total_price = #{totalPrice},</if>
+            <if test="pay != null">pay = #{pay},</if>
+            <if test="reservationStatus != null">reservation_status = #{reservationStatus},</if>
         </trim>
         where id = #{id}
     </update>
