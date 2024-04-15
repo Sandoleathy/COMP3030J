@@ -71,11 +71,32 @@ public class HsRrController extends BaseController
     }
 
     /**
+     * 根据房间ID查询预订表
+     */
+    @RequiresPermissions("homestay:rr:queryByRoomId")
+    @GetMapping(value = "/queryByRoomId/{roomId}")
+    public AjaxResult getInfoByRoomId(@PathVariable("roomId") Long roomId)
+    {
+
+        return success(hsRrService.selectHsRrByRoomId(roomId));
+    }
+
+    /**
+     * 根据预订ID查询房间表
+     */
+    @RequiresPermissions("homestay:rr:queryByReservationId")
+    @GetMapping(value = "/queryByReservationId/{reservationId}")
+    public AjaxResult getInfoByReservationId(@PathVariable("reservationId") Long reservationId)
+    {
+        return success(hsRrService.selectHsRrByReservationId(reservationId));
+    }
+
+    /**
      * 新增订单客户联合
      */
     @RequiresPermissions("homestay:rr:add")
     @Log(title = "订单客户联合", businessType = BusinessType.INSERT)
-    @PostMapping
+    @PostMapping("/add")
     public AjaxResult add(@RequestBody HsRr hsRr)
     {
         return toAjax(hsRrService.insertHsRr(hsRr));

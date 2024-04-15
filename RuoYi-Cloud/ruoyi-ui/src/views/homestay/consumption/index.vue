@@ -1,18 +1,34 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="房间id" prop="roomId">
-        <el-input
-          v-model="queryParams.roomId"
-          placeholder="请输入房间id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="价格" prop="price">
         <el-input
           v-model="queryParams.price"
           placeholder="请输入价格"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="消费时间" prop="time">
+        <el-date-picker clearable
+          v-model="queryParams.time"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择消费时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="预订id" prop="rid">
+        <el-input
+          v-model="queryParams.rid"
+          placeholder="请输入预订id"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="用户id" prop="uid">
+        <el-input
+          v-model="queryParams.uid"
+          placeholder="请输入用户id"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -72,9 +88,15 @@
     <el-table v-loading="loading" :data="consumptionList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="房间id" align="center" prop="roomId" />
-      <el-table-column label="消费项目" align="center" prop="detail" />
+      <el-table-column label="消费详情" align="center" prop="datail" />
       <el-table-column label="价格" align="center" prop="price" />
+      <el-table-column label="消费时间" align="center" prop="time" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.time, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="预订id" align="center" prop="rid" />
+      <el-table-column label="用户id" align="center" prop="uid" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -106,14 +128,25 @@
     <!-- 添加或修改民宿消费对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="房间id" prop="roomId">
-          <el-input v-model="form.roomId" placeholder="请输入房间id" />
-        </el-form-item>
-        <el-form-item label="消费项目" prop="detail">
-          <el-input v-model="form.detail" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="消费详情" prop="datail">
+          <el-input v-model="form.datail" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="价格" prop="price">
           <el-input v-model="form.price" placeholder="请输入价格" />
+        </el-form-item>
+        <el-form-item label="消费时间" prop="time">
+          <el-date-picker clearable
+            v-model="form.time"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择消费时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="预订id" prop="rid">
+          <el-input v-model="form.rid" placeholder="请输入预订id" />
+        </el-form-item>
+        <el-form-item label="用户id" prop="uid">
+          <el-input v-model="form.uid" placeholder="请输入用户id" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -153,19 +186,24 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        roomId: null,
-        detail: null,
-        price: null
+        datail: null,
+        price: null,
+        time: null,
+        rid: null,
+        uid: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        roomId: [
-          { required: true, message: "房间id不能为空", trigger: "blur" }
-        ],
         price: [
           { required: true, message: "价格不能为空", trigger: "blur" }
+        ],
+        rid: [
+          { required: true, message: "预订id不能为空", trigger: "blur" }
+        ],
+        uid: [
+          { required: true, message: "用户id不能为空", trigger: "blur" }
         ]
       }
     };
@@ -192,9 +230,11 @@ export default {
     reset() {
       this.form = {
         id: null,
-        roomId: null,
-        detail: null,
-        price: null
+        datail: null,
+        price: null,
+        time: null,
+        rid: null,
+        uid: null
       };
       this.resetForm("form");
     },

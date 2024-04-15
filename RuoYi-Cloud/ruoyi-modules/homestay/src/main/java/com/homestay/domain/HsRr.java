@@ -6,7 +6,7 @@ import com.ruoyi.common.core.annotation.Excel;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
- * 订单客户联合对象 hs_rr
+ * 订单房间联合对象 hs_rr
  * 
  * @author paru
  * @date 2024-04-10

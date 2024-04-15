@@ -9,7 +9,7 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * 民宿房间对象 hs_room
  * 
  * @author paru
- * @date 2024-04-09
+ * @date 2024-04-12
  */
 public class HsRoom extends BaseEntity
 {
@@ -33,6 +33,10 @@ public class HsRoom extends BaseEntity
     /** 床类型 */
     @Excel(name = "床类型")
     private Long bedType;
+
+    /** 价格 */
+    @Excel(name = "价格")
+    private Long roomPrice;
 
     public void setId(Long id) 
     {
@@ -79,6 +83,15 @@ public class HsRoom extends BaseEntity
     {
         return bedType;
     }
+    public void setRoomPrice(Long roomPrice) 
+    {
+        this.roomPrice = roomPrice;
+    }
+
+    public Long getRoomPrice() 
+    {
+        return roomPrice;
+    }
 
     @Override
     public String toString() {
@@ -88,6 +101,7 @@ public class HsRoom extends BaseEntity
             .append("roomNumber", getRoomNumber())
             .append("buildingType", getBuildingType())
             .append("bedType", getBedType())
+            .append("roomPrice", getRoomPrice())
             .toString();
     }
 }

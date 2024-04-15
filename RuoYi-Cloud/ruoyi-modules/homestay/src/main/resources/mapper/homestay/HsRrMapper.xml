@@ -58,4 +58,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectHsRrByRoomId" parameterType="Long" resultMap="HsRrResult">
+        <include refid="selectHsRrVo"/>
+        where room_id = #{roomId}
+    </select>
+
+    <select id="selectHsRrByReservationId" parameterType="Long" resultMap="HsRrResult">
+        <include refid="selectHsRrVo"/>
+        where reservation_id = #{reservationId}
+    </select>
 </mapper>

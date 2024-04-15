@@ -58,4 +58,20 @@ public interface HsRrMapper
      * @return 结果
      */
     public int deleteHsRrByIds(Long[] ids);
+
+    /**
+     * 查询基于房间ID的订单客户联合列表
+     *
+     * @param roomId 房间ID
+     * @return 订单客户联合集合
+     */
+    List<HsRr> selectHsRrByRoomId(Long roomId);
+
+    /**
+     * 查询基于预订ID的订单房间联合列表
+     *
+     * @param reservationId 预订ID
+     * @return 订单房间联合对象集合
+     */
+    List<HsRr> selectHsRrByReservationId(Long reservationId);
 }

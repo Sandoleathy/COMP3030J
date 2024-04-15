@@ -6,21 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="HsConsumption" id="HsConsumptionResult">
         <result property="id"    column="id"    />
-        <result property="roomId"    column="room_id"    />
-        <result property="detail"    column="detail"    />
+        <result property="datail"    column="datail"    />
         <result property="price"    column="price"    />
+        <result property="time"    column="time"    />
+        <result property="rid"    column="rid"    />
+        <result property="uid"    column="uid"    />
     </resultMap>
 
     <sql id="selectHsConsumptionVo">
-        select id, room_id, detail, price from hs_consumption
+        select id, datail, price, time, rid, uid from hs_consumption
     </sql>
 
     <select id="selectHsConsumptionList" parameterType="HsConsumption" resultMap="HsConsumptionResult">
         <include refid="selectHsConsumptionVo"/>
         <where>  
-            <if test="roomId != null "> and room_id = #{roomId}</if>
-            <if test="detail != null  and detail != ''"> and detail = #{detail}</if>
+            <if test="datail != null  and datail != ''"> and datail = #{datail}</if>
             <if test="price != null "> and price = #{price}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="rid != null "> and rid = #{rid}</if>
+            <if test="uid != null "> and uid = #{uid}</if>
         </where>
     </select>
     
@@ -32,23 +36,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertHsConsumption" parameterType="HsConsumption" useGeneratedKeys="true" keyProperty="id">
         insert into hs_consumption
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="roomId != null">room_id,</if>
-            <if test="detail != null">detail,</if>
+            <if test="datail != null">datail,</if>
             <if test="price != null">price,</if>
+            <if test="time != null">time,</if>
+            <if test="rid != null">rid,</if>
+            <if test="uid != null">uid,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="roomId != null">#{roomId},</if>
-            <if test="detail != null">#{detail},</if>
+            <if test="datail != null">#{datail},</if>
             <if test="price != null">#{price},</if>
+            <if test="time != null">#{time},</if>
+            <if test="rid != null">#{rid},</if>
+            <if test="uid != null">#{uid},</if>
          </trim>
     </insert>
 
     <update id="updateHsConsumption" parameterType="HsConsumption">
         update hs_consumption
         <trim prefix="SET" suffixOverrides=",">
-            <if test="roomId != null">room_id = #{roomId},</if>
-            <if test="detail != null">detail = #{detail},</if>
+            <if test="datail != null">datail = #{datail},</if>
             <if test="price != null">price = #{price},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="rid != null">rid = #{rid},</if>
+            <if test="uid != null">uid = #{uid},</if>
         </trim>
         where id = #{id}
     </update>
@@ -63,4 +73,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectHsConsumptionByRid" resultMap="HsConsumptionResult">
+        SELECT id, datail, price, time, rid, uid
+        FROM hs_consumption
+        WHERE rid = #{rid}
+    </select>
+
+    <select id="selectHsConsumptionByUid" resultMap="HsConsumptionResult">
+        SELECT id, datail, price, time, rid, uid
+        FROM hs_consumption
+        WHERE uid = #{uid}
+    </select>
+
+    <select id="selectHsConsumptionByRidAndUid" resultMap="HsConsumptionResult">
+        SELECT id, datail, price, time, rid, uid
+        FROM hs_consumption
+        WHERE rid = #{rid} AND uid = #{uid}
+    </select>
 </mapper>

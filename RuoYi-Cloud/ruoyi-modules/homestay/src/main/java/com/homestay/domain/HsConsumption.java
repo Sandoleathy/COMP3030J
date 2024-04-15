@@ -1,5 +1,7 @@
 package com.homestay.domain;
 
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.core.annotation.Excel;
@@ -9,7 +11,7 @@ import com.ruoyi.common.core.web.domain.BaseEntity;
  * 民宿消费对象 hs_consumption
  * 
  * @author paru
- * @date 2024-04-09
+ * @date 2024-04-13
  */
 public class HsConsumption extends BaseEntity
 {
@@ -18,17 +20,26 @@ public class HsConsumption extends BaseEntity
     /** id */
     private Long id;
 
-    /** 房间id */
-    @Excel(name = "房间id")
-    private Long roomId;
-
-    /** 消费项目 */
-    @Excel(name = "消费项目")
-    private String detail;
+    /** 消费详情 */
+    @Excel(name = "消费详情")
+    private String datail;
 
     /** 价格 */
     @Excel(name = "价格")
     private Long price;
+
+    /** 消费时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "消费时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date time;
+
+    /** 预订id */
+    @Excel(name = "预订id")
+    private Long rid;
+
+    /** 用户id */
+    @Excel(name = "用户id")
+    private Long uid;
 
     public void setId(Long id) 
     {
@@ -39,23 +50,14 @@ public class HsConsumption extends BaseEntity
     {
         return id;
     }
-    public void setRoomId(Long roomId) 
+    public void setDatail(String datail) 
     {
-        this.roomId = roomId;
+        this.datail = datail;
     }
 
-    public Long getRoomId() 
+    public String getDatail() 
     {
-        return roomId;
-    }
-    public void setDetail(String detail) 
-    {
-        this.detail = detail;
-    }
-
-    public String getDetail() 
-    {
-        return detail;
+        return datail;
     }
     public void setPrice(Long price) 
     {
@@ -66,14 +68,43 @@ public class HsConsumption extends BaseEntity
     {
         return price;
     }
+    public void setTime(Date time) 
+    {
+        this.time = time;
+    }
+
+    public Date getTime() 
+    {
+        return time;
+    }
+    public void setRid(Long rid) 
+    {
+        this.rid = rid;
+    }
+
+    public Long getRid() 
+    {
+        return rid;
+    }
+    public void setUid(Long uid) 
+    {
+        this.uid = uid;
+    }
+
+    public Long getUid() 
+    {
+        return uid;
+    }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
-            .append("roomId", getRoomId())
-            .append("detail", getDetail())
+            .append("datail", getDatail())
             .append("price", getPrice())
+            .append("time", getTime())
+            .append("rid", getRid())
+            .append("uid", getUid())
             .toString();
     }
 }

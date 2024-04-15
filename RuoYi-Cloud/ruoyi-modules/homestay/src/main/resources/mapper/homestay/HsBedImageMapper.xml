@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsBedImageMapper">
+    
+    <resultMap type="HsBedImage" id="HsBedImageResult">
+        <result property="id"    column="id"    />
+        <result property="imageDesc"    column="image_desc"    />
+        <result property="imageData"    column="image_data"    />
+        <result property="bedId"    column="bed_id"    />
+    </resultMap>
+
+    <sql id="selectHsBedImageVo">
+        select id, image_desc, image_data, bed_id from hs_bed_image
+    </sql>
+
+    <select id="selectHsBedImageList" parameterType="HsBedImage" resultMap="HsBedImageResult">
+        <include refid="selectHsBedImageVo"/>
+        <where>  
+            <if test="imageDesc != null  and imageDesc != ''"> and image_desc = #{imageDesc}</if>
+            <if test="imageData != null  and imageData != ''"> and image_data = #{imageData}</if>
+            <if test="bedId != null "> and bed_id = #{bedId}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsBedImageById" parameterType="Long" resultMap="HsBedImageResult">
+        <include refid="selectHsBedImageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsBedImage" parameterType="HsBedImage" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_bed_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="imageDesc != null and imageDesc != ''">image_desc,</if>
+            <if test="imageData != null and imageData != ''">image_data,</if>
+            <if test="bedId != null">bed_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="imageDesc != null and imageDesc != ''">#{imageDesc},</if>
+            <if test="imageData != null and imageData != ''">#{imageData},</if>
+            <if test="bedId != null">#{bedId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsBedImage" parameterType="HsBedImage">
+        update hs_bed_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="imageDesc != null and imageDesc != ''">image_desc = #{imageDesc},</if>
+            <if test="imageData != null and imageData != ''">image_data = #{imageData},</if>
+            <if test="bedId != null">bed_id = #{bedId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsBedImageById" parameterType="Long">
+        delete from hs_bed_image where id = #{id}
+    </delete>
+
+    <delete id="deleteHsBedImageByIds" parameterType="String">
+        delete from hs_bed_image where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectHsBedImageByBedId" resultMap="HsBedImageResult">
+        SELECT id, image_desc, image_data, bed_id
+        FROM hs_bed_image
+        WHERE bed_id = #{bedId}
+    </select>
+</mapper>

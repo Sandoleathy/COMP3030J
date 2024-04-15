@@ -1,6 +1,13 @@
 package com.homestay.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.homestay.domain.HsReservation;
+import com.homestay.domain.HsRoom;
+import com.homestay.mapper.HsReservationMapper;
+import com.homestay.mapper.HsRoomMapper;
+import com.ruoyi.system.api.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.homestay.mapper.HsGuestMapper;
@@ -18,6 +25,9 @@ public class HsGuestServiceImpl implements IHsGuestService
 {
     @Autowired
     private HsGuestMapper hsGuestMapper;
+
+    @Autowired
+    private HsReservationMapper hsReservationMapper;
 
     /**
      * 查询民宿客户表
@@ -89,5 +99,52 @@ public class HsGuestServiceImpl implements IHsGuestService
     public int deleteHsGuestById(Long id)
     {
         return hsGuestMapper.deleteHsGuestById(id);
+    }
+
+    @Override
+    public List<HsGuest> selectHsGuestsByGuestId(Long guestId) {
+        return hsGuestMapper.selectHsGuestsByGuestId(guestId);
+    }
+
+    /**
+     * 根据预订ID查询所有相关的客户信息
+     *
+     * @param reservationId 预订ID
+     * @return 客户信息列表
+     */
+    @Override
+    public List<HsGuest> selectHsGuestsByReservationId(Long reservationId) {
+        return hsGuestMapper.selectHsGuestsByReservationId(reservationId);
+    }
+
+    /**
+     * 根据用户ID查询用户信息
+     *
+     * @param userId 用户ID
+     * @return SysUser 用户信息对象
+     */
+    @Override
+    public SysUser selectSysUserById(Long userId) {
+        return hsGuestMapper.selectSysUserById(userId);
+    }
+
+    @Override
+    public List<SysUser> selectSysUsersByReservationId(Long reservationId){
+        List<SysUser> results=new ArrayList<>();
+        List<HsGuest> guests=hsGuestMapper.selectHsGuestsByReservationId(reservationId);
+        for (HsGuest hsGuest:guests){
+            results.add(hsGuestMapper.selectSysUserById(hsGuest.getGuestId()));
+        }
+        return results;
+    }
+
+    public List<HsReservation> selectReservationByUserId(Long userId){
+        List<HsReservation> results=new ArrayList<>();
+        List<HsGuest> guests=hsGuestMapper.selectHsGuestsByGuestId(userId);
+        for (HsGuest hsGuest:guests){
+            results.add(hsReservationMapper.selectHsReservationById(hsGuest.getReservationId()));
+        }
+
+        return results;
     }
 }

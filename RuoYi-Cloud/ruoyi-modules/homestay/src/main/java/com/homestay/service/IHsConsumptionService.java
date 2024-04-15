@@ -2,12 +2,14 @@ package com.homestay.service;
 
 import java.util.List;
 import com.homestay.domain.HsConsumption;
+import com.homestay.dto.ConsumptionDTO;
+import com.homestay.dto.SelectConsumptionDTO;
 
 /**
  * 民宿消费Service接口
  * 
  * @author paru
- * @date 2024-04-09
+ * @date 2024-04-13
  */
 public interface IHsConsumptionService 
 {
@@ -22,10 +24,10 @@ public interface IHsConsumptionService
     /**
      * 查询民宿消费列表
      * 
-     * @param hsConsumption 民宿消费
+     * @param selectConsumptionDTO 民宿消费DTO
      * @return 民宿消费集合
      */
-    public List<HsConsumption> selectHsConsumptionList(HsConsumption hsConsumption);
+    public List<ConsumptionDTO> selectHsConsumptionList(SelectConsumptionDTO selectConsumptionDTO);
 
     /**
      * 新增民宿消费

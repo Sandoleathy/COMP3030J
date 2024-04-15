@@ -2,6 +2,8 @@ package com.homestay.service;
 
 import java.util.List;
 import com.homestay.domain.HsGuest;
+import com.homestay.domain.HsReservation;
+import com.ruoyi.system.api.domain.SysUser;
 
 /**
  * 民宿客户表Service接口
@@ -58,4 +60,44 @@ public interface IHsGuestService
      * @return 结果
      */
     public int deleteHsGuestById(Long id);
+
+    /**
+     * 查询民宿客户表通过用户ID
+     *
+     * @param guestId 用户表的ID
+     * @return 民宿客户表列表
+     */
+    List<HsGuest> selectHsGuestsByGuestId(Long guestId);
+
+    /**
+     * 根据预订ID查询所有相关的客户信息
+     *
+     * @param reservationId 预订ID
+     * @return 客户信息列表
+     */
+    List<HsGuest> selectHsGuestsByReservationId(Long reservationId);
+
+    /**
+     * 根据用户ID查询用户信息
+     *
+     * @param userId 用户ID
+     * @return SysUser 用户信息对象
+     */
+    SysUser selectSysUserById(Long userId);
+
+    /**
+     * 根据预订ID查询民宿客户表列表
+     *
+     * @param reservationId 预订ID
+     * @return 民宿客户表列表
+     */
+    List<SysUser> selectSysUsersByReservationId(Long reservationId);
+
+    /**
+     * 根据用户ID查询预订信息
+     *
+     * @param userId 用户ID
+     * @return SysUser 用户信息对象
+     */
+    List<HsReservation> selectReservationByUserId(Long userId);
 }

@@ -7,7 +7,7 @@ import com.homestay.domain.HsRoom;
  * 民宿房间Mapper接口
  * 
  * @author paru
- * @date 2024-04-09
+ * @date 2024-04-12
  */
 public interface HsRoomMapper 
 {

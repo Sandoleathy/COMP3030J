@@ -10,10 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="roomNumber"    column="room_number"    />
         <result property="buildingType"    column="building_type"    />
         <result property="bedType"    column="bed_type"    />
+        <result property="roomPrice"    column="room_price"    />
     </resultMap>
 
     <sql id="selectHsRoomVo">
-        select id, room_type, room_number, building_type, bed_type from hs_room
+        select id, room_type, room_number, building_type, bed_type, room_price from hs_room
     </sql>
 
     <select id="selectHsRoomList" parameterType="HsRoom" resultMap="HsRoomResult">
@@ -23,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="roomNumber != null "> and room_number = #{roomNumber}</if>
             <if test="buildingType != null "> and building_type = #{buildingType}</if>
             <if test="bedType != null "> and bed_type = #{bedType}</if>
+            <if test="roomPrice != null "> and room_price = #{roomPrice}</if>
         </where>
     </select>
     
@@ -38,12 +40,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="roomNumber != null">room_number,</if>
             <if test="buildingType != null">building_type,</if>
             <if test="bedType != null">bed_type,</if>
+            <if test="roomPrice != null">room_price,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="roomType != null">#{roomType},</if>
             <if test="roomNumber != null">#{roomNumber},</if>
             <if test="buildingType != null">#{buildingType},</if>
             <if test="bedType != null">#{bedType},</if>
+            <if test="roomPrice != null">#{roomPrice},</if>
          </trim>
     </insert>
 
@@ -54,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="roomNumber != null">room_number = #{roomNumber},</if>
             <if test="buildingType != null">building_type = #{buildingType},</if>
             <if test="bedType != null">bed_type = #{bedType},</if>
+            <if test="roomPrice != null">room_price = #{roomPrice},</if>
         </trim>
         where id = #{id}
     </update>

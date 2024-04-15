@@ -2,12 +2,14 @@ package com.homestay.service;
 
 import java.util.List;
 import com.homestay.domain.HsRoom;
+import com.homestay.dto.AddRoomDTO;
+import com.homestay.dto.SelectRoomDTO;
 
 /**
  * 民宿房间Service接口
  * 
  * @author paru
- * @date 2024-04-09
+ * @date 2024-04-12
  */
 public interface IHsRoomService 
 {
@@ -22,15 +24,15 @@ public interface IHsRoomService
     /**
      * 查询民宿房间列表
      * 
-     * @param hsRoom 民宿房间
+     * @param selectRoomDTO 民宿房间DTO
      * @return 民宿房间集合
      */
-    public List<HsRoom> selectHsRoomList(HsRoom hsRoom);
+    public List<AddRoomDTO> selectHsRoomList(SelectRoomDTO selectRoomDTO);
 
     /**
      * 新增民宿房间
      * 
-     * @param hsRoom 民宿房间
+     * @param addRoomDTO 民宿房间DTO
      * @return 结果
      */
     public int insertHsRoom(HsRoom hsRoom);
@@ -49,7 +51,7 @@ public interface IHsRoomService
      * @param ids 需要删除的民宿房间主键集合
      * @return 结果
      */
-    public int deleteHsRoomByIds(Long[] ids);
+    public int[] deleteHsRoomByIds(Long[] ids);
 
     /**
      * 删除民宿房间信息

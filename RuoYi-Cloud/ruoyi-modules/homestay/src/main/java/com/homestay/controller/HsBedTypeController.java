@@ -1,8 +1,11 @@
 package com.homestay.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.homestay.dto.AddBedTypeDTO;
+import com.homestay.dto.SelectBedTypeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,14 +27,13 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
  * 民宿床类型Controller
- * 
+ *
  * @author paru
  * @date 2024-04-10
  */
 @RestController
 @RequestMapping("/type")
-public class HsBedTypeController extends BaseController
-{
+public class HsBedTypeController extends BaseController {
     @Autowired
     private IHsBedTypeService hsBedTypeService;
 
@@ -40,10 +42,9 @@ public class HsBedTypeController extends BaseController
      */
     @RequiresPermissions("homestay:type:list")
     @GetMapping("/list")
-    public TableDataInfo list(HsBedType hsBedType)
-    {
+    public TableDataInfo list(SelectBedTypeDTO selectBedTypeDTO) {
         startPage();
-        List<HsBedType> list = hsBedTypeService.selectHsBedTypeList(hsBedType);
+        List<AddBedTypeDTO> list = hsBedTypeService.selectHsBedTypeList(selectBedTypeDTO);
         return getDataTable(list);
     }
 
@@ -53,10 +54,9 @@ public class HsBedTypeController extends BaseController
     @RequiresPermissions("homestay:type:export")
     @Log(title = "民宿床类型", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, HsBedType hsBedType)
-    {
-        List<HsBedType> list = hsBedTypeService.selectHsBedTypeList(hsBedType);
-        ExcelUtil<HsBedType> util = new ExcelUtil<HsBedType>(HsBedType.class);
+    public void export(HttpServletResponse response, SelectBedTypeDTO selectBedTypeDTO) {
+        List<AddBedTypeDTO> list = hsBedTypeService.selectHsBedTypeList(selectBedTypeDTO);
+        ExcelUtil<AddBedTypeDTO> util = new ExcelUtil<AddBedTypeDTO>(AddBedTypeDTO.class);
         util.exportExcel(response, list, "民宿床类型数据");
     }
 
@@ -65,8 +65,7 @@ public class HsBedTypeController extends BaseController
      */
     @RequiresPermissions("homestay:type:query")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
+    public AjaxResult getInfo(@PathVariable("id") Long id) {
         return success(hsBedTypeService.selectHsBedTypeById(id));
     }
 
@@ -75,10 +74,9 @@ public class HsBedTypeController extends BaseController
      */
     @RequiresPermissions("homestay:type:add")
     @Log(title = "民宿床类型", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody HsBedType hsBedType)
-    {
-        return toAjax(hsBedTypeService.insertHsBedType(hsBedType));
+    @PostMapping("/add")
+    public AjaxResult add(@RequestBody AddBedTypeDTO addBedTypeDTO) {
+        return toAjax(hsBedTypeService.insertHsBedType(addBedTypeDTO));
     }
 
     /**
@@ -87,8 +85,7 @@ public class HsBedTypeController extends BaseController
     @RequiresPermissions("homestay:type:edit")
     @Log(title = "民宿床类型", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody HsBedType hsBedType)
-    {
+    public AjaxResult edit(@RequestBody HsBedType hsBedType) {
         return toAjax(hsBedTypeService.updateHsBedType(hsBedType));
     }
 
@@ -97,9 +94,13 @@ public class HsBedTypeController extends BaseController
      */
     @RequiresPermissions("homestay:type:remove")
     @Log(title = "民宿床类型", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(hsBedTypeService.deleteHsBedTypeByIds(ids));
+    @DeleteMapping("/{ids}")
+    public List<AjaxResult> remove(@PathVariable Long[] ids) {
+        List<AjaxResult> ajaxResults = new ArrayList<>();
+        int[] results = hsBedTypeService.deleteHsBedTypeByIds(ids);
+        for (int i : results) {
+            ajaxResults.add(toAjax(i));
+        }
+        return ajaxResults;
     }
 }

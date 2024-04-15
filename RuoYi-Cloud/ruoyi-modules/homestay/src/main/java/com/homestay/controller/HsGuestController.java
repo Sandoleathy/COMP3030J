@@ -71,11 +71,31 @@ public class HsGuestController extends BaseController
     }
 
     /**
+     * 根据预订ID查询民宿客户表列表
+     */
+    @RequiresPermissions("homestay:guest:queryByReservationId")
+    @GetMapping(value = "/queryByReservationId/{reservationId}")
+    public AjaxResult getInfoByReservationId(@PathVariable("reservationId") Long id)
+    {
+        return success(hsGuestService.selectSysUsersByReservationId(id));
+    }
+
+    /**
+     * 根据用户ID查询预订信息
+     */
+    @RequiresPermissions("homestay:guest:queryByUserId")
+    @GetMapping(value = "/queryByUserId/{userId}")
+    public AjaxResult getInfoByUserId(@PathVariable("userId") Long id)
+    {
+        return success(hsGuestService.selectReservationByUserId(id));
+    }
+
+    /**
      * 新增民宿客户表
      */
     @RequiresPermissions("homestay:guest:add")
     @Log(title = "民宿客户表", businessType = BusinessType.INSERT)
-    @PostMapping
+    @PostMapping("/add")
     public AjaxResult add(@RequestBody HsGuest hsGuest)
     {
         return toAjax(hsGuestService.insertHsGuest(hsGuest));

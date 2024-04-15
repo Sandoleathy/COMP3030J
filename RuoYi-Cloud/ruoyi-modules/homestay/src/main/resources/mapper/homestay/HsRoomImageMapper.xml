@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsRoomImageMapper">
+    
+    <resultMap type="HsRoomImage" id="HsRoomImageResult">
+        <result property="id"    column="id"    />
+        <result property="imageDesc"    column="image_desc"    />
+        <result property="image"    column="image"    />
+        <result property="roomId"    column="room_id"    />
+    </resultMap>
+
+    <sql id="selectHsRoomImageVo">
+        select id, image_desc, image, room_id from hs_room_image
+    </sql>
+
+    <select id="selectHsRoomImageList" parameterType="HsRoomImage" resultMap="HsRoomImageResult">
+        <include refid="selectHsRoomImageVo"/>
+        <where>  
+            <if test="imageDesc != null  and imageDesc != ''"> and image_desc = #{imageDesc}</if>
+            <if test="image != null  and image != ''"> and image = #{image}</if>
+            <if test="roomId != null "> and room_id = #{roomId}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsRoomImageById" parameterType="Long" resultMap="HsRoomImageResult">
+        <include refid="selectHsRoomImageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsRoomImage" parameterType="HsRoomImage" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_room_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="imageDesc != null">image_desc,</if>
+            <if test="image != null">image,</if>
+            <if test="roomId != null">room_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="imageDesc != null">#{imageDesc},</if>
+            <if test="image != null">#{image},</if>
+            <if test="roomId != null">#{roomId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsRoomImage" parameterType="HsRoomImage">
+        update hs_room_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="imageDesc != null">image_desc = #{imageDesc},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="roomId != null">room_id = #{roomId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsRoomImageById" parameterType="Long">
+        delete from hs_room_image where id = #{id}
+    </delete>
+
+    <delete id="deleteHsRoomImageByIds" parameterType="String">
+        delete from hs_room_image where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectHsRoomImageByRoomId" resultType="com.homestay.domain.HsRoomImage">
+        SELECT id, image_desc, image, room_id
+        FROM hs_room_image
+        WHERE room_id = #{roomId}
+    </select>
+</mapper>

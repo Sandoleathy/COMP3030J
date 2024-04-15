@@ -1,8 +1,10 @@
 package com.homestay.controller;
 
 import java.util.List;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+
+import com.homestay.dto.ConsumptionDTO;
+import com.homestay.dto.SelectConsumptionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,7 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
  * 民宿消费Controller
  * 
  * @author paru
- * @date 2024-04-09
+ * @date 2024-04-13
  */
 @RestController
 @RequestMapping("/consumption")
@@ -40,10 +42,10 @@ public class HsConsumptionController extends BaseController
      */
     @RequiresPermissions("homestay:consumption:list")
     @GetMapping("/list")
-    public TableDataInfo list(HsConsumption hsConsumption)
+    public TableDataInfo list(SelectConsumptionDTO selectConsumptionDTO)
     {
         startPage();
-        List<HsConsumption> list = hsConsumptionService.selectHsConsumptionList(hsConsumption);
+        List<ConsumptionDTO> list = hsConsumptionService.selectHsConsumptionList(selectConsumptionDTO);
         return getDataTable(list);
     }
 
@@ -53,10 +55,10 @@ public class HsConsumptionController extends BaseController
     @RequiresPermissions("homestay:consumption:export")
     @Log(title = "民宿消费", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, HsConsumption hsConsumption)
+    public void export(HttpServletResponse response, SelectConsumptionDTO selectConsumptionDTO)
     {
-        List<HsConsumption> list = hsConsumptionService.selectHsConsumptionList(hsConsumption);
-        ExcelUtil<HsConsumption> util = new ExcelUtil<HsConsumption>(HsConsumption.class);
+        List<ConsumptionDTO> list = hsConsumptionService.selectHsConsumptionList(selectConsumptionDTO);
+        ExcelUtil<ConsumptionDTO> util = new ExcelUtil<ConsumptionDTO>(ConsumptionDTO.class);
         util.exportExcel(response, list, "民宿消费数据");
     }
 
@@ -75,7 +77,7 @@ public class HsConsumptionController extends BaseController
      */
     @RequiresPermissions("homestay:consumption:add")
     @Log(title = "民宿消费", businessType = BusinessType.INSERT)
-    @PostMapping
+    @PostMapping("/add")
     public AjaxResult add(@RequestBody HsConsumption hsConsumption)
     {
         return toAjax(hsConsumptionService.insertHsConsumption(hsConsumption));

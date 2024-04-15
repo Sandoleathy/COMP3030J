@@ -2,6 +2,9 @@ package com.homestay.service;
 
 import java.util.List;
 import com.homestay.domain.HsReservation;
+import com.homestay.dto.AddReservationDTO;
+import com.homestay.dto.ReservationDTO;
+import com.homestay.dto.SelectReservationDTO;
 
 /**
  * 民宿预订Service接口
@@ -25,7 +28,7 @@ public interface IHsReservationService
      * @param hsReservation 民宿预订
      * @return 民宿预订集合
      */
-    public List<HsReservation> selectHsReservationList(HsReservation hsReservation);
+    public List<HsReservation> select(HsReservation hsReservation);
 
     /**
      * 新增民宿预订
@@ -49,7 +52,7 @@ public interface IHsReservationService
      * @param ids 需要删除的民宿预订主键集合
      * @return 结果
      */
-    public int deleteHsReservationByIds(Long[] ids);
+    public int[] deleteHsReservationByIds(Long[] ids);
 
     /**
      * 删除民宿预订信息
@@ -58,4 +61,6 @@ public interface IHsReservationService
      * @return 结果
      */
     public int deleteHsReservationById(Long id);
+
+
 }

@@ -75,7 +75,7 @@ public class HsBuildingTypeController extends BaseController
      */
     @RequiresPermissions("homestay:buildingType:add")
     @Log(title = "民宿栋类型", businessType = BusinessType.INSERT)
-    @PostMapping
+    @PostMapping("/add")
     public AjaxResult add(@RequestBody HsBuildingType hsBuildingType)
     {
         return toAjax(hsBuildingTypeService.insertHsBuildingType(hsBuildingType));

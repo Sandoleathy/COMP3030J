@@ -58,4 +58,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectHsGuestsByGuestId" parameterType="Long" resultMap="HsGuestResult">
+        <include refid="selectHsGuestVo"/>
+        where guest_id = #{guestId}
+    </select>
+
+    <select id="selectHsGuestsByReservationId" parameterType="Long" resultMap="HsGuestResult">
+        <include refid="selectHsGuestVo"/>
+        where reservation_id = #{reservationId}
+    </select>
+
+    <!-- Result Map to handle object mapping -->
+    <resultMap id="SysUserResultMap" type="com.ruoyi.system.api.domain.SysUser">
+        <id column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="email" property="email" />
+        <result column="phonenumber" property="phonenumber" />
+        <!-- Additional fields if necessary -->
+    </resultMap>
+
+    <!-- SQL query to select a SysUser by userId -->
+    <select id="selectSysUserById" resultMap="SysUserResultMap">
+        SELECT user_id, user_name, email, phonenumber
+        FROM sys_user
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectSysUserByUser" resultMap="SysUserResultMap">
+        SELECT user_id, user_name, email, phonenumber
+        FROM sys_user
+        <where>
+            <if test="userName != null and userName != ''">
+                AND user_name = #{userName}
+            </if>
+            <if test="email != null and email != ''">
+                AND email = #{email}
+            </if>
+            <if test="phonenumber != null and phonenumber != ''">
+                AND phonenumber = #{phonenumber}
+            </if>
+        </where>
+    </select>
+
 </mapper>

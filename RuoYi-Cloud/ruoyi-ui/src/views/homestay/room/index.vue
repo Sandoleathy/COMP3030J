@@ -33,6 +33,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="价格" prop="roomPrice">
+        <el-input
+          v-model="queryParams.roomPrice"
+          placeholder="请输入价格"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -92,6 +100,7 @@
       <el-table-column label="房间号" align="center" prop="roomNumber" />
       <el-table-column label="栋类型" align="center" prop="buildingType" />
       <el-table-column label="床类型" align="center" prop="bedType" />
+      <el-table-column label="价格" align="center" prop="roomPrice" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -135,6 +144,9 @@
         <el-form-item label="床类型" prop="bedType">
           <el-input v-model="form.bedType" placeholder="请输入床类型" />
         </el-form-item>
+        <el-form-item label="价格" prop="roomPrice">
+          <el-input v-model="form.roomPrice" placeholder="请输入价格" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -176,7 +188,8 @@ export default {
         roomType: null,
         roomNumber: null,
         buildingType: null,
-        bedType: null
+        bedType: null,
+        roomPrice: null
       },
       // 表单参数
       form: {},
@@ -187,7 +200,7 @@ export default {
         ],
         bedType: [
           { required: true, message: "床类型不能为空", trigger: "blur" }
-        ]
+        ],
       }
     };
   },
@@ -216,7 +229,8 @@ export default {
         roomType: null,
         roomNumber: null,
         buildingType: null,
-        bedType: null
+        bedType: null,
+        roomPrice: null
       };
       this.resetForm("form");
     },

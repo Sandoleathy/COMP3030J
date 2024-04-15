@@ -1,6 +1,9 @@
 package com.homestay.service;
 
 import java.util.List;
+
+import com.homestay.domain.HsReservation;
+import com.homestay.domain.HsRoom;
 import com.homestay.domain.HsRr;
 
 /**
@@ -58,4 +61,20 @@ public interface IHsRrService
      * @return 结果
      */
     public int deleteHsRrById(Long id);
+
+    /**
+     * 根据房间ID查询预订列表
+     *
+     * @param roomId 房间ID
+     * @return 订单客户联合集合
+     */
+    List<HsReservation> selectHsRrByRoomId(Long roomId);
+
+    /**
+     * 根据预订ID查询房间列表
+     *
+     * @param reservationId 预订ID
+     * @return 订单房间联合对象集合
+     */
+    List<HsRoom> selectHsRrByReservationId(Long reservationId);
 }
