@@ -23,7 +23,7 @@ const router = createRouter({
       //网站入口
       path: '/',
       name: 'entry',
-      component: () => import('../views/EntryView.vue')
+      component: () => import('../views/MainView.vue')
     }
   ]
 })

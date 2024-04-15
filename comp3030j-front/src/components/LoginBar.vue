@@ -14,6 +14,12 @@
     top: 0;
     //position: absolute;
     //width: 90vw;
+    position: fixed;
+
+    left: 0;
+    width: 100%; /* 确保导航栏宽度与视窗宽度一致 */
+    z-index: 1000; /* 设置一个高的z-index确保导航栏在内容之上 */
+    /* 设置背景颜色以确保内容不透明显示 */
 }
 
 .nav-btn {
