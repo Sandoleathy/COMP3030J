@@ -15,8 +15,8 @@
             </el-menu-item>
             <div class="flex-grow" />
             <el-menu-item index="1" @click="scrollToSection('aboutUs')">About Us</el-menu-item>
-            <el-menu-item index="2" @click="scrollToSection('overview')">Overview</el-menu-item>
-            <el-menu-item index="3">新闻&通知</el-menu-item>
+            <el-menu-item index="2" @click="goToViewPage">Overview</el-menu-item>
+            <el-menu-item index="3" >新闻&通知</el-menu-item>
             <el-menu-item index="4" @click="scrollToSection('minsu')">民宿</el-menu-item>
         </el-menu>
 
@@ -54,6 +54,7 @@
                         我们的民宿不仅提供舒适的住宿，更为您提供了丰富的活动和体验。您可以参加农家采摘活动，品尝新鲜的农产品；或者参与手工艺品制作，体验传统工艺的魅力。无论您是寻找休闲放松还是体验农村生活，我们都将竭诚为您提供最好的服务，让您在这里留下美好的回忆。
                         欢迎您来到我们的民宿，让我们一同分享乡村生活的美好时光！
                     </h3>
+                    <el-button type="primary" class="reservation-button" @click="goToAboutPage">Reservation</el-button>
                 </el-col>
             </el-row>
         </div>
@@ -79,9 +80,6 @@
     background-color: #fff; /* 设置背景颜色以确保内容不透明显示 */
 }
 
-.demonstration {
-    color: var(--el-text-color-secondary);
-}
 
 .el-carousel__item h3 {
     color: #475669;
@@ -153,6 +151,12 @@
     margin-top: 40px; /* 外边距上方 */
     margin-bottom: 40px; /* 外边距下方 */
 }
+
+.reservation-button {
+    margin-top: 20px; /* 在按钮和文本之间添加一些间隔 */
+    background-color: #409EFF; /* 蓝色背景 */
+    border-color: #409EFF; /* 蓝色边框，确保和背景一致 */
+}
 </style>
 
 <script lang="ts" setup>
@@ -172,4 +176,15 @@ const imageUrls = ref([
     '/images/pic1.png',
     '/images/pic2.png',
 ])
+
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function goToAboutPage() {
+    router.push({ name: 'reservation' });
+}
+function goToViewPage() {
+    router.push({ name: 'overview' });
+}
 </script>
