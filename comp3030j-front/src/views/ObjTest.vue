@@ -1,5 +1,12 @@
 <template>
+    <el-page-header @back="goBack">
+    <template #content>
+        <span class="text-large font-600 mr-3"> Title </span>
+    </template>
+    </el-page-header>
     <canvas id="three"></canvas>
+
+
 
   </template>
   
@@ -17,6 +24,10 @@
     loadOBJ()
     loadLight()
   })
+  const goBack = () => {
+      console.log('go back')
+  }
+
   const initThree = () => {
     // 创建场景
     scene = new THREE.Scene();

@@ -15,7 +15,7 @@ const activeIndex = ref('0')
             <!--                alt="Element logo"-->
             <!--            />-->
             <div
-                    style="width: 100px; height: 100px; background-color: yellow;"
+                    style="width: 100px; height: 50px; background-color: yellow;"
                     alt="Yellow square"
             ></div>
         </el-menu-item>

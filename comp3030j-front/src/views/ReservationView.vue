@@ -5,6 +5,7 @@ import api from '../api'
 import {onMounted} from 'vue'
 import reservationPage from '../components/ReservationMenu.vue'
 import reservationSearchBar from '../components/ReservationSearchBar.vue'
+import roomItems from '../components/RoonItems.vue'
 const clickTest = () => {
     api.get('/users')
         .then(response => {
@@ -26,11 +27,17 @@ onMounted( () => {
         <el-container class="container">
             <el-header class="header">
                 <reservationPage></reservationPage>
+
             </el-header>
+
+            <el-main class="main">
                 <reservationSearchBar></reservationSearchBar>
-<!--            <el-main class="main">-->
-<!--                <firstPage></firstPage>-->
-<!--            </el-main>-->
+                <roomItems></roomItems>
+                <roomItems></roomItems>
+                <roomItems></roomItems>
+                <roomItems></roomItems>
+                <roomItems></roomItems>
+            </el-main>
         </el-container>
     </div>
 </template>
@@ -41,6 +48,9 @@ onMounted( () => {
     left: 0;
     position: absolute;
     min-width: 100vw; /* 根据实际内容调整 */
+}
+.main{
+    background: #f2f2f2;
 }
 
 @media (max-width: 1024px) {
