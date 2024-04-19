@@ -17,9 +17,10 @@ const clickTest = () => {
 }
 
 //页面初始化时会先执行的代码
-onMounted( () => {
-    clickTest()
-})
+onMounted(() => {
+    clickTest();
+    window.scrollTo(0, 0); // 添加这行代码来滚动到页面顶部
+});
 </script>
 
 <template>

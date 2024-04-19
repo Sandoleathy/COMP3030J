@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 import { ref, nextTick } from 'vue'
+import router from "@/router";
 
 const activeIndex = ref('0')
+
+function goToMyView() {
+    router.push({ name: 'my' });
+}
+
+function goToMainView() {
+    router.push({ name: 'entry' });
+}
 
 </script>
 
@@ -20,9 +29,14 @@ const activeIndex = ref('0')
             ></div>
         </el-menu-item>
         <div class="flex-grow" />
-        <el-menu-item index="1">我的订单</el-menu-item>
-        <el-menu-item index="2" >天气</el-menu-item>
-        <el-menu-item index="3">头像</el-menu-item>
+        <el-menu-item index="1" @click="goToMainView">首页</el-menu-item>
+        <el-menu-item index="2">我的订单</el-menu-item>
+        <el-menu-item index="3" >天气</el-menu-item>
+        <el-menu-item index="4">
+            <div class="demo-type">
+                <el-avatar @click="goToMyView"> user </el-avatar>
+            </div>
+        </el-menu-item>
 
     </el-menu>
 </template>
@@ -44,5 +58,17 @@ const activeIndex = ref('0')
     left: 0;
     width: 100%; /* 确保导航栏宽度与视窗宽度一致 */
     z-index: 1000;
+}
+
+.demo-type {
+    display: flex;
+}
+.demo-type > div {
+    flex: 1;
+    text-align: center;
+}
+
+.demo-type > div:not(:last-child) {
+    border-right: 1px solid var(--el-border-color);
 }
 </style>
