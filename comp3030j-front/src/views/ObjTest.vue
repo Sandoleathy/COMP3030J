@@ -1,22 +1,29 @@
 <template>
-    <el-page-header @back="goBack">
-    <template #content>
-        <span class="text-large font-600 mr-3"> Title </span>
-    </template>
-    </el-page-header>
-    <canvas id="three"></canvas>
+    <el-container class="container">
+        <el-header class="header">
+            <div class="header-controls">
+                <el-page-header @back="goBack">
+                    <template #content>
+                        <span class="text-large font-600 mr-3">3D Model</span>
+                    </template>
+                </el-page-header>
+                <el-button class="right-button" @click="goToViewPage">More Info</el-button>
+            </div>
+        </el-header>
+        <el-main class="main">
+            <canvas id="three"></canvas>
+        </el-main>
+    </el-container>
+</template>
 
 
-
-  </template>
-  
-  <script setup>
+<script setup>
   import * as THREE from 'three';
   import { onMounted , ref } from 'vue';
   import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
   import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
   import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'; //轨道控制器，改变视角
-  
+
   let scene = ref()
   let mesh = ref()
   onMounted(() => {
@@ -24,8 +31,14 @@
     loadOBJ()
     loadLight()
   })
-  const goBack = () => {
-      console.log('go back')
+  import { useRouter } from 'vue-router';
+
+  // 获取 router 实例
+  const router = useRouter();
+
+  // 定义一个方法，用于处理返回首页的逻辑
+  function goBack() {
+      router.push({ name: 'entry' }); // 使用 router.push 导航到首页
   }
 
   const initThree = () => {
@@ -34,7 +47,7 @@
 
     //为背景设置颜色
     scene.background = new THREE.Color('#eee')
-  
+
     //获取canvas
     const canvas = document.querySelector("#three")
 
@@ -67,7 +80,7 @@
         camera.updateProjectionMatrix()
       }
 
-      
+
     }
     animate()
     console.log("111")
@@ -112,7 +125,7 @@
         })
       })
   }
-  
+
   const loadLight = () => {
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.6)
       //光源等位置
@@ -126,10 +139,56 @@
       hemLight.position.set(0, 700, 0)
       scene.add(hemLight)
   }
-  
+  const goToViewPage = () => {
+      router.push({ name: 'data' });
+  };
+
   </script>
-  
-  <style>
-    /* 这里可以添加一些样式 */
-  </style>
-  
+
+<style>
+.container {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    margin: auto;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.main {
+    margin: 0;
+    padding-left: 50px;
+    width:95%;
+    /* 添加 padding, 主要是左侧留白 */
+}
+
+.text-large {
+    font-size: 1.5em; /* 大号文本 */
+    font-weight: 600; /* 字体加粗 */
+}
+
+.mr-3 {
+    margin-right: 12px; /* 右边距 */
+}
+
+.right-button {
+    margin-left: 20px; /* 在按钮和页头标题之间添加一些空间 */
+}
+
+@media (max-width: 1024px) {
+    .container {
+        min-width: 100vw;
+    }
+}
+</style>

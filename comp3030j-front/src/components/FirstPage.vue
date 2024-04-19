@@ -1,23 +1,28 @@
 <template>
     <div class="page-container">
-        <el-menu :default-active="activeIndex" class="el-menu-demo fixed-top" mode="horizontal"
+        <el-menu  class="el-menu-demo fixed-top" mode="horizontal"
                  :ellipsis="false">
             <el-menu-item index="0">
-                <!--            <img-->
-                <!--                style="width: 100px"-->
-                <!--                src="/images/element-plus-logo.svg"-->
-                <!--                alt="Element logo"-->
-                <!--            />-->
-                <div
-                        style="width: 100px; height: 100px; background-color: yellow;"
-                        alt="Yellow square"
-                ></div>
+                            <img
+                                style="width: 90px;height: 60px"
+                                src="/images/Logo.jpg"
+                                alt="Element logo"
+                            />
+                <div class="logo_word">
+                    <el-row>
+                        <h3 class="styled-heading">依山别墅</h3>
+                    </el-row>
+                    <el-row>
+                        <h3 class="styled-heading">Mountain Villa</h3>
+                    </el-row>
+                </div>
+
             </el-menu-item>
             <div class="flex-grow" />
             <el-menu-item index="1" @click="scrollToSection('aboutUs')">About Us</el-menu-item>
             <el-menu-item index="2" @click="goToViewPage">Overview</el-menu-item>
-            <el-menu-item index="3" >新闻&通知</el-menu-item>
-            <el-menu-item index="4" @click="scrollToSection('minsu')">民宿</el-menu-item>
+            <el-menu-item index="3" @click="scrollToSection('news')">News & Notices</el-menu-item>
+            <el-menu-item index="4" @click="scrollToSection('minsu')">Hotel</el-menu-item>
         </el-menu>
 
         <div class="block text-center">
@@ -34,31 +39,62 @@
 
         <div class="aboutUs" ref="aboutUsSection">
             <h1 class="line"></h1>
-            <h3 class="header">关于我们</h3>
-            <h3 class="welcome">欢迎来到我们的园区！</h3>
-            <h4 class="context">在这片静谧而充满活力的乡村，我们以实现经济、社会和生态的可持续发展为使命，致力于创造一个独特而温馨的生活空间。
-                在这里，您将体验到乡村生活的魅力和舒适，尽情享受大自然的馈赠。我们的民宿将为您提供舒适的住宿，让您在宁静的乡间度过惬意的时光；医疗保健养老服务中心将为您提供贴心的健康照护和关爱；可持续发展能源中心将引领您走向绿色生活，体验清洁能源的魅力。
-                我们欢迎您的到来，让我们一同探索这片美丽的土地，感受乡村的温暖与包容，共同创造一个更美好的未来！</h4>
-            <h3 class="ending">期待您的光临！</h3>
+            <h3 class="header">About Us</h3>
+            <h3 class="welcome">Welcome to our park!</h3>
+            <h4 class="context">With a mission to achieve economic, social and ecological sustainability, we are committed to creating a unique and welcoming living space in this quiet and vibrant countryside.
+                Here, you will experience the charm and comfort of rural life and enjoy the gifts of nature. Our homestay will provide you with comfortable accommodation, so that you can spend a pleasant time in the quiet country; Health care service center will provide you with intimate health care and love; The Sustainable Energy Center will lead you to a green life and experience the charm of clean energy.
+                We welcome your arrival, let us explore this beautiful land together, feel the warmth and tolerance of the countryside, and create a better future together!</h4>
+            <h3 class="ending">Looking forward to your visit!</h3>
+        </div>
+        <div class="news" ref="newsSection">
+            <h1 class="line"></h1>
+            <h1 class="minsu-head">News & Notices</h1>
+            <div class="news-container">
+                <el-badge :value="1" class="item" :class="{ active: activeBadge === 'activeNews' }">
+                    <el-button @click="setActive('activeNews')">Active News</el-button>
+                </el-badge>
+                <el-badge :value="12" class="item" :class="{ active: activeBadge === 'systemNews' }">
+                    <el-button @click="setActive('systemNews')">System News</el-button>
+                </el-badge>
+
+                <div class="news-text">
+                    <div class="title-date">
+                        <h3>Yishan Villa May farm activities updated!</h3>
+                        <span class="date">2024/04/19</span>
+                    </div>
+                    <h4>Peach picking can be experienced at the farm every weekend from 10:00 am to 16:00 PM</h4>
+                    <hr> <!-- 横线 -->
+                </div>
+            </div>
+        </div>
+
+
+
+
+
         </div>
         <div class="minsu" ref="minsuSection">
             <h1 class="line"></h1>
-            <h1 class="minsu-head">民宿</h1>
+            <h1 class="minsu-head">Hotel</h1>
+            <h3 class="minsu-head">Welcome to our guesthouse, the ideal place for country living！</h3>
             <el-row gutter={50}>
                 <el-col :span="12" class="image-column">
                     <img class="minsu-pic" src="/images/pic1.png" alt="民宿图片">
                 </el-col>
                 <el-col :span="12" class="text-column">
-                    <h3>欢迎来到我们的民宿，这里是乡村生活的理想之地。我们的民宿坐落在郁郁葱葱的山林间，环境清幽，空气清新。房间简洁而舒适，每一处细节都充满了温馨和家的氛围。
-                        在这里，您可以远离喧嚣，尽情享受宁静的时光。清晨，您将被晨曦唤醒，鸟鸣声和山谷中的清泉声将伴您迎接新的一天。白天，您可以漫步于田园间，感受大自然的鬼斧神工；夜晚，您可以仰望星空，与家人朋友共享美好时光。
-                        我们的民宿不仅提供舒适的住宿，更为您提供了丰富的活动和体验。您可以参加农家采摘活动，品尝新鲜的农产品；或者参与手工艺品制作，体验传统工艺的魅力。无论您是寻找休闲放松还是体验农村生活，我们都将竭诚为您提供最好的服务，让您在这里留下美好的回忆。
-                        欢迎您来到我们的民宿，让我们一同分享乡村生活的美好时光！
-                    </h3>
-                    <el-button type="primary" class="reservation-button" @click="goToAboutPage">Reservation</el-button>
+                    <div class="text-content">
+                        <h3>Our guesthouse is situated in a lush mountain forest, with a quiet environment, fresh air and simple, comfortable rooms. Here you can enjoy quiet time away from the hustle and bustle. In the morning, you will be awakened by the dawn, the birdsong in the valley and the clear spring to accompany you to welcome a new day. During the day, you can stroll along the country roads and experience nature's artistry. At night, you can look up at the stars and share a good time with family and friends.
+                        </h3>
+                        <h3>Our hotel also offers you a wide range of activities and experiences. You can take part in farm picking activities to savour fresh produce, or participate in handicraft making to experience the charm of traditional craftsmanship.
+                        </h3>
+                        <h3>
+                            Whether you want to relax and unwind or experience the countryside, we will be happy to provide you with the best service to make your holiday a memorable one!
+                        </h3>
+                        <el-button type="primary" class="reservation-button" @click="goToAboutPage">Reservation</el-button>
+                    </div>
                 </el-col>
             </el-row>
         </div>
-    </div>
 
 
 
@@ -106,7 +142,7 @@
     flex-grow: 1;
 }
 
-.aboutUs, .minsu {
+.aboutUs, .minsu,.news {
     scroll-margin-top: 150px; /* 根据固定头部的高度进行调整 */
 }
 
@@ -135,15 +171,32 @@
     margin-top: 20px; /* 外边距上方 */
     margin-bottom: 20px; /* 外边距下方 */
 }
-.image-column{
-    padding-right: 30px;
+.image-column {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 图片水平和垂直居中 */
 }
-.text-column{
-    padding-left: 30px;
-}
+
 .minsu-pic {
-    width: 100%; /* 确保图片自适应容器宽度 */
-    height: auto; /* 保持图片原始宽高比 */
+    max-width: 100%; /* 保证图片不超过列宽 */
+    height: auto;
+    padding-top: -10px;/* 维持图片原有比例 */
+}
+
+.text-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: justify; /* 文本两端对齐 */
+    padding: 20px; /* 添加一些内边距 */
+}
+
+.text-content {
+    max-width: 100%; /* 控制文本块的最大宽度 */
+}
+
+.reservation-button {
+    margin-top: 20px; /* 预订按钮与文本间距 */
 }
 .minsu-head{
     text-align: center;
@@ -152,39 +205,99 @@
     margin-bottom: 40px; /* 外边距下方 */
 }
 
-.reservation-button {
-    margin-top: 20px; /* 在按钮和文本之间添加一些间隔 */
-    background-color: #409EFF; /* 蓝色背景 */
-    border-color: #409EFF; /* 蓝色边框，确保和背景一致 */
+
+.logo_word .styled-heading {
+    color: green;        /* 设置字体颜色为绿色 */
+    font-weight: bold;
+    padding-top: -20px;/* 加粗字体 */
+    margin-top: -15px;       /* 上边距设置为0 */
+    margin-bottom: -25px;  /* 下边距设置为2px，保持行间距小 */
 }
+.item {
+    margin-top: 10px;
+    margin-right: 30px;
+}
+
+.news-container {
+    width: 90%; /* 或根据实际需要调整宽度 */
+    margin: 20px auto; /* 居中显示，并添加外边距 */
+    padding: 20px; /* 内边距 */
+    border: 1px solid #ccc; /* 边框样式 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微的阴影效果 */
+    background: #fff; /* 背景颜色 */
+}
+
+.item {
+    margin-bottom: 10px; /* Badge 之间的间距 */
+}
+
+.news-text .title-date {
+    display: flex;
+    justify-content: space-between; /* 使元素分布在容器的两端 */
+    align-items: center; /* 垂直居中对齐 */
+}
+
+.news-text .title-date h3 {
+    font-weight: bold;
+    margin-right: auto; /* 确保h3和日期之间推开 */
+}
+
+.news-text .date {
+    white-space: nowrap; /* 防止日期折行 */
+     /* 增加日期的字体粗细，可选 */
+}
+
+.news-text h4 {
+    margin-top: 10px; /* 根据需要调整间距 */
+}
+
+
+.news-container .item.active .el-button {
+    background-color: blue; /* 激活状态下的背景色 */
+    color: white; /* 激活状态下的文字色 */
+}
+
+.news-container .item .el-button {
+    transition: background-color 0.3s, color 0.3s; /* 平滑颜色过渡 */
+}
+
+.news-container .item .el-button:hover {
+    background-color: blue; /* 鼠标悬停状态下的背景色 */
+    color: white;
+}/* 鼠标悬停状态下的文字色 */
 </style>
 
-<script lang="ts" setup>
-import { ref, nextTick } from 'vue'
-
-const activeIndex = ref('0')
-
-const scrollToSection = (sectionId) => {
-    nextTick(() => {
-        const section = document.querySelector(`.${sectionId}`)
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' })
-        }
-    })
-}
-const imageUrls = ref([
-    '/images/pic1.png',
-    '/images/pic2.png',
-])
-
+<script setup>
+import { ref, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const activeBadge = ref('');
 
-function goToAboutPage() {
+// Functions directly declared and used within setup script
+const setActive = (badge) => {
+    activeBadge.value = badge; // Update the activeBadge to the current clicked badge
+};
+
+const scrollToSection = (sectionId) => {
+    nextTick(() => {
+        const section = document.querySelector(`.${sectionId}`);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+};
+
+const imageUrls = ref([
+    '/images/pic1.png',
+    '/images/pic2.png',
+]);
+
+const goToAboutPage = () => {
     router.push({ name: 'reservation' });
-}
-function goToViewPage() {
+};
+
+const goToViewPage = () => {
     router.push({ name: 'overview' });
-}
+};
 </script>

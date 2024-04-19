@@ -3,7 +3,7 @@
         <el-header>
             <el-page-header
                 class="back"
-                content="Back to Home"
+
                 @back="goBack"
             ></el-page-header>
         </el-header>

@@ -33,19 +33,19 @@ const value = ref('')
 const options = [
     {
         value: 'A栋',
-        label: '标准民宿',
+        label: 'Economic Room',
     },
     {
         value: 'B栋',
-        label: '豪华民宿',
+        label: 'Deluxe Room',
     },
     {
         value: 'C栋',
-        label: '观景民宿',
+        label: 'Mountain Room',
     },
     {
         value: 'D栋',
-        label: '家庭民宿',
+        label: 'Family Room',
     },
 
 ]
@@ -66,7 +66,7 @@ const options = [
                 <el-col :span="24">
 
                         <div class="block">
-                            <span class="demonstration">{{ daysDifference }}天</span>
+                            <span class="demonstration">{{ daysDifference }} Day</span>
                             <el-date-picker
                                 v-model="value1"
                                 type="daterange"
@@ -90,7 +90,7 @@ const options = [
         </el-row>
         <el-row >
                   <div class="block">
-                      <span class="demonstration">住客：</span>
+                      <span class="demonstration">Guest：</span>
                       <el-input-number v-model="num2" :min="1" :max="10" @change="handleChange" />
                   </div>
 

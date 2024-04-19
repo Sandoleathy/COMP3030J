@@ -22,17 +22,17 @@ const updateActiveIndex = (index) => {
 <template>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="vertical"
              :ellipsis="false" @select="updateActiveIndex">
-        <el-menu-item index="0" @click="goToMainView">首页
+        <el-menu-item index="0" @click="goToMainView">Home
         </el-menu-item>
         <div class="flex-grow" />
-        <el-menu-item index="1">订单</el-menu-item>
+        <el-menu-item index="1">Order</el-menu-item>
         <el-sub-menu index="2">
-            <template #title>常用信息</template>
-            <el-menu-item index="2-1">常用旅客</el-menu-item>
-            <el-menu-item index="2-2">常用地址</el-menu-item>
-            <el-menu-item index="2-3">常用联系人</el-menu-item>
+            <template #title>Common Information</template>
+            <el-menu-item index="2-1">Common Travelers</el-menu-item>
+            <el-menu-item index="2-2">Common Address</el-menu-item>
+            <el-menu-item index="2-3">Common Contacts</el-menu-item>
         </el-sub-menu>
-        <el-menu-item index="3">我的信息</el-menu-item>
+        <el-menu-item index="3">My Information</el-menu-item>
     </el-menu>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="navigation_bar">
-        <el-button type="text" class="nav-btn">登录</el-button>｜
-        <el-button type="text" class="nav-btn">注册</el-button>
+        <el-button type="text" class="nav-btn">Login</el-button>｜
+        <el-button type="text" class="nav-btn">Register</el-button>
     </div>
 </template>
 

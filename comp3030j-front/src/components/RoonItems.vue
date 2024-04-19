@@ -6,18 +6,18 @@
     <div class="page-container">
         <el-row class="row-container">
             <el-col :span="5" class="column">
-                <img src="/images/pic4.png" alt="客房信息" style="width: 35vh; height: 25vh;">
+                <img src="/images/pic4.png" alt="Room Information" style="width: 35vh; height: 25vh;">
                 <div>
-                <el-link>查看客房信息</el-link>
+                    <el-link>View Room Information</el-link>
                 </div>
             </el-col>
             <el-col :span="4" class="column">
                 <div>
-                    <h2>大床房</h2>
-                    <h4>1张1.8m大床</h4>
-                    <h4>面积：</h4>
-                    <h4>有窗</h4>
-                    <h4>禁烟</h4>
+                    <h2>Double Room</h2>
+                    <h4>One king-size bed</h4>
+                    <h4>Area: 34m²</h4>
+                    <h4>With Window</h4>
+                    <h4>Non-smoking</h4>
                 </div>
             </el-col>
             <el-col :span="2" class="column">
@@ -32,20 +32,21 @@
             </el-col>
 
             <el-col :span="3" class="column">
-                <h3>2份早餐</h3>
+                <h3>Includes 2 Breakfasts</h3>
             </el-col>
             <el-col :span="4" class="column">
-                <h3>30分钟内免费取消</h3>
+                <h3>Free Cancellation within 30 Minutes</h3>
             </el-col>
             <el-col :span="6" class="column">
                 <div>
                     <h3>¥366</h3>
-                    <el-button>立即预订</el-button>
+                    <el-button>Book Now</el-button>
                 </div>
             </el-col>
         </el-row>
     </div>
 </template>
+
 
 
 <style scoped>
