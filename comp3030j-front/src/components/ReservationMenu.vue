@@ -9,6 +9,9 @@ function goToMyView() {
 function goToMainView() {
     router.push({ name: 'entry' });
 }
+function goToWeatherView() {
+    router.push({ name: 'weather' });
+}
 
 </script>
 
@@ -33,7 +36,7 @@ function goToMainView() {
         <div class="flex-grow" />
         <el-menu-item index="1" @click="goToMainView">Home</el-menu-item>
         <el-menu-item index="2">My Order</el-menu-item>
-        <el-menu-item index="3" >Weather</el-menu-item>
+        <el-menu-item index="3" @click="goToWeatherView">Weather</el-menu-item>
         <el-menu-item index="4">
             <div class="demo-type">
                 <el-avatar @click="goToMyView"> user </el-avatar>

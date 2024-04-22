@@ -142,7 +142,6 @@
   const goToViewPage = () => {
       router.push({ name: 'data' });
   };
-
   </script>
 
 <style>

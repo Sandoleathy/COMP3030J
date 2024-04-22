@@ -47,6 +47,7 @@ Chart.register(...registerables);
 Chart.defaults.color = "#fff";
 
 export default {
+
     name: 'EnergyDashboard',
     components: {
         ElContainer,
@@ -57,11 +58,16 @@ export default {
         ElRow,
         ElCol
     },
+
     mounted() {
-        this.createLineChart();
+        this.createBarChart();
         this.createPieChart();
         this.createTemperatureChart();
         this.createAlarmChart();
+        setInterval(() => {
+            this.createBarChart(); // 更新条形图数据
+            this.createPieChart(); // 重新创建折线图以更新数据
+        }, 5000);
     },
     setup() {
         const router = useRouter(); // 获取 router 实例
@@ -73,37 +79,72 @@ export default {
 
         return { goBack };
     },
+    data() {
+        return {
+            sharedChartData: {
+                hydroPower: 0,
+                solarPower: 0,
+                windPower: 0
+            },
+            lineChartInstance: null,
+            pieChartInstance: null,
+            // 其他图表实例
+        };
+    },
     methods: {
-        createLineChart() {
-            const lineChartData = {
-                labels: ['January', 'February', 'March', 'April'],
+        generateRandomData(min, max, count) {
+            return Array.from({ length: count }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        },
+        createBarChart() {
+            if (this.lineChartInstance) {
+                this.lineChartInstance.destroy();
+                this.lineChartInstance = null;
+            }
+            const ctx = this.$refs.lineChart.getContext('2d');
+
+            const dataValues = this.generateRandomData(100, 500, 3);
+            this.sharedChartData = {
+                hydroPower: dataValues[0],
+                solarPower: dataValues[1],
+                windPower: dataValues[2]
+            };
+
+            const barChartData = {
+                labels: ['Hydro Power', 'Solar Power', 'Wind Power'],
                 datasets: [{
-                    label: 'Hydro Power',
-                    data: [65, 59, 80, 81],
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }, {
-                    label: 'Solar Power',
-                    data: [28, 48, 40, 19],
-                    fill: false,
-                    borderColor: 'rgb(255, 205, 86)',
-                    tension: 0.1
-                }, {
-                    label: 'Wind Power',
-                    data: [12, 50, 25, 23],
-                    fill: false,
-                    borderColor: 'rgb(255, 99, 132)',
-                    tension: 0.1
+                    label: 'Energy Production (MWh)',
+                    data: dataValues,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 206, 86)',
+                        'rgb(255, 99, 132)'
+                    ],
+                    borderWidth: 1
                 }]
             };
-            const lineChartOptions = {
-                type: 'line',
-                data: lineChartData,
-                options: {}
+            const barChartOptions = {
+                type: 'bar',
+                data: barChartData,
+                options: {
+
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
             };
-            new Chart(this.$refs.lineChart, lineChartOptions);
+            this.lineChartInstance = new Chart(ctx, barChartOptions);
         },
+
+
         createAlarmChart() {
             const alarmData = {
                 labels: ['2023-04-01', '2023-04-02', '2023-04-03', '2023-04-04', '2023-04-05', '2023-04-06', '2023-04-07'],
@@ -156,13 +197,18 @@ export default {
             new Chart(this.$refs.temperatureChart, temperatureChartOptions);
         },
         createPieChart() {
+            if (this.pieChartInstance) {
+                this.pieChartInstance.destroy();
+                this.pieChartInstance = null;
+            }
+            const ctx = this.$refs.pieChart.getContext('2d');
             const pieChartData = {
                 labels: ['Hydro Power', 'Solar Power', 'Wind Power'],
                 datasets: [{
-                    data: [300, 50, 100],
+                    data: [this.sharedChartData.hydroPower, this.sharedChartData.solarPower, this.sharedChartData.windPower],
                     backgroundColor: [
                         'rgb(75, 192, 192)',
-                        'rgb(255, 205, 86)',
+                        'rgb(255, 206, 86)',
                         'rgb(255, 99, 132)'
                     ],
                     hoverOffset: 4
@@ -171,10 +217,13 @@ export default {
             const pieChartOptions = {
                 type: 'pie',
                 data: pieChartData,
-                options: {}
+                options: {
+
+                }
             };
-            new Chart(this.$refs.pieChart, pieChartOptions);
-        }
+            this.pieChartInstance = new Chart(ctx, pieChartOptions);
+        },
+
 
     }
 };

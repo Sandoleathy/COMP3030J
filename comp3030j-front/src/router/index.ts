@@ -15,8 +15,9 @@ const router = createRouter({
       //网站入口
       path: '/',
       name: 'entry',
-      // component: () => import('../views/MainView.vue')
       component: () => import('../views/MainView.vue')
+
+
 
     },
     {
@@ -33,6 +34,16 @@ const router = createRouter({
       path: '/Data',
       name: 'data',
       component: () => import('../views/DataView.vue')
+    },
+    {
+      path: '/Login',
+      name: 'login',
+      component: () => import('../views/login.vue')
+    },
+    {
+      path: '/Weather',
+      name: 'weather',
+      component: () => import('../views/WeatherInfo.vue')
     },
   ]
 })
