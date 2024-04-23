@@ -1,4 +1,4 @@
-package com.homestay;
+package com.statistics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,12 +15,12 @@ import com.ruoyi.common.swagger.annotation.EnableCustomSwagger2;
 @EnableCustomSwagger2
 @EnableRyFeignClients
 @SpringBootApplication
-public class HomestayApplication
+public class StatisticsApplication
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(HomestayApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  民宿模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        SpringApplication.run(StatisticsApplication.class, args);
+        System.out.println("(♥◠‿◠)ﾉﾞ  数据统计模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

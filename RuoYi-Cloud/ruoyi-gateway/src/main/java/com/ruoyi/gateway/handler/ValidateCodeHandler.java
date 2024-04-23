@@ -38,6 +38,7 @@ public class ValidateCodeHandler implements HandlerFunction<ServerResponse>
 
     //检验IP是否需要验证码
     public boolean needCode(String ip){
+        System.out.println("Determine if need ip: "+ip);
         String cacheKey=CacheConstants.SYS_LOGIN_FAIL_TIME+ip;
         return redisService.hasKey(cacheKey) && (int)redisService.getCacheObject(cacheKey)>=CacheConstants.NEED_CODE_FAIL_TIME-1;
     }
@@ -49,6 +50,8 @@ public class ValidateCodeHandler implements HandlerFunction<ServerResponse>
 
 
         AjaxResult ajax;
+
+
         try
         {
             ajax = validateCodeService.createCaptcha(needCode(IpUtils.getIpAddr(serverRequest)));
