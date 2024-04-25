@@ -1,11 +1,14 @@
 package com.homestay.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
+import com.homestay.domain.HsStaff;
 import com.homestay.dto.SelectFinanceDTO;
+import com.homestay.service.IHsStaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +39,9 @@ import com.ruoyi.common.core.web.page.TableDataInfo;
 public class HsFinanceController extends BaseController {
     @Autowired
     private IHsFinanceService hsFinanceService;
+
+    @Autowired
+    private IHsStaffService hsStaffService;
 
     /**
      * 查询民宿财务表列表
@@ -115,5 +121,27 @@ public class HsFinanceController extends BaseController {
     @GetMapping("/queryByPeriod")
     public AjaxResult getInfoByPeriod(SelectFinanceDTO selectFinanceDTO) {
         return success(hsFinanceService.selectFinancesBetweenDates(selectFinanceDTO));
+    }
+
+    /**
+     * 支付员工工资
+     */
+    @RequiresPermissions("homestay:finance:pay")
+    @Log(title = "民宿财务表", businessType = BusinessType.INSERT)
+    @PostMapping("/pay/{ids}")
+    public AjaxResult pay(@PathVariable Long[] ids) {
+        HsFinance hsFinance = new HsFinance();
+        float outcome = 0;
+        if (ids[0] == 0) {
+            outcome = hsStaffService.selectAllSalary();
+        } else {
+            outcome = hsStaffService.selectSalaryByIds(ids);
+
+        }
+        hsFinance.setType("支出");
+        hsFinance.setNum(new BigDecimal(outcome));
+        hsFinance.setDescription("支付员工工资");
+        hsFinance.setTime(new Date());
+        return success(hsFinanceService.insertHsFinance(hsFinance));
     }
 }
