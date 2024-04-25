@@ -91,4 +91,6 @@ public interface HsGuestMapper
      * @return 匹配的用户列表
      */
     List<SysUser> selectSysUserByUser(SysUser sysUser);
+
+    int insertSysUser(SysUser sysUser);
 }
