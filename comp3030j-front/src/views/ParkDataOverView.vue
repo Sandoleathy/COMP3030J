@@ -1,9 +1,11 @@
 <template>
     <!--园区信息展示-用户-->
     <container class="container">
-        <el-container class="energyChart">
+        <el-container >
             <el-main>
-                <EnergyOverviewChart></EnergyOverviewChart>
+                <div >
+                    <EnergyOverviewChart class="energy-chart"></EnergyOverviewChart>
+                </div>
             </el-main>
         </el-container>
         <el-container>
@@ -31,5 +33,8 @@ import { ElContainer, ElMain } from 'element-plus';
     position: absolute;
     min-width: 100vw; /* 根据实际内容调整 */
 }
-
+.energy-chart{
+    max-height: 30vh;
+    
+}
 </style>

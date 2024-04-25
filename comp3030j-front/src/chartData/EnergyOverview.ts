@@ -19,7 +19,7 @@ export const planetChartData = {
     },
     options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
             y: {
               
