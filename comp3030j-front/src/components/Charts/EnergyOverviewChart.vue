@@ -7,7 +7,7 @@
 </template>
 <script>
 import {Chart,registerables} from 'chart.js'
-import planetChartData from "../chartData/EnergyOverview.ts"
+import planetChartData from "../../chartData/EnergyOverview.ts"
 
 Chart.register(...registerables); //记得注册！教程里都没写！3.0版本以上的chart.js需要手动注册控制器！
 //Chart.defaults.color = "#fff";  //设置默认颜色
@@ -24,3 +24,9 @@ export default {
     }
 }
 </script>
+<style scoped>
+canvas{
+    max-height: 200px;
+    max-width: 100%;
+}
+</style>

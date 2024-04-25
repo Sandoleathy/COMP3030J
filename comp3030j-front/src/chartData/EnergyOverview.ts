@@ -18,9 +18,11 @@ export const planetChartData = {
     ]
     },
     options: {
+        responsive: true,
+        maintainAspectRatio: true,
         scales: {
             y: {
-              beginAtZero: true
+              
             }
         }
     },

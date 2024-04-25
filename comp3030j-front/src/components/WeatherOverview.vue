@@ -1,0 +1,45 @@
+<template>
+    <el-container>
+        <el-header>
+            <!--温度，体感气温-->
+            <p>{{ temperature }}°C</p>
+            <p>{{ feelTemp }}°C</p>
+            <p>{{ weatherText }}</p>
+        </el-header>
+        <el-main>
+
+        </el-main>
+    </el-container>
+</template>
+<script setup>
+import { ref , onMounted } from 'vue';
+import { ElContainer, ElMain, ElHeader , ElMessage } from 'element-plus';
+import axios from 'axios';
+
+const temperature = ref(0)
+const feelTemp = ref(0)
+const weatherText = ref("")
+
+let location = "117.13,40.29";
+let key = "76cbdc094c49493b9a1c3f7f6d659ff4";
+onMounted( () => {
+    getCurrentWeatherInfo()
+})
+const getCurrentWeatherInfo = () => {
+    axios.get("https://devapi.qweather.com/v7/weather/now", {
+        params: {
+            location: location,
+            key: key,
+            lang: "en"
+        }
+    }).then(response => {
+        const data = response.data
+        temperature.value = data.now.temp
+        feelTemp.value = data.now.feelsLike
+        weatherText.value = data.now.text
+    }).catch(error => {
+        ElMessage.error("Fetch weather information failed")
+        console.error(error)
+    })
+}
+</script>
