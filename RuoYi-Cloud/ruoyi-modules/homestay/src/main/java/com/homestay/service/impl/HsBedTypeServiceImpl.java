@@ -34,8 +34,10 @@ public class HsBedTypeServiceImpl implements IHsBedTypeService {
      * @return 民宿床类型
      */
     @Override
-    public HsBedType selectHsBedTypeById(Long id) {
-        return hsBedTypeMapper.selectHsBedTypeById(id);
+    public AddBedTypeDTO selectHsBedTypeById(Long id) {
+        HsBedType hsBedType = hsBedTypeMapper.selectHsBedTypeById(id);
+        List<HsBedImage> hsImages = hsBedImageMapper.selectHsBedImageByBedId(id);
+        return new AddBedTypeDTO(hsBedType, hsImages);
     }
 
     /**
@@ -81,10 +83,12 @@ public class HsBedTypeServiceImpl implements IHsBedTypeService {
     public int insertHsBedType(AddBedTypeDTO addBedTypeDTO) {
         HsBedType hsBedType = addBedTypeDTO.getHsBedType();
         long heBedTypeId = hsBedTypeMapper.insertHsBedType(hsBedType);
-        List<HsBedImage> hsBedImages = addBedTypeDTO.getHsBedImages();
-        for (HsBedImage hsBedImage : hsBedImages) {
-            hsBedImage.setBedId(heBedTypeId);
-            hsBedImageMapper.insertHsBedImage(hsBedImage);
+        if (addBedTypeDTO.getHsBedImages() != null) {
+            List<HsBedImage> hsBedImages = addBedTypeDTO.getHsBedImages();
+            for (HsBedImage hsBedImage : hsBedImages) {
+                hsBedImage.setBedId(heBedTypeId);
+                hsBedImageMapper.insertHsBedImage(hsBedImage);
+            }
         }
         return (int) heBedTypeId;
     }

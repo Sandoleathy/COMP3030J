@@ -75,13 +75,15 @@ public class HsRoomController extends BaseController {
     @PostMapping("/add")
     public List<AjaxResult> add(@RequestBody AddRoomDTO addRoomDTO) {
         List<AjaxResult> results = new ArrayList<>();
-        HsRoom hsRoom=addRoomDTO.getHsRoom();
+        HsRoom hsRoom = addRoomDTO.getHsRoom();
         hsRoomService.insertHsRoom(hsRoom);
         results.add(toAjax(hsRoom.getId().intValue()));
-        List<HsRoomImage> images = addRoomDTO.getHsRoomImages();
-        for (HsRoomImage image : images) {
-            image.setRoomId(hsRoom.getId());
-            results.add(toAjax(hsRoomImageService.insertHsRoomImage(image)));
+        if (addRoomDTO.getHsRoomImages() != null) {
+            List<HsRoomImage> images = addRoomDTO.getHsRoomImages();
+            for (HsRoomImage image : images) {
+                image.setRoomId(hsRoom.getId());
+                results.add(toAjax(hsRoomImageService.insertHsRoomImage(image)));
+            }
         }
         return results;
     }

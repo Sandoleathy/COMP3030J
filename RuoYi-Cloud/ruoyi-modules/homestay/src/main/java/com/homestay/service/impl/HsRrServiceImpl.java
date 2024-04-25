@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.homestay.domain.HsReservation;
 import com.homestay.domain.HsRoom;
+import com.homestay.dto.HsRrDTO;
 import com.homestay.mapper.HsReservationMapper;
 import com.homestay.mapper.HsRoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,9 @@ public class HsRrServiceImpl implements IHsRrService {
      * @return 订单客户联合
      */
     @Override
-    public HsRr selectHsRrById(Long id) {
-        return hsRrMapper.selectHsRrById(id);
+    public HsRrDTO selectHsRrById(Long id) {
+        HsRr hsRr=hsRrMapper.selectHsRrById(id);
+        return new HsRrDTO(hsReservationMapper.selectHsReservationById(hsRr.getReservationId()), hsRoomMapper.selectHsRoomById(hsRr.getRoomId()));
     }
 
     /**
@@ -48,8 +50,13 @@ public class HsRrServiceImpl implements IHsRrService {
      * @return 订单客户联合
      */
     @Override
-    public List<HsRr> selectHsRrList(HsRr hsRr) {
-        return hsRrMapper.selectHsRrList(hsRr);
+    public List<HsRrDTO> selectHsRrList(HsRr hsRr) {
+        List<HsRr> hsRrList = hsRrMapper.selectHsRrList(hsRr);
+        List<HsRrDTO> hsRrDTOS = new ArrayList<>();
+        for (HsRr rr : hsRrList) {
+            hsRrDTOS.add(new HsRrDTO(hsReservationMapper.selectHsReservationById(rr.getReservationId()), hsRoomMapper.selectHsRoomById(rr.getRoomId())));
+        }
+        return hsRrDTOS;
     }
 
     /**
