@@ -9,7 +9,7 @@
             </el-main>
         </el-container>
         <el-container>
-            <el-main>
+            <el-main class="weather">
                 <!--111-->
                 <WeatherOverview></WeatherOverview>
             </el-main>
@@ -36,5 +36,8 @@ import { ElContainer, ElMain } from 'element-plus';
 .energy-chart{
     max-height: 30vh;
     
+}
+.weather{
+    max-width: 60vw;
 }
 </style>

@@ -7,7 +7,7 @@
             <p>{{ weatherText }}</p>
         </el-header>
         <el-main>
-
+            <WeatherForcastChart></WeatherForcastChart>
         </el-main>
     </el-container>
 </template>
@@ -15,6 +15,7 @@
 import { ref , onMounted } from 'vue';
 import { ElContainer, ElMain, ElHeader , ElMessage } from 'element-plus';
 import axios from 'axios';
+import WeatherForcastChart from './Charts/WeatherForecastChart.vue'
 
 const temperature = ref(0)
 const feelTemp = ref(0)
