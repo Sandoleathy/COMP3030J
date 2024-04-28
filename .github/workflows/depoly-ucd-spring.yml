@@ -39,7 +39,7 @@ jobs:
         username: student
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
-        source: "RuoYi-Cloud/ruoyi-auth/target/ruoyi-auth.jar,RuoYi-Cloud/ruoyi-gateway/target/ruoyi-gateway.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-system/target/ruoyi-modules-system.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-job/target/ruoyi-modules-job.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-gen/target/ruoyi-modules-gen.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-file/target/ruoyi-modules-file.jar,RuoYi-Cloud/ruoyi-modules/homestay/target/homestay.jar,RuoYi-Cloud/ruoyi-visual/ruoyi-monitor/target/ruoyi-visual-monitor.jar"
+        source: "RuoYi-Cloud/ruoyi-auth/target/ruoyi-auth.jar,RuoYi-Cloud/ruoyi-gateway/target/ruoyi-gateway.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-system/target/ruoyi-modules-system.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-job/target/ruoyi-modules-job.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-gen/target/ruoyi-modules-gen.jar,RuoYi-Cloud/ruoyi-modules/ruoyi-file/target/ruoyi-modules-file.jar,RuoYi-Cloud/ruoyi-modules/homestay/target/homestay.jar,RuoYi-Cloud/ruoyi-visual/ruoyi-monitor/target/ruoyi-visual-monitor.jar,RuoYi-Cloud/ruoyi-modules/homestay/target/statistics.jar"
         target: "~/spring/"
 
     # 在服务器上运行jar文件
@@ -57,3 +57,4 @@ jobs:
           java -jar ruoyi-gateway/target/ruoyi-gateway.jar &
           java -jar ruoyi-modules/ruoyi-system/target/ruoyi-modules-system.jar &
           java -jar ruoyi-modules/homestay/target/homestay.jar &
+          java -jar ruoyi-modules/homestay/target/statistics.jar &

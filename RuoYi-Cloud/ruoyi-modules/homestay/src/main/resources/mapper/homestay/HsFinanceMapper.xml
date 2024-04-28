@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsFinanceMapper">
+    
+    <resultMap type="HsFinance" id="HsFinanceResult">
+        <result property="id"    column="id"    />
+        <result property="time"    column="time"    />
+        <result property="type"    column="type"    />
+        <result property="num"    column="num"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectHsFinanceVo">
+        select id, time, type, num, description from hs_finance
+    </sql>
+
+    <select id="selectHsFinanceList" parameterType="HsFinance" resultMap="HsFinanceResult">
+        <include refid="selectHsFinanceVo"/>
+        <where>  
+            <if test="time != null "> and time = #{time}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="num != null "> and num = #{num}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+        ORDER BY
+        CASE WHEN type = '收入' THEN 1
+        WHEN type = '支出' THEN 2
+        ELSE 3
+        END,
+        time DESC
+    </select>
+    
+    <select id="selectHsFinanceById" parameterType="Long" resultMap="HsFinanceResult">
+        <include refid="selectHsFinanceVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsFinance" parameterType="HsFinance" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_finance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="time != null">time,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="num != null">num,</if>
+            <if test="description != null">description,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="time != null">#{time},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="num != null">#{num},</if>
+            <if test="description != null">#{description},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsFinance" parameterType="HsFinance">
+        update hs_finance
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="time != null">time = #{time},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="description != null">description = #{description},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsFinanceById" parameterType="Long">
+        delete from hs_finance where id = #{id}
+    </delete>
+
+    <delete id="deleteHsFinanceByIds" parameterType="String">
+        delete from hs_finance where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectFinanceByDate" parameterType="java.util.Date" resultMap="HsFinanceResult">
+        <include refid="selectHsFinanceVo"/>
+        where DATE(time) = DATE(#{date})
+        ORDER BY
+        CASE WHEN type = '收入' THEN 1
+        WHEN type = '支出' THEN 2
+        ELSE 3
+        END,
+        time DESC
+    </select>
+
+    <select id="selectFinancesBetweenDates" parameterType="com.homestay.dto.SelectFinanceDTO" resultMap="HsFinanceResult">
+        <include refid="selectHsFinanceVo"/>
+        WHERE DATE(time) BETWEEN DATE(#{startDate}) AND DATE(#{endDate})
+        ORDER BY
+        CASE WHEN type = '收入' THEN 1
+        WHEN type = '支出' THEN 2
+        ELSE 3
+        END,
+        time DESC
+    </select>
+
+</mapper>

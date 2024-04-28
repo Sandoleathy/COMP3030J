@@ -98,4 +98,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <update id="updateReservationStatusToPaid" parameterType="Long">
+        update hs_reservation
+        set reservation_status = '已支付'
+        where id = #{id}
+    </update>
+
 </mapper>

@@ -16,9 +16,6 @@ const router = createRouter({
       path: '/',
       name: 'entry',
       component: () => import('../views/MainView.vue')
-
-
-
     },
     {
       path: '/overview',
@@ -33,7 +30,7 @@ const router = createRouter({
     {
       path: '/Data',
       name: 'data',
-      component: () => import('../views/DataView.vue')
+      component: () => import('../views/ParkDataOverView.vue')
     },
     {
       path: '/login',

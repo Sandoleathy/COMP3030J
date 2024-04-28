@@ -5,6 +5,7 @@ import java.util.List;
 import com.homestay.domain.HsReservation;
 import com.homestay.domain.HsRoom;
 import com.homestay.domain.HsRr;
+import com.homestay.dto.HsRrDTO;
 
 /**
  * 订单客户联合Service接口
@@ -20,7 +21,7 @@ public interface IHsRrService
      * @param id 订单客户联合主键
      * @return 订单客户联合
      */
-    public HsRr selectHsRrById(Long id);
+    public HsRrDTO selectHsRrById(Long id);
 
     /**
      * 查询订单客户联合列表
@@ -28,7 +29,7 @@ public interface IHsRrService
      * @param hsRr 订单客户联合
      * @return 订单客户联合集合
      */
-    public List<HsRr> selectHsRrList(HsRr hsRr);
+    public List<HsRrDTO> selectHsRrList(HsRr hsRr);
 
     /**
      * 新增订单客户联合

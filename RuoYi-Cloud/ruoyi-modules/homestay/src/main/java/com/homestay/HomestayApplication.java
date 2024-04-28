@@ -20,7 +20,7 @@ public class HomestayApplication
     public static void main(String[] args)
     {
         SpringApplication.run(HomestayApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  测试模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ  民宿模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +
