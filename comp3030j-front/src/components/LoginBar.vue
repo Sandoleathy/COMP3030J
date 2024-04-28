@@ -1,9 +1,22 @@
 <template>
     <div class="navigation_bar">
-        <el-button type="text" class="nav-btn">Login</el-button>｜
-        <el-button type="text" class="nav-btn">Register</el-button>
+        <el-button type="text" class="nav-btn" @click="goToLoginPage">Log in</el-button>
+        <!-- <el-button type="text" class="nav-btn" @click="goToRegisterPage">Register</el-button> -->
     </div>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+const goToLoginPage = () => {
+    router.push({ name: 'login' });
+};
+
+// const goToRegisterPage = () => {
+//     router.push({ name: 'register' });
+// };
+</script>
 
 <style scoped>
 .navigation_bar {
@@ -12,8 +25,8 @@
     margin: 0;
     text-align: right;
     top: 0;
-    //position: absolute;
-    //width: 90vw;
+    position: absolute;
+    width: 90vw;
     position: fixed;
 
     left: 0;

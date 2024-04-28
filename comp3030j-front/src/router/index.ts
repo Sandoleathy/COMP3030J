@@ -36,9 +36,9 @@ const router = createRouter({
       component: () => import('../views/DataView.vue')
     },
     {
-      path: '/Login',
+      path: '/login',
       name: 'login',
-      component: () => import('../views/login.vue')
+      component: () => import('../views/Login.vue')
     },
     {
       path: '/Weather',
