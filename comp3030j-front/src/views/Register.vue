@@ -1,16 +1,16 @@
 <template>
-    <el-container class="login-container">
-        <el-form ref="loginForm" :model="loginForm" class="login-form" label-position="top">
-            <h2>Log in</h2>
+    <el-container class="register-container">
+        <el-form ref="registerForm" :model="registerForm" class="register-form" label-position="top">
+            <h2>Register</h2>
             <el-form-item label="Username">
-                <el-input v-model="loginForm.username" placeholder="Username"></el-input>
+                <el-input v-model="registerForm.username" placeholder="Username"></el-input>
             </el-form-item>
             <el-form-item label="Password">
-                <el-input type="password" v-model="loginForm.password" placeholder="Password"></el-input>
+                <el-input type="password" v-model="registerForm.password" placeholder="Password"></el-input>
             </el-form-item>
             <el-form-item class="action-items">
-                <el-button type="primary" @click="handleLogin">Log in</el-button>
-                <el-button type="text" class="register-link" @click="goToRegisterPage">Register</el-button>
+                <el-button type="primary" @click="handleRegister">Submit</el-button>
+                <el-button type="text" class="login-link" @click="goToLoginPage">Already have account? Log in</el-button>
                 <!-- <a href="#/register" class="register-link">Register</a> -->
             </el-form-item>
         </el-form>
@@ -22,26 +22,26 @@
 import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer } from 'element-plus';
 
-const loginForm = ref({
+const registerForm = ref({
     username: '',
     password: '',
 });
 
-const handleLogin = () => {
-    axios.get("http://127.0.0.1:4523/m1/4165167-3804762-default/auth/login", {
+const handleRegister = () => {
+    axios.get("http://127.0.0.1:4523/m1/4165167-3804762-default/auth/register", {
         params: {
-            "username": loginForm.username,
-            "password": loginForm.password
+            "username": registerForm.username,
+            "password": registerForm.password
         }
         
     }).then(response => {
         const data = response.data;
         // 根据服务器返回的数据进行相应的处理
         if (data.success) {
-            console.log("Login successful");
+            console.log("Register successful");
             // 添加登陆状态，返回首页
         } else {
-            console.log("Login failed");
+            console.log("Register failed");
             // 留在此页，让用户重新进行输入
         }
     }).catch(error => {
@@ -49,17 +49,12 @@ const handleLogin = () => {
     });
 };
 
-// function handleLogin() {
-//     console.log('Login attempt:', loginForm.value);
-//     // 这里可以添加真实的登录逻辑
-// }
-
-// 注册按钮跳转
+// 回到登录页的按钮跳转
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-const goToRegisterPage = () => {
-    router.push({ name: 'register' });
+const goToLoginPage = () => {
+    router.push({ name: 'login' });
 };
 </script>
 
@@ -76,7 +71,7 @@ html, body {
     height: 100%; /* 确保 Vue 的根元素也占满整个屏幕 */
 }
 
-.login-container {
+.register-container {
     display: flex;
     width: 100%;
     align-items: center; /* 垂直居中对齐 */
@@ -85,14 +80,14 @@ html, body {
 
 }
 
-.login-form {
+.register-form {
     width: 300px; /* 表单宽度 */
     padding: 35px; /* 内边距 */
     border-radius: 10px; /* 圆角 */
     background-color: white; /* 白色背景 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 简单的阴影效果增加立体感 */
 }
-.register-link {
+.login-link {
     color: #409EFF; /* Element UI 默认蓝色 */
     text-decoration: underline; /* 添加下划线 */
     margin-left: 60px; /* 与登录按钮的间距 */
