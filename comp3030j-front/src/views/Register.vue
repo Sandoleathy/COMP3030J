@@ -3,10 +3,10 @@
         <el-form ref="registerForm" :model="registerForm" class="register-form" label-position="top">
             <h2>Register</h2>
             <el-form-item label="Username">
-                <el-input v-model="registerForm.username" placeholder="Username"></el-input>
+                <el-input v-model="username" placeholder="Username"></el-input>
             </el-form-item>
             <el-form-item label="Password">
-                <el-input type="password" v-model="registerForm.password" placeholder="Password"></el-input>
+                <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
             </el-form-item>
             <el-form-item class="action-items">
                 <el-button type="primary" @click="handleRegister">Submit</el-button>
@@ -20,42 +20,55 @@
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
-const registerForm = ref({
-    username: '',
-    password: '',
-});
+const router = useRouter();
+
+var username = ref("")
+var password = ref("")
+
+const url = "http://localhost:8080/auth/register"
 
 const handleRegister = () => {
-    axios.get("http://127.0.0.1:4523/m1/4165167-3804762-default/auth/register", {
+    if(!checkInput()){
+        return
+    }
+    axios.get(url, {
         params: {
-            "username": registerForm.username,
-            "password": registerForm.password
+            "username": username.value,
+            "password": password.value
         }
         
     }).then(response => {
         const data = response.data;
+        ElMessage.success("Register successful!")
         // 根据服务器返回的数据进行相应的处理
-        if (data.success) {
-            console.log("Register successful");
-            // 添加登陆状态，返回首页
-        } else {
-            console.log("Register failed");
-            // 留在此页，让用户重新进行输入
-        }
     }).catch(error => {
-        console.error('Error fetching data:', error);
+        ElMessage.error("Error fetching data" + error)
+        //console.error('Error fetching data:', error);
     });
 };
 
 // 回到登录页的按钮跳转
-import { useRouter } from 'vue-router';
-const router = useRouter();
 
 const goToLoginPage = () => {
     router.push({ name: 'login' });
 };
+
+const checkInput = () => {
+    var isValid = true
+    if(username.value == ""){
+        ElMessage.warning("Username can not be empty!")
+        isValid = false
+    }
+    if(password.value == ""){
+        ElMessage.warning("Password can not be empty!")
+        isValid = false
+    }
+    return isValid
+}
 </script>
 
 <style scoped>

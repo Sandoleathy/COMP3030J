@@ -3,14 +3,14 @@
         <el-form ref="loginForm" :model="loginForm" class="login-form" label-position="top">
             <h2>Log in</h2>
             <el-form-item label="Username">
-                <el-input v-model="loginForm.username" placeholder="Username"></el-input>
+                <el-input v-model="username" placeholder="Username"></el-input>
             </el-form-item>
             <el-form-item label="Password">
-                <el-input type="password" v-model="loginForm.password" placeholder="Password"></el-input>
+                <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
             </el-form-item>
             <el-form-item class="action-items">
                 <el-button type="primary" @click="handleLogin">Log in</el-button>
-                <el-button type="text" class="register-link" @click="goToRegisterPage">Register</el-button>
+                <router-link class="link" to="register">Register</router-link>
                 <!-- <a href="#/register" class="register-link">Register</a> -->
             </el-form-item>
         </el-form>
@@ -20,47 +20,47 @@
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import axios from 'axios';
 
-const loginForm = ref({
-    username: '',
-    password: '',
-});
+var username = ref("")
+var password = ref("")
+
+const url = "http://localhost:8080/auth/login"
 
 const handleLogin = () => {
-    axios.get("http://127.0.0.1:4523/m1/4165167-3804762-default/auth/login", {
+    if(!checkInput()){
+        return
+    }
+    axios.get(url, {
         params: {
-            "username": loginForm.username,
-            "password": loginForm.password
+            "username": username.value,
+            "password": password.value
         }
         
     }).then(response => {
         const data = response.data;
+        ElMessage.success("Login successful!")
         // 根据服务器返回的数据进行相应的处理
-        if (data.success) {
-            console.log("Login successful");
-            // 添加登陆状态，返回首页
-        } else {
-            console.log("Login failed");
-            // 留在此页，让用户重新进行输入
-        }
     }).catch(error => {
-        console.error('Error fetching data:', error);
+        ElMessage.error("Error fetching data" + error)
+        //console.error('Error fetching data:', error);
     });
 };
 
-// function handleLogin() {
-//     console.log('Login attempt:', loginForm.value);
-//     // 这里可以添加真实的登录逻辑
-// }
+const checkInput = () => {
+    var isValid = true
+    if(username.value == ""){
+        ElMessage.warning("Username can not be empty!")
+        isValid = false
+    }
+    if(password.value == ""){
+        ElMessage.warning("Password can not be empty!")
+        isValid = false
+    }
+    return isValid
+}
 
-// 注册按钮跳转
-import { useRouter } from 'vue-router';
-const router = useRouter();
-
-const goToRegisterPage = () => {
-    router.push({ name: 'register' });
-};
 </script>
 
 <style scoped>
@@ -96,5 +96,9 @@ html, body {
     color: #409EFF; /* Element UI 默认蓝色 */
     text-decoration: underline; /* 添加下划线 */
     margin-left: 60px; /* 与登录按钮的间距 */
+}
+.link {
+    color: #409EFF;
+    border-radius: 10px;
 }
 </style>
