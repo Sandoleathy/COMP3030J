@@ -26,9 +26,10 @@ import axios from 'axios';
 var username = ref("")
 var password = ref("")
 
-const url = "http://localhost:8080/auth/login"
+const url = "/api/login"
 
 const handleLogin = () => {
+    //console.log("loging")
     if(!checkInput()){
         return
     }
@@ -40,6 +41,7 @@ const handleLogin = () => {
         
     }).then(response => {
         const data = response.data;
+        console.log(data.code)
         ElMessage.success("Login successful!")
         // 根据服务器返回的数据进行相应的处理
     }).catch(error => {

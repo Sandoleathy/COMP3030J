@@ -19,7 +19,8 @@
     "qweather-icons": "^1.6.0",
     "three": "^0.163.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "webpack-dev-server": "^5.0.4"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
