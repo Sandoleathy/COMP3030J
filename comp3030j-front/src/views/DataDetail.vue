@@ -1,8 +1,9 @@
 <template>
     <div class="container">
-        <loginBar></loginBar>
         <el-container>
-            <el-header></el-header>
+            <el-header class="header">
+                <loginBar></loginBar>
+            </el-header>
             <el-main>
                 <windDetail></windDetail>
             </el-main>
@@ -25,9 +26,19 @@ Chart.register(...registerables);
 </script>
 
 <style scoped>
+ html,body,#app{
+        height:100%;
+        margin: 0px;
+        padding: 0px;
+}
 .container {
     min-width: 100vw;
     width: 90%;/* 根据实际内容调整 */
     background: white
+}
+.header{
+    padding: 0px;
+    margin: 0;
+    width: 100%;
 }
 </style>

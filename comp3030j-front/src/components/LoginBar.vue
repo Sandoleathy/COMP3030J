@@ -27,7 +27,7 @@ const goToLoginPage = () => {
     top: 0;
     position: absolute;
     width: 90vw;
-    position: fixed;
+    position: relative;
 
     left: 0;
     width: 100%; /* 确保导航栏宽度与视窗宽度一致 */
