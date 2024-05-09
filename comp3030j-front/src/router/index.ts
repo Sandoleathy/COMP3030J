@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: '/overview',
       name: 'overview',
-      component: () => import('../views/ObjTest.vue')
+      component: () => import('../views/DataDetail.vue')
     },
     {
       path: '/My',
@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: '/Data',
       name: 'data',
-      component: () => import('../views/ParkDataOverView.vue')
+      component: () => import('../views/DataOverView.vue')
     },
     {
       path: '/login',

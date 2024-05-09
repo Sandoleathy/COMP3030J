@@ -42,7 +42,7 @@ const handleLogin = () => {
         if(data.code == 200){
             ElMessage.success("Login successful! Welcome back ")
             //登陆成功,进行后续处理
-            sessionStorage.setItem("token" , data.access_token)
+            sessionStorage.setItem("token" , data.data.access_token)
             sessionStorage.setItem("username" , username.value)
         }else{
             ElMessage.error(data.msg)
