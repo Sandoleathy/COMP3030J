@@ -26,23 +26,27 @@ import axios from 'axios';
 var username = ref("")
 var password = ref("")
 
-const url = "/api/login"
+const url = "/api/auth/login"
 
 const handleLogin = () => {
-    //console.log("loging")
+    //console.log(username.value)
     if(!checkInput()){
         return
     }
-    axios.get(url, {
-        params: {
-            "username": username.value,
-            "password": password.value
-        }
-        
+    axios.post(url, {
+        username: username.value,
+        password: password.value  
     }).then(response => {
         const data = response.data;
-        console.log(data.code)
-        ElMessage.success("Login successful!")
+        console.log(data)
+        if(data.code == 200){
+            ElMessage.success("Login successful! Welcome back ")
+            //登陆成功,进行后续处理
+            sessionStorage.setItem("token" , data.access_token)
+            sessionStorage.setItem("username" , username.value)
+        }else{
+            ElMessage.error(data.msg)
+        }
         // 根据服务器返回的数据进行相应的处理
     }).catch(error => {
         ElMessage.error("Error fetching data" + error)

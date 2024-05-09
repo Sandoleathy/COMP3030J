@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,18 +50,30 @@ const router = createRouter({
     },
   ]
 })
-/*
-// 路由守卫模板
+
+const whiteList = ['/login' , '/register' , '/']
+
 router.beforeEach((to, from, next) => {
-  // 在这里添加你的逻辑，例如检查用户权限
-  if (to.name === 'about' && !userHasPermissionToViewAboutPage()) {
-    // 如果用户没有权限访问 about 页面，则重定向到首页
-    next('/');
-  } else {
-    // 如果用户有权限或者访问的是其他页面，则放行
-    next();
+  // 在这里进行权限验证、登录判断等操作
+  if (whiteList.indexOf(to.path) !== -1) {
+    // 在免登录白名单，直接进入
+    next()
   }
+  else if(sessionStorage.getItem("token") == null){
+    //没有登录
+    ElMessage.warning("You have not logged in. Please login first")
+    next('/login')
+  }
+  next() // 跳转到下一个路由
 })
-*/
+
+router.afterEach(() => {
+  // 跳转后的操作
+})
+
+router.beforeResolve((to, from, next) => {
+  // 在导航被确认之前的操作
+  next()
+})
 
 export default router

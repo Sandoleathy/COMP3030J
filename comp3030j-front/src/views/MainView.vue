@@ -9,6 +9,7 @@
             </el-main>
         </el-container>
     </div>
+
 </template>
 
 <script setup>
@@ -16,6 +17,7 @@ import api from '../api'
 import {onMounted} from 'vue'
 import loginBar from '../components/LoginBar.vue'
 import firstPage from '../components/FirstPage.vue'
+import Footer from '../components/Footer.vue'
 
 //axios的get方法例子
 const clickTest = () => {

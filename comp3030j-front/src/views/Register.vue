@@ -29,25 +29,21 @@ const router = useRouter();
 var username = ref("")
 var password = ref("")
 
-const url = "http://localhost:8080/auth/register"
+const url = "/api/auth/register"
 
 const handleRegister = () => {
     if(!checkInput()){
         return
     }
     axios.get(url, {
-        params: {
-            "username": username.value,
-            "password": password.value
-        }
-        
+        username: username.value,
+        password: password.value 
     }).then(response => {
         const data = response.data;
         ElMessage.success("Register successful!")
         // 根据服务器返回的数据进行相应的处理
     }).catch(error => {
         ElMessage.error("Error fetching data" + error)
-        //console.error('Error fetching data:', error);
     });
 };
 
