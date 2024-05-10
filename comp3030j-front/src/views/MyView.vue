@@ -1,4 +1,22 @@
-<script setup lang="ts">
+<template>
+    <div class="navigation_bar" style="width: 100%;">
+        <el-container class="container">
+            <el-header class="header">
+                <ReservationPage />
+            </el-header>
+            <el-container>
+                <el-aside class="aside" width="200px">
+                    <SideBar :activeIndex="activeIndex" @update:index="updateIndex" />
+                </el-aside>
+                <el-main class="main">
+                    <component :is="currentComponent" />
+                </el-main>
+            </el-container>
+        </el-container>
+    </div>
+</template>
+
+<script lang="ts" setup>
 import { ref, computed } from 'vue'
 import type { Component } from 'vue';
 import ReservationPage from '../components/ReservationMenu.vue'
@@ -8,6 +26,7 @@ import OrderInformation from '../components/Order.vue'
 
 const activeIndex = ref('3');
 
+// Computed property to determine which component to render
 const currentComponent = computed((): Component | null => {
     switch (activeIndex.value) {
         case '1':
@@ -18,26 +37,12 @@ const currentComponent = computed((): Component | null => {
             return null;
     }
 });
+
+const updateIndex = (index: string) => {
+    activeIndex.value = index;
+};
 </script>
 
-
-<template>
-    <div class="navigation_bar" style="width: 100%;">
-        <el-container class="container">
-            <el-header class="header">
-                <ReservationPage />
-            </el-header>
-            <el-container>
-                <el-aside class="aside" width="200px">
-                    <SideBar @update:index="index => { console.log('Received index:', index); activeIndex.value = index }" />
-                </el-aside>
-                <el-main class="main">
-                    <component :is="currentComponent" v-if="currentComponent" />
-                </el-main>
-            </el-container>
-        </el-container>
-    </div>
-</template>
 
 
 <style scoped>
