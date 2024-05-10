@@ -72,7 +72,7 @@ onMounted(() => {
 const getMyInfo = async () => {
     try {
         const token = sessionStorage.getItem("token");
-        console.log("Token is:", token);
+        //console.log("Token is:", token);
         const response = await axios.get("/api/system/user/profile", {
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -80,6 +80,7 @@ const getMyInfo = async () => {
         });
 
         const data = response.data;
+        console.log(data)
         phoneNumber.value = data.data.phonenumber;
         name.value = data.data.nickName;
         email.value = data.data.email;
