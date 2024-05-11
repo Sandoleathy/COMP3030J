@@ -6,6 +6,7 @@
             </el-header>
             <el-main>
                 <windDetail></windDetail>
+                <solarDetail></solarDetail>
             </el-main>
         </el-container>
     </div>
@@ -17,6 +18,7 @@ import { ElContainer, ElHeader, ElMain, ElMenu, ElMenuItem, ElRow, ElCol } from 
 import { Chart, registerables } from 'chart.js';
 import loginBar from '../components/LoginBar.vue';
 import windDetail from '../components/ParkInformationBlock/WindDetail.vue';
+import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue'
 
 Chart.register(...registerables);
 
