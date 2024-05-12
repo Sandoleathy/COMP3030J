@@ -108,7 +108,7 @@
     padding-top: 60px;
 }
 .fixed-top {
-    position: fixed;
+    position: absolute;
     top: 50px;
     left: 0;
     width: 100%; /* 确保导航栏宽度与视窗宽度一致 */

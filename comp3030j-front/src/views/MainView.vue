@@ -7,6 +7,9 @@
             <el-main class="main">
                 <firstPage></firstPage>
             </el-main>
+            <el-footer class="footer">
+                <Footer></Footer>
+            </el-footer>
         </el-container>
     </div>
 
@@ -18,6 +21,7 @@ import {onMounted} from 'vue'
 import loginBar from '../components/LoginBar.vue'
 import firstPage from '../components/FirstPage.vue'
 import Footer from '../components/Footer.vue'
+import { ElContainer, ElHeader, ElMain, ElFooter } from 'element-plus'
 
 //axios的get方法例子
 const clickTest = () => {
@@ -41,7 +45,6 @@ onMounted( () => {
    top:0;
     left: 0;
     position: absolute;
-    min-width: 100vw; /* 根据实际内容调整 */
 }
 
 @media (max-width: 1024px) {
@@ -52,6 +55,9 @@ onMounted( () => {
 
 .header, .main {
     margin: 0;
+    padding: 0;
+}
+.footer{
     padding: 0;
 }
 </style>
