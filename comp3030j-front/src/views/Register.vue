@@ -1,20 +1,23 @@
 <template>
-    <el-container class="register-container">
-        <el-form ref="registerForm" :model="registerForm" class="register-form" label-position="top">
-            <h2>Register</h2>
-            <el-form-item label="Username">
-                <el-input v-model="username" placeholder="Username"></el-input>
-            </el-form-item>
-            <el-form-item label="Password">
-                <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
-            </el-form-item>
-            <el-form-item class="action-items">
-                <el-button type="primary" @click="handleRegister">Submit</el-button>
-                <el-button type="text" class="login-link" @click="goToLoginPage">Already have account? Log in</el-button>
-                <!-- <a href="#/register" class="register-link">Register</a> -->
-            </el-form-item>
-        </el-form>
-    </el-container>
+    <div class="container">
+        <div id="background"></div>
+        <el-container class="register-container">
+            <el-form ref="registerForm" :model="registerForm" class="register-form" label-position="top">
+                <h2>Register</h2>
+                <el-form-item label="Username">
+                    <el-input v-model="username" placeholder="Username"></el-input>
+                </el-form-item>
+                <el-form-item label="Password">
+                    <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
+                </el-form-item>
+                <el-form-item class="action-items">
+                    <el-button type="primary" @click="handleRegister">Submit</el-button>
+                    <el-button type="text" class="login-link" @click="goToLoginPage">Already have account? Log in</el-button>
+                    <!-- <a href="#/register" class="register-link">Register</a> -->
+                </el-form-item>
+            </el-form>
+        </el-container>
+    </div>
 </template>
 
 
@@ -68,7 +71,20 @@ const checkInput = () => {
 </script>
 
 <style scoped>
-/* 全局样式文件或 App.vue 中的 <style> 标签 */
+#background{
+    background-color: #f0f0f0; /* 设置背景颜色 */
+    background-image: url('/images/login-background.jpg'); /* 设置背景图片 */
+    background-size: cover; /* 图片尺寸适应 */
+    background-repeat: no-repeat; /* 不重复平铺 */
+
+    position: absolute; /* 设置绝对定位 */
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+.container{
+    width: 100%;
+}
 html, body {
     height: 100%; /* 设置高度为视窗高度 */
     margin: 0; /* 移除默认外边距 */
@@ -99,6 +115,5 @@ html, body {
 .login-link {
     color: #409EFF; /* Element UI 默认蓝色 */
     text-decoration: underline; /* 添加下划线 */
-    margin-left: 60px; /* 与登录按钮的间距 */
 }
 </style>

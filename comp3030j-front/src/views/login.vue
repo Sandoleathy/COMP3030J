@@ -1,20 +1,27 @@
 <template>
-    <el-container class="login-container">
-        <el-form ref="loginForm" :model="loginForm" class="login-form" label-position="top">
-            <h2>Log in</h2>
-            <el-form-item label="Username">
-                <el-input v-model="username" placeholder="Username"></el-input>
-            </el-form-item>
-            <el-form-item label="Password">
-                <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
-            </el-form-item>
-            <el-form-item class="action-items">
-                <el-button type="primary" @click="handleLogin">Log in</el-button>
-                <router-link class="link" to="register">Register</router-link>
-                <!-- <a href="#/register" class="register-link">Register</a> -->
-            </el-form-item>
-        </el-form>
-    </el-container>
+    
+    <div class="container">
+        <div id="background">
+
+        </div>
+        <el-container class="login-container">
+            <el-form class="login-form" label-position="top">
+                <h2>Log In</h2>
+                <el-form-item label="Username">
+                    <el-input v-model="username" placeholder="Username"></el-input>
+                </el-form-item>
+                <el-form-item label="Password">
+                    <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
+                </el-form-item>
+                <el-form-item class="action-items">
+                    <el-button type="primary" @click="handleLogin">Log in</el-button>
+                    <router-link class="link" to="register" style="margin-left: 20px;">Register</router-link>
+                </el-form-item>
+                
+            </el-form>
+        </el-container>
+    </div>
+    
 </template>
 
 
@@ -70,7 +77,17 @@ const checkInput = () => {
 </script>
 
 <style scoped>
-/* 全局样式文件或 App.vue 中的 <style> 标签 */
+#background{
+    background-color: #f0f0f0; /* 设置背景颜色 */
+    background-image: url('/images/login-background.jpg'); /* 设置背景图片 */
+    background-size: cover; /* 图片尺寸适应 */
+    background-repeat: no-repeat; /* 不重复平铺 */
+
+    position: absolute; /* 设置绝对定位 */
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
 html, body {
     height: 100%; /* 设置高度为视窗高度 */
     margin: 0; /* 移除默认外边距 */
@@ -81,7 +98,9 @@ html, body {
 #app {
     height: 100%; /* 确保 Vue 的根元素也占满整个屏幕 */
 }
-
+.container{
+    width: 100%;
+}
 .login-container {
     display: flex;
     width: 100%;

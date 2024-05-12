@@ -4,9 +4,12 @@
             <el-header class="header">
                 <loginBar></loginBar>
             </el-header>
-            <el-main>
+            <el-main class="main">
                 <windDetail></windDetail>
+                <el-divider></el-divider>
                 <solarDetail></solarDetail>
+                <el-divider></el-divider>
+                
             </el-main>
         </el-container>
     </div>
@@ -14,7 +17,7 @@
 </template>
 
 <script setup>
-import { ElContainer, ElHeader, ElMain, ElMenu, ElMenuItem, ElRow, ElCol } from 'element-plus';
+import { ElContainer, ElHeader, ElMain, ElMenu, ElMenuItem, ElRow, ElCol, ElDivider } from 'element-plus';
 import { Chart, registerables } from 'chart.js';
 import loginBar from '../components/LoginBar.vue';
 import windDetail from '../components/ParkInformationBlock/WindDetail.vue';
@@ -42,5 +45,8 @@ Chart.register(...registerables);
     padding: 0px;
     margin: 0;
     width: 100%;
+}
+.main{
+    max-width: 100%
 }
 </style>
