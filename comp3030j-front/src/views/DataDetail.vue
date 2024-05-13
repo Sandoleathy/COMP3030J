@@ -26,6 +26,9 @@
                                 <el-collapse-item name="2" title="Solar Panel">
                                     <solarDetail></solarDetail>
                                 </el-collapse-item>
+                                <el-collapse-item name="3" title="Hydraulic Generator">
+                                    <waterDetail></waterDetail>
+                                </el-collapse-item>
                             </el-collapse>
                         </div>
                         <div v-if="pageNum=='2'">
@@ -46,6 +49,7 @@ import loginBar from '../components/LoginBar.vue';
 import windDetail from '../components/ParkInformationBlock/WindDetail.vue';
 import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue';
 import weatherInfo from '../components/WeatherOverview.vue'
+import waterDetail from '../components/ParkInformationBlock/WaterDetail.vue';
 import { ref } from 'vue'
 
 //Chart.register(...registerables);
