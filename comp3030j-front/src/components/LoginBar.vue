@@ -67,7 +67,7 @@ onMounted( ()=> {
 <style scoped>
 .navigation_bar {
     background-color: #409EFF;
-    padding: 10px 100px;
+    padding: 10px 80px;
     margin: 0;
     text-align: right;
     top: 0;

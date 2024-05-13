@@ -2,6 +2,9 @@
     <!--园区信息展示-用户-->
     <container class="container">
         <el-container >
+            <el-header>
+                
+            </el-header>
             <el-main>
                 <div >
                     <EnergyOverviewChart class="energy-chart"></EnergyOverviewChart>
@@ -23,7 +26,7 @@
 <script setup>
 import EnergyOverviewChart from "/src/components/Charts/EnergyOverviewChart.vue"
 import WeatherOverview from "/src/components/WeatherOverview.vue"
-import { ElContainer, ElMain } from 'element-plus';
+import { ElContainer, ElMain, ElHeader, ElTabs, ElTabPane } from 'element-plus';
 
 </script>
 <style scoped>
