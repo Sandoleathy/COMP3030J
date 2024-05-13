@@ -14,7 +14,12 @@
                     <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
-                    <el-button type="primary" @click="handleLogin">Log in</el-button>
+                    <el-button type="primary" @click="handleLogin" :disabled="isLoading">
+                        <span v-if="!isLoading">Log in</span>
+                        <el-icon v-if="isLoading" class="is-loading">
+                            <Loading />
+                        </el-icon>
+                    </el-button>
                     <router-link class="link" to="register" style="margin-left: 20px;">Register</router-link>
                 </el-form-item>
                 
@@ -27,7 +32,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
@@ -35,10 +40,12 @@ var username = ref("")
 var password = ref("")
 const router = useRouter();
 
+const isLoading = ref(false)
 const url = "/api/auth/login"
 
 const handleLogin = () => {
     //console.log(username.value)
+    isLoading.value = true;
     if(!checkInput()){
         return
     }
@@ -46,6 +53,7 @@ const handleLogin = () => {
         username: username.value,
         password: password.value  
     }).then(response => {
+        isLoading.value = false
         const data = response.data;
         console.log(data)
         if(data.code == 200){
