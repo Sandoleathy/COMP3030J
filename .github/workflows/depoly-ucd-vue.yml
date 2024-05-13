@@ -26,4 +26,7 @@ jobs:
             git pull
             npm install
             nohup npm run dev > /dev/null 2>&1 &
+            cd ../../comp3030j-front
+            npm install
+            nohup npm run dev > /dev/null 2>&1 &
           EOF
