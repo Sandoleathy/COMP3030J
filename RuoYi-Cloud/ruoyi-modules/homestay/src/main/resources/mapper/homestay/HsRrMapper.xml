@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="reservationId != null "> and reservation_id = #{reservationId}</if>
             <if test="roomId != null "> and room_id = #{roomId}</if>
         </where>
+        ORDER BY reservation_id DESC
     </select>
     
     <select id="selectHsRrById" parameterType="Long" resultMap="HsRrResult">

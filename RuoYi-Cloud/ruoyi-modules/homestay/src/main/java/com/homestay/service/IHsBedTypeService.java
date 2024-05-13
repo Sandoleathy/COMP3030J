@@ -19,7 +19,7 @@ public interface IHsBedTypeService
      * @param id 民宿床类型主键
      * @return 民宿床类型
      */
-    public HsBedType selectHsBedTypeById(Long id);
+    public AddBedTypeDTO selectHsBedTypeById(Long id);
 
     /**
      * 查询民宿床类型列表

@@ -58,4 +58,13 @@ public interface HsReservationMapper
      * @return 结果
      */
     public int deleteHsReservationByIds(Long[] ids);
+
+    /**
+     * 更新预订状态为“已支付”
+     *
+     * @param id 民宿预订主键
+     * @return 结果
+     */
+    public int updateReservationStatusToPaid(Long id);
+
 }

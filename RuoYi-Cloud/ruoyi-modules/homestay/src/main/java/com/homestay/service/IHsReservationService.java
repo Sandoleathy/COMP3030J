@@ -28,7 +28,7 @@ public interface IHsReservationService
      * @param hsReservation 民宿预订
      * @return 民宿预订集合
      */
-    public List<HsReservation> select(HsReservation hsReservation);
+    public List<ReservationDTO> select(HsReservation hsReservation);
 
     /**
      * 新增民宿预订
@@ -62,5 +62,13 @@ public interface IHsReservationService
      */
     public int deleteHsReservationById(Long id);
 
+
+    /**
+     * 更新预订状态为“已支付”
+     *
+     * @param id 民宿预订主键
+     * @return 结果
+     */
+    public int updateReservationStatusToPaid(Long id,String description);
 
 }

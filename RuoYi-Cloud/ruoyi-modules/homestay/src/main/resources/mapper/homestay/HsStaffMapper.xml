@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.homestay.mapper.HsStaffMapper">
+    
+    <resultMap type="HsStaff" id="HsStaffResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="userId"    />
+        <result property="salary"    column="salary"    />
+        <result property="attendance"    column="attendance"    />
+    </resultMap>
+
+    <sql id="selectHsStaffVo">
+        select id, userId, salary, attendance from hs_staff
+    </sql>
+
+    <select id="selectHsStaffList" parameterType="HsStaff" resultMap="HsStaffResult">
+        <include refid="selectHsStaffVo"/>
+        <where>  
+            <if test="userId != null "> and userId = #{userId}</if>
+            <if test="salary != null "> and salary = #{salary}</if>
+            <if test="attendance != null "> and attendance = #{attendance}</if>
+        </where>
+    </select>
+    
+    <select id="selectHsStaffById" parameterType="Long" resultMap="HsStaffResult">
+        <include refid="selectHsStaffVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertHsStaff" parameterType="HsStaff" useGeneratedKeys="true" keyProperty="id">
+        insert into hs_staff
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">userId,</if>
+            <if test="salary != null">salary,</if>
+            <if test="attendance != null">attendance,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="salary != null">#{salary},</if>
+            <if test="attendance != null">#{attendance},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHsStaff" parameterType="HsStaff">
+        update hs_staff
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">userId = #{userId},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="attendance != null">attendance = #{attendance},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHsStaffById" parameterType="Long">
+        delete from hs_staff where id = #{id}
+    </delete>
+
+    <delete id="deleteHsStaffByIds" parameterType="String">
+        delete from hs_staff where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

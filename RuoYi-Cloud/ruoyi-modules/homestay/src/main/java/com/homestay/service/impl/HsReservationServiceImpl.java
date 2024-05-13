@@ -1,17 +1,16 @@
 package com.homestay.service.impl;
 
-import com.homestay.domain.HsGuest;
-import com.homestay.domain.HsReservation;
-import com.homestay.domain.HsRr;
-import com.homestay.mapper.HsGuestMapper;
-import com.homestay.mapper.HsReservationMapper;
-import com.homestay.mapper.HsRoomMapper;
-import com.homestay.mapper.HsRrMapper;
+import com.homestay.domain.*;
+import com.homestay.dto.ReservationDTO;
+import com.homestay.mapper.*;
 import com.homestay.service.IHsReservationService;
+import com.ruoyi.system.api.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +30,12 @@ public class HsReservationServiceImpl implements IHsReservationService {
     @Autowired
     private HsRrMapper hsRrMapper;
 
+    @Autowired
+    private HsFinanceMapper hsFinanceMapper;
+
+    @Autowired
+    private HsRoomMapper hsRoomMapper;
+
     /**
      * 查询民宿预订
      *
@@ -49,8 +54,23 @@ public class HsReservationServiceImpl implements IHsReservationService {
      * @return 民宿预订
      */
     @Override
-    public List<HsReservation> select(HsReservation hsReservation) {
-        return hsReservationMapper.selectHsReservationList(hsReservation);
+    public List<ReservationDTO> select(HsReservation hsReservation) {
+        List<ReservationDTO> reservationDTOList = new ArrayList<>();
+        List<HsReservation> reservations = hsReservationMapper.selectHsReservationList(hsReservation);
+        List<HsRoom> rooms = new ArrayList<>();
+        List<SysUser> sysUsers = new ArrayList<>();
+        for (HsReservation reservation : reservations) {
+            List<HsRr> hsRrList = hsRrMapper.selectHsRrByReservationId(reservation.getId());
+            for (HsRr hsRr : hsRrList) {
+                rooms.add(hsRoomMapper.selectHsRoomById(hsRr.getRoomId()));
+            }
+            List<HsGuest> hsGuestList = hsGuestMapper.selectHsGuestsByReservationId(reservation.getId());
+            for (HsGuest hsGuest : hsGuestList) {
+                sysUsers.add(hsGuestMapper.selectSysUserById(hsGuest.getGuestId()));
+            }
+            reservationDTOList.add(new ReservationDTO(reservation, rooms, sysUsers));
+        }
+        return reservationDTOList;
     }
 
     /**
@@ -110,4 +130,19 @@ public class HsReservationServiceImpl implements IHsReservationService {
         }
         return hsReservationMapper.deleteHsReservationById(id);
     }
+
+    @Override
+    public int updateReservationStatusToPaid(Long id, String description) {
+        HsReservation hsReservation = hsReservationMapper.selectHsReservationById(id);
+        if (hsReservation != null) {
+            HsFinance hsFinance = new HsFinance();
+            hsFinance.setTime(hsReservation.getReservationTime());
+            hsFinance.setType("收入");
+            hsFinance.setNum(new BigDecimal(hsReservation.getTotalPrice()));
+            hsFinance.setDescription(description);
+            hsFinanceMapper.insertHsFinance(hsFinance);
+        }
+        return hsReservationMapper.updateReservationStatusToPaid(id);
+    }
+
 }

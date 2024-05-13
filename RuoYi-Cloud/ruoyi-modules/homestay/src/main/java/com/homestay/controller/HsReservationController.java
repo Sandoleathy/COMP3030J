@@ -4,6 +4,7 @@ import com.homestay.domain.HsGuest;
 import com.homestay.domain.HsReservation;
 import com.homestay.domain.HsRr;
 import com.homestay.dto.AddReservationDTO;
+import com.homestay.dto.ReservationDTO;
 import com.homestay.service.IHsGuestService;
 import com.homestay.service.IHsReservationService;
 import com.homestay.service.IHsRrService;
@@ -46,7 +47,7 @@ public class HsReservationController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(HsReservation hsReservation) {
         startPage();
-        List<HsReservation> reservationDTOList = hsReservationService.select(hsReservation);
+        List<ReservationDTO> reservationDTOList = hsReservationService.select(hsReservation);
         return getDataTable(reservationDTOList);
     }
 
@@ -57,8 +58,8 @@ public class HsReservationController extends BaseController {
     @Log(title = "民宿预订", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsReservation hsReservation) {
-        List<HsReservation> list = hsReservationService.select(hsReservation);
-        ExcelUtil<HsReservation> util = new ExcelUtil<HsReservation>(HsReservation.class);
+        List<ReservationDTO> list = hsReservationService.select(hsReservation);
+        ExcelUtil<ReservationDTO> util = new ExcelUtil<ReservationDTO>(ReservationDTO.class);
         util.exportExcel(response, list, "民宿预订数据");
     }
 
@@ -125,5 +126,15 @@ public class HsReservationController extends BaseController {
             results.add(toAjax(i));
         }
         return results;
+    }
+
+    /**
+     * 支付订单
+     */
+    @RequiresPermissions("homestay:reservation:pay")
+    @Log(title = "民宿预订", businessType = BusinessType.UPDATE)
+    @PostMapping("/pay")
+    public AjaxResult updateReservationStatusToPaid(Long id, String description) {
+        return toAjax(hsReservationService.updateReservationStatusToPaid(id, description));
     }
 }

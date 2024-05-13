@@ -1,4 +1,27 @@
 <script lang="ts" setup>
+import {onMounted, ref} from 'vue';
+import axios from "axios";
+
+let bedType=ref('')
+
+onMounted(() => {
+    getRoomInfo();
+});
+
+const getRoomInfo = () => {
+    axios.get("/api/homestay/room/list", {
+
+    }).then(response => {
+        const data = response.data;
+        console.log(data)
+        bedType.value=data.bedType
+
+    }).catch(error => {
+        console.error('Error fetching data:', error);
+
+    });
+};
+
 
 </script>
 
@@ -13,7 +36,7 @@
             </el-col>
             <el-col :span="4" class="column">
                 <div>
-                    <h2>Double Room</h2>
+                    <h2>{{bedType}}</h2>
                     <h4>One king-size bed</h4>
                     <h4>Area: 34m²</h4>
                     <h4>With Window</h4>

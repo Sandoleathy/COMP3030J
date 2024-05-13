@@ -1,30 +1,7 @@
-<script setup>
-import { ref, defineEmits } from 'vue';
-const emit = defineEmits(['update:index'])
-
-const activeIndex = ref('3')
-
-
-const updateActiveIndex = (index) => {
-    activeIndex.value = index;
-    console.log("Emitting index:", index);
-    emit('update:index', index);
-};
-
-
-
-// function goToMainView() {
-//     router.push({ name: 'entry' });
-// }
-
-</script>
-
 <template>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="vertical"
-             :ellipsis="false" @select="updateActiveIndex">
-        <el-menu-item index="0" @click="goToMainView">Home
-        </el-menu-item>
-        <div class="flex-grow" />
+             :ellipsis="false" @select="handleSelect">
+        <el-menu-item index="0">Home</el-menu-item>
         <el-menu-item index="1">Order</el-menu-item>
         <el-sub-menu index="2">
             <template #title>Common Information</template>
@@ -35,6 +12,21 @@ const updateActiveIndex = (index) => {
         <el-menu-item index="3">My Information</el-menu-item>
     </el-menu>
 </template>
+
+<script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+    activeIndex: String
+});
+
+const emit = defineEmits(['update:index']);
+
+const handleSelect = (index: string) => {
+    emit('update:index', index);
+};
+</script>
+
 
 <style scoped>
 

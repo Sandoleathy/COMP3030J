@@ -1,39 +1,120 @@
 <template>
-    <el-container class="login-container">
-        <el-form ref="loginForm" :model="loginForm" class="login-form" label-position="top">
-            <h2>Login</h2>
-            <el-form-item label="Username">
-                <el-input v-model="loginForm.username" placeholder="Username"></el-input>
-            </el-form-item>
-            <el-form-item label="Password">
-                <el-input type="password" v-model="loginForm.password" placeholder="Password"></el-input>
-            </el-form-item>
-            <el-form-item class="action-items">
-                <el-button type="primary" @click="handleLogin">Log in</el-button>
-                <a href="#/register" class="register-link">Register</a>
-            </el-form-item>
-        </el-form>
-    </el-container>
+    
+    <div class="container">
+        <div id="background">
+
+        </div>
+        <el-container class="login-container">
+            <el-form class="login-form" label-position="top">
+                <h2>Log In</h2>
+                <el-form-item label="Username">
+                    <el-input v-model="username" placeholder="Username"></el-input>
+                </el-form-item>
+                <el-form-item label="Password">
+                    <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
+                </el-form-item>
+                <el-form-item class="action-items">
+                    <el-button type="primary" @click="handleLogin">Log in</el-button>
+                    <router-link class="link" to="register" style="margin-left: 20px;">Register</router-link>
+                </el-form-item>
+                
+            </el-form>
+        </el-container>
+    </div>
+    
 </template>
 
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
 
-const loginForm = ref({
-    username: '',
-    password: '',
-});
+var username = ref("")
+var password = ref("")
+const router = useRouter();
 
-function handleLogin() {
-    console.log('Login attempt:', loginForm.value);
-    // 这里可以添加真实的登录逻辑
+const url = "/api/auth/login"
+
+const handleLogin = () => {
+    //console.log(username.value)
+    if(!checkInput()){
+        return
+    }
+    axios.post(url, {
+        username: username.value,
+        password: password.value  
+    }).then(response => {
+        const data = response.data;
+        console.log(data)
+        if(data.code == 200){
+            ElMessage.success("Login successful! Welcome back ")
+            //登陆成功,进行后续处理
+            sessionStorage.setItem("token" , data.data.access_token)
+            sessionStorage.setItem("username" , username.value)
+            getUserType(data.data.access_token)
+
+            if(sessionStorage.getItem("isAdmin") == 'true'){
+                router.push('/admin')
+            }else{
+                router.push('/')
+            }
+        }else{
+            ElMessage.error(data.msg)
+        }
+        // 根据服务器返回的数据进行相应的处理
+    }).catch(error => {
+        ElMessage.error("Error fetching data" + error)
+        //console.error('Error fetching data:', error);
+    });
+};
+
+const getUserType = (token) => {
+    axios.get('api/system/user/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+    }
+    }).then(response => {
+      const data = response.data
+      if(data.data.admin == true){
+        sessionStorage.setItem("isAdmin" , true)
+      }else{
+        sessionStorage.setItem("isAdmin" , false)
+      }
+      console.log(sessionStorage.getItem("isAdmin"))
+    }).catch(error => {
+      console.error(error)
+    })
 }
+
+const checkInput = () => {
+    var isValid = true
+    if(username.value == ""){
+        ElMessage.warning("Username can not be empty!")
+        isValid = false
+    }
+    if(password.value == ""){
+        ElMessage.warning("Password can not be empty!")
+        isValid = false
+    }
+    return isValid
+}
+
 </script>
 
 <style scoped>
-/* 全局样式文件或 App.vue 中的 <style> 标签 */
+#background{
+    background-color: #f0f0f0; /* 设置背景颜色 */
+    background-image: url('/images/login-background.jpg'); /* 设置背景图片 */
+    background-size: cover; /* 图片尺寸适应 */
+    background-repeat: no-repeat; /* 不重复平铺 */
+
+    position: absolute; /* 设置绝对定位 */
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
 html, body {
     height: 100%; /* 设置高度为视窗高度 */
     margin: 0; /* 移除默认外边距 */
@@ -44,7 +125,9 @@ html, body {
 #app {
     height: 100%; /* 确保 Vue 的根元素也占满整个屏幕 */
 }
-
+.container{
+    width: 100%;
+}
 .login-container {
     display: flex;
     width: 100%;
@@ -65,5 +148,9 @@ html, body {
     color: #409EFF; /* Element UI 默认蓝色 */
     text-decoration: underline; /* 添加下划线 */
     margin-left: 60px; /* 与登录按钮的间距 */
+}
+.link {
+    color: #409EFF;
+    border-radius: 10px;
 }
 </style>
