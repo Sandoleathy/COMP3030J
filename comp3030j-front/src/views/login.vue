@@ -29,9 +29,11 @@
 import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 var username = ref("")
 var password = ref("")
+const router = useRouter();
 
 const url = "/api/auth/login"
 
@@ -51,6 +53,13 @@ const handleLogin = () => {
             //登陆成功,进行后续处理
             sessionStorage.setItem("token" , data.data.access_token)
             sessionStorage.setItem("username" , username.value)
+            getUserType(data.data.access_token)
+
+            if(sessionStorage.getItem("isAdmin") == 'true'){
+                router.push('/admin')
+            }else{
+                router.push('/')
+            }
         }else{
             ElMessage.error(data.msg)
         }
@@ -60,6 +69,24 @@ const handleLogin = () => {
         //console.error('Error fetching data:', error);
     });
 };
+
+const getUserType = (token) => {
+    axios.get('api/system/user/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+    }
+    }).then(response => {
+      const data = response.data
+      if(data.data.admin == true){
+        sessionStorage.setItem("isAdmin" , true)
+      }else{
+        sessionStorage.setItem("isAdmin" , false)
+      }
+      console.log(sessionStorage.getItem("isAdmin"))
+    }).catch(error => {
+      console.error(error)
+    })
+}
 
 const checkInput = () => {
     var isValid = true

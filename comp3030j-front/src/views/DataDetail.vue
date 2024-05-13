@@ -19,12 +19,18 @@
                     </el-header>
                     <el-main>
                         <div v-if="pageNum=='0'">
-                            <windDetail></windDetail>
-                            <el-divider></el-divider>
-                            <solarDetail></solarDetail>
-                            <el-divider></el-divider>
+                            <el-collapse v-model="activeNames" >
+                                <el-collapse-item name="1" title="Wind Turbine">
+                                    <windDetail></windDetail>
+                                </el-collapse-item>
+                                <el-collapse-item name="2" title="Solar Panel">
+                                    <solarDetail></solarDetail>
+                                </el-collapse-item>
+                            </el-collapse>
                         </div>
-                        
+                        <div v-if="pageNum=='2'">
+                            <weatherInfo></weatherInfo>
+                        </div>
                     </el-main>
                 </el-container>
             </el-main>
@@ -34,16 +40,17 @@
 </template>
 
 <script setup>
-import { ElContainer, ElHeader, ElMain, ElMenu, ElMenuItem, ElRow, ElCol, ElDivider,ElTabs, ElTabPane } from 'element-plus';
+import { ElContainer, ElHeader, ElMain, ElDivider,ElTabs, ElTabPane, ElCollapse, ElCollapseItem } from 'element-plus';
 import { Chart, registerables } from 'chart.js';
 import loginBar from '../components/LoginBar.vue';
 import windDetail from '../components/ParkInformationBlock/WindDetail.vue';
-import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue'
+import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue';
+import weatherInfo from '../components/WeatherOverview.vue'
 import { ref } from 'vue'
 
-Chart.register(...registerables);
+//Chart.register(...registerables);
 const pageNum = ref('0')
-
+const activeNames = ref(['1'])
 </script>
 
 <style scoped>
