@@ -23,20 +23,10 @@ import firstPage from '../components/FirstPage.vue'
 import Footer from '../components/Footer.vue'
 import { ElContainer, ElHeader, ElMain, ElFooter } from 'element-plus'
 
-//axios的get方法例子
-const clickTest = () => {
-    api.get('/users')
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-}
 
 //页面初始化时会先执行的代码
 onMounted( () => {
-    clickTest()
+    
 })
 </script>
 
