@@ -40,6 +40,19 @@ public class TokenController
         return R.ok(tokenService.createToken(userInfo));
     }
 
+    @PostMapping("adminLogin")
+    public R<?> adminLogin(@RequestBody LoginBody form)
+    {
+        // 用户登录
+        LoginUser userInfo = sysLoginService.login(form.getUsername(), form.getPassword());
+        // 获取登录token
+
+
+        return R.ok(tokenService.createToken(userInfo));
+    }
+
+
+
     @DeleteMapping("logout")
     public R<?> logout(HttpServletRequest request)
     {

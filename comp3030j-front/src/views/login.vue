@@ -14,7 +14,12 @@
                     <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
-                    <el-button type="primary" @click="handleLogin">Log in</el-button>
+                    <el-button type="primary" @click="handleLogin" :disabled="isLoading">
+                        <span v-if="!isLoading">Log in</span>
+                        <el-icon v-if="isLoading" class="is-loading">
+                            <Loading />
+                        </el-icon>
+                    </el-button>
                     <router-link class="link" to="register" style="margin-left: 20px;">Register</router-link>
                 </el-form-item>
                 
@@ -27,16 +32,20 @@
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 var username = ref("")
 var password = ref("")
+const router = useRouter();
 
+const isLoading = ref(false)
 const url = "/api/auth/login"
 
 const handleLogin = () => {
     //console.log(username.value)
+    isLoading.value = true;
     if(!checkInput()){
         return
     }
@@ -44,6 +53,7 @@ const handleLogin = () => {
         username: username.value,
         password: password.value  
     }).then(response => {
+        isLoading.value = false
         const data = response.data;
         console.log(data)
         if(data.code == 200){
@@ -51,6 +61,13 @@ const handleLogin = () => {
             //登陆成功,进行后续处理
             sessionStorage.setItem("token" , data.data.access_token)
             sessionStorage.setItem("username" , username.value)
+            getUserType(data.data.access_token)
+
+            if(sessionStorage.getItem("isAdmin") == 'true'){
+                router.push('/admin')
+            }else{
+                router.push('/')
+            }
         }else{
             ElMessage.error(data.msg)
         }
@@ -60,6 +77,24 @@ const handleLogin = () => {
         //console.error('Error fetching data:', error);
     });
 };
+
+const getUserType = (token) => {
+    axios.get('api/system/user/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+    }
+    }).then(response => {
+      const data = response.data
+      if(data.data.admin == true){
+        sessionStorage.setItem("isAdmin" , true)
+      }else{
+        sessionStorage.setItem("isAdmin" , false)
+      }
+      console.log(sessionStorage.getItem("isAdmin"))
+    }).catch(error => {
+      console.error(error)
+    })
+}
 
 const checkInput = () => {
     var isValid = true
