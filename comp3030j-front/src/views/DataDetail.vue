@@ -24,7 +24,10 @@
                             <solarDetail></solarDetail>
                             <el-divider></el-divider>
                         </div>
-                        
+                        <div v-if="pageNum=='3'">
+                            <hotelInfo></hotelInfo>
+                            <el-divider></el-divider>
+                        </div>
                     </el-main>
                 </el-container>
             </el-main>
@@ -39,6 +42,7 @@ import { Chart, registerables } from 'chart.js';
 import loginBar from '../components/LoginBar.vue';
 import windDetail from '../components/ParkInformationBlock/WindDetail.vue';
 import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue'
+import hotelInfo from '../components/HotelManagement/HotelInfo.vue'
 import { ref } from 'vue'
 
 Chart.register(...registerables);
