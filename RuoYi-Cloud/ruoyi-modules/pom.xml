@@ -19,10 +19,6 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-common-log</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-log</artifactId>
-        </dependency>
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
 

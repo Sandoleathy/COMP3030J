@@ -14,7 +14,12 @@
                     <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
-                    <el-button type="primary" @click="handleLogin">Log in</el-button>
+                    <el-button type="primary" @click="handleLogin" :disabled="isLoading">
+                        <span v-if="!isLoading">Log in</span>
+                        <el-icon v-if="isLoading" class="is-loading">
+                            <Loading />
+                        </el-icon>
+                    </el-button>
                     <router-link class="link" to="register" style="margin-left: 20px;">Register</router-link>
                 </el-form-item>
                 
@@ -27,23 +32,30 @@
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 var username = ref("")
 var password = ref("")
+const router = useRouter();
+const isAdmin = ref(false)
 
+const isLoading = ref(false)
 const url = "/api/auth/login"
 
-const handleLogin = () => {
+const handleLogin = async () => {
     //console.log(username.value)
+    
     if(!checkInput()){
         return
     }
-    axios.post(url, {
-        username: username.value,
-        password: password.value  
-    }).then(response => {
+    isLoading.value = true;
+    try {
+        const response = await axios.post(url, {
+            username: username.value,
+            password: password.value  
+        });
         const data = response.data;
         console.log(data)
         if(data.code == 200){
@@ -51,15 +63,43 @@ const handleLogin = () => {
             //登陆成功,进行后续处理
             sessionStorage.setItem("token" , data.data.access_token)
             sessionStorage.setItem("username" , username.value)
+            await getUserType(data.data.access_token) // 等待 getUserType 方法执行完成
+            isLoading.value = false
+            //console.log(isAdmin.value)
+            if(isAdmin.value == true){
+                router.push('/admin')
+            }else{
+                router.push('/')
+            }
         }else{
             ElMessage.error(data.msg)
         }
-        // 根据服务器返回的数据进行相应的处理
-    }).catch(error => {
+    } catch (error) {
+        isLoading.value = false
         ElMessage.error("Error fetching data" + error)
         //console.error('Error fetching data:', error);
-    });
+    }
 };
+
+const getUserType = async (token) => {
+    try {
+        const response = await axios.get('api/system/user/profile', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const data = response.data;
+        if(data.data.admin == true){
+            sessionStorage.setItem("isAdmin" , true)
+            isAdmin.value = true
+        }else{
+            sessionStorage.setItem("isAdmin" , false)
+        }
+        //console.log(sessionStorage.getItem("isAdmin"))
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 const checkInput = () => {
     var isValid = true
