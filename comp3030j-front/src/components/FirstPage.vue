@@ -289,8 +289,8 @@ const scrollToSection = (sectionId) => {
 };
 
 const imageUrls = ref([
-    '/villa/images/pic1.png',
-    '/villa/images/pic2.png',
+    '/images/pic1.png',
+    '/images/pic2.png',
 ]);
 
 const goToAboutPage = () => {
