@@ -7,7 +7,7 @@
             v-model="checkinTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="Please enter check-in time">
+            placeholder="Enter check-in time">
         </el-date-picker>
     </el-form-item>
     <el-form-item label="Check-Out Time" prop="checkoutTime">
@@ -15,20 +15,20 @@
             v-model="checkoutTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="Please enter check-out time">
+            placeholder="Enter check-out time">
         </el-date-picker>
     </el-form-item>
-    <el-form-item label="Number of Guest" prop="numberOfGuests">
+    <el-form-item label="Number of Guests" prop="numberOfGuests">
         <el-input
             v-model="numberOfGuests"
-            placeholder="Please enter number of guest"
+            placeholder="Enter number of guests"
             clearable
             @keyup.enter.native="handleQuery"/>
     </el-form-item>
-    <el-form-item label="Number of Room" prop="numberOfRooms">
+    <el-form-item label="Number of Rooms" prop="numberOfRooms">
         <el-input
             v-model="numberOfRooms"
-            placeholder="Please enter number of room"
+            placeholder="Enter number of rooms"
             clearable
             @keyup.enter.native="handleQuery"/>
     </el-form-item>
@@ -37,27 +37,27 @@
             v-model="reservationTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="Please enter the time reservation order is created">
+            placeholder="Enter the time reservation order is created">
         </el-date-picker>
     </el-form-item>
     <el-form-item label="Price" prop="totalPrice">
         <el-input
             v-model="totalPrice"
-            placeholder="Please enter price of the order"
+            placeholder="Enter price of the reservation order"
             clearable
             @keyup.enter.native="handleQuery"/>
     </el-form-item>
     <el-form-item label="Paid or not" prop="pay">
         <el-input
             v-model="pay"
-            placeholder="Please enter wheater the payment is finished"
+            placeholder="Enter wheater the payment is finished"
             clearable
             @keyup.enter.native="handleQuery"/>
     </el-form-item>
     <el-form-item label="Reservation Status" prop="reservationStatus">
         <el-input
             v-model="reservationStatus"
-            placeholder="Please enter reservation status"
+            placeholder="Enter reservation status"
             clearable
             @keyup.enter.native="handleQuery"/>
     </el-form-item>
@@ -128,18 +128,17 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['homestay:reservation:edit']"
-          >修改</el-button>
+          >revise</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
-      @pagination="getList"
-    />
+        v-show="total>0"
+        :total="total"
+        :page.sync="pageNum"
+        :limit.sync="pageSize"
+        @pagination="getList"/>
 
     <!-- 显示时间的格式 --> <!-- 待修改 -->
     <p>check in time {{ checkinTime }}</p>
@@ -148,55 +147,55 @@
     <!-- 修改的对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="客户联系方式" prop="contactInformation">
-          <el-input v-model="form.contactInformation" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="Contact Information" prop="contactInformation">
+          <el-input v-model="form.contactInformation" type="textarea" placeholder="Enter contact phone number" />
         </el-form-item>
-        <el-form-item label="入住时间" prop="checkinTime">
+        <el-form-item label="Check-In Time" prop="checkinTime">
           <el-date-picker clearable
             v-model="form.checkinTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择入住时间">
+            placeholder="Choose check-in time">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="退房时间" prop="checkoutTime">
+        <el-form-item label="Check-Out Time" prop="checkoutTime">
           <el-date-picker clearable
             v-model="form.checkoutTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择退房时间">
+            placeholder="Choose check-out time">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="客户数量" prop="numberOfGuests">
-          <el-input v-model="form.numberOfGuests" placeholder="请输入客户数量" />
+        <el-form-item label="Number of Guests" prop="numberOfGuests">
+          <el-input v-model="form.numberOfGuests" placeholder="Enter number of guests" />
         </el-form-item>
-        <el-form-item label="房间数量" prop="numberOfRooms">
-          <el-input v-model="form.numberOfRooms" placeholder="请输入房间数量" />
+        <el-form-item label="Number of Rooms" prop="numberOfRooms">
+          <el-input v-model="form.numberOfRooms" placeholder="Enter number of rooms" />
         </el-form-item>
-        <el-form-item label="订单创建/结束时间" prop="reservationTime">
+        <el-form-item label="Reservation Creation Time" prop="reservationTime">
           <el-date-picker clearable
             v-model="form.reservationTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择订单创建/结束时间">
+            placeholder="Choose the time reservation order is created">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="备注" prop="requests">
-          <el-input v-model="form.requests" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="Remark" prop="requests">
+          <el-input v-model="form.requests" type="textarea" placeholder="Enter remark content" />
         </el-form-item>
-        <el-form-item label="总价格" prop="totalPrice">
-          <el-input v-model="form.totalPrice" placeholder="请输入总价格" />
+        <el-form-item label="Price" prop="totalPrice">
+          <el-input v-model="form.totalPrice" placeholder="Enter price of the reservation order" />
         </el-form-item>
-        <el-form-item label="是否支付" prop="pay">
-          <el-input v-model="form.pay" placeholder="请输入是否支付" />
+        <el-form-item label="Paid or not" prop="pay">
+          <el-input v-model="form.pay" placeholder="Enter wheater the payment is finished" />
         </el-form-item>
-        <el-form-item label="订单状态" prop="reservationStatus">
-          <el-input v-model="form.reservationStatus" placeholder="请输入订单状态" />
+        <el-form-item label="Reservation Status" prop="reservationStatus">
+          <el-input v-model="form.reservationStatus" placeholder="Enter reservation status" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">Confirm</el-button>
+        <el-button @click="cancel">Cancel</el-button>
       </div>
     </el-dialog>
 
