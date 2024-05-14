@@ -8,7 +8,7 @@
         </el-header>
         <el-main>
             <div v-if="pageNum=='0'">
-                <p>reservation</p>
+                <reservation></reservation>
             </div>
             <div v-if="pageNum=='2'">
                 <p>buiding</p>
@@ -18,6 +18,7 @@
 </template>
   
 <script setup>
+import reservation from './Reservation.vue'
 import { ref } from 'vue';
 
 const pageNum = ref(0);
