@@ -6,20 +6,6 @@
         <artifactId>ruoyi</artifactId>
         <version>3.6.3</version>
     </parent>
-    <dependencies>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-swagger</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-common-log</artifactId>
-        </dependency>
-    </dependencies>
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
@@ -27,6 +13,7 @@
         <module>ruoyi-gen</module>
         <module>ruoyi-job</module>
         <module>homestay</module>
+        <module>ruoyi-file</module>
         <module>statistics</module>
     </modules>
 
