@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="allowSmoking"    column="allow_smoking"    />
         <result property="bathtub"    column="bathtub"    />
         <result property="bathroomAmenities"    column="bathroom_amenities"    />
-        <result property="functionalAmenities"    column="functional_amenities"    />
+        <result property="area"    column="functional_amenities"    />
     </resultMap>
 
     <sql id="selectHsBuildingTypeVo">
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="allowSmoking != null "> and allow_smoking = #{allowSmoking}</if>
             <if test="bathtub != null "> and bathtub = #{bathtub}</if>
             <if test="bathroomAmenities != null "> and bathroom_amenities = #{bathroomAmenities}</if>
-            <if test="functionalAmenities != null "> and functional_amenities = #{functionalAmenities}</if>
+            <if test="area != null "> and functional_amenities = #{area}</if>
         </where>
     </select>
     
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="allowSmoking != null">allow_smoking,</if>
             <if test="bathtub != null">bathtub,</if>
             <if test="bathroomAmenities != null">bathroom_amenities,</if>
-            <if test="functionalAmenities != null">functional_amenities,</if>
+            <if test="area != null">functional_amenities,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="buildingType != null and buildingType != ''">#{buildingType},</if>
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="allowSmoking != null">#{allowSmoking},</if>
             <if test="bathtub != null">#{bathtub},</if>
             <if test="bathroomAmenities != null">#{bathroomAmenities},</if>
-            <if test="functionalAmenities != null">#{functionalAmenities},</if>
+            <if test="area != null">#{area},</if>
          </trim>
     </insert>
 
@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="allowSmoking != null">allow_smoking = #{allowSmoking},</if>
             <if test="bathtub != null">bathtub = #{bathtub},</if>
             <if test="bathroomAmenities != null">bathroom_amenities = #{bathroomAmenities},</if>
-            <if test="functionalAmenities != null">functional_amenities = #{functionalAmenities},</if>
+            <if test="area != null">functional_amenities = #{area},</if>
         </trim>
         where id = #{id}
     </update>

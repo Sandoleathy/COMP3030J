@@ -38,9 +38,9 @@ public class HsBuildingType extends BaseEntity
     @Excel(name = "是否有淋浴设施")
     private Integer bathroomAmenities;
 
-    /** 是否有功能性设施 */
-    @Excel(name = "是否有功能性设施")
-    private Integer functionalAmenities;
+    /** 面积 */
+    @Excel(name = "面积")
+    private Integer area;
 
     public void setId(Long id) 
     {
@@ -96,14 +96,14 @@ public class HsBuildingType extends BaseEntity
     {
         return bathroomAmenities;
     }
-    public void setFunctionalAmenities(Integer functionalAmenities) 
+    public void setArea(Integer area)
     {
-        this.functionalAmenities = functionalAmenities;
+        this.area = area;
     }
 
-    public Integer getFunctionalAmenities() 
+    public Integer getArea()
     {
-        return functionalAmenities;
+        return area;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class HsBuildingType extends BaseEntity
             .append("allowSmoking", getAllowSmoking())
             .append("bathtub", getBathtub())
             .append("bathroomAmenities", getBathroomAmenities())
-            .append("functionalAmenities", getFunctionalAmenities())
+            .append("area", getArea())
             .toString();
     }
 }
