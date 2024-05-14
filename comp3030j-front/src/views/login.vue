@@ -45,10 +45,11 @@ const url = "/api/auth/login"
 
 const handleLogin = () => {
     //console.log(username.value)
-    isLoading.value = true;
+    
     if(!checkInput()){
         return
     }
+    isLoading.value = true;
     axios.post(url, {
         username: username.value,
         password: password.value  

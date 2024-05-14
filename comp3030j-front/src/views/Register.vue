@@ -11,7 +11,12 @@
                     <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
-                    <el-button type="primary" @click="handleRegister">Submit</el-button>
+                    <el-button type="primary" @click="handleRegister" :disabled="isLoading">
+                        <span v-if="!isLoading">Sign up</span>
+                        <el-icon v-if="isLoading" class="is-loading">
+                            <Loading />
+                        </el-icon>
+                    </el-button>
                     <el-button type="text" class="login-link" @click="goToLoginPage">Already have account? Log in</el-button>
                     <!-- <a href="#/register" class="register-link">Register</a> -->
                 </el-form-item>
@@ -23,12 +28,13 @@
 
 <script setup>
 import { ref } from 'vue';
-import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage } from 'element-plus';
+import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 const router = useRouter();
 
+const isLoading = ref(false)
 var username = ref("")
 var password = ref("")
 
@@ -38,12 +44,20 @@ const handleRegister = () => {
     if(!checkInput()){
         return
     }
-    axios.get(url, {
+    isLoading.value = true;
+    axios.post(url, {
         username: username.value,
         password: password.value 
     }).then(response => {
+        isLoading.value = false
         const data = response.data;
-        ElMessage.success("Register successful!")
+        if(data.code == 200){
+            //注册成功
+            ElMessage.success("Register successful!")
+            router.push('login')
+        }else{
+            ElMessage.error(data.msg)
+        }
         // 根据服务器返回的数据进行相应的处理
     }).catch(error => {
         ElMessage.error("Error fetching data" + error)

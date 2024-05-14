@@ -26,7 +26,7 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      name: 'overview',
+      name: 'admin',
       component: () => import('../views/DataDetail.vue')
     },
     {
@@ -78,7 +78,7 @@ router.beforeEach((to, from, next) => {
   }else{
     //检查session是否过期
     const token = sessionStorage.getItem("token")
-    let isAuthenticated = false; // 标志位，表示用户是否已经通过验证
+    //let isAuthenticated = false; // 标志位，表示用户是否已经通过验证
 
     axios.get('api/system/user/profile', {
       headers: {
@@ -88,7 +88,7 @@ router.beforeEach((to, from, next) => {
       const data = response.data
       if(data.code != 200){
         //登录已过期
-        sessionStorage.clear
+        sessionStorage.clear()
         ElMessage.warning("You have not logged in. Please login first")
         next('/login')
       }else{
@@ -96,23 +96,18 @@ router.beforeEach((to, from, next) => {
         if(adminPages.indexOf(to.path) !== -1){
           //目标页面为仅管理员访问页面
           if(sessionStorage.getItem('isAdmin') == 'true'){
-            isAuthenticated = true;
+            next()
           }else{
-            isAuthenticated = false;
+            console.log("user type wrong!")
+            //用户类型错误
+            next('/error')
           }
         }else{
-          isAuthenticated = true;
+          next()
         }
       }
-      console.log(data)
     }).catch(error => {
       console.error(error)
-    }).finally(() => {
-      if (isAuthenticated) {
-        next();
-      }else{
-        next('error')
-      }
     })
   }
 })
