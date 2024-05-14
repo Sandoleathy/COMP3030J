@@ -1,19 +1,5 @@
 <template>
-  <el-container class="container">
-      <el-header class="header">
-          <div class="header-controls">
-              <el-page-header @back="goBack">
-                  <template #content>
-                      <span class="text-large font-600 mr-3">3D Model</span>
-                  </template>
-              </el-page-header>
-              <el-button class="right-button" @click="goToViewPage">More Info</el-button>
-          </div>
-      </el-header>
-      <el-main class="main">
-          <canvas id="three"></canvas>
-      </el-main>
-  </el-container>
+      <canvas id="three"></canvas>
 </template>
 
 
@@ -52,6 +38,7 @@ const initThree = () => {
   const canvas = document.querySelector("#three")
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
+  renderer.setSize(window.innerWidth * 0.6, window.innerHeight * 0.6)
 
   //设置相机
   const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -145,49 +132,5 @@ const goToViewPage = () => {
 </script>
 
 <style>
-.container {
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  margin: auto;
-}
 
-.header-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.header {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.main {
-  margin: 0;
-  padding-left: 50px;
-  width:95%;
-  /* 添加 padding, 主要是左侧留白 */
-}
-
-.text-large {
-  font-size: 1.5em; /* 大号文本 */
-  font-weight: 600; /* 字体加粗 */
-}
-
-.mr-3 {
-  margin-right: 12px; /* 右边距 */
-}
-
-.right-button {
-  margin-left: 20px; /* 在按钮和页头标题之间添加一些空间 */
-}
-
-@media (max-width: 1024px) {
-  .container {
-      min-width: 100vw;
-  }
-}
 </style>
