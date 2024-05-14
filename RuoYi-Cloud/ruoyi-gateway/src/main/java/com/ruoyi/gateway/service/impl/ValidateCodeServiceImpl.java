@@ -49,7 +49,6 @@ public class ValidateCodeServiceImpl implements ValidateCodeService
         AjaxResult ajax = AjaxResult.success();
         //这里是验证码启用与否的开关
         boolean captchaEnabled = captchaProperties.getEnabled();
-        captchaEnabled=needCode;
         ajax.put("captchaEnabled", captchaEnabled);
         if (!captchaEnabled)
         {
