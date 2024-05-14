@@ -27,6 +27,7 @@ onMounted( () => {
     getCurrentWeatherInfo()
 })
 const getCurrentWeatherInfo = () => {
+    //当日天气信息
     axios.get("https://devapi.qweather.com/v7/weather/now", {
         params: {
             location: location,

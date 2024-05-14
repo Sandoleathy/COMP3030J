@@ -2,22 +2,14 @@
     <!--园区信息展示-用户-->
     <container class="container">
         <el-container >
-            <el-header>
-                
+            <el-header style="padding: 0;">
+                <loginBar></loginBar>
             </el-header>
             <el-main>
                 <div >
                     <EnergyOverviewChart class="energy-chart"></EnergyOverviewChart>
                 </div>
-            </el-main>
-        </el-container>
-        <el-container>
-            <el-main class="weather">
-                <!--111-->
                 <WeatherOverview></WeatherOverview>
-            </el-main>
-            <el-main>
-
             </el-main>
         </el-container>
     </container>
@@ -26,6 +18,7 @@
 <script setup>
 import EnergyOverviewChart from "/src/components/Charts/EnergyOverviewChart.vue"
 import WeatherOverview from "/src/components/WeatherOverview.vue"
+import loginBar from '../components/LoginBar.vue'
 import { ElContainer, ElMain, ElHeader, ElTabs, ElTabPane } from 'element-plus';
 
 </script>
