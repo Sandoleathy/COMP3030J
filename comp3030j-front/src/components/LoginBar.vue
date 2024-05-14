@@ -102,7 +102,6 @@ const getWeather = () => {
         //console.log(error)
     })
 }
-
 //----------------------------------------------
 const handleCommand = (command) => {
     if(command == "a"){
