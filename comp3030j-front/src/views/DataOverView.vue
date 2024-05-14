@@ -14,9 +14,9 @@
                             alt="Element logo"
                         />
                     </el-col>
-                    <el-col :span="6">Data Over view</el-col>
-                    <el-col :span="10">
-                        <span>{{ year }}/{{ month }}/{{ day }}  {{ hours }}:{{ minutes }}:{{ seconds }}</span>
+                    <el-col :span="6" style="text-align: center;">Data Over view</el-col>
+                    <el-col :span="10" style="text-align: right;">
+                        
                         <el-icon>
                             <!--Weather-->
                         </el-icon>
@@ -50,26 +50,9 @@ import parkModel from '../components/ParkModel.vue'
 import { ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon } from 'element-plus';
 import { onMounted, ref } from "vue";
 
-var currentDate = new Date();
 
-var year = ref(0)
-var month = ref(0)
-var day = ref(0)
-var hours = ref(0)
-var minutes = ref(0)
-var seconds = ref(0)
-
-const updateTime = () => {
-    currentDate = new Date();
-    year.value = currentDate.getFullYear(); // 年份
-    month.value = currentDate.getMonth() + 1; // 月份（注意月份从 0 开始，所以要加 1）
-    day.value = currentDate.getDate(); // 当月的日期
-    hours.value = currentDate.getHours(); // 小时
-    minutes.value = currentDate.getMinutes(); // 分钟
-    seconds.value = currentDate.getSeconds(); // 秒
-}
 onMounted(() => {
-    setInterval(updateTime,1000)
+
 })
 </script>
 <style scoped>
