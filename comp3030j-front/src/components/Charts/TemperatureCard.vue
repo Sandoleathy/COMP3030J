@@ -5,8 +5,8 @@
                 <span style="font-weight: bold;font-size: 20px;"> Weather Forcast </span> | Update Time: {{ updateTime }}
             </el-col>
         </el-row>
-        <el-row>
-            <el-col :span="4">
+        <el-row justify="space-between">
+            <el-col :span="8">
                 <table style="color:white">
                     <tr>
                         <td rowspan="2">
@@ -19,7 +19,7 @@
                     </tr>
                 </table>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="8">
                 <table style="color:white">
                     <tr>
                         <td rowspan="2">
@@ -36,13 +36,32 @@
                     </tr>
                 </table>
             </el-col>
+            <el-col :span="8" style="color: white;">
+                <el-row>
+                    <el-col :span="12">
+                        Feel Tempreature: {{ feelTemp }}
+                    </el-col>
+                    <el-col :span="12">
+                        Humidity: {{ humidity }}
+                    </el-col>
+                </el-row>
+                <el-divider></el-divider>
+                <el-row>
+                    <el-col>
+                        Atmospheric pressure: {{ pressure }}
+                    </el-col>
+                    <el-col>
+
+                    </el-col>
+                </el-row>
+            </el-col>
         </el-row>
     </div>
 </template>
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElRow, ElCol, ElDivider } from 'element-plus';
 import arrow from '../Arrow.vue'
 
 let location = "117.13,40.29";
@@ -55,6 +74,8 @@ const weatherText = ref("")
 const windVaneDegree = ref(0)
 const windDirection = ref("")
 const windSpeed = ref(0)
+const pressure = ref(0)
+const humidity = ref(0)
 
 const icon = ref('')
 onMounted( () => {
@@ -77,6 +98,8 @@ const getCurrentWeatherInfo = () => {
         windDirection.value = data.now.windDir
         windSpeed.value = data.now.windSpeed
         updateTime.value = data.now.obsTime
+        pressure.value = data.now.pressure
+        humidity.value = data.now.humidity
 
         icon.value = 'qi-' + data.now.icon + '-fill'
     }).catch(error => {
@@ -92,5 +115,6 @@ const getCurrentWeatherInfo = () => {
     padding: 10px;
     text-align: center;
     margin: auto;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 </style>

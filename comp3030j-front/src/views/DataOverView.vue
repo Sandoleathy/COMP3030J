@@ -35,10 +35,14 @@
             
             <el-divider></el-divider>
 
-            <el-main>                  
+            <el-main>   
+                <el-row>
+                    <el-col :span="14">
+                        <temperatureCard></temperatureCard>
+                    </el-col>
+                </el-row>               
                 <el-row>
                     <el-col :span="24">
-                        <temperatureCard></temperatureCard>
                         <WeatherOverview class="weather-chart"></WeatherOverview>
                     </el-col>
                 </el-row>        
