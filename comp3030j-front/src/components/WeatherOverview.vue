@@ -1,13 +1,7 @@
 <template>
     <el-container>
-        <el-header>
-            <!--温度，体感气温-->
-            <p>{{ temperature }}°C</p>
-            <p>{{ feelTemp }}°C</p>
-            <p>{{ weatherText }}</p>
-        </el-header>
         <el-main>
-            <WeatherForcastChart></WeatherForcastChart>
+            <WeatherForcastChart class="weather"></WeatherForcastChart>
         </el-main>
     </el-container>
 </template>
@@ -45,3 +39,9 @@ const getCurrentWeatherInfo = () => {
     })
 }
 </script>
+<style scoped>
+.weather{
+    height: 40vh;
+    max-height: 40vh;
+}
+</style>

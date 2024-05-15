@@ -8,7 +8,7 @@
             </el-col>
             <el-col :span="8" v-if="isLogin">
                 <div class="user-info">
-                    <el-avatar icon="UserFilled"></el-avatar>
+                    <el-avatar icon="UserFilled" :src="avatarPath"></el-avatar>
                     <el-dropdown @command="handleCommand">
                         <span class="el-dropdown-link">
                             {{ username }}
@@ -53,6 +53,7 @@ import axios from 'axios'
 const router = useRouter();
 const isLogin = ref(false)
 const username = ref("")
+const avatarPath = ref("")
 
 const goToLoginPage = () => {
     router.push({ name: 'login' });
@@ -110,7 +111,7 @@ const handleCommand = (command) => {
     }else if(command == "b"){
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("username")
-        location.reload()
+        window.location.reload()
     }
 }
 
@@ -120,6 +121,8 @@ onMounted( ()=> {
     if(sessionStorage.getItem('token') != null){
         isLogin.value = true;
         username.value = sessionStorage.getItem('username')
+        avatarPath.value = sessionStorage.getItem('avatar')
+        //console.log(avatarPath.value)
     }else{
         isLogin.value = false
     }

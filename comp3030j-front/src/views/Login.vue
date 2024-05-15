@@ -89,6 +89,8 @@ const getUserType = async (token) => {
             }
         });
         const data = response.data;
+        //设置头像路径
+        sessionStorage.setItem("avatar", data.data.avatar)
         if(data.data.admin == true){
             sessionStorage.setItem("isAdmin" , true)
             isAdmin.value = true

@@ -22,10 +22,6 @@ import { useRouter } from 'vue-router';
 // 获取 router 实例
 const router = useRouter();
 
-// 定义一个方法，用于处理返回首页的逻辑
-function goBack() {
-    router.push({ name: 'entry' }); // 使用 router.push 导航到首页
-}
 
 const initThree = () => {
   // 创建场景

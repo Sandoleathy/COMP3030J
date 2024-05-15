@@ -1,9 +1,4 @@
 <template>
-    <table>
-        <tr>
-            <th></th>
-        </tr>
-    </table>
     <canvas id="chart1"></canvas>
 </template>
 <script setup>
@@ -78,7 +73,7 @@ const setWeatherData = () => {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
