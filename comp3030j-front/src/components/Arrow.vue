@@ -36,8 +36,8 @@ const props = defineProps({
     border-right: 10px solid transparent; /* 右侧透明边框 */
     border-top: 40px solid rgb(91, 91, 91); /* 底部实线边框，可以根据需要设置颜色 */
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 35%;
+    left: 43%;
 }
 .wind-vane {
       width: 120px;

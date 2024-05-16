@@ -1,12 +1,15 @@
 <template>
+    <el-container>
+    <el-main>
     <div class="temp-card">
+        
         <el-row style="color: white;">
             <el-col :span="24" style="text-align: left;">
                 <span style="font-weight: bold;font-size: 20px;"> Weather Forcast </span> | Update Time: {{ updateTime }}
             </el-col>
         </el-row>
         <el-row justify="space-between">
-            <el-col :span="8">
+            <el-col :span="5">
                 <table style="color:white">
                     <tr>
                         <td rowspan="2">
@@ -36,19 +39,19 @@
                     </tr>
                 </table>
             </el-col>
-            <el-col :span="8" style="color: white;">
+            <el-col :span="11" style="color: white;">
                 <el-row>
                     <el-col :span="12">
-                        Feel Tempreature: {{ feelTemp }}
+                        Feel Tempreature: {{ feelTemp }} °C
                     </el-col>
                     <el-col :span="12">
-                        Humidity: {{ humidity }}
+                        Humidity: {{ humidity }} %
                     </el-col>
                 </el-row>
                 <el-divider></el-divider>
                 <el-row>
                     <el-col>
-                        Atmospheric pressure: {{ pressure }}
+                        Atmospheric pressure: {{ pressure }} KPa
                     </el-col>
                     <el-col>
 
@@ -56,7 +59,10 @@
                 </el-row>
             </el-col>
         </el-row>
+
     </div>
+    </el-main>
+    </el-container>
 </template>
 <script setup>
 import axios from 'axios'

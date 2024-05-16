@@ -66,7 +66,7 @@ const initThree = () => {
 
   }
   animate()
-  console.log("111")
+  //console.log("111")
 }
 
 const resizeRendererToDisplaySize = (renderer) => {
@@ -103,14 +103,14 @@ const loadOBJ = () => {
         // 加载进度
         if (xhr.lengthComputable) {
           const percentComplete = xhr.loaded / xhr.total * 100
-          console.log(Math.round(percentComplete, 2) + '%')
+          //console.log(Math.round(percentComplete, 2) + '%')
         }
       })
     })
 }
 
 const loadLight = () => {
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.6)
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.0)
     //光源等位置
     dirLight.position.set(-10, 8, -5)
     //可以产生阴影

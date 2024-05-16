@@ -22,7 +22,11 @@ onMounted( () => {
 
 const createChart = () => {
     const ctx = document.getElementById("chart1")
+    Chart.defaults.color = '#FFFFFF';
+    Chart.defaults.backgroundColor = '#FFFFFF';
+    Chart.defaults.borderColor = '#FFFFFF';
     new Chart(ctx, weatherData.value)
+    
 }
 
 let location = "117.13,40.29";
@@ -53,9 +57,9 @@ const getWeatherData = () => {
 }
 
 const setWeatherData = () => {
-    console.log(dateArray.value)
-    console.log(maxTempArray.value)
-    console.log(minTempArray.value)
+    // console.log(dateArray.value)
+    // console.log(maxTempArray.value)
+    // console.log(minTempArray.value)
     weatherData.value = {
         type: 'line',
         data: {
@@ -63,11 +67,15 @@ const setWeatherData = () => {
             datasets: [
                 {
                     label: 'Max Temperature',
-                    data: maxTempArray.value
+                    data: maxTempArray.value,
+                    borderColor: '#FFEA7D',
+                    backgroundColor: '#FFEA7D',
                 },
                 {
                     label: 'Min Temperature',
-                    data: minTempArray.value
+                    data: minTempArray.value,
+                    borderColor: '#003C96',
+                    backgroundColor: '#003C96',
                 }
             ]
         },
@@ -82,13 +90,42 @@ const setWeatherData = () => {
                         text: '°C', // 在这里设置单位
                         font: {
                         size: 12,
-                        weight: 'bold'
+                        weight: 'bold',
                         }
+                    },
+                    grid: {
+                        display: false // 将 x 轴网格线隐藏
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false // 将 x 轴网格线隐藏
                     }
                 }
             },
-            
-        }
+            transitions: {
+                show: {
+                    animations: {
+                    x: {
+                        from: 0
+                    },
+                    y: {
+                        from: 0
+                    }
+                    }
+                },
+                hide: {
+                    animations: {
+                        x: {
+                        to: 0
+                    },
+                    y: {
+                        to: 0
+                    }
+                    }
+                }
+            },
+        },
     }
     createChart()
 }

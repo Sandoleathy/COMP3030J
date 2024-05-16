@@ -40,15 +40,13 @@
                     <el-col :span="14">
                         <temperatureCard></temperatureCard>
                     </el-col>
-                </el-row>               
-                <el-row>
-                    <el-col :span="24">
+                    <el-col :span="10">
                         <WeatherOverview class="weather-chart"></WeatherOverview>
                     </el-col>
-                </el-row>        
+                </el-row>       
                 <el-row>
                     <el-col :span="24">
-                        <EnergyOverviewChart class="energy-chart"></EnergyOverviewChart>
+                        <energyCard></energyCard>
                     </el-col>
                 </el-row>
             </el-main>
@@ -62,6 +60,7 @@ import WeatherOverview from "/src/components/WeatherOverview.vue"
 import temperatureCard from "/src/components/Charts/TemperatureCard.vue"
 import loginBar from '../components/LoginBar.vue'
 import parkModel from '../components/ParkModel.vue'
+import energyCard from '../components/ParkInformationBlock/EnergyOverviewCard.vue'
 import { ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon, ElDivider } from 'element-plus';
 import { onMounted, ref } from "vue";
 import { useRouter } from 'vue-router';
@@ -82,9 +81,7 @@ onMounted(() => {
     position: absolute;
     min-width: 100vw; /* 根据实际内容调整 */
 }
-.energy-chart{
-    max-height: 30vh;
-}
+
 .topBar{
     width: 100%;
     background-color: white;

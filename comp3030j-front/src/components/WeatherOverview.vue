@@ -1,7 +1,9 @@
 <template>
     <el-container>
         <el-main>
-            <WeatherForcastChart class="weather"></WeatherForcastChart>
+            <div class="card">
+                <WeatherForcastChart class="weather"></WeatherForcastChart>
+            </div>
         </el-main>
     </el-container>
 </template>
@@ -42,6 +44,14 @@ const getCurrentWeatherInfo = () => {
 <style scoped>
 .weather{
     height: 40vh;
-    max-height: 40vh;
+    max-height: 30vh;
+}
+.card{
+    border-radius: 15px;
+    background: linear-gradient( #409EFF, rgb(255, 190, 110));
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 </style>
