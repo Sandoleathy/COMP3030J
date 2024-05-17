@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>测试界面</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+</head>
+
+<body>
+
+<div>
+    <input type="text" style="width: 20%" value="ws://127.0.0.1:8080/statistics/ws" id="url">
+	<button id="btn_join">连接</button>
+	<button id="btn_exit">断开</button>
+</div>
+<br/>
+<textarea id="message" cols="100" rows="9"></textarea> <button id="btn_send">发送消息</button>
+<br/>
+<br/>
+<textarea id="text_content" readonly="readonly" cols="100" rows="9"></textarea>返回内容
+<br/>
+<br/>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var ws = null;
+        // 连接
+        $('#btn_join').click(function() {
+        	var url = $("#url").val();
+            ws = new WebSocket(url);
+            ws.onopen = function(event) {
+                $('#text_content').append('已经打开连接!' + '\n');
+            }
+            ws.onmessage = function(event) {
+                $('#text_content').append(event.data + '\n');
+            }
+            ws.onclose = function(event) {
+                $('#text_content').append('已经关闭连接!' + '\n');
+            }
+        });
+        // 发送消息
+        $('#btn_send').click(function() {
+            var message = $('#message').val();
+            if (ws) {
+                ws.send(message);
+            } else {
+                alert("未连接到服务器");
+            }
+        });
+        //断开
+        $('#btn_exit').click(function() {
+            if (ws) {
+                ws.close();
+                ws = null;
+            }
+        });
+    })
+</script>
+</body>
+</html>
