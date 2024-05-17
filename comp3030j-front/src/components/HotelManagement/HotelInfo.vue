@@ -10,8 +10,14 @@
             <div v-if="pageNum=='0'">
                 <reservation></reservation>
             </div>
+            <div v-if="pageNum=='1'">
+                <room></room>
+            </div>
             <div v-if="pageNum=='2'">
                 <p>buiding</p>
+            </div>
+            <div v-if="pageNum=='3'">
+                <p>emoloyee</p>
             </div>
         </el-main>
     </el-container>
@@ -19,6 +25,7 @@
   
 <script setup>
 import reservation from './Reservation.vue'
+import room from './Room.vue'
 import { ref } from 'vue';
 
 const pageNum = ref(0);
