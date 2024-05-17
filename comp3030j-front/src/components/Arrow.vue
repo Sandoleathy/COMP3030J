@@ -1,6 +1,6 @@
 <template>
     <div class="wind-vane">
-        <table style="width: 100%;height: 100%;" >
+        <table style="width: 100%;height: 100%;font-size: 12px;" >
             <tr>
                 <td></td>
                 <td style="vertical-align: top;">North</td>

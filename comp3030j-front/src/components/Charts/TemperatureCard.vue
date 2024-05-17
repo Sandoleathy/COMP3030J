@@ -23,7 +23,7 @@
                 </table>
             </el-col>
             <el-col :span="8">
-                <table style="color:white">
+                <table style="color:white;text-align: left;">
                     <tr>
                         <td rowspan="2">
                             <arrow :degree="windVaneDegree"></arrow>
