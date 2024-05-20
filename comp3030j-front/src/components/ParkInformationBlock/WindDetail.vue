@@ -21,17 +21,17 @@
           <el-row :gutter="20">
             <el-col :span="6">
               <div  class="dataBlock">
-                Electric current: {{ I }}
+                Electric current: {{ I }}A
               </div>
             </el-col>
             <el-col :span="6">
               <div  class="dataBlock">
-                Voltage: {{ U }}
+                Voltage: {{ U }}V
               </div>
             </el-col>
             <el-col :span="6">
               <div  class="dataBlock">
-                wind speed: {{ windSpeed }}
+                wind speed: {{ windSpeed }}m/s
               </div>
             </el-col>
             <el-col :span="6">
@@ -65,7 +65,7 @@ Chart.register(...registerables); //记得注册！教程里都没写！3.0版�
 
 const router = useRouter();
 const I = ref(0)
-const U = ref(0)
+const U = ref(690)
 const windSpeed = ref(0)
 const efficiency = ref(0)
 const isStart = ref(true)
@@ -100,6 +100,7 @@ const updateData = () => {
     windSpeed.value = Number(data.wind.windSpeed).toFixed(2);
     const a = data.energySystemDataFlow[0].windEnergyConversionEfficiency * 100
     efficiency.value = Number(a).toFixed(2);
+    I.value = Number(data.energySystemDataFlow[0].currentWind).toFixed(2);
   }).catch(error => {
     console.log(error)
   })
