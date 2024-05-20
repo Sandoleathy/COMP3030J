@@ -94,26 +94,26 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <!-- 表单 -->
+    <!-- 表格 -->
     <el-table v-loading="loading" :data="reservationList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="Check-In Time" align="center" prop="checkinTime" width="180">
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkinTime, '{y}-{m}-{d}') }}</span>
-        </template>
+        </template> -->
       </el-table-column>
       <el-table-column label="Check-Out Time" align="center" prop="checkoutTime" width="180">
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkoutTime, '{y}-{m}-{d}') }}</span>
-        </template>
+        </template> -->
       </el-table-column>
       <el-table-column label="Number of Guest" align="center" prop="numberOfGuests" />
       <el-table-column label="Number of Room" align="center" prop="numberOfRooms" />
       <el-table-column label="Reservation Creation Time" align="center" prop="reservationTime" width="180">
-        <template slot-scope="scope">
+        <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.reservationTime, '{y}-{m}-{d}') }}</span>
-        </template>
+        </template> -->
       </el-table-column>
       <el-table-column label="Contact" align="center" prop="contactInformation" />
       <el-table-column label="Remark" align="center" prop="requests" />
@@ -138,7 +138,8 @@
         :total="total"
         :page.sync="pageNum"
         :limit.sync="pageSize"
-        @pagination="getList"/>
+        @pagination="getList"
+    />
 
     <!-- 显示时间的格式 --> <!-- 待修改 -->
     <p>check in time {{ checkinTime }}</p>
@@ -228,25 +229,66 @@ var title = "";
 var open = false;
 //选中数组
 var ids = [];
+//表格的列
+var cols = {
+    id: '0',
+    checkinTime: '2024-05-01',
+    checkoutTime: '2024-05-02',
+    numberOfGuests: '1',
+    numberOfRooms: '1',
+    reservationTime: '00:00:00',
+    contactInformation: '123456',
+    requests: 'ice free',
+    totalPrice: '100',
+    pay: 'Yes',
+    reservationStatus: 'Finished',
+    Operation: null
+}
+//需要展示的参数
+var queryParams = {
+    pageNum: 1,
+    pageSize: 10,
+    contactInformation: null,
+    checkinTime: null,
+    checkoutTime: null,
+    numberOfGuests: null,
+    numberOfRooms: null,
+    reservationTime: null,
+    requests: null,
+    totalPrice: null,
+    pay: null,
+    reservationStatus: null
+}
+//表格数据
+var reservationList = [];
+//总条数
+var total = 0;
 
-/** 查询民宿预订列表 */
-const getList = () => {
-    axios.get("url" , {
+const listReservation = () => {
+    const token = sessionStorage.getItem("token");
+    axios.get("/api/homestay/reservation/list" , {
         params: {
-            checkinTime: null,
-            checkoutTime: null,
-            numberOfGuests: null,
-            numberOfRooms: null,
-            reservationTime: null,
-            totalPrice: null,
-            pay: null,
-            reservationStatus: null
+            query: queryParams
+        },
+        headers: {
+            'Authorization': 'Bearer ' + token
         }
     }).then(response => {
         const data = response.data
+        console.log(data)
     }).catch(error => {
         console.error(error)
     })
+};
+
+/** 查询民宿预订列表 */
+const getList = () => {
+    loading = true;
+    listReservation(queryParams).then(response => {
+        reservationList = response.rows;
+        total = response.total;
+        loading = false;
+    });
 };
 
 /** 搜索按钮操作 */

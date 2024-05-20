@@ -2,10 +2,11 @@ import request from '@/utils/request'
 
 // 查询民宿预订列表
 export function listReservation(query) {
+  console.log('查询参数:', query);
   return request({
     url: '/homestay/reservation/list',
     method: 'get',
-    params: query
+    params: query // 若依把筛选的算法写在了哪 // 这个query有没有什么方法看到
   })
 }
 
