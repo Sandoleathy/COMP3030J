@@ -14,7 +14,7 @@
                     <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
-                    <el-button type="primary" @click="handleLogin" :disabled="isLoading">
+                    <el-button type="primary" @click="handleLogin" :disabled="isLoading" @keyup.enter="handleLogin">
                         <span v-if="!isLoading">Log in</span>
                         <el-icon v-if="isLoading" class="is-loading">
                             <Loading />
@@ -35,6 +35,7 @@ import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import {Loading} from "@element-plus/icons-vue";
 
 var username = ref("")
 var password = ref("")
