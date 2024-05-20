@@ -33,6 +33,8 @@
                         </div>
                         <div v-if="pageNum=='2'">
                             <weatherInfo></weatherInfo>
+                            <tempretureCard></tempretureCard>
+                            <warningCard></warningCard>
                         </div>
                         <div v-if="pageNum=='3'">
                             <hotelInfo></hotelInfo>
@@ -47,21 +49,22 @@
 </template>
 
 <script setup>
-import { ElContainer, ElHeader, ElMain, ElDivider,ElTabs, ElTabPane, ElCollapse, ElCollapseItem } from 'element-plus';
-import { Chart, registerables } from 'chart.js';
+import { ElContainer, ElHeader, ElMain, ElDivider,ElTabs, ElTabPane, ElCollapse, ElCollapseItem} from 'element-plus';
 import loginBar from '../components/LoginBar.vue';
 import windDetail from '../components/ParkInformationBlock/WindDetail.vue';
-import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue'
-import weatherInfo from '../components/WeatherOverview.vue'
+import solarDetail from '../components/ParkInformationBlock/SolarDetail.vue';
+import weatherInfo from '../components/WeatherOverview.vue';
 import waterDetail from '../components/ParkInformationBlock/WaterDetail.vue';
-
-import hotelInfo from '../components/HotelManagement/HotelInfo.vue'
+import tempretureCard from '../components/Charts/TemperatureCard.vue';
+import warningCard from '../components/Charts/WarningCard.vue';
+import hotelInfo from '../components/HotelManagement/HotelInfo.vue';
 
 import { ref } from 'vue'
 
 //Chart.register(...registerables);
 const pageNum = ref('0')
 const activeNames = ref(['1'])
+
 </script>
 
 <style scoped>

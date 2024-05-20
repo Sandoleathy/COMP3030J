@@ -65,52 +65,52 @@ const router = createRouter({
 const whiteList = ['/login' , '/register' , '/']
 const adminPages = ['/admin']
 
-// router.beforeEach((to, from, next) => {
-//   // 在这里进行权限验证、登录判断等操作
-//   if (whiteList.indexOf(to.path) !== -1) {
-//     // 在免登录白名单，直接进入
-//     next()
-//   }
-//   else if(sessionStorage.getItem("token") == null){
-//     //没有登录
-//     ElMessage.warning("You have not logged in. Please login first")
-//     next('/login')
-//   }else{
-//     //检查session是否过期
-//     const token = sessionStorage.getItem("token")
-//     //let isAuthenticated = false; // 标志位，表示用户是否已经通过验证
+router.beforeEach((to, from, next) => {
+  // 在这里进行权限验证、登录判断等操作
+  if (whiteList.indexOf(to.path) !== -1) {
+    // 在免登录白名单，直接进入
+    next()
+  }
+  else if(sessionStorage.getItem("token") == null){
+    //没有登录
+    ElMessage.warning("You have not logged in. Please login first")
+    next('/login')
+  }else{
+    //检查session是否过期
+    const token = sessionStorage.getItem("token")
+    //let isAuthenticated = false; // 标志位，表示用户是否已经通过验证
 
-//     axios.get('api/system/user/profile', {
-//       headers: {
-//         'Authorization': 'Bearer ' + token
-//     }
-//     }).then(response => {
-//       const data = response.data
-//       if(data.code != 200){
-//         //登录已过期
-//         sessionStorage.clear()
-//         ElMessage.warning("You have not logged in. Please login first")
-//         next('/login')
-//       }else{
-//         //登录未过期
-//         if(adminPages.indexOf(to.path) !== -1){
-//           //目标页面为仅管理员访问页面
-//           if(sessionStorage.getItem('isAdmin') == 'true'){
-//             next()
-//           }else{
-//             console.log("user type wrong!")
-//             //用户类型错误
-//             next('/error')
-//           }
-//         }else{
-//           next()
-//         }
-//       }
-//     }).catch(error => {
-//       console.error(error)
-//     })
-//   }
-// })
+    axios.get('api/system/user/profile', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+    }
+    }).then(response => {
+      const data = response.data
+      if(data.code != 200){
+        //登录已过期
+        sessionStorage.clear()
+        ElMessage.warning("You have not logged in. Please login first")
+        next('/login')
+      }else{
+        //登录未过期
+        if(adminPages.indexOf(to.path) !== -1){
+          //目标页面为仅管理员访问页面
+          if(sessionStorage.getItem('isAdmin') == 'true'){
+            next()
+          }else{
+            console.log("user type wrong!")
+            //用户类型错误
+            next('/error')
+          }
+        }else{
+          next()
+        }
+      }
+    }).catch(error => {
+      console.error(error)
+    })
+  }
+})
 
 router.afterEach(() => {
   // 跳转后的操作

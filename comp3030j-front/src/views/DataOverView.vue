@@ -32,21 +32,23 @@
             <div class="model">
                 <parkModel></parkModel>
             </div>
+            
+            <el-divider></el-divider>
 
-            <el-main>
+            <el-main>   
+                <el-row>
+                    <el-col :span="14">
+                        <temperatureCard></temperatureCard>
+                    </el-col>
+                    <el-col :span="10">
+                        <WeatherOverview class="weather-chart"></WeatherOverview>
+                    </el-col>
+                </el-row>       
                 <el-row>
                     <el-col :span="24">
-                        
+                        <energyCard></energyCard>
                     </el-col>
-                </el-row>                   
-                <el-row>
-                    <el-col :span="12">
-                        <EnergyOverviewChart class="energy-chart"></EnergyOverviewChart>
-                    </el-col>
-                    <el-col :span="12">
-                        <WeatherOverview></WeatherOverview>
-                    </el-col>
-                </el-row>        
+                </el-row>
             </el-main>
         </el-container>
     </container>
@@ -55,9 +57,11 @@
 <script setup>
 import EnergyOverviewChart from "/src/components/Charts/EnergyOverviewChart.vue"
 import WeatherOverview from "/src/components/WeatherOverview.vue"
+import temperatureCard from "/src/components/Charts/TemperatureCard.vue"
 import loginBar from '../components/LoginBar.vue'
 import parkModel from '../components/ParkModel.vue'
-import { ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon } from 'element-plus';
+import energyCard from '../components/ParkInformationBlock/EnergyOverviewCard.vue'
+import { ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon, ElDivider } from 'element-plus';
 import { onMounted, ref } from "vue";
 import { useRouter } from 'vue-router';
 
@@ -77,13 +81,7 @@ onMounted(() => {
     position: absolute;
     min-width: 100vw; /* 根据实际内容调整 */
 }
-.energy-chart{
-    max-height: 30vh;
-    
-}
-.weather{
-    max-width: 60vw;
-}
+
 .topBar{
     width: 100%;
     background-color: white;

@@ -46,6 +46,7 @@ public class SysUserOnlineController extends BaseController
         List<SysUserOnline> userOnlineList = new ArrayList<SysUserOnline>();
         for (String key : keys)
         {
+            System.out.println(redisService.getCacheObject(key).getClass());
             LoginUser user = redisService.getCacheObject(key);
             if (StringUtils.isNotEmpty(ipaddr) && StringUtils.isNotEmpty(userName))
             {

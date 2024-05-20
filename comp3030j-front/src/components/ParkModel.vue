@@ -22,10 +22,6 @@ import { useRouter } from 'vue-router';
 // 获取 router 实例
 const router = useRouter();
 
-// 定义一个方法，用于处理返回首页的逻辑
-function goBack() {
-    router.push({ name: 'entry' }); // 使用 router.push 导航到首页
-}
 
 const initThree = () => {
   // 创建场景
@@ -70,7 +66,7 @@ const initThree = () => {
 
   }
   animate()
-  console.log("111")
+  //console.log("111")
 }
 
 const resizeRendererToDisplaySize = (renderer) => {
@@ -107,14 +103,14 @@ const loadOBJ = () => {
         // 加载进度
         if (xhr.lengthComputable) {
           const percentComplete = xhr.loaded / xhr.total * 100
-          console.log(Math.round(percentComplete, 2) + '%')
+          //console.log(Math.round(percentComplete, 2) + '%')
         }
       })
     })
 }
 
 const loadLight = () => {
-  const dirLight = new THREE.DirectionalLight(0xffffff, 0.6)
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.0)
     //光源等位置
     dirLight.position.set(-10, 8, -5)
     //可以产生阴影
