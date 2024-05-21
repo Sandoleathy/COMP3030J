@@ -267,9 +267,7 @@ var total = 0;
 const listReservation = () => {
     const token = sessionStorage.getItem("token");
     axios.get("/api/homestay/reservation/list" , {
-        params: {
-            query: queryParams
-        },
+        params: queryParams,
         headers: {
             'Authorization': 'Bearer ' + token
         }
