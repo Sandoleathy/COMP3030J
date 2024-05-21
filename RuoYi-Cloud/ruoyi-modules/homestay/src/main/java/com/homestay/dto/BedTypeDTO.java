@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddBedTypeDTO {
+public class BedTypeDTO {
     private HsBedType hsBedType;
     private List<HsBedImage> hsBedImages;
 }

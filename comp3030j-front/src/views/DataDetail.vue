@@ -58,13 +58,21 @@ import waterDetail from '../components/ParkInformationBlock/WaterDetail.vue';
 import tempretureCard from '../components/Charts/TemperatureCard.vue';
 import warningCard from '../components/Charts/WarningCard.vue';
 import hotelInfo from '../components/HotelManagement/HotelInfo.vue';
+import { connectWebSocket } from '@/chartData/EnergyDetail.ts'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-import { ref } from 'vue'
-
-//Chart.register(...registerables);
 const pageNum = ref('0')
 const activeNames = ref(['1'])
+let socket
+const socketURL = 'ws://localhost:8080/statistics/ws'
 
+onMounted(() => {
+  socket = connectWebSocket(socketURL);
+})
+
+onUnmounted(() => {
+  socket.close()
+})
 </script>
 
 <style scoped>

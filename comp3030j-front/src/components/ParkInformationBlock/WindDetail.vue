@@ -15,28 +15,28 @@
             <el-row>
               <div style="width: 100%;text-align: center;font-weight: bolder">Kwh and Carbon Reduce</div>
               <el-col :span="24">
-                <canvas id="kwh-carbon-chart"></canvas>
+                <canvas id="kwh-carbon-chart-wind"></canvas>
               </el-col>
             </el-row>
           <el-row :gutter="20">
             <el-col :span="6">
               <div  class="dataBlock">
-                Electric current: {{ I }}
+                Electric current: {{ I }}A
               </div>
             </el-col>
             <el-col :span="6">
               <div  class="dataBlock">
-                Voltage: {{ U }}
+                Voltage: {{ U }}V
               </div>
             </el-col>
             <el-col :span="6">
               <div  class="dataBlock">
-                wind speed: {{ windSpeed }}
+                Wind speed: {{ windSpeed }}m/s
               </div>
             </el-col>
             <el-col :span="6">
               <div  class="dataBlock">
-                风能转换效率: {{ efficiency }}%
+                Wind energy conversion efficiency: {{ efficiency }}%
               </div>
             </el-col>
           </el-row>
@@ -57,21 +57,23 @@ import { ElContainer, ElMain, ElHeader, ElMessage, ElRow, ElCol, ElSwitch } from
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router';
 import {Chart,registerables} from 'chart.js'
-import { windTurbineWattCarbon } from '@/chartData/EnergyDetail.ts'
-import { windTurbineRPMTorque } from '@/chartData/EnergyDetail.ts'
+import { windTurbineWattCarbon, windTurbineRPMTorque, energyDataSets} from '@/chartData/EnergyDetail.ts'
 import axios from "axios";
 
 Chart.register(...registerables); //记得注册！教程里都没写！3.0版本以上的chart.js需要手动注册控制器！
 
 const router = useRouter();
 const I = ref(0)
-const U = ref(0)
+const U = ref(690)
 const windSpeed = ref(0)
 const efficiency = ref(0)
 const isStart = ref(true)
 
 let wattCarbonData = windTurbineWattCarbon
 let RPMTorqueData = windTurbineRPMTorque
+
+let chart1 = null
+let chart2 = null
 
 let intervalId
 onMounted(() => {
@@ -81,31 +83,27 @@ onMounted(() => {
 })
 
 const createChart = () => {
-  const ctx1 = document.getElementById("kwh-carbon-chart")
+  const ctx1 = document.getElementById("kwh-carbon-chart-wind")
   const ctx2 = document.getElementById("rpm-torque-chart")
 
-  new Chart(ctx1, wattCarbonData)
-  new Chart(ctx2, RPMTorqueData)
+  chart1 = new Chart(ctx1, wattCarbonData)
+  chart2 = new Chart(ctx2, RPMTorqueData)
 }
 
 const updateData = () => {
-  const token = sessionStorage.getItem("token");
-  axios.get('/api/statistics/energy/dataFlow', {
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  }).then(res => {
-    const data = res.data
-    console.log(data)
-    windSpeed.value = Number(data.wind.windSpeed).toFixed(2);
-    const a = data.energySystemDataFlow[0].windEnergyConversionEfficiency * 100
-    efficiency.value = Number(a).toFixed(2);
-  }).catch(error => {
-    console.log(error)
-  })
+  I.value = Number(energyDataSets.currentWind).toFixed(2);
+  windSpeed.value = Number(energyDataSets.windSpeed).toFixed(2);
+  efficiency.value = Number(energyDataSets.windEnergyConversionEfficiency).toFixed(2);
 
   wattCarbonData = windTurbineWattCarbon
   RPMTorqueData = windTurbineRPMTorque
+
+  //console.log(windTurbineWattCarbon)
+  chart1.data = wattCarbonData.data
+  chart2.data = RPMTorqueData.data
+  //
+  chart1.update()
+  chart2.update()
 }
 
 onUnmounted(() => {
@@ -115,6 +113,7 @@ onUnmounted(() => {
 </script>
 <style scoped>
 .container1{
+    border: 1px solid black;
     border-radius: 5px;
     width: 100%;
     min-height: 450px;
