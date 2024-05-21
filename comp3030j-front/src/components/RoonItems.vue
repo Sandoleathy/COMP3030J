@@ -1,29 +1,58 @@
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue';
+import {computed, defineProps, onMounted, ref, watchEffect} from 'vue';
 import axios from "axios";
+import { useRouter } from 'vue-router';
 
-let bedType=ref('')
-
-onMounted(() => {
-    getRoomInfo();
+const router = useRouter();
+const props = defineProps({
+    roomData: Object
 });
 
-const getRoomInfo = () => {
-    axios.get("/api/homestay/room/list", {
-
-    }).then(response => {
-        const data = response.data;
-        console.log(data)
-        bedType.value=data.bedType
-
-    }).catch(error => {
-        console.error('Error fetching data:', error);
-
-    });
-};
+const roomType = ref('');
+const price = ref('');
+const bedType = ref('');
+const breakfastIncludes = ref(''); // 存储早餐信息
 
 
+// 使用 computed 属性确保任何 props.roomData 的更新都能被捕捉和处理
+watchEffect(() => {
+    console.log('Received room data in roomItems:', props.roomData);
+    roomType.value = props.roomData ? props.roomData.roomType : 'Undefined';
+    price.value = props.roomData ? props.roomData.roomPrice : '0';
+    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'Unknown';
+    if (props.roomData && props.roomData.buildingType) {
+        fetchBuildingTypeData(props.roomData.buildingType);
+    }
+});
+function fetchBuildingTypeData(buildingTypeId) {
+    axios.get(`/api/homestay/buildingType/${buildingTypeId}`, {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+        }
+    })
+        .then(response => {
+            // 假设API返回的数据中有一个字段是breakfast，表明是否包含早餐
+            breakfastIncludes.value = response.data.data.breakfast;
+            console.log('Building Type Data:', response.data.data.breakfast);
+        })
+        .catch(error => {
+            console.error('Failed to fetch building type data:', error);
+        });
+}
+
+
+
+
+
+const bedtype = computed(() => {
+    return bedType.value === "0" ? "男" : bedType.value === "1" ? "One king-size bed" : "Unknown";
+});
+
+function goToRoomDetails() {
+    router.push('/roomdetails');
+}
 </script>
+
 
 <template>
     <div class="page-container">
@@ -31,13 +60,13 @@ const getRoomInfo = () => {
             <el-col :span="5" class="column">
                 <img src="/images/pic4.png" alt="Room Information" style="width: 35vh; height: 25vh;">
                 <div>
-                    <el-link>View Room Information</el-link>
+                    <el-link @click="goToRoomDetails">View Room Information</el-link>
                 </div>
             </el-col>
             <el-col :span="4" class="column">
                 <div>
-                    <h2>{{bedType}}</h2>
-                    <h4>One king-size bed</h4>
+                    <h2>{{roomType}}</h2>
+                    <h4>{{bedtype}}</h4>
                     <h4>Area: 34m²</h4>
                     <h4>With Window</h4>
                     <h4>Non-smoking</h4>
@@ -55,14 +84,14 @@ const getRoomInfo = () => {
             </el-col>
 
             <el-col :span="3" class="column">
-                <h3>Includes 2 Breakfasts</h3>
+                <h3>Includes {{ breakfastIncludes }} Breakfasts</h3>
             </el-col>
             <el-col :span="4" class="column">
                 <h3>Free Cancellation within 30 Minutes</h3>
             </el-col>
             <el-col :span="6" class="column">
                 <div>
-                    <h3>¥366</h3>
+                    <h3>¥{{price}}</h3>
                     <el-button>Book Now</el-button>
                 </div>
             </el-col>

@@ -1,26 +1,39 @@
-
 <script setup>
+import { ref, onMounted } from 'vue';
+import reservationPage from '../components/ReservationMenu.vue';
+import reservationSearchBar from '../components/ReservationSearchBar.vue';
+import roomItems from '../components/RoonItems.vue';
+import axios from "axios";
 
-import api from '../api'
-import {onMounted} from 'vue'
-import reservationPage from '../components/ReservationMenu.vue'
-import reservationSearchBar from '../components/ReservationSearchBar.vue'
-import roomItems from '../components/RoonItems.vue'
-const clickTest = () => {
-    api.get('/users')
+
+const rooms = ref([]); // 储存房间数据的响应式变量
+
+onMounted(() => {
+    fetchRooms();
+    window.scrollTo(0, 0);
+});
+
+// 获取房间数据的函数
+function fetchRooms() {
+    const token = sessionStorage.getItem("token");
+    axios.get('/api/homestay/room/list', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
         .then(response => {
-            console.log(response.data);
+            // Debugging log to check the structure of the response
+            console.log('Response data:', response.data.rows);
+
+            // Ensure the response data structure contains 'rows'
+            rooms.value = response.data.rows;
+            rooms.value.forEach(room => console.log('Room data:', room.hsRoom));
+
         })
         .catch(error => {
-            console.error(error);
+            console.error('Failed to fetch rooms:', error);
         });
 }
-
-//页面初始化时会先执行的代码
-onMounted(() => {
-    clickTest();
-    window.scrollTo(0, 0); // 添加这行代码来滚动到页面顶部
-});
 </script>
 
 <template>
@@ -28,16 +41,10 @@ onMounted(() => {
         <el-container class="container">
             <el-header class="header">
                 <reservationPage></reservationPage>
-
             </el-header>
-
             <el-main class="main">
                 <reservationSearchBar></reservationSearchBar>
-                <roomItems></roomItems>
-                <roomItems></roomItems>
-                <roomItems></roomItems>
-                <roomItems></roomItems>
-                <roomItems></roomItems>
+                <roomItems v-for="room in rooms" :key="room.id" :roomData="room.hsRoom"></roomItems>
             </el-main>
         </el-container>
     </div>
