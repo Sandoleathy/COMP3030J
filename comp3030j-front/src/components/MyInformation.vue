@@ -1,5 +1,5 @@
 <template>
-    <el-form ref="form" label-width="100px">
+    <el-form  label-width="100px">
         <el-form-item label="个人信息登记:">
         </el-form-item>
 
