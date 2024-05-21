@@ -1,12 +1,12 @@
 <template>
     <div class="navigation_bar">
         <el-row justify="end">
-            <el-col v-if="!isLogin" :span="8" style="margin-top: 10px;">
+            <el-col v-if="!isLogin" :span="3" style="text-align: right; margin-top: 10px;">
                 <div style="cursor:default;">
                     <span class="clickable" @click="goToLoginPage">Sign in</span> | <span class="clickable" @click="SignUp">Sign up</span>
                 </div>
             </el-col>
-            <el-col :span="8" v-if="isLogin">
+            <el-col :span="3" v-if="isLogin">
                 <div class="user-info">
                     <el-avatar icon="UserFilled" :src="avatarPath"></el-avatar>
                     <el-dropdown @command="handleCommand">
@@ -29,7 +29,7 @@
                     </el-dropdown>
                 </div>
             </el-col>
-            <el-col :span="6" style="text-align: right;margin-top: 10px">
+            <el-col :span="5" style="text-align: center; margin-top: 10px;">
                 <div>
                     <span style="color: white;">
                         {{ year }}/{{ month }}/{{ day }}  {{ hours }}:{{ minutes }}:{{ seconds }}  &nbsp; <i :class="icon"></i> {{ temperature }}°C 
@@ -143,7 +143,7 @@ onMounted( ()=> {
     color: black;
 }
 .navigation_bar {
-    background-color: #409EFF;
+    background-color: #7b996e;
     padding: 10px 20px;
     margin: 0;
     text-align: right;

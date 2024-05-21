@@ -1,80 +1,68 @@
-<template>
-    <div class="page-container">
-        <el-menu  class="el-menu-demo fixed-top" mode="horizontal"
-                 :ellipsis="false">
-            <el-menu-item index="0">
-                            <img
-                                style="width: 90px;height: 60px"
-                                src="/images/Logo.jpg"
-                                alt="Element logo"
-                            />
-                <div class="logo_word">
-                    <el-row>
-                        <h3 class="styled-heading">依山别墅</h3>
-                    </el-row>
-                    <el-row>
-                        <h3 class="styled-heading">Mountain Villa</h3>
-                    </el-row>
-                </div>
+<template>   
+    <el-container style="margin-top: -80px;">
+        <el-header class="header">
+            <el-menu class="fixed-top" mode="horizontal" :ellipsis="false">
+                <el-menu-item index="0">
+                    <img
+                        style="width: 90px; height: 90px"
+                        src="/images/Logo.jpg"
+                        alt="Element logo"
+                    />
+                    <div class="logo_word">
+                        <el-row>
+                            <h3 class="styled-heading" style="font-size: 40px;">Yishan</h3>
+                        </el-row>
+                        <el-row>
+                            <h3 class="styled-heading" style="font-size: 25px;">Mountain Villa</h3>
+                        </el-row>
+                    </div>
+                </el-menu-item>
+                <div class="flex-grow" />
+                <el-menu-item class="menu-item" index="1" @click="scrollToSection('aboutUs')">About Us</el-menu-item>
+                <el-menu-item class="menu-item" index="2" @click="goToViewPage">Overview</el-menu-item>
+                <el-menu-item class="menu-item" index="3" @click="scrollToSection('news')">News & Notices</el-menu-item>
+                <el-menu-item class="menu-item" index="4" @click="scrollToSection('minsu')" style="margin-right: 20px;">Hotel</el-menu-item>
+            </el-menu>
+        </el-header>
+    </el-container>
 
-            </el-menu-item>
-            <div class="flex-grow" />
-            <el-menu-item index="1" @click="scrollToSection('aboutUs')">About Us</el-menu-item>
-            <el-menu-item index="2" @click="goToViewPage">Overview</el-menu-item>
-            <el-menu-item index="3" @click="scrollToSection('news')">News & Notices</el-menu-item>
-            <el-menu-item index="4" @click="scrollToSection('minsu')">Hotel</el-menu-item>
-        </el-menu>
-
-        <div class="block text-center">
-            <el-carousel height="400px">
-                <!--                <el-carousel-item v-for="item in 3" :key="item">-->
-                <!--                    <h3 class="small justify-center" text="2xl">{{ item }}</h3>-->
-                <!--                </el-carousel-item>-->
-
-                <el-carousel-item v-for="(imageUrl, index) in imageUrls" :key="index">
-                    <img :src="imageUrl" alt="carousel image" style="width: 100%; height: 400px; object-fit: contain;">
-                </el-carousel-item>
-            </el-carousel>
-        </div>
-
+    <div class="block" style="position: relative; top: 60px; width: 100%">
+        <el-carousel height="400px" width="100%">
+            <el-carousel-item v-for="(imageUrl, index) in imageUrls" :key="index">
+                <img :src="imageUrl" alt="carousel image" style="width: 100%; height: 400px; object-fit: contain;">
+            </el-carousel-item>
+        </el-carousel>
+    </div>
+        
+    <div style="width: 90%; margin: auto;">
         <div class="aboutUs" ref="aboutUsSection">
-            <h1 class="line"></h1>
-            <h3 class="header">About Us</h3>
+            <h1 class="line1"></h1>
+            <h1 class="header">About Us</h1>
             <h3 class="welcome">Welcome to our park!</h3>
             <h4 class="context">With a mission to achieve economic, social and ecological sustainability, we are committed to creating a unique and welcoming living space in this quiet and vibrant countryside.
                 Here, you will experience the charm and comfort of rural life and enjoy the gifts of nature. Our homestay will provide you with comfortable accommodation, so that you can spend a pleasant time in the quiet country; Health care service center will provide you with intimate health care and love; The Sustainable Energy Center will lead you to a green life and experience the charm of clean energy.
                 We welcome your arrival, let us explore this beautiful land together, feel the warmth and tolerance of the countryside, and create a better future together!</h4>
             <h3 class="ending">Looking forward to your visit!</h3>
         </div>
+
         <div class="news" ref="newsSection">
-            <h1 class="line"></h1>
+            <h1 class="line2"></h1>
             <h1 class="minsu-head">News & Notices</h1>
             <div class="news-container">
-                <el-badge :value="1" class="item" :class="{ active: activeBadge === 'activeNews' }">
-                    <el-button @click="setActive('activeNews')">Active News</el-button>
-                </el-badge>
-                <el-badge :value="12" class="item" :class="{ active: activeBadge === 'systemNews' }">
-                    <el-button @click="setActive('systemNews')">System News</el-button>
-                </el-badge>
-
                 <div class="news-text">
                     <div class="title-date">
                         <h3>Yishan Villa May farm activities updated!</h3>
                         <span class="date">2024/04/19</span>
                     </div>
                     <h4>Peach picking can be experienced at the farm every weekend from 10:00 am to 16:00 PM</h4>
-                    <hr> <!-- 横线 -->
+                    <hr>
                 </div>
             </div>
         </div>
+    </div>
 
-
-
-
-
-        </div>
         <div class="minsu" ref="minsuSection">
-            <h1 class="line"></h1>
+            <h1 class="line2"></h1>
             <h1 class="minsu-head">Hotel</h1>
             <h3 class="minsu-head">Welcome to our guesthouse, the ideal place for country living！</h3>
             <el-row gutter={50}>
@@ -95,43 +83,27 @@
                 </el-col>
             </el-row>
         </div>
-
-
-
-
 </template>
 
 <style scoped>
-.page-container {
-    width: 90%;
-    margin: auto;
-    padding-top: 60px;
-}
 .fixed-top {
+    display: flex;
     position: absolute;
     top: 60px;
     left: 0;
+    height: 120px;
     width: 100%; /* 确保导航栏宽度与视窗宽度一致 */
-    z-index: 1000; /* 设置一个高的z-index确保导航栏在内容之上 */
+    /*z-index: 1000; 设置一个高的z-index确保导航栏在内容之上 */
     background-color: #fff; /* 设置背景颜色以确保内容不透明显示 */
 }
 
-
-.el-carousel__item h3 {
-    color: #475669;
-    opacity: 0.75;
-    line-height: 150px;
-    margin: 0;
-    text-align: center;
-}
-
 .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+    background-color: #d3dce680;
+}
+.el-carousel__item:nth-child(2n + 1) {
+    background-color: #d3dce680;
 }
 
-.el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
-}
 .el-carousel__item img {
     width: 100%;
     height: 400px;
@@ -146,12 +118,21 @@
     scroll-margin-top: 150px; /* 根据固定头部的高度进行调整 */
 }
 
-.line {
+.line1 {
     border: none; /* 移除默认边框 */
     height: 1.5px; /* 线的高度 */
-    background-color: #000000; /* 线的颜色，这里使用灰色 */
+    opacity: 1;
     /* 上下外边距，可调整 */
     margin: 60px auto 40px;
+    width: 50%; /* 宽度为容器的100% */
+}
+
+.line2 {
+    border: none; /* 移除默认边框 */
+    height: 1.5px; /* 线的高度 */
+    background-color: #7b996e; /* 线的颜色 */
+    /* 上下外边距，可调整 */
+    margin: 90px auto 40px;
     width: 50%; /* 宽度为容器的100% */
 }
 
@@ -205,13 +186,22 @@
     margin-bottom: 40px; /* 外边距下方 */
 }
 
+.menu-item {
+    font-size: 18px;
+    font-weight: bold;
+    --el-menu-active-color: #7b996e;
+    --el-menu-hover-text-color: #7b996e;
+    --el-menu-hover-bg-color: #dce3d8;
+}
 
 .logo_word .styled-heading {
-    color: green;        /* 设置字体颜色为绿色 */
+    color: #7b996e;        /* 设置字体颜色为绿色 */
+    font-size: 25px;
     font-weight: bold;
-    padding-top: -20px;/* 加粗字体 */
-    margin-top: -15px;       /* 上边距设置为0 */
-    margin-bottom: -25px;  /* 下边距设置为2px，保持行间距小 */
+    padding-top: -20px; /* 加粗字体 */
+    margin-left: 10px;
+    margin-top: -10px; /* 上边距*/
+    margin-bottom: -15px; /* 下边距*/
 }
 .item {
     margin-top: 10px;
@@ -236,35 +226,17 @@
     justify-content: space-between; /* 使元素分布在容器的两端 */
     align-items: center; /* 垂直居中对齐 */
 }
-
 .news-text .title-date h3 {
     font-weight: bold;
     margin-right: auto; /* 确保h3和日期之间推开 */
 }
-
 .news-text .date {
     white-space: nowrap; /* 防止日期折行 */
      /* 增加日期的字体粗细，可选 */
 }
-
 .news-text h4 {
     margin-top: 10px; /* 根据需要调整间距 */
 }
-
-
-.news-container .item.active .el-button {
-    background-color: blue; /* 激活状态下的背景色 */
-    color: white; /* 激活状态下的文字色 */
-}
-
-.news-container .item .el-button {
-    transition: background-color 0.3s, color 0.3s; /* 平滑颜色过渡 */
-}
-
-.news-container .item .el-button:hover {
-    background-color: blue; /* 鼠标悬停状态下的背景色 */
-    color: white;
-}/* 鼠标悬停状态下的文字色 */
 </style>
 
 <script setup>
