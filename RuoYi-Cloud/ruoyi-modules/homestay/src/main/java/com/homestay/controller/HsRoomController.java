@@ -32,9 +32,6 @@ public class HsRoomController extends BaseController {
     @Autowired
     private IHsRoomService hsRoomService;
 
-    @Autowired
-    private IHsRoomImageService hsRoomImageService;
-
     /**
      * 查询民宿房间列表
      */
@@ -73,19 +70,8 @@ public class HsRoomController extends BaseController {
     @RequiresPermissions("homestay:room:add")
     @Log(title = "民宿房间", businessType = BusinessType.INSERT)
     @PostMapping("/add")
-    public List<AjaxResult> add(@RequestBody AddRoomDTO addRoomDTO) {
-        List<AjaxResult> results = new ArrayList<>();
-        HsRoom hsRoom = addRoomDTO.getHsRoom();
-        hsRoomService.insertHsRoom(hsRoom);
-        results.add(toAjax(hsRoom.getId().intValue()));
-        if (addRoomDTO.getHsRoomImages() != null) {
-            List<HsRoomImage> images = addRoomDTO.getHsRoomImages();
-            for (HsRoomImage image : images) {
-                image.setRoomId(hsRoom.getId());
-                results.add(toAjax(hsRoomImageService.insertHsRoomImage(image)));
-            }
-        }
-        return results;
+    public AjaxResult add(@RequestBody HsRoom hsRoom) {
+        return toAjax(hsRoomService.insertHsRoom(hsRoom));
     }
 
     /**

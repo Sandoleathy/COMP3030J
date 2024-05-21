@@ -32,7 +32,7 @@ public interface IHsRoomService
     /**
      * 新增民宿房间
      * 
-     * @param addRoomDTO 民宿房间DTO
+     * @param hsRoom 民宿房间
      * @return 结果
      */
     public int insertHsRoom(HsRoom hsRoom);

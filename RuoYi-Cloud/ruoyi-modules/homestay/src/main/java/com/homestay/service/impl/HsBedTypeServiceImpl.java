@@ -1,17 +1,17 @@
 package com.homestay.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.homestay.domain.HsBedImage;
-import com.homestay.dto.AddBedTypeDTO;
+import com.homestay.domain.HsBedType;
+import com.homestay.dto.BedTypeDTO;
 import com.homestay.dto.SelectBedTypeDTO;
 import com.homestay.mapper.HsBedImageMapper;
+import com.homestay.mapper.HsBedTypeMapper;
+import com.homestay.service.IHsBedTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.homestay.mapper.HsBedTypeMapper;
-import com.homestay.domain.HsBedType;
-import com.homestay.service.IHsBedTypeService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 民宿床类型Service业务层处理
@@ -34,10 +34,10 @@ public class HsBedTypeServiceImpl implements IHsBedTypeService {
      * @return 民宿床类型
      */
     @Override
-    public AddBedTypeDTO selectHsBedTypeById(Long id) {
+    public BedTypeDTO selectHsBedTypeById(Long id) {
         HsBedType hsBedType = hsBedTypeMapper.selectHsBedTypeById(id);
         List<HsBedImage> hsImages = hsBedImageMapper.selectHsBedImageByBedId(id);
-        return new AddBedTypeDTO(hsBedType, hsImages);
+        return new BedTypeDTO(hsBedType, hsImages);
     }
 
     /**
@@ -47,7 +47,7 @@ public class HsBedTypeServiceImpl implements IHsBedTypeService {
      * @return 民宿床类型
      */
     @Override
-    public List<AddBedTypeDTO> selectHsBedTypeList(SelectBedTypeDTO selectBedTypeDTO) {
+    public List<BedTypeDTO> selectHsBedTypeList(SelectBedTypeDTO selectBedTypeDTO) {
         HsBedType hsBedType = new HsBedType();
         hsBedType.setBedName(selectBedTypeDTO.getBedName());
         hsBedType.setMaxPeople(selectBedTypeDTO.getMaxPeople());
@@ -60,7 +60,7 @@ public class HsBedTypeServiceImpl implements IHsBedTypeService {
 
         List<HsBedType> hsBedTypes = hsBedTypeMapper.selectHsBedTypeList(hsBedType);
         List<HsBedImage> hsImages = hsBedImageMapper.selectHsBedImageList(hsBedImage);
-        List<AddBedTypeDTO> addBedTypeDTOS = new ArrayList<>();
+        List<BedTypeDTO> bedTypeDTOS = new ArrayList<>();
         for (HsBedType bedType : hsBedTypes) {
             List<HsBedImage> images = new ArrayList<>();
             for (HsBedImage image : hsImages) {
@@ -68,29 +68,20 @@ public class HsBedTypeServiceImpl implements IHsBedTypeService {
                     images.add(image);
                 }
             }
-            addBedTypeDTOS.add(new AddBedTypeDTO(bedType, images));
+            bedTypeDTOS.add(new BedTypeDTO(bedType, images));
         }
-        return addBedTypeDTOS;
+        return bedTypeDTOS;
     }
 
     /**
      * 新增民宿床类型
      *
-     * @param addBedTypeDTO 民宿床类型DTO
+     * @param hsBedType 民宿床类型
      * @return 结果
      */
     @Override
-    public int insertHsBedType(AddBedTypeDTO addBedTypeDTO) {
-        HsBedType hsBedType = addBedTypeDTO.getHsBedType();
-        long heBedTypeId = hsBedTypeMapper.insertHsBedType(hsBedType);
-        if (addBedTypeDTO.getHsBedImages() != null) {
-            List<HsBedImage> hsBedImages = addBedTypeDTO.getHsBedImages();
-            for (HsBedImage hsBedImage : hsBedImages) {
-                hsBedImage.setBedId(heBedTypeId);
-                hsBedImageMapper.insertHsBedImage(hsBedImage);
-            }
-        }
-        return (int) heBedTypeId;
+    public int insertHsBedType(HsBedType hsBedType) {
+        return hsBedTypeMapper.insertHsBedType(hsBedType);
     }
 
     /**
