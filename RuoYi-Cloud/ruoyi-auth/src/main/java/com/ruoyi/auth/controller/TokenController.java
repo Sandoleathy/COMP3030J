@@ -2,10 +2,7 @@ package com.ruoyi.auth.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.auth.form.LoginBody;
 import com.ruoyi.auth.form.RegisterBody;
 import com.ruoyi.auth.service.SysLoginService;
@@ -86,6 +83,12 @@ public class TokenController
     {
         // 用户注册
         sysLoginService.register(registerBody.getUsername(), registerBody.getPassword());
+        return R.ok();
+    }
+
+    @GetMapping("/changeLanguage")
+    public R<?> changeLanguage(String lang)
+    {
         return R.ok();
     }
 }

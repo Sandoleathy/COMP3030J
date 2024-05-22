@@ -10,7 +10,8 @@ const useAppStore = defineStore(
         hide: false
       },
       device: 'desktop',
-      size: Cookies.get('size') || 'default'
+      size: Cookies.get('size') || 'default',
+      language: Cookies.get('language') || 'en'
     }),
     actions: {
       toggleSideBar(withoutAnimation) {
@@ -39,8 +40,16 @@ const useAppStore = defineStore(
       },
       toggleSideBarHide(status) {
         this.sidebar.hide = status
-      }
+      },
+
+      setLanguage(language) {
+        this.language = language;
+        Cookies.set('language', language);
+      },
+
+
     }
+
   })
 
 export default useAppStore

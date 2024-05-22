@@ -47,6 +47,20 @@ export function logout() {
   })
 }
 
+// 修改语言
+export function changeLanguage(lang){
+  return request({
+    url: '/auth/changeLanguage',
+    method: 'get',
+    headers: {
+      isToken: false,
+    },
+    params: {
+      lang: lang
+    }
+  })
+}
+
 // 获取验证码
 export function getCodeImg() {
   return request({

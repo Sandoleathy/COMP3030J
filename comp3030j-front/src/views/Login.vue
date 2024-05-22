@@ -4,9 +4,12 @@
         <div id="background">
 
         </div>
+
         <el-container class="login-container">
+
             <el-form class="login-form" label-position="top">
                 <h2>Log In</h2>
+                <lang-select class="set-language" />
                 <el-form-item label="Username">
                     <el-input v-model="username" placeholder="Username"></el-input>
                 </el-form-item>
@@ -45,6 +48,7 @@ const isAdmin = ref(false)
 
 const isLoading = ref(false)
 const url = "/api/auth/login"
+import LangSelect from '@/components/LangSelect'
 
 const handleLogin = async () => {
     //console.log(username.value)

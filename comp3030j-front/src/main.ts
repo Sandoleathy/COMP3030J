@@ -17,6 +17,8 @@ import elementIcons from '@/components/SvgIcon/svgicon.js'
 import { useDict } from '@/utils/dict.js'
 import { parseTime, resetForm, addDateRange, handleTree, selectDictLabel, selectDictLabels } from '@/utils/ruoyi.js'
 import { download } from '@/utils/request.js'
+import i18n from '@/components/lang/index.js'
+
 // 分页组件
 import Pagination from '@/components/Pagination/index.vue'
 // 自定义表格工具组件
@@ -63,6 +65,7 @@ app.use(ElementPlus) //使用element ui
 app.use(plugins)
 app.use(elementIcons)
 app.component('svg-icon', SvgIcon)
+app.use(i18n)
 
 app.mount('#app')
 
