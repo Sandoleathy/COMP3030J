@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import static com.statistics.utils.AdvancedGaussianGenerator.generateAdvancedGaussian;
 
 @Service
 public class EnergySensorDataService {
@@ -41,6 +42,7 @@ public class EnergySensorDataService {
         data.setGeneratorSpeed(100.0f + (300.0f - 100.0f) * random.nextFloat());
         data.setGeneratorTorque(10.0f + (100.0f - 10.0f) * random.nextFloat());
         data.setCurrentWind(0.145f + (1.449f - 0.145f) * random.nextFloat());
+        data.setWindEnergyConversionEfficiency(0.2f+0.6f*random.nextFloat());
 
         // Initialize solar power system data
         data.setDeviceTemperature(20.0f + (60.0f - 20.0f) * random.nextFloat());
@@ -69,23 +71,24 @@ public class EnergySensorDataService {
     // Create a modified copy of an existing EnergySensorData
     public CompleteEnergySystemData modifyEnergySensorData(CompleteEnergySystemData original) {
         CompleteEnergySystemData newData = new CompleteEnergySystemData();
-        newData.setTimeSeconds(original.getTimeSeconds()+5);
+        newData.setTimeSeconds(original.getTimeSeconds() + 5);
 
         // 风力发电系统数据生成
-        newData.setGeneratorSpeed((float) (original.getGeneratorSpeed() + random.nextGaussian()*30));
-        newData.setGeneratorTorque((float) (original.getGeneratorTorque() + random.nextGaussian() * 5));
-        newData.setCurrentWind((float) (original.getCurrentWind() + random.nextGaussian() * 0.1));
-
+        newData.setGeneratorSpeed((float) generateAdvancedGaussian(original.getGeneratorSpeed(), 100, 300, 30));
+        newData.setGeneratorTorque((float) generateAdvancedGaussian(original.getGeneratorTorque(), 10, 100, 5));
+        newData.setCurrentWind((float) generateAdvancedGaussian(original.getCurrentWind(), 0.145f, 1.449f, 0.1f));
+        newData.setWindEnergyConversionEfficiency(generateAdvancedGaussian(original.getWindEnergyConversionEfficiency(),0.2f,0.8f,0.005f));
         // 太阳能发电系统数据生成
-        newData.setDeviceTemperature((float) (original.getDeviceTemperature() + random.nextGaussian() * 10));
-        newData.setCurrentSolar((float) (original.getCurrentSolar() + random.nextGaussian() * 0.05));
+        newData.setDeviceTemperature((float) generateAdvancedGaussian(original.getDeviceTemperature(), 20, 60, 10));
+        newData.setCurrentSolar((float) generateAdvancedGaussian(original.getCurrentSolar(), 0.01f, 2.5f, 0.05f));
 
         // 落差水力发电系统数据生成
-        newData.setWaterFlow((float) (original.getWaterFlow() + random.nextGaussian() * 300));
-        newData.setFlowSpeed((float) (original.getFlowSpeed() + random.nextGaussian() * 4));
-        newData.setUpperWaterLevel((float) (original.getUpperWaterLevel() + random.nextGaussian() ));
-        newData.setLowerWaterLevel((float) (original.getLowerWaterLevel() + random.nextGaussian() * 0.5));
-        newData.setTurbineSpeed((float) (original.getTurbineSpeed() + random.nextGaussian() * 20));
+        newData.setWaterFlow((float) generateAdvancedGaussian(original.getWaterFlow(), 100, 1500, 300));
+        newData.setFlowSpeed((float) generateAdvancedGaussian(original.getFlowSpeed(), 3, 20, 4));
+        newData.setUpperWaterLevel((float) generateAdvancedGaussian(original.getUpperWaterLevel(), 12, 15, 1));
+        newData.setLowerWaterLevel((float) generateAdvancedGaussian(original.getLowerWaterLevel(), 1, 3, 0.5f));
+        newData.setTurbineSpeed((float) generateAdvancedGaussian(original.getTurbineSpeed(), 10, 100, 20));
+        newData.setCurrentHydro(generateAdvancedGaussian(original.getCurrentHydro(),10,100,20));
         setPower(newData);
         return newData;
     }
@@ -122,6 +125,15 @@ public class EnergySensorDataService {
         long hydroEnergy= (long) (baseData.getPowerHydro()+timeUtil*toSetData.getPowerHydro()*(reverse?-1:1));
         long windEnergy= (long) (baseData.getPowerWind()+timeUtil*toSetData.getPowerWind()*(reverse?-1:1));
         long solarEnergy= (long) (baseData.getPowerSolar()+timeUtil*toSetData.getPowerSolar()*(reverse?-1:1));
+        if(hydroEnergy<0){
+            hydroEnergy=-hydroEnergy;
+        }
+        if(windEnergy<0){
+            windEnergy=-windEnergy;
+        }
+        if(hydroEnergy<0){
+            solarEnergy=-solarEnergy;
+        }
 
 
 
@@ -150,7 +162,8 @@ public class EnergySensorDataService {
         long timeBetween=timeStart-timeNow;
         //有断档的时间的话补全数据
         if(timeBetween>=timeUtil){
-            originalEnergy=new ProducedEnergy(timeStart,timeBetween*(long) random.nextGaussian(),timeBetween*(long) random.nextGaussian(),timeBetween*(long) random.nextGaussian());//这里单位是kwh
+            CompleteEnergySystemData randomSensorData=createEnergySensorData(getTimeDividableByFive(0));
+            originalEnergy=new ProducedEnergy(timeStart,timeBetween*(long) randomSensorData.getPowerHydro(),timeBetween*(long) randomSensorData.getPowerSolar(),timeBetween*(long) randomSensorData.getPowerWind());//这里单位是kwh
         }
 
         //先把数据发给跟缓存中的能源数据对应的
@@ -194,7 +207,7 @@ public class EnergySensorDataService {
 
     private void setWindConvertEfficiency(CompleteEnergySystemData completeEnergySystemData,Wind wind){
         completeEnergySystemData.setWindSpeed(wind.getWindSpeed());
-        completeEnergySystemData.setTheoreticalMaxPower(calculateTheoreticalMaxPower(1000F, 1.225F,completeEnergySystemData.getWindSpeed(), 0.45F));
+        completeEnergySystemData.setTheoreticalMaxPower(completeEnergySystemData.getPowerWind()/completeEnergySystemData.getWindEnergyConversionEfficiency());
         completeEnergySystemData.setWindEnergyConversionEfficiency(completeEnergySystemData.getPowerWind()/completeEnergySystemData.getTheoreticalMaxPower());
     }
 
