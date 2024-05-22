@@ -93,7 +93,7 @@
 
 <style scoped>
 .background {
-    background-image: url('/images/pic1.png');
+    background-image: url('/images/bg.png');
     background-attachment: scroll; /* Make the background image scroll with the content */
     background-position: top; /* Center the background image */
     background-repeat: repeat-y; /* Repeat the background image vertically */
@@ -112,10 +112,10 @@
 }
 
 .el-carousel__item:nth-child(2n) {
-    background-color: #d3dce680;
+    background-color: rgba(211, 220, 230, 0.25);
 }
 .el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce680;
+    background-color: rgba(211, 220, 230, 0.25);
 }
 
 .el-carousel__item img {
@@ -156,6 +156,7 @@
 
 /* 特定样式，使 header 和 ending 加粗，并设置更大的外边距 */
 .header, .ending {
+    color: white;
     font-weight: bold; /* 加粗 */
     margin-top: 40px; /* 外边距上方 */
     margin-bottom: 40px; /* 外边距下方 */
@@ -163,6 +164,7 @@
 
 /* welcome 和 context 的外边距 */
 .welcome, .context {
+    color: white;
     margin-top: 20px; /* 外边距上方 */
     margin-bottom: 20px; /* 外边距下方 */
 }
@@ -193,6 +195,7 @@
 }
 
 .minsu {
+    color: white;
     padding-bottom: 100px;/* 维持图片原有比例 */
 }
 .minsu-pic {
@@ -201,6 +204,7 @@
     padding-top: -10px;/* 维持图片原有比例 */
 }
 .minsu-head{
+    color: white;
     text-align: center;
     font-weight: bold; /* 加粗 */
     margin-top: 40px; /* 外边距上方 */

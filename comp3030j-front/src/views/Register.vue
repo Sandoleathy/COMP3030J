@@ -11,7 +11,7 @@
                     <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
-                    <el-button type="primary" @click="handleRegister" :disabled="isLoading">
+                    <el-button class="register-button" type="primary" @click="handleRegister" :disabled="isLoading">
                         <span v-if="!isLoading">Sign up</span>
                         <el-icon v-if="isLoading" class="is-loading">
                             <Loading />
@@ -87,7 +87,7 @@ const checkInput = () => {
 <style scoped>
 #background{
     background-color: #f0f0f0; /* 设置背景颜色 */
-    background-image: url('/images/login-background.jpg'); /* 设置背景图片 */
+    background-image: url('/images/login-background.png'); /* 设置背景图片 */
     background-size: cover; /* 图片尺寸适应 */
     background-repeat: no-repeat; /* 不重复平铺 */
 
@@ -126,8 +126,17 @@ html, body {
     background-color: white; /* 白色背景 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 简单的阴影效果增加立体感 */
 }
+
+.register-button {
+    --el-button-bg-color: #1f1f1f;
+    --el-button-border-color: #1f1f1f;
+    --el-button-hover-bg-color: grey;
+    --el-button-hover-border-color: grey;
+    --el-button-active-bg-color: #1f1f1f;
+    --el-button-active-border-color: #1f1f1f;
+}
 .login-link {
-    color: #409EFF; /* Element UI 默认蓝色 */
+    color: #1f1f1f; /* Element UI */
     text-decoration: underline; /* 添加下划线 */
 }
 </style>
