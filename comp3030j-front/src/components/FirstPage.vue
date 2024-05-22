@@ -1,5 +1,5 @@
-<template>   
-    <el-container style="margin-top: -80px;">
+<template>
+    <div class="background"><el-container style="margin-top: -80px;">
         <el-header class="header">
             <el-menu class="fixed-top" mode="horizontal" :ellipsis="false">
                 <el-menu-item index="0">
@@ -38,7 +38,7 @@
         <div class="aboutUs" ref="aboutUsSection">
             <h1 class="line1"></h1>
             <h1 class="header">About Us</h1>
-            <h3 class="welcome">Welcome to our park!</h3>
+            <h3 class="welcome">- Welcome to our park -</h3>
             <h4 class="context">With a mission to achieve economic, social and ecological sustainability, we are committed to creating a unique and welcoming living space in this quiet and vibrant countryside.
                 Here, you will experience the charm and comfort of rural life and enjoy the gifts of nature. Our homestay will provide you with comfortable accommodation, so that you can spend a pleasant time in the quiet country; Health care service center will provide you with intimate health care and love; The Sustainable Energy Center will lead you to a green life and experience the charm of clean energy.
                 We welcome your arrival, let us explore this beautiful land together, feel the warmth and tolerance of the countryside, and create a better future together!</h4>
@@ -59,7 +59,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
         <div class="minsu" ref="minsuSection">
             <h1 class="line2"></h1>
@@ -71,21 +70,36 @@
                 </el-col>
                 <el-col :span="12" class="text-column">
                     <div class="text-content">
-                        <h3>Our guesthouse is situated in a lush mountain forest, with a quiet environment, fresh air and simple, comfortable rooms. Here you can enjoy quiet time away from the hustle and bustle. In the morning, you will be awakened by the dawn, the birdsong in the valley and the clear spring to accompany you to welcome a new day. During the day, you can stroll along the country roads and experience nature's artistry. At night, you can look up at the stars and share a good time with family and friends.
-                        </h3>
-                        <h3>Our hotel also offers you a wide range of activities and experiences. You can take part in farm picking activities to savour fresh produce, or participate in handicraft making to experience the charm of traditional craftsmanship.
-                        </h3>
-                        <h3>
-                            Whether you want to relax and unwind or experience the countryside, we will be happy to provide you with the best service to make your holiday a memorable one!
-                        </h3>
+                        <p>Our guesthouse is situated in a lush mountain forest,
+                          with a quiet environment, fresh air and simple, comfortable rooms.
+                          Here you can enjoy quiet time away from the hustle and bustle.
+                          In the morning, you will be awakened by the dawn,
+                          the birdsong in the valley and the clear spring to accompany you to welcome a new day.
+                          During the day, you can stroll along the country roads and experience nature's artistry.
+                          At night, you can look up at the stars and share a good time with family and friends.
+                        <br><br>Our hotel also offers you a wide range of activities and experiences.
+                          You can take part in farm picking activities to savour fresh produce,
+                          or participate in handicraft making to experience the charm of traditional craftsmanship.
+                        <br><br> Whether you want to relax and unwind or experience the countryside,
+                          we will be happy to provide you with the best service to make your holiday a memorable one!
+                        </p>
                         <el-button type="primary" class="reservation-button" @click="goToAboutPage">Reservation</el-button>
                     </div>
                 </el-col>
             </el-row>
         </div>
+    </div></div>
 </template>
 
 <style scoped>
+.background {
+    background-image: url('/images/pic1.png');
+    background-attachment: scroll; /* Make the background image scroll with the content */
+    background-position: top; /* Center the background image */
+    background-repeat: repeat-y; /* Repeat the background image vertically */
+    background-size: cover; /* Ensure the background covers the entire viewport */
+}
+
 .fixed-top {
     display: flex;
     position: absolute;
@@ -158,12 +172,6 @@
     align-items: center; /* 图片水平和垂直居中 */
 }
 
-.minsu-pic {
-    max-width: 100%; /* 保证图片不超过列宽 */
-    height: auto;
-    padding-top: -10px;/* 维持图片原有比例 */
-}
-
 .text-column {
     display: flex;
     flex-direction: column;
@@ -178,6 +186,19 @@
 
 .reservation-button {
     margin-top: 20px; /* 预订按钮与文本间距 */
+    --el-button-bg-color: #7b996e;
+    --el-button-border-color: #7b996e;
+    --el-button-hover-bg-color: #dce3d8;
+    --el-button-hover-border-color: #dce3d8;
+}
+
+.minsu {
+    padding-bottom: 100px;/* 维持图片原有比例 */
+}
+.minsu-pic {
+    max-width: 100%; /* 保证图片不超过列宽 */
+    height: auto;
+    padding-top: -10px;/* 维持图片原有比例 */
 }
 .minsu-head{
     text-align: center;
@@ -203,10 +224,6 @@
     margin-top: -10px; /* 上边距*/
     margin-bottom: -15px; /* 下边距*/
 }
-.item {
-    margin-top: 10px;
-    margin-right: 30px;
-}
 
 .news-container {
     width: 90%; /* 或根据实际需要调整宽度 */
@@ -215,10 +232,6 @@
     border: 1px solid #ccc; /* 边框样式 */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微的阴影效果 */
     background: #fff; /* 背景颜色 */
-}
-
-.item {
-    margin-bottom: 10px; /* Badge 之间的间距 */
 }
 
 .news-text .title-date {

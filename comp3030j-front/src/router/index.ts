@@ -84,7 +84,7 @@ const adminPages = ['/admin']
 //     //检查session是否过期
 //     const token = sessionStorage.getItem("token")
 //     //let isAuthenticated = false; // 标志位，表示用户是否已经通过验证
-
+//
 //     axios.get('api/system/user/profile', {
 //       headers: {
 //         'Authorization': 'Bearer ' + token
