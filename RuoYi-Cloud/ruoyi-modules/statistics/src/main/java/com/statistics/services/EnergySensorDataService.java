@@ -67,8 +67,9 @@ public class EnergySensorDataService {
     }
 
     // Create a modified copy of an existing EnergySensorData
-    public CompleteEnergySystemData modifyEnergySensorData(CompleteEnergySystemData original, int timeAdjust) {
+    public CompleteEnergySystemData modifyEnergySensorData(CompleteEnergySystemData original) {
         CompleteEnergySystemData newData = new CompleteEnergySystemData();
+        newData.setTimeSeconds(original.getTimeSeconds()+5);
 
         // 风力发电系统数据生成
         newData.setGeneratorSpeed((float) (original.getGeneratorSpeed() + random.nextGaussian()*30));
@@ -90,23 +91,11 @@ public class EnergySensorDataService {
     }
 
 
-    private List<CompleteEnergySystemData> batchCompleteSensorData(List<CompleteEnergySystemData> sensorDataList, Wind wind){
-
-
-
-        List<CompleteEnergySystemData> toReturn=
-                sensorDataList.stream()
-                        .peek(data -> {
-                            setWindConvertEfficiency(data, wind); // 修改data对象
-                            // 返回修改后的data对象
-                        })// Using method reference
-                        .toList();
-
-        cacheProducedEnergy(toReturn);
-        return toReturn;
-
-
-
+    private void batchCompleteSensorData(List<CompleteEnergySystemData> sensorDataList, Wind wind){
+                sensorDataList.forEach(
+                        i ->setWindConvertEfficiency(i, wind)
+                );
+        cacheProducedEnergy(sensorDataList);
     }
 
 
@@ -261,7 +250,7 @@ public class EnergySensorDataService {
             sensorDataList=redisService.getCacheList(redisKey);
         }
 
-        sensorDataList=sensorDataList.stream().dropWhile(d ->d.getTimeSeconds()<startTime).collect(Collectors.toCollection(ArrayList::new));
+        sensorDataList.removeIf(d -> d.getTimeSeconds() < startTime);
 
         if(sensorDataList.isEmpty()){
             CompleteEnergySystemData lateData= createEnergySensorData(startTime);
@@ -273,7 +262,7 @@ public class EnergySensorDataService {
         System.out.println(2);
         for (long i=sensorDataList.get(sensorDataList.size()-1).getTimeSeconds();i<endTime;i+=timeUtil) {
             System.out.println(i);
-            CompleteEnergySystemData nextData = modifyEnergySensorData(sensorDataList.get(sensorDataList.size() - 1), timeUtil);
+            CompleteEnergySystemData nextData = modifyEnergySensorData(sensorDataList.get(sensorDataList.size() - 1));
             sensorDataList.add(nextData);
 
         }
@@ -286,12 +275,12 @@ public class EnergySensorDataService {
 
         Wind wind=getWindSpeedAndDirection();
 
-        List<CompleteEnergySystemData> completedData=batchCompleteSensorData(sensorDataList,wind);
+        batchCompleteSensorData(sensorDataList,wind);
         //将List存入redis缓存
-        System.out.println("count: "+redisService.setCacheList(redisKey,completedData));
+        System.out.println("count: "+redisService.setCacheList(redisKey,sensorDataList));
         redisService.expire(redisKey,300);
 
-        return new DataFlow(completedData,wind,new Voltage());
+        return new DataFlow(sensorDataList,wind,new Voltage());
     }
 
 

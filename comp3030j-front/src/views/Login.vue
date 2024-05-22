@@ -36,6 +36,7 @@ import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon }
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import {Loading} from "@element-plus/icons-vue";
+import {setToken} from "@/utils/auth.js";
 
 var username = ref("")
 var password = ref("")
@@ -63,6 +64,7 @@ const handleLogin = async () => {
             ElMessage.success("Login successful! Welcome back ")
             //登陆成功,进行后续处理
             sessionStorage.setItem("token" , data.data.access_token)
+            setToken(data.data.access_token)
             sessionStorage.setItem("username" , username.value)
             await getUserType(data.data.access_token) // 等待 getUserType 方法执行完成
             isLoading.value = false

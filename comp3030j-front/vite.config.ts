@@ -3,13 +3,15 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+// @ts-ignore
+import createVitePlugins from './vite/plugins'
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-  ],
+  plugins:
+    createVitePlugins("dev",true)
+  ,
 
   server: {
     port: 5173, // 开发服务器端口
@@ -25,7 +27,11 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': path.resolve(__dirname, './src')
+    },
+  // https://cn.vitejs.dev/config/#resolve-extensions
+  extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+
+  },
+
 })
