@@ -34,7 +34,7 @@
         </el-carousel>
     </div>
         
-    <div style="width: 90%; margin: auto;">
+    <div style="width: 80%; margin: auto;">
         <div class="aboutUs" ref="aboutUsSection">
             <h1 class="line1"></h1>
             <h1 class="header">About Us</h1>
@@ -66,7 +66,7 @@
             <h3 class="minsu-head">Welcome to our guesthouse, the ideal place for country living！</h3>
             <el-row gutter={50}>
                 <el-col :span="12" class="image-column">
-                    <img class="minsu-pic" src="/images/pic1.png" alt="民宿图片">
+                    <img class="minsu-pic" src="/images/hotel.png" alt="hotel-pic">
                 </el-col>
                 <el-col :span="12" class="text-column">
                     <div class="text-content">
@@ -183,11 +183,15 @@
 }
 
 .text-content {
+    position: relative;
     max-width: 100%; /* 控制文本块的最大宽度 */
 }
 
 .reservation-button {
     margin-top: 20px; /* 预订按钮与文本间距 */
+    float: right; /* 将按钮对齐到右侧 */
+    font-size: 20px;
+    height: 40px;
     --el-button-bg-color: #7b996e;
     --el-button-border-color: #7b996e;
     --el-button-hover-bg-color: #dce3d8;
@@ -280,6 +284,9 @@ const scrollToSection = (sectionId) => {
 const imageUrls = ref([
     '/images/pic1.png',
     '/images/pic2.png',
+    '/images/pic1-1.png',
+    '/images/pic1-2.png',
+    '/images/pic1-3.png',
 ]);
 
 const goToAboutPage = () => {
