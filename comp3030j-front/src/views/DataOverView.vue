@@ -69,7 +69,6 @@
 </template>
 
 <script setup>
-import EnergyOverviewChart from "/src/components/Charts/EnergyOverviewChart.vue"
 import WeatherOverview from "/src/components/UserWeatherOverview.vue"
 import temperatureCard from "/src/components/Charts/UserTemperatureCard.vue"
 import loginBar from '../components/LoginBar.vue'

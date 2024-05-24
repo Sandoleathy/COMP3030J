@@ -3,11 +3,11 @@ import axios from 'axios'
 export const planetChartData = {
     type: 'pie',
     data: {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: ['wind Turbine', 'Solar Panel', 'Hydraulic Generator'],
         datasets: [
             {
-                label: '# of Votes',
-                data: [12, 19, 3],
+                label: 'Carbon reduced(kg)',
+                data: [1,2,3],
                 borderWidth: 1
             },
     ]
@@ -30,6 +30,26 @@ export const planetChartData = {
             }
         }
     },
+}
+
+export function GetEnergyData(){
+    //console.log('getdata')
+    const token = sessionStorage.getItem('token')
+    axios.get('/api/statistics/energy/dataFlow', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then((response) => {
+        //console.log(response.data)
+        const data = response.data;
+        const dataset: number[] = []
+        dataset.push(data.energySystemDataFlow[0].carbonReductionWind)
+        dataset.push(data.energySystemDataFlow[0].carbonReductionSolar)
+        dataset.push(data.energySystemDataFlow[0].carbonReductionHydro)
+        planetChartData.data.datasets[0].data = dataset
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 export default planetChartData;
