@@ -61,7 +61,7 @@ import energyChart from '../Charts/EnergyOverviewChart.vue'
 .table-container {
     border-style: solid;
     border-width: 1px;
-    border-color: rgba(255, 255, 255, 0);;
+    border-color: rgba(255, 255, 255, 0);
     position: relative;
     background: rgba(0, 0, 0, 0); /* 背景颜色 */
     text-align: center;
