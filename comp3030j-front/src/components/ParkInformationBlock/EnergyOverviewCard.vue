@@ -10,17 +10,17 @@
                 <table class="energy-data-table">
                     <caption>Park Green Energy Overview</caption>
                     <tr>
-                        <td>Wind Turbine</td>
+                        <td style="font-weight: bold; color:#36a2eb;">Wind Turbine</td>
                         <td>KWH</td>
                         <td>Carbon</td>
                     </tr>
                     <tr>
-                        <td>Solar</td>
+                        <td style="font-weight: bold; color:#ff6384;">Solar</td>
                         <td>KWH</td>
                         <td>Carbon</td>
                     </tr>
                     <tr>
-                        <td>Water</td>
+                        <td style="font-weight: bold; color:#ff9f40;">Hydraulic</td>
                         <td>KWH</td>
                         <td>Carbon</td>
                     </tr>

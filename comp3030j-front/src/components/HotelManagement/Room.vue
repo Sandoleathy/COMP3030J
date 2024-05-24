@@ -81,12 +81,14 @@
     <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="房间类型" align="center" prop="roomType" />
-      <el-table-column label="房间号" align="center" prop="roomNumber" />
-      <el-table-column label="栋类型" align="center" prop="buildingType" />
-      <el-table-column label="床类型" align="center" prop="bedType" />
-      <el-table-column label="价格" align="center" prop="roomPrice" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="Room Number" align="center" prop="roomNumber" />
+      <el-table-column label="Room Type" align="center" prop="roomType" />
+      <el-table-column label="Room Volume" align="center" prop="buildingType" /> <!-- 待改 -->
+      <el-table-column label="Bed Type" align="center" prop="bedType" />
+      <el-table-column label="Bed Length" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Bed Width" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Room Picture" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"
