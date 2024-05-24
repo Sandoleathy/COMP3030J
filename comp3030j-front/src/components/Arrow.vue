@@ -34,7 +34,7 @@ const props = defineProps({
     height: 0;
     border-left: 10px solid transparent; /* 左侧透明边框 */
     border-right: 10px solid transparent; /* 右侧透明边框 */
-    border-top: 40px solid rgb(91, 91, 91); /* 底部实线边框，可以根据需要设置颜色 */
+    border-top: 40px solid #FFFFFF;
     position: absolute;
     top: 35%;
     left: 43%;

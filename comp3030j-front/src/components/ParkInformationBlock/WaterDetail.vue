@@ -1,8 +1,8 @@
 <template>
   <div style="width: 100%;">
     <el-row justify="space-between">
-      <el-col :span="10">
-        Wind Turbine
+      <el-col :span="10" style="font-size: 30px;font-weight: bolder;">
+        Hydraulic Generator
       </el-col>
       <el-col :span="4">
         <span>Manage Device: </span>

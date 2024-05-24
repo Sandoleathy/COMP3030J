@@ -1,7 +1,7 @@
 <template>
         <div style="width: 100%;">
             <el-row justify="space-between">
-                <el-col :span="20">
+                <el-col :span="20" style="font-size: 30px;font-weight: bolder;">
                     Solar Panel
                 </el-col>
                 <el-col :span="4">
