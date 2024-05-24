@@ -14,13 +14,18 @@ export default {
     name: 'EnergyOverviewChart',
     data() {
         return {
-
+          chart1: Chart
         }
     },
     mounted(){
         GetEnergyData()
         const ctx = document.getElementById("chart")
-        new Chart(ctx, planetChartData)
+        this.chart1 = new Chart(ctx, planetChartData)
+    },
+    methods: {
+      updateData(){
+
+      }
     }
 }
 </script>

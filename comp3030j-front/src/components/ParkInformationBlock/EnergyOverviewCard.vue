@@ -7,7 +7,7 @@
                     <div class="corner top-right"></div>
                     <div class="corner bottom-left"></div>
                     <div class="corner bottom-right"></div>
-                <table class="energy-data-table">
+                <table class="energy-data-table" v-loading="isTableLoading">
                     <caption>Park Green Energy Overview</caption>
                     <tr>
                         <td>Wind Turbine</td>
@@ -42,6 +42,7 @@
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import energyChart from '../Charts/EnergyOverviewChart.vue'
+import { ElMessage } from "element-plus";
 
 const windKWH = ref(0)
 const solarKWH = ref(0)
@@ -50,11 +51,14 @@ const windCarbon = ref(0)
 const solarCarbon = ref(0)
 const waterCarbon = ref(0)
 
+let isTableLoading = ref(false)
+
 onMounted(() => {
   getData()
 })
 
 const getData = () => {
+  isTableLoading.value = true
   const token = sessionStorage.getItem('token')
   axios.get('/api/statistics/energy/dataFlow', {
     headers: {
@@ -69,7 +73,11 @@ const getData = () => {
     windCarbon.value = data.energySystemDataFlow[0].carbonReductionWind
     solarCarbon.value = data.energySystemDataFlow[0].carbonReductionSolar
     waterCarbon.value = data.energySystemDataFlow[0].carbonReductionHydro
+
+    isTableLoading.value = false
   }).catch(error => {
+    ElMessage.error("error fetching data")
+    isTableLoading.value = false
     console.log(error)
   })
 }
