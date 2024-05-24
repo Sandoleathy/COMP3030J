@@ -11,23 +11,23 @@
                     <caption>Park Green Energy Overview</caption>
                     <tr>
                         <td style="font-weight: bold; color:#36a2eb;">Wind Turbine</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ windKWH }}kwh</td>
+                        <td>{{ windCarbon }}kg</td>
                     </tr>
                     <tr>
                         <td style="font-weight: bold; color:#ff6384;">Solar</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ solarKWH }}kwh</td>
+                        <td>{{ solarCarbon }}kg</td>
                     </tr>
                     <tr>
                         <td style="font-weight: bold; color:#ff9f40;">Hydraulic</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ waterKWH }}kwh</td>
+                        <td>{{ waterCarbon }}kg</td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ windKWH + solarKWH + waterKWH }}kwh</td>
+                        <td>{{ windCarbon + solarCarbon + waterCarbon }}kg</td>
                     </tr>
                 </table>
                 </div>

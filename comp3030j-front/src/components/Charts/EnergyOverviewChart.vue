@@ -6,7 +6,7 @@
 </template>
 <script>
 import {Chart,registerables} from 'chart.js'
-import { planetChartData, GetEnergyData } from "../../chartData/EnergyOverview.ts"
+import { planetChartData, GetEnergyData } from "@/chartData/EnergyOverview.ts"
 
 Chart.register(...registerables); //记得注册！教程里都没写！3.0版本以上的chart.js需要手动注册控制器！
 Chart.defaults.color = '#FFFFFF';
