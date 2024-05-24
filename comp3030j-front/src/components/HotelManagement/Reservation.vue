@@ -144,15 +144,13 @@
       <el-table-column label="Paid or not" align="center" prop="hsReservation.pay" />
       <el-table-column label="Reservation Status" align="center" prop="hsReservation.reservationStatus" />
       <el-table-column label="Operation" align="center" class-name="small-padding fixed-width" width="380">
-        <template slot-scope="scope">
-          <el-button
-            size="large"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['homestay:reservation:edit']"
-          >revise</el-button>
-        </template>
+
+            <el-button
+                    size="large"
+                    type="text"
+                    icon="el-icon-edit"
+                    @click="handleUpdate(scope.row)"
+            >revise</el-button>
       </el-table-column>
     </el-table>
 
