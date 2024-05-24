@@ -1,71 +1,95 @@
 <template>
     <el-container>
     <!-- 搜索 -->
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="68px">
-    <el-form-item label="Check-In Time" prop="checkinTime">
-        <el-date-picker clearable
-            v-model="checkinTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="Enter check-in time">
-        </el-date-picker>
-    </el-form-item>
-    <el-form-item label="Check-Out Time" prop="checkoutTime">
-        <el-date-picker clearable
-            v-model="checkoutTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="Enter check-out time">
-        </el-date-picker>
-    </el-form-item>
-    <el-form-item label="Number of Guests" prop="numberOfGuests">
-        <el-input
-            v-model="numberOfGuests"
-            placeholder="Enter number of guests"
-            clearable
-            @keyup.enter.native="handleQuery"/>
-    </el-form-item>
-    <el-form-item label="Number of Rooms" prop="numberOfRooms">
-        <el-input
-            v-model="numberOfRooms"
-            placeholder="Enter number of rooms"
-            clearable
-            @keyup.enter.native="handleQuery"/>
-    </el-form-item>
-    <el-form-item label="Reservation Creation Time" prop="reservationTime">
-        <el-date-picker clearable
-            v-model="reservationTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="Enter the time reservation order is created">
-        </el-date-picker>
-    </el-form-item>
-    <el-form-item label="Price" prop="totalPrice">
-        <el-input
-            v-model="totalPrice"
-            placeholder="Enter price of the reservation order"
-            clearable
-            @keyup.enter.native="handleQuery"/>
-    </el-form-item>
-    <el-form-item label="Paid or not" prop="pay">
-        <el-input
-            v-model="pay"
-            placeholder="Enter wheater the payment is finished"
-            clearable
-            @keyup.enter.native="handleQuery"/>
-    </el-form-item>
-    <el-form-item label="Reservation Status" prop="reservationStatus">
-        <el-input
-            v-model="reservationStatus"
-            placeholder="Enter reservation status"
-            clearable
-            @keyup.enter.native="handleQuery"/>
-    </el-form-item>
-    <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery">Search</el-button>
-        <el-button icon="Refresh" size="mini" @click="resetQuery">Refresh</el-button>
-    </el-form-item>
-    </el-form>
+      <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="150px">
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="Check-In Time" prop="checkinTime">
+              <el-date-picker clearable
+                              v-model="queryParams.checkinTime"
+                              type="date"
+                              value-format="yyyy-MM-dd"
+                              placeholder="Enter check-in time">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="Check-Out Time" prop="checkoutTime">
+              <el-date-picker clearable
+                              v-model="queryParams.checkoutTime"
+                              type="date"
+                              value-format="yyyy-MM-dd"
+                              placeholder="Enter check-out time">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="Number of Guests" prop="numberOfGuests">
+              <el-input
+                  v-model="queryParams.numberOfGuests"
+                  placeholder="Enter number of guests"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="Number of Rooms" prop="numberOfRooms">
+              <el-input
+                  v-model="queryParams.numberOfRooms"
+                  placeholder="Enter number of rooms"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="Creation Time" prop="reservationTime">
+              <el-date-picker clearable
+                              v-model="queryParams.reservationTime"
+                              type="date"
+                              value-format="yyyy-MM-dd"
+                              placeholder="Enter the time reservation order is created">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="Price" prop="totalPrice">
+              <el-input
+                  v-model="queryParams.totalPrice"
+                  placeholder="Enter price of the reservation order"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <el-form-item label="Paid or not" prop="pay">
+              <el-input
+                  v-model="queryParams.pay"
+                  placeholder="Enter whether the payment is finished"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="Reservation Status" prop="reservationStatus">
+              <el-input
+                  v-model="queryParams.reservationStatus"
+                  placeholder="Enter reservation status"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8" style="text-align: center">
+            <el-form-item>
+              <el-button type="primary" icon="Search" size="mini" @click="handleQuery">Search</el-button>
+              <el-button icon="Refresh" size="mini" @click="resetQuery">Refresh</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </el-container>
 
     <!-- 修改或下载选项 -->
@@ -142,8 +166,8 @@
     />
 
     <!-- 显示时间的格式 --> <!-- 待修改 -->
-    <p>check in time {{ checkinTime }}</p>
-    <p>check out time{{ checkoutTime }}</p>
+<!--    <p>check in time {{ checkinTime }}</p>
+    <p>check out time{{ checkoutTime }}</p>-->
 
     <!-- 修改的对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
@@ -265,28 +289,30 @@ var reservationList = [];
 var total = 0;
 
 const listReservation = () => {
-    const token = sessionStorage.getItem("token");
-    axios.get("/api/homestay/reservation/list" , {
-        params: queryParams,
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    }).then(response => {
-        const data = response.data
-        console.log(data)
-    }).catch(error => {
-        console.error(error)
-    })
+
 };
 
 /** 查询民宿预订列表 */
 const getList = () => {
     loading = true;
-    listReservation(queryParams).then(response => {
+    const token = sessionStorage.getItem("token");
+    axios.get("/api/homestay/reservation/list" , {
+      params: queryParams,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }).then(response => {
+      const data = response.data
+      reservationList = data.rows;
+      console.log(reservationList)
+    }).catch(error => {
+      console.error(error)
+    })
+    /*listReservation(queryParams).then(response => {
         reservationList = response.rows;
         total = response.total;
         loading = false;
-    });
+    });*/
 };
 
 /** 搜索按钮操作 */

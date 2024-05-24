@@ -1,5 +1,5 @@
 <template>
-    <div class="navigation_bar">
+    <div class="navigation_bar" :style="{ backgroundColor: barColor }">
         <el-row justify="end">
             <el-col v-if="!isLogin" :span="3" style="text-align: right; margin-top: 10px;">
                 <div style="cursor:default;">
@@ -49,6 +49,13 @@ import { ref, onMounted } from 'vue'
 import { ElAvatar, ElText, ElDropdownMenu, ElDropdown, ElDropdownItem, ElMessage } from 'element-plus';
 import { ArrowDown } from '@element-plus/icons-vue'
 import axios from 'axios'
+
+const props= defineProps({
+  barColor: {
+    type: String,
+    default: "#7b996e"
+  }
+})
 
 const router = useRouter();
 const isLogin = ref(false)

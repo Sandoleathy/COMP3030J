@@ -408,7 +408,7 @@ export function connectWebSocket(wsUrl: string): WebSocket {
           if (parsedData) {
               // 这里将解析后的数据赋值给 energyDataSets
               energyDataSets = parsedData;
-              console.log('Parsed data:', energyDataSets);
+              //console.log('Parsed data:', energyDataSets);
 
               waterLevelDatasets[0] = energyDataSets.lowerWaterLevel
               waterLevelDatasets[1] = energyDataSets.upperWaterLevel

@@ -11,6 +11,7 @@ const props = defineProps({
 const roomType = ref('');
 const price = ref('');
 const bedType = ref('');
+const smoking=ref('');
 const breakfastIncludes = ref(''); // 存储早餐信息
 
 
@@ -33,6 +34,10 @@ function fetchBuildingTypeData(buildingTypeId) {
         .then(response => {
             // 假设API返回的数据中有一个字段是breakfast，表明是否包含早餐
             breakfastIncludes.value = response.data.data.breakfast;
+            const smokingStatus = response.data.data.allowSmoking;
+            smoking.value = smokingStatus === 1 ? "no smoking" : "can smoking";
+
+
             console.log('Building Type Data:', response.data.data.breakfast);
         })
         .catch(error => {
@@ -42,10 +47,8 @@ function fetchBuildingTypeData(buildingTypeId) {
 
 
 
-
-
 const bedtype = computed(() => {
-    return bedType.value === "0" ? "男" : bedType.value === "1" ? "One king-size bed" : "Unknown";
+    return bedType.value === "0" ? "twin beds" : bedType.value === "1" ? "One king-size bed" : "Unknown";
 });
 
 function goToRoomDetails() {
@@ -69,7 +72,7 @@ function goToRoomDetails() {
                     <h4>{{bedtype}}</h4>
                     <h4>Area: 34m²</h4>
                     <h4>With Window</h4>
-                    <h4>Non-smoking</h4>
+                    <h4>{{smoking}}</h4>
                 </div>
             </el-col>
             <el-col :span="2" class="column">

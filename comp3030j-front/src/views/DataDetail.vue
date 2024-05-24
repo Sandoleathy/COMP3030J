@@ -2,7 +2,7 @@
     <div class="container">
         <el-container>
             <el-header class="header">
-                <loginBar></loginBar>
+                <loginBar :bar-color="'#409EFF'"></loginBar>
             </el-header>
             <el-main class="main">
                 <el-container>
@@ -25,7 +25,7 @@
                         </el-header>
                     </el-header>
                     <el-main>
-                        <div v-if="pageNum=='0'">
+                        <div v-if="pageNum ==='0'">
                             <el-collapse v-model="activeNames" >
                                 <el-collapse-item name="1" title="Wind Turbine">
                                     <windDetail></windDetail>
@@ -38,16 +38,16 @@
                                 </el-collapse-item>
                             </el-collapse>
                         </div>
-                        <div v-if="pageNum=='2'">
+                        <div v-if="pageNum ==='2'">
                             <weatherInfo></weatherInfo>
                             <tempretureCard></tempretureCard>
                             <warningCard></warningCard>
                         </div>
-                        <div v-if="pageNum=='3'">
+                        <div v-if="pageNum ==='3'">
                             <hotelInfo></hotelInfo>
                             <el-divider></el-divider>
                         </div>
-                        <div v-if="pageNum=='4'">
+                        <div v-if="pageNum ==='4'">
                             <userIndex></userIndex>
                         </div>
                         <div v-if="pageNum === 'config'">
@@ -71,9 +71,6 @@
                         <div v-if="pageNum === 'role'">
                             <system-role></system-role>
                         </div>
-
-
-
                     </el-main>
                 </el-container>
             </el-main>
