@@ -2,52 +2,71 @@
     <el-container>
     <!-- 搜索 -->
       <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="100px" class="custom-form">
-        <el-form-item label="Room Number" prop="roomNumber">
-          <el-input
-              v-model="roomNumber"
-              placeholder="Enter room number"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Room Type" prop="roomType">
-          <el-input
-              v-model="roomType"
-              placeholder="Enter room type"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Room Volume" prop="maxPeople">
-          <el-input
-              v-model="maxPeople"
-              placeholder="Enter room volume by number of people"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Bed Type" prop="bedType">
-          <el-input
-              v-model="bedType"
-              placeholder="Enter bed type"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Bed Length" prop="length">
-          <el-input
-              v-model="length"
-              placeholder="Enter bed length"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Bed Width" prop="width">
-          <el-input
-              v-model="width"
-              placeholder="Enter bed width"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" icon="Search" size="mini" @click="handleQuery">Search</el-button>
-          <el-button icon="Refresh" size="mini" @click="resetQuery">Refresh</el-button>
-        </el-form-item>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-form-item label="Room Number" prop="roomNumber">
+              <el-input
+                  v-model="roomNumber"
+                  placeholder="Enter room number"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Room Type" prop="roomType">
+              <el-input
+                  v-model="roomType"
+                  placeholder="Enter room type"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Room Volume" prop="maxPeople">
+              <el-input
+                  v-model="maxPeople"
+                  placeholder="Entergi number of people"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6"></el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-form-item label="Bed Type" prop="bedType">
+              <el-input
+                  v-model="bedType"
+                  placeholder="Enter bed type"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Bed Length" prop="length">
+              <el-input
+                  v-model="length"
+                  placeholder="Enter bed length"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Bed Width" prop="width">
+              <el-input
+                  v-model="width"
+                  placeholder="Enter bed width"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item>
+              <el-button type="primary" icon="Search" size="mini" @click="handleQuery">Search</el-button>
+              <el-button icon="Refresh" size="mini" @click="resetQuery">Refresh</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
     </el-container>
 

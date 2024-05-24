@@ -49,7 +49,7 @@
                               v-model="queryParams.reservationTime"
                               type="date"
                               value-format="yyyy-MM-dd"
-                              placeholder="Enter the time reservation order is created">
+                              placeholder="Enter the time order creation time">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -57,7 +57,7 @@
             <el-form-item label="Price" prop="totalPrice">
               <el-input
                   v-model="queryParams.totalPrice"
-                  placeholder="Enter price of the reservation order"
+                  placeholder="Enter price of the order"
                   clearable
                   @keyup.enter.native="handleQuery"/>
             </el-form-item>
@@ -68,7 +68,7 @@
             <el-form-item label="Paid or not" prop="pay">
               <el-input
                   v-model="queryParams.pay"
-                  placeholder="Enter whether the payment is finished"
+                  placeholder=""
                   clearable
                   @keyup.enter.native="handleQuery"/>
             </el-form-item>
@@ -77,7 +77,7 @@
             <el-form-item label="Reservation Status" prop="reservationStatus">
               <el-input
                   v-model="queryParams.reservationStatus"
-                  placeholder="Enter reservation status"
+                  placeholder=""
                   clearable
                   @keyup.enter.native="handleQuery"/>
             </el-form-item>

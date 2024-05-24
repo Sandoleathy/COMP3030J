@@ -10,6 +10,11 @@
                 <table class="energy-data-table">
                     <caption>Park Green Energy Overview</caption>
                     <tr>
+                        <td></td>
+                        <td style="font-weight: bold;">Power Generation</td>
+                        <td style="font-weight: bold;">Carbon Emissions</td>
+                    </tr>
+                    <tr>
                         <td style="font-weight: bold; color:#36a2eb;">Wind Turbine</td>
                         <td>{{ windKWH }}kwh</td>
                         <td>{{ windCarbon }}kg</td>
@@ -60,7 +65,7 @@ import energyChart from '../Charts/EnergyOverviewChart.vue'
     position: relative;
     background: rgba(0, 0, 0, 0); /* 背景颜色 */
     text-align: center;
-    margin: 20px auto auto 80px;
+    margin: 5px auto auto 80px;
 }
 
 table {
