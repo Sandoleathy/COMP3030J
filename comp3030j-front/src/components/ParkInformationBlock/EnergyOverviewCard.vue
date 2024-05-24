@@ -10,17 +10,22 @@
                 <table class="energy-data-table" v-loading="isTableLoading">
                     <caption>Park Green Energy Overview</caption>
                     <tr>
-                        <td>Wind Turbine</td>
+                        <td></td>
+                        <td style="font-weight: bold;">Power Generation</td>
+                        <td style="font-weight: bold;">Carbon Emissions</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; color:#36a2eb;">Wind Turbine</td>
                         <td>{{ windKWH }}kwh</td>
                         <td>{{ windCarbon }}kg</td>
                     </tr>
                     <tr>
-                        <td>Solar</td>
+                        <td style="font-weight: bold; color:#ff6384;">Solar</td>
                         <td>{{ solarKWH }}kwh</td>
                         <td>{{ solarCarbon }}kg</td>
                     </tr>
                     <tr>
-                        <td>Hydraulic</td>
+                        <td style="font-weight: bold; color:#ff9f40;">Hydraulic</td>
                         <td>{{ waterKWH }}kwh</td>
                         <td>{{ waterCarbon }}kg</td>
                     </tr>
@@ -95,11 +100,11 @@ const getData = () => {
 .table-container {
     border-style: solid;
     border-width: 1px;
-    border-color: rgba(255, 255, 255, 0);;
+    border-color: rgba(255, 255, 255, 0);
     position: relative;
     background: rgba(0, 0, 0, 0); /* 背景颜色 */
     text-align: center;
-    margin: 20px auto auto 80px;
+    margin: 5px auto auto 80px;
 }
 
 table {

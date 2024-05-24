@@ -2,52 +2,71 @@
     <el-container>
     <!-- 搜索 -->
       <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="100px" class="custom-form">
-        <el-form-item label="Room Number" prop="roomNumber">
-          <el-input
-              v-model="roomNumber"
-              placeholder="Enter room number"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Room Type" prop="roomType">
-          <el-input
-              v-model="roomType"
-              placeholder="Enter room type"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Room Volume" prop="maxPeople">
-          <el-input
-              v-model="maxPeople"
-              placeholder="Enter room volume by number of people"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Bed Type" prop="bedType">
-          <el-input
-              v-model="bedType"
-              placeholder="Enter bed type"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Bed Length" prop="length">
-          <el-input
-              v-model="length"
-              placeholder="Enter bed length"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item label="Bed Width" prop="width">
-          <el-input
-              v-model="width"
-              placeholder="Enter bed width"
-              clearable
-              @keyup.enter.native="handleQuery"/>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" icon="Search" size="mini" @click="handleQuery">Search</el-button>
-          <el-button icon="Refresh" size="mini" @click="resetQuery">Refresh</el-button>
-        </el-form-item>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-form-item label="Room Number" prop="roomNumber">
+              <el-input
+                  v-model="roomNumber"
+                  placeholder="Enter room number"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Room Type" prop="roomType">
+              <el-input
+                  v-model="roomType"
+                  placeholder="Enter room type"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Room Volume" prop="maxPeople">
+              <el-input
+                  v-model="maxPeople"
+                  placeholder="Entergi number of people"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6"></el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-form-item label="Bed Type" prop="bedType">
+              <el-input
+                  v-model="bedType"
+                  placeholder="Enter bed type"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Bed Length" prop="length">
+              <el-input
+                  v-model="length"
+                  placeholder="Enter bed length"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="Bed Width" prop="width">
+              <el-input
+                  v-model="width"
+                  placeholder="Enter bed width"
+                  clearable
+                  @keyup.enter.native="handleQuery"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item>
+              <el-button type="primary" icon="Search" size="mini" @click="handleQuery">Search</el-button>
+              <el-button icon="Refresh" size="mini" @click="resetQuery">Refresh</el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
     </el-container>
 
@@ -81,12 +100,14 @@
     <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="房间类型" align="center" prop="roomType" />
-      <el-table-column label="房间号" align="center" prop="roomNumber" />
-      <el-table-column label="栋类型" align="center" prop="buildingType" />
-      <el-table-column label="床类型" align="center" prop="bedType" />
-      <el-table-column label="价格" align="center" prop="roomPrice" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="Room Number" align="center" prop="roomNumber" />
+      <el-table-column label="Room Type" align="center" prop="roomType" />
+      <el-table-column label="Room Volume" align="center" prop="buildingType" /> <!-- 待改 -->
+      <el-table-column label="Bed Type" align="center" prop="bedType" />
+      <el-table-column label="Bed Length" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Bed Width" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Room Picture" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
             size="mini"

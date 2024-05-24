@@ -3,7 +3,7 @@ import axios from 'axios'
 export const planetChartData = {
     type: 'pie',
     data: {
-        labels: ['wind Turbine', 'Solar Panel', 'Hydraulic Generator'],
+        labels: ['Wind Turbine', 'Solar Panel', 'Hydraulic Generator'],
         datasets: [
             {
                 label: 'Carbon reduced(kg)',

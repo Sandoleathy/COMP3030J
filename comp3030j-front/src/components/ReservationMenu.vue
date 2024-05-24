@@ -20,17 +20,13 @@ function goToWeatherView() {
              :ellipsis="false">
         <el-menu-item index="0">
             <img
-                style="width: 90px;height: 60px"
+                style="width: 50px;height: 50px"
                 src="/images/Logo.jpg"
                 alt="Element logo"
             />
-            <div class="logo_word">
-                <el-row>
-                    <h3 class="styled-heading">依山别墅</h3>
-                </el-row>
-                <el-row>
-                    <h3 class="styled-heading">Mountain Villa</h3>
-                </el-row>
+            <div class="flex-container">
+                <h3 class="styled-heading" style="font-size:30px; margin-left: 10px;">Yishan</h3>
+                <h3 class="styled-heading" style="margin-top: 10px; margin-left: 5px;">Mountain Villa</h3>
             </div>
         </el-menu-item>
         <div class="flex-grow" />
@@ -52,14 +48,11 @@ function goToWeatherView() {
     flex-grow: 1;
 }
 .fixed-top{
-    padding: 0px 100px;
+    padding: 0 50px;
     margin: 0;
     text-align: right;
     top: 0;
-//position: absolute;
-//width: 90vw;
     position: fixed;
-
     left: 0;
     width: 100%; /* 确保导航栏宽度与视窗宽度一致 */
     z-index: 1000;
@@ -76,11 +69,13 @@ function goToWeatherView() {
 .demo-type > div:not(:last-child) {
     border-right: 1px solid var(--el-border-color);
 }
-.logo_word .styled-heading {
-    color: green;        /* 设置字体颜色为绿色 */
+
+.flex-container {
+  display: flex;
+  align-items: center;  /* 垂直居中 */
+}
+.styled-heading {
+    color: #7b996e;        /* 设置字体颜色为绿色 */
     font-weight: bold;
-    padding-top: -20px;/* 加粗字体 */
-    margin-top: -15px;       /* 上边距设置为0 */
-    margin-bottom: -25px;  /* 下边距设置为2px，保持行间距小 */
 }
 </style>

@@ -22,24 +22,21 @@ const typeMap = {
     '4': '4'
 };
 
-function handleSearch(buildingType) {
-    console.log('Handling search for building type:', buildingType);
+function handleSearch(dateRange, buildingType) {
+    console.log('Handling search for date range:', dateRange, 'and building type:', buildingType);
+    const startDate = dateRange[0];
+    const endDate = dateRange[1];
     const dbType = parseInt(typeMap[buildingType], 10);
-    console.log('dbType:', dbType); // Check if dbType is correctly retrieved
-// 从映射表获取数据库格式的buildingType
 
-    if (dbType) {
-        console.log('Filtering rooms for buildingType:', dbType);
-        filteredRooms.value = rooms.value.filter(room => {
-            console.log('Room buildingType:', room.hsRoom.buildingType); // Check what you're actually comparing
-            return room.hsRoom.buildingType === dbType;
-        });
-    }
-    else {
-        filteredRooms.value = rooms.value; // 如果没有提供 buildingType 或不匹配，显示所有房间
-        console.log('No valid buildingType provided, showing all rooms');
+    if (startDate && endDate && !isNaN(dbType)) {
+        fetchFilteredRooms(startDate, endDate, dbType);
+    } else {
+        console.error('Invalid date or building type provided, showing all rooms');
+        filteredRooms.value = rooms.value;
     }
 }
+
+
 watch(filteredRooms, (newVal, oldVal) => {
     console.log('Rooms:', rooms.value);
     console.log('Filtered Rooms:', filteredRooms.value);
@@ -64,6 +61,43 @@ function fetchRooms() {
             console.error('Failed to fetch rooms:', error);
         });
 }
+
+async function fetchFilteredRooms(startDate, endDate, buildingType) {
+    const token = sessionStorage.getItem("token");
+    console.log('Using already fetched rooms:', rooms.value);
+
+        const availableRooms = [];
+        for (let room of rooms.value) {
+            console.log('room:', room.hsRoom.id);
+            // 确保 room.hsRoom 存在并且 room.hsRoom.buildingType 与 buildingType 匹配
+            if (room.hsRoom && room.hsRoom.buildingType === buildingType) {
+                const reservationsResponse = await axios.get(`/api/homestay/rr/queryByRoomId/${room.hsRoom.id}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                console.log(`Checking reservations for room ID ${room.hsRoom.id}:`, reservationsResponse.data.data);
+                if (Array.isArray(reservationsResponse.data.data)) {
+                    const isBooked = reservationsResponse.data.data.some(reservation =>
+                        new Date(reservation.checkinTime) <= new Date(endDate) &&
+                        new Date(reservation.checkoutTime) >= new Date(startDate)
+                    );
+                    if (!isBooked) {
+                        console.log(`Room ID ${room.id} is available`);
+                        availableRooms.push(room);
+                    }
+                } else {
+                    console.error(`Failed to fetch reservations or incorrect data type for room ID ${room.hsRoom.id}`);
+                }
+            } else {
+                // 在这里处理 room.hsRoom 不存在的情况
+                console.log(`Room or room.hsRoom not properly defined for room ID: ${room.id}`);
+            }
+        }
+
+        filteredRooms.value = availableRooms;
+        console.log('Available rooms after filtering by date and type:', filteredRooms.value);
+}
+
+
 
 </script>
 
