@@ -68,14 +68,14 @@ const setWeatherData = () => {
                 {
                     label: 'Max Temperature',
                     data: maxTempArray.value,
-                    borderColor: '#FFEA7D',
-                    backgroundColor: '#FFEA7D',
+                    borderColor: '#FF4848',
+                    backgroundColor: '#FF4848',
                 },
                 {
                     label: 'Min Temperature',
                     data: minTempArray.value,
-                    borderColor: '#003C96',
-                    backgroundColor: '#003C96',
+                    borderColor: '#0066FF',
+                    backgroundColor: '#0066FF',
                 }
             ]
         },
