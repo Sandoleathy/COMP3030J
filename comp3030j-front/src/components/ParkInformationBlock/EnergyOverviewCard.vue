@@ -11,23 +11,23 @@
                     <caption>Park Green Energy Overview</caption>
                     <tr>
                         <td>Wind Turbine</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ windKWH }}kwh</td>
+                        <td>{{ windCarbon }}kg</td>
                     </tr>
                     <tr>
                         <td>Solar</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ solarKWH }}kwh</td>
+                        <td>{{ solarCarbon }}kg</td>
                     </tr>
                     <tr>
-                        <td>Water</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>Hydraulic</td>
+                        <td>{{ waterKWH }}kwh</td>
+                        <td>{{ waterCarbon }}kg</td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>KWH</td>
-                        <td>Carbon</td>
+                        <td>{{ windKWH + solarKWH + waterKWH }}kwh</td>
+                        <td>{{ windCarbon + solarCarbon + waterCarbon }}kg</td>
                     </tr>
                 </table>
                 </div>
@@ -42,6 +42,37 @@
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import energyChart from '../Charts/EnergyOverviewChart.vue'
+
+const windKWH = ref(0)
+const solarKWH = ref(0)
+const waterKWH = ref(0)
+const windCarbon = ref(0)
+const solarCarbon = ref(0)
+const waterCarbon = ref(0)
+
+onMounted(() => {
+  getData()
+})
+
+const getData = () => {
+  const token = sessionStorage.getItem('token')
+  axios.get('/api/statistics/energy/dataFlow', {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  }).then((response) => {
+    const data = response.data;
+    windKWH.value = data.energySystemDataFlow[0].energyProducedWind
+    solarKWH.value = data.energySystemDataFlow[0].energyProducedSolar
+    waterKWH.value = data.energySystemDataFlow[0].energyProducedHydro
+
+    windCarbon.value = data.energySystemDataFlow[0].carbonReductionWind
+    solarCarbon.value = data.energySystemDataFlow[0].carbonReductionSolar
+    waterCarbon.value = data.energySystemDataFlow[0].carbonReductionHydro
+  }).catch(error => {
+    console.log(error)
+  })
+}
 </script>
 <style scoped>
 .energy-data-table{

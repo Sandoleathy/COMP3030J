@@ -48,7 +48,7 @@ const getWeatherData = () => {
             maxTempArray.value.push(data.daily[i].tempMax)
             minTempArray.value.push(data.daily[i].tempMin)
         }
-        console.log(dateArray.value)
+        //console.log(dateArray.value)
         setWeatherData()
     }).catch(error => {
         ElMessage.error("Fetch weather information failed")
