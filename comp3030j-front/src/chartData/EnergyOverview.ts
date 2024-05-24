@@ -17,7 +17,16 @@ export const planetChartData = {
         maintainAspectRatio: false,
         scales: {
             y: {
-              
+                display: false,
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                display: false,
+                grid: {
+                    display: false
+                }
             }
         }
     },

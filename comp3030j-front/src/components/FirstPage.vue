@@ -42,12 +42,12 @@
             <h4 class="context">With a mission to achieve economic, social and ecological sustainability, we are committed to creating a unique and welcoming living space in this quiet and vibrant countryside.
                 Here, you will experience the charm and comfort of rural life and enjoy the gifts of nature. Our homestay will provide you with comfortable accommodation, so that you can spend a pleasant time in the quiet country; Health care service center will provide you with intimate health care and love; The Sustainable Energy Center will lead you to a green life and experience the charm of clean energy.
                 We welcome your arrival, let us explore this beautiful land together, feel the warmth and tolerance of the countryside, and create a better future together!</h4>
-            <h3 class="ending">Looking forward to your visit!</h3>
+            <h3 class="ending" style="margin-bottom: 50px">Looking forward to your visit!</h3>
         </div>
 
         <div class="news" ref="newsSection">
-            <h1 class="line2"></h1>
-            <h1 class="minsu-head">News & Notices</h1>
+          <el-divider></el-divider>
+            <h1 class="minsu-head" style="margin-top: 60px">News & Notices</h1>
             <div class="news-container">
                 <div class="news-text">
                     <div class="title-date">
@@ -61,7 +61,7 @@
         </div>
 
         <div class="minsu" ref="minsuSection">
-            <h1 class="line2"></h1>
+            <h1 class="line1"></h1>
             <h1 class="minsu-head">Hotel</h1>
             <h3 class="minsu-head">Welcome to our guesthouse, the ideal place for country living！</h3>
             <el-row gutter={50}>
@@ -141,15 +141,6 @@
     width: 50%; /* 宽度为容器的100% */
 }
 
-.line2 {
-    border: none; /* 移除默认边框 */
-    height: 1.5px; /* 线的高度 */
-    background-color: #7b996e; /* 线的颜色 */
-    /* 上下外边距，可调整 */
-    margin: 90px auto 40px;
-    width: 50%; /* 宽度为容器的100% */
-}
-
 .header, .welcome, .context, .ending {
     text-align: center;
 }
@@ -191,6 +182,7 @@
     margin-top: 20px; /* 预订按钮与文本间距 */
     float: right; /* 将按钮对齐到右侧 */
     font-size: 20px;
+    font-weight: bold;
     height: 40px;
     --el-button-bg-color: #7b996e;
     --el-button-border-color: #7b996e;

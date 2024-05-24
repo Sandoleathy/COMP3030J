@@ -48,7 +48,10 @@ const getCurrentWeatherInfo = () => {
 }
 .card{
     border-radius: 15px;
-    background: linear-gradient( #409EFF, #FFBE6E);
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(225, 225, 225, 0.3));
     padding: 10px;
     text-align: center;
     margin: auto;

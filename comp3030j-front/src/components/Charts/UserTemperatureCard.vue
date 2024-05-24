@@ -114,13 +114,30 @@ const getCurrentWeatherInfo = () => {
     })
 }
 </script>
+
 <style scoped>
-.temp-card{
+.temp-card {
     border-radius: 15px;
-    background: linear-gradient( #409EFF, rgb(255, 190, 110));
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    position: relative;
+    background: rgba(0, 0, 0, 0); /* 背景颜色 */
     padding: 10px;
     text-align: center;
     margin: auto;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.temp-card::before {
+    border-radius: 15px;
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(225, 225, 225, 0.3));
+    background-blend-mode: screen;
+    pointer-events: none;
 }
 </style>

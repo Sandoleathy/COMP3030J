@@ -51,4 +51,28 @@ import energyChart from '../Charts/EnergyOverviewChart.vue'
     height: 30vh;
     max-height: 30vh;
 }
+.temp-card {
+    border-radius: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    position: relative;
+    background: rgba(0, 0, 0, 0); /* 背景颜色 */
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.temp-card::before {
+    border-radius: 15px;
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(225, 225, 225, 0.2) 0%);
+    background-blend-mode: screen;
+    pointer-events: none;
+}
 </style>
