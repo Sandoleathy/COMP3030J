@@ -18,10 +18,10 @@ const handleChange = (value: number) => {
 const value = ref('');  // 假设这里是你选中的 building type 的值
 const emits = defineEmits(['search']);  // 定义一个事件发射器
 const handleIconClick = () => {
-    console.log('Icon clicked, emitting search with building type and dates:', value.value,value1.value);
-    emits('search', value.value,value1.value);
-    // 在这里添加你想执行的动作，比如导航到另一个页面或打开一个对话框等
+    console.log('Icon clicked, emitting search with date range and building type:', value1.value, value.value);
+    emits('search', value1.value, value.value); // 第一个参数现在是 dateRange, 第二个参数是 buildingType
 }
+
 
 const value1 = ref('')
 const size = ref<'default' | 'large' | 'small'>('default')
