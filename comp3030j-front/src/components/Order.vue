@@ -1,24 +1,31 @@
 <template>
     <div>
         <h1>Reservation Details</h1>
-        <table v-if="reservations.length > 0">
-            <thead>
-            <tr>
-                <th>Reservation ID</th>
-                <th>Check-in Date</th>
-                <th>Check-out Date</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="reservation in reservations" :key="reservation.id">
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.checkinTime }}</td>
-                <td>{{ reservation.checkoutTime }}</td>
-                <td>{{ reservation.reservationStatus }}</td>
-            </tr>
-            </tbody>
-        </table>
+        <el-table
+            v-if="reservations.length > 0"
+            :data="reservations"
+            style="width: 100%">
+            <el-table-column
+                prop="id"
+                label="Reservation ID"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="checkinTime"
+                label="Check-in Date"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="checkoutTime"
+                label="Check-out Date"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="reservationStatus"
+                label="Status"
+                width="180">
+            </el-table-column>
+        </el-table>
         <p v-else>No reservations found.</p>
     </div>
 </template>
@@ -26,6 +33,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
+import { ElTable, ElTableColumn } from 'element-plus';
 
 const reservations = ref([]);
 
@@ -60,13 +68,14 @@ function fetchReservations(userId, token) {
     })
         .then(response => {
             console.log("Reservations fetched successfully:", response.data);
-            reservations.value = response.data.data;
+            reservations.value = response.data.data; // Ensure data structure aligns
         })
         .catch(error => {
             console.error('Error fetching reservations:', error);
         });
 }
 </script>
+
 
 <style scoped>
 table {

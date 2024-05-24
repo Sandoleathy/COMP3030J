@@ -119,35 +119,34 @@
     </el-row>
 
     <!-- 表格 -->
-    <el-table v-loading="loading" :data="reservationList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="reservationList.value" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="Check-In Time" align="center" prop="checkinTime" width="180">
-        <!-- <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.checkinTime, '{y}-{m}-{d}') }}</span>
-        </template> -->
+      <el-table-column label="id" align="center" prop="hsReservation.id" />
+
+      <el-table-column label="Check-In Time" align="center" prop="hsReservation.checkinTime" width="180">
+
       </el-table-column>
-      <el-table-column label="Check-Out Time" align="center" prop="checkoutTime" width="180">
+      <el-table-column label="Check-Out Time" align="center" prop="hsReservation.checkoutTime" width="180">
         <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.checkoutTime, '{y}-{m}-{d}') }}</span>
         </template> -->
       </el-table-column>
-      <el-table-column label="Number of Guest" align="center" prop="numberOfGuests" />
-      <el-table-column label="Number of Room" align="center" prop="numberOfRooms" />
-      <el-table-column label="Reservation Creation Time" align="center" prop="reservationTime" width="180">
+      <el-table-column label="Number of Guest" align="center" prop="hsReservation.numberOfGuests" />
+      <el-table-column label="Number of Room" align="center" prop="hsReservation.numberOfRooms" />
+      <el-table-column label="Reservation Creation Time" align="center" prop="hsReservation.reservationTime" width="180">
         <!-- <template slot-scope="scope">
           <span>{{ parseTime(scope.row.reservationTime, '{y}-{m}-{d}') }}</span>
         </template> -->
       </el-table-column>
-      <el-table-column label="Contact" align="center" prop="contactInformation" />
-      <el-table-column label="Remark" align="center" prop="requests" />
-      <el-table-column label="Price" align="center" prop="totalPrice" />
-      <el-table-column label="Paid or not" align="center" prop="pay" />
-      <el-table-column label="Reservation Status" align="center" prop="reservationStatus" />
-      <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="Contact" align="center" prop="hsReservation.contactInformation" />
+      <el-table-column label="Remark" align="center" prop="hsReservation.requests" />
+      <el-table-column label="Price" align="center" prop="hsReservation.totalPrice" />
+      <el-table-column label="Paid or not" align="center" prop="hsReservation.pay" />
+      <el-table-column label="Reservation Status" align="center" prop="hsReservation.reservationStatus" />
+      <el-table-column label="Operation" align="center" class-name="small-padding fixed-width" width="380">
         <template slot-scope="scope">
           <el-button
-            size="mini"
+            size="large"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
@@ -232,6 +231,21 @@ import axios from 'axios';
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus';
 
+import { watch } from 'vue';
+
+watch(reservationList, (newVal, oldVal) => {
+    // Log the check-in times of all reservations
+    newVal.forEach(reservation => {
+        console.log("Check-In Time for reservation", reservation.hsReservation.id, ":", reservation.hsReservation.checkinTime);
+    });
+}, { deep: true });
+
+function logCheckInTime(checkinTime) {
+    console.log("Check-In Time:", checkinTime);
+    return ''; // Return an empty string because we don't need to output anything in the template
+}
+
+
 const contactInformation = ref("")
 const checkinTime = ref("")
 const checkoutTime = ref("")
@@ -272,8 +286,8 @@ var cols = {
 var queryParams = {
     pageNum: 1,
     pageSize: 10,
-    contactInformation: null,
-    checkinTime: null,
+    contactInformation: '',
+    checkinTime: '',
     checkoutTime: null,
     numberOfGuests: null,
     numberOfRooms: null,
@@ -286,7 +300,7 @@ var queryParams = {
 //表格数据
 var reservationList = [];
 //总条数
-var total = 0;
+var total = ref(0);
 
 const listReservation = () => {
 
@@ -294,17 +308,17 @@ const listReservation = () => {
 
 /** 查询民宿预订列表 */
 const getList = () => {
-    loading = true;
     const token = sessionStorage.getItem("token");
     axios.get("/api/homestay/reservation/list" , {
-      params: queryParams,
+      params: queryParams.value,
       headers: {
         'Authorization': 'Bearer ' + token
       }
     }).then(response => {
       const data = response.data
-      reservationList = data.rows;
-      console.log(reservationList)
+      reservationList.value = data.rows;
+      total.value=response.data.total;
+      console.log("abc", reservationList.value[0].hsReservation.checkinTime)
     }).catch(error => {
       console.error(error)
     })
