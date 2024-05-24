@@ -11,11 +11,15 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 const num1 = ref(1)
 const num2 = ref(1)
+
 const handleChange = (value: number) => {
     console.log(value)
 }
+const value = ref('');  // 假设这里是你选中的 building type 的值
+const emits = defineEmits(['search']);  // 定义一个事件发射器
 const handleIconClick = () => {
-    console.log('Icon clicked!');
+    console.log('Icon clicked, emitting search with building type and dates:', value.value,value1.value);
+    emits('search', value.value,value1.value);
     // 在这里添加你想执行的动作，比如导航到另一个页面或打开一个对话框等
 }
 
@@ -28,23 +32,23 @@ const daysDifference = computed(() => {
     }
     return 0;
 });
-const value = ref('')
+
 
 const options = [
     {
-        value: 'A栋',
+        value: '1',
         label: 'Economic Room',
     },
     {
-        value: 'B栋',
+        value: '2',
         label: 'Deluxe Room',
     },
     {
-        value: 'C栋',
+        value: '3',
         label: 'Mountain Room',
     },
     {
-        value: 'D栋',
+        value: '4',
         label: 'Family Room',
     },
 
