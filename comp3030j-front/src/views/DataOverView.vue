@@ -58,13 +58,18 @@
                 <!--Energy Consumption-->
                 <el-divider class="divider"></el-divider>
                 <h1 class="block-head">Energy Consumption</h1>
-                <el-row>
-                    <el-col :span="24">
-                        <energyCard></energyCard>
-                    </el-col>
-                </el-row>
+                <div class="energy-block">
+                    <el-row>
+                        <el-col :span="24">
+                              <energyCard></energyCard>
+                        </el-col>
+                    </el-row>
+                </div>
             </el-main>
         </el-container></div>
+        <el-footer class="footer">
+            <Footer></Footer>
+        </el-footer>
     </container>
 </template>
 
@@ -75,7 +80,9 @@ import temperatureCard from "/src/components/Charts/UserTemperatureCard.vue"
 import loginBar from '../components/LoginBar.vue'
 import parkModel from '../components/ParkModel.vue'
 import energyCard from '../components/ParkInformationBlock/EnergyOverviewCard.vue'
-import { ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon, ElDivider } from 'element-plus';
+import {ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon, ElDivider, ElFooter} from 'element-plus';
+import Footer from '../components/Footer.vue'
+
 import { onMounted, ref } from "vue";
 import { useRouter } from 'vue-router';
 
@@ -175,5 +182,15 @@ onMounted(() => {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.energy-block{
+    width: 80%;
+    height: 100%;
+    margin: 50px auto 150px;
+}
+
+.footer{
+    padding: 0;
 }
 </style>
