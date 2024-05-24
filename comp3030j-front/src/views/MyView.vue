@@ -56,6 +56,7 @@ const updateIndex = (index: string) => {
     flex-direction: column;
 }
 .aside{
+    width: 25%;
     height: 100%;
 }
 .main{

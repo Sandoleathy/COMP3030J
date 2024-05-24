@@ -48,7 +48,7 @@ function goToWeatherView() {
     flex-grow: 1;
 }
 .fixed-top{
-    padding: 0 50px;
+    padding: 0 25px;
     margin: 0;
     text-align: right;
     top: 0;
