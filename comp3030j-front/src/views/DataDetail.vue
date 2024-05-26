@@ -26,6 +26,15 @@
                     </el-header>
                     <el-main>
                         <div v-if="pageNum ==='0'">
+                          <div style="max-width: 100vw;">
+                            <el-row>
+                              <el-col :span="24" style="font-weight: bolder;font-size: 32px; text-align: center;color: black;">
+                                Park Energy Information Detail
+                              </el-col>
+                            </el-row>
+                            <totalDetail></totalDetail>
+                          </div>
+
                             <el-collapse v-model="activeNames" >
                                 <el-collapse-item name="1" title="Wind Turbine">
                                     <windDetail></windDetail>
@@ -97,11 +106,12 @@ import systemMenu from '@/components/system/menu/index.vue';
 import systemNotice from '@/components/system/notice/index.vue';
 import systemPost from '@/components/system/post/index.vue';
 import systemRole from '@/components/system/role/index.vue';
+import totalDetail from '@/components/ParkInformationBlock/TotalDetail.vue'
 import { connectWebSocket } from '@/chartData/EnergyDetail.ts'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const pageNum = ref('0')
-const activeNames = ref(['1'])
+const activeNames = ref([])
 let socket
 const socketURL = 'ws://localhost:8080/statistics/ws'
 

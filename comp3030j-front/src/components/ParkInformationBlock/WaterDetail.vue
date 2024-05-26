@@ -37,7 +37,17 @@
         <el-row>
           <el-col :span="6" class="extra-data">
             <div  class="dataBlock" id="extra">
-              {{ rpm }}RPM
+              <el-row>
+                <el-col :span="10" >
+                  <el-icon class="is-loading" style="margin-top: 70px;">
+                    <img src="../../../public/images/turbine.png" alt="turbine" style="max-height: 100px;" class="is-loading"/>
+                  </el-icon>
+
+                </el-col>
+                <el-col :span="14" style="display: flex;justify-content: center;align-items: center;">
+                  <span style="font-size: 30px">{{ rpm }}RPM</span>
+                </el-col>
+              </el-row>
             </div>
           </el-col>
           <el-col :span="12">
@@ -126,6 +136,7 @@ onUnmounted(() => {
   border-radius: 5px;
   border: 1px solid black;
   text-align: center;
+  max-height: 150px;
 }
 .extra-data{
   padding-top: 20px;
