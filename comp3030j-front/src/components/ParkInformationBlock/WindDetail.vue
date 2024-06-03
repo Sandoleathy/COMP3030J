@@ -124,4 +124,10 @@ onUnmounted(() => {
   border: 1px solid black;
   text-align: center;
 }
+#kwh-carbon-chart-wind{
+  max-height: 200px;
+}
+#rpm-torque-chart{
+  max-height: 200px;
+}
 </style>
