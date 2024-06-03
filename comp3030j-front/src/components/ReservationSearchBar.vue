@@ -2,6 +2,8 @@
 import {computed, ref} from 'vue'
 import {options} from "axios";
 import { differenceInCalendarDays } from 'date-fns'  // 使用 date-fns 来计算日期差异
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const activeIndex = ref('1')
 const activeIndex2 = ref('1')
@@ -70,7 +72,7 @@ const options = [
                 <el-col :span="24">
 
                         <div class="block">
-                            <span class="demonstration">{{ daysDifference }} Day</span>
+                            <span class="demonstration">{{ daysDifference }}  {{ t('reservationSearchBar.day') }}</span>
                             <el-date-picker
                                 v-model="value1"
                                 type="daterange"
@@ -86,7 +88,7 @@ const options = [
             </el-row>
         <el-row >
                 <div class="block">
-                    <span class="demonstration">Room：</span>
+                    <span class="demonstration">{{ t('reservationSearchBar.room') }}</span>
                     <el-input-number v-model="num1" :min="1" :max="10" @change="handleChange" />
 
                 </div>
@@ -94,7 +96,7 @@ const options = [
         </el-row>
         <el-row >
                   <div class="block">
-                      <span class="demonstration">Guest：</span>
+                      <span class="demonstration">{{ t('reservationSearchBar.guest') }}</span>
                       <el-input-number v-model="num2" :min="1" :max="10" @change="handleChange" />
                   </div>
 
@@ -104,7 +106,7 @@ const options = [
             <el-col :span="24">
 
             <div class="block">
-                <span class="demonstration">Room Type:</span>
+                <span class="demonstration">{{ t('reservationSearchBar.roomType') }}</span>
                 <el-select v-model="value" placeholder="Room Type" style="width: 240px">
                     <el-option
                         v-for="item in options"

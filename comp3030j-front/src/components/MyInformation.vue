@@ -7,35 +7,35 @@
             <template v-if="!isEditing">
                 <p>{{ userName }}</p>
             </template>
-            <el-input v-else v-model="userName" placeholder="Account Number"></el-input>
+            <el-input v-else v-model="userName" :placeholder="t('myInformation.account')"></el-input>
         </el-form-item>
 
         <el-form-item label="Name:">
             <template v-if="!isEditing">
                 <p>{{ name }}</p>
             </template>
-            <el-input v-else v-model="name" placeholder="Name"></el-input>
+            <el-input v-else v-model="name" :placeholder="t('myInformation.name')"></el-input>
         </el-form-item>
 
         <el-form-item label="PhoneNumber:">
             <template v-if="!isEditing">
                 <p>{{ phoneNumber }}</p>
             </template>
-            <el-input v-else v-model="phoneNumber" placeholder="Phone Number"></el-input>
+            <el-input v-else v-model="phoneNumber" :placeholder="t('myInformation.phoneNumber')"></el-input>
         </el-form-item>
 
         <el-form-item label="Email:">
             <template v-if="!isEditing">
                 <p>{{ email }}</p>
             </template>
-            <el-input v-else v-model="email" placeholder="Email"></el-input>
+            <el-input v-else v-model="email" :placeholder="t('myInformation.email')"></el-input>
         </el-form-item>
 
         <el-form-item label="Sex:">
             <template v-if="!isEditing">
                 <p>{{ sexText }}</p>
             </template>
-            <el-select v-else v-model="sex" placeholder="Select sex">
+            <el-select v-else v-model="sex" :placeholder="t('myInformation.sex')">
                 <el-option label="男" value="0"></el-option>
                 <el-option label="女" value="1"></el-option>
                 <el-option label="未知" value="unknown"></el-option>
@@ -43,9 +43,9 @@
         </el-form-item>
 
         <el-form-item>
-            <el-button v-if="!isEditing" type="primary" @click="isEditing = true">Edit</el-button>
-            <el-button v-if="isEditing" type="success" @click="saveChanges">Save</el-button>
-            <el-button v-if="isEditing" type="default" @click="cancelChanges">Cancel</el-button>
+            <el-button v-if="!isEditing" type="primary" @click="isEditing = true"> {{ t('myInformation.edit') }}</el-button>
+            <el-button v-if="isEditing" type="success" @click="saveChanges">{{ t('myInformation.save') }}</el-button>
+            <el-button v-if="isEditing" type="default" @click="cancelChanges">{{ t('myInformation.cancel') }}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -53,6 +53,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import axios from "axios";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 let phoneNumber = ref('');
 let email = ref('');

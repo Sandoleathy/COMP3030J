@@ -29,7 +29,7 @@
                           <div style="max-width: 100vw;">
                             <el-row>
                               <el-col :span="24" style="font-weight: bolder;font-size: 32px; text-align: center;color: black;">
-                                Park Energy Information Detail
+                                {{ t('dataDetail.park') }}
                               </el-col>
                             </el-row>
                             <totalDetail></totalDetail>
@@ -109,6 +109,8 @@ import systemRole from '@/components/system/role/index.vue';
 import totalDetail from '@/components/ParkInformationBlock/TotalDetail.vue'
 import { connectWebSocket } from '@/chartData/EnergyDetail.ts'
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const pageNum = ref('0')
 const activeNames = ref([])

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Reservation Details</h1>
+        <h1> {{ t('order.detail') }}</h1>
         <el-table
             v-if="reservations.length > 0"
             :data="reservations"
@@ -26,7 +26,7 @@
                 width="180">
             </el-table-column>
         </el-table>
-        <p v-else>No reservations found.</p>
+        <p v-else>{{ t('order.found') }}</p>
     </div>
 </template>
 
@@ -34,6 +34,8 @@
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { ElTable, ElTableColumn } from 'element-plus';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const reservations = ref([]);
 
