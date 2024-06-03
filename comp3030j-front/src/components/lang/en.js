@@ -67,10 +67,14 @@ export default {
         name:'Name',
         phoneNumber:'Phone Number',
         email:'Email',
-        sex:'Select sex',
+        chooseSex:'Select sex',
         edit:'Edit',
         save:'Save',
-        cancel:'Cancel'
+        cancel:'Cancel',
+        sex:'Gender',
+        female:'female',
+        male:'male',
+        unknown:'unknown'
     },
     mySidebar:{
         home:'Home',
@@ -98,7 +102,19 @@ export default {
         book:'Book Now',
     },
     dataDetail:{
-        park:'Park Energy Information Detail'
+        park:'Park Energy Information Detail',
+        energy:'Energy',
+        finance:'Finance',
+        weather:'Weather',
+        hotel:'Hotel',
+        user:'User',
+        config:'Config',
+        dept:'Dept',
+        dict:'Dict',
+        menu:'Menu',
+        notice:'Notice',
+        post:'Post',
+        role:'Role'
     },
     dataOverview:{
         yishan:'Yishan',
@@ -117,5 +133,10 @@ export default {
     },
     error:{
         error:'Error'
+    },
+    employeeView:{
+        reservation:'Reservation',
+        checkIn:'Check In',
+        checkOut:'Check Out'
     }
 }

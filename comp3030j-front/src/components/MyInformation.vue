@@ -3,42 +3,42 @@
         <el-form-item label="个人信息登记:">
         </el-form-item>
 
-        <el-form-item label="AccountNumber:">
+        <el-form-item :label="t('myInformation.account')">
             <template v-if="!isEditing">
                 <p>{{ userName }}</p>
             </template>
             <el-input v-else v-model="userName" :placeholder="t('myInformation.account')"></el-input>
         </el-form-item>
 
-        <el-form-item label="Name:">
+        <el-form-item :label="t('myInformation.name')">
             <template v-if="!isEditing">
                 <p>{{ name }}</p>
             </template>
             <el-input v-else v-model="name" :placeholder="t('myInformation.name')"></el-input>
         </el-form-item>
 
-        <el-form-item label="PhoneNumber:">
+        <el-form-item :label="t('myInformation.phoneNumber')">
             <template v-if="!isEditing">
                 <p>{{ phoneNumber }}</p>
             </template>
             <el-input v-else v-model="phoneNumber" :placeholder="t('myInformation.phoneNumber')"></el-input>
         </el-form-item>
 
-        <el-form-item label="Email:">
+        <el-form-item :label="t('myInformation.email')">
             <template v-if="!isEditing">
                 <p>{{ email }}</p>
             </template>
             <el-input v-else v-model="email" :placeholder="t('myInformation.email')"></el-input>
         </el-form-item>
 
-        <el-form-item label="Sex:">
+        <el-form-item :label="t('myInformation.sex')">
             <template v-if="!isEditing">
                 <p>{{ sexText }}</p>
             </template>
-            <el-select v-else v-model="sex" :placeholder="t('myInformation.sex')">
-                <el-option label="男" value="0"></el-option>
-                <el-option label="女" value="1"></el-option>
-                <el-option label="未知" value="unknown"></el-option>
+            <el-select v-else v-model="sex" :placeholder="t('myInformation.chooseSex')">
+                <el-option :label="t('myInformation.male')" value="0"></el-option>
+                <el-option :label="t('myInformation.female')" value="1"></el-option>
+                <el-option :label="t('myInformation.unknown')" value="unknown"></el-option>
             </el-select>
         </el-form-item>
 

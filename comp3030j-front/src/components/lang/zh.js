@@ -154,11 +154,14 @@ export default {
         name:'用户名',
         phoneNumber:'电话',
         email:'邮箱',
-        sex:'选择性别',
+        chooseSex:'选择性别',
         edit:'编辑',
         save:'保存',
         cancel:'取消',
-
+        sex:'性别',
+        female:'女',
+        male:'男',
+        unknown:'未知'
     },
     mySidebar:{
         home:'主页',
@@ -186,7 +189,19 @@ export default {
         book:'现在订阅',
     },
     dataDetail:{
-        park:'园林能源信息详情'
+        park:'园林能源信息详情',
+        energy:'能源',
+        finance:'财务',
+        weather:'天气',
+        hotel:'民宿',
+        user:'用户',
+        config:'配置',
+        dept:'部门',
+        dict:'字典',
+        menu:'菜单',
+        notice:'通知',
+        post:'推送',
+        role:'职位'
     },
     dataOverview:{
         yishan:'依山',
@@ -205,5 +220,10 @@ export default {
     },
     error:{
         error:'错误'
+    },
+    employeeView:{
+        reservation:'预订',
+        checkIn:'入住',
+        checkOut:'搬出'
     }
 }
