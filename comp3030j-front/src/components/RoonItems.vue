@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {computed, defineProps, onMounted, ref, watchEffect} from 'vue';
+import {computed, defineProps, onMounted, ref, watchEffect, reactive} from 'vue';
 import axios from "axios";
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -7,7 +7,9 @@ const { t } = useI18n();
 
 const router = useRouter();
 const props = defineProps({
-    roomData: Object
+    roomData: Object,
+    dateRange: Array,
+    buildingType: String
 });
 
 const roomType = ref('');
@@ -15,16 +17,35 @@ const price = ref('');
 const bedType = ref('');
 const smoking=ref('');
 const breakfastIncludes = ref(''); // 存储早餐信息
-
+const gridData = ref([]);
 
 // 使用 computed 属性确保任何 props.roomData 的更新都能被捕捉和处理
 watchEffect(() => {
-    console.log('Received room data in roomItems:', props.roomData);
+    // console.log('Received room data in roomItems:', props.roomData);
     roomType.value = props.roomData ? props.roomData.roomType : 'Undefined';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
     bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'Unknown';
     if (props.roomData && props.roomData.buildingType) {
         fetchBuildingTypeData(props.roomData.buildingType);
+    }
+    console.log('Received dateRange:', props.dateRange);
+    console.log('Received buildingType:', props.buildingType);
+    if (props.dateRange && props.dateRange.length >= 2) {
+        gridData.value = [
+            {
+                Start_Date: formatDate(props.dateRange[0]),
+                End_Date: formatDate(props.dateRange[1]),
+                Building_Type: props.buildingType || 'N/A'
+            },
+        ];
+    } else {
+        gridData.value = [
+            {
+                Start_Date: 'N/A',
+                End_Date: 'N/A',
+                Building_Type: 'N/A'
+            }
+        ];
     }
 });
 function fetchBuildingTypeData(buildingTypeId) {
@@ -39,12 +60,18 @@ function fetchBuildingTypeData(buildingTypeId) {
             const smokingStatus = response.data.data.allowSmoking;
             smoking.value = smokingStatus === 1 ? "no smoking" : "can smoking";
 
-
             console.log('Building Type Data:', response.data.data.breakfast);
         })
         .catch(error => {
             console.error('Failed to fetch building type data:', error);
         });
+}
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' }); // 获取月份的缩写
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`; // 格式: 12 Jun 2024
 }
 
 
@@ -56,6 +83,51 @@ const bedtype = computed(() => {
 function goToRoomDetails() {
     router.push('/roomdetails');
 }
+
+const dialogFormVisible = ref(false)
+
+const form = reactive({
+    userName: '',
+    phoneNum: '',
+})
+
+const getMyInfo = async () => {
+    try {
+        const token = sessionStorage.getItem("token");
+        //console.log("Token is:", token);
+        const response = await axios.get("/api/system/user/profile", {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        const data = response.data;
+        console.log(data)
+        form.phoneNum= data.data.phonenumber;
+        form.userName = data.data.userName;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+getMyInfo();
+
+const confirmReservation = async () => {
+    try {
+        const token = sessionStorage.getItem("token");
+        const response = await axios.post('/homestay/reservation/add', form, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        console.log('Reservation added successfully:', response.data);
+        dialogFormVisible.value = false;  // 关闭对话框
+    } catch (error) {
+        console.error('Failed to add reservation:', error);
+        // 根据需要处理错误，比如显示错误消息
+    }
+};
+
 </script>
 
 
@@ -97,7 +169,36 @@ function goToRoomDetails() {
             <el-col :span="6" class="column">
                 <div>
                     <h3>¥{{price}}</h3>
-                    <el-button>{{ t('roonItems.book') }}</el-button>
+                    <el-button plain @click="dialogFormVisible = true">Book Now</el-button>
+                    <el-dialog v-model="dialogFormVisible" title="Reservation Confirm" width="500">
+                        <el-form :model="form">
+                            <el-table :data="gridData">
+                                <el-table-column property="Start_Date" label="Start Date" width="150" />
+                                <el-table-column property="End_Date" label="End Date" width="200" />
+                                <el-table-column label="Room Type">
+                                    <template #default="scope">
+                                        {{ roomType }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column property="Building_Type" label="Building Type" />
+                            </el-table>
+                            <el-form-item label="Promotion name" :label-width="200">
+                                <el-input v-model="form.userName" autocomplete="off" />
+                            </el-form-item>
+                            <el-form-item label="Zones" :label-width="200">
+                                <el-input-number v-model="form.phoneNum" autocomplete="off">
+                                </el-input-number>
+                            </el-form-item>
+                        </el-form>
+                        <template #footer>
+                            <div class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                                <el-button type="primary" @click="confirmReservation">
+                                    Confirm
+                                </el-button>
+                            </div>
+                        </template>
+                    </el-dialog>
                 </div>
             </el-col>
         </el-row>
@@ -140,5 +241,6 @@ function goToRoomDetails() {
     align-items: center; /* 垂直居中 */
     justify-content: space-evenly; /* 水平平分空间 */
 }
+
 
 </style>

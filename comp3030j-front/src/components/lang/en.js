@@ -5,7 +5,8 @@ export default {
         username: 'Username',
         password: 'Password',
         code: 'Code',
-        rememberMe: 'Remember Me'
+        rememberMe: 'Remember Me',
+        register:'Register'
     },
     tagsView: {
         refresh: 'Refresh',
