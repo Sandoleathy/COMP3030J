@@ -1,7 +1,7 @@
 export default {
     login: {
         title: 'RuoYi Login Form',
-        logIn: 'Login in',
+        logIn: 'Login',
         username: 'Username',
         password: 'Password',
         code: 'Code',
