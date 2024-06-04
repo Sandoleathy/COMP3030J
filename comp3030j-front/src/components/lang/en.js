@@ -161,6 +161,9 @@ export default {
         time:'Last Precipitation Time:',
         amount:'Last Precipitation Amount:',
         source:'Warning Source:',
-        details:'Warning Details:'
+        details:'Warning Details:',
+        noWarning: "No weather warning",
+        updateTimeText: "Update Time: ",
+        WarningTitle: "Meteorological disaster warning"
     }
 }

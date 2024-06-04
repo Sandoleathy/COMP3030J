@@ -306,9 +306,6 @@ const cancelChanges = () => {
     isEditing.value = false;
 };
 
-const uploadClick = () => {
-  isUploadDialogVisible.value = true;
-}
 </script>
 
 <style scoped>

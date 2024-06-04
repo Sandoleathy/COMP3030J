@@ -40,7 +40,7 @@ export function GetEnergyData(){
             'Authorization': 'Bearer ' + token
         }
     }).then((response) => {
-        //console.log(response.data)
+        console.log(response.data)
         const data = response.data;
         const dataset: number[] = []
         dataset.push(data.energySystemDataFlow[0].carbonReductionWind)

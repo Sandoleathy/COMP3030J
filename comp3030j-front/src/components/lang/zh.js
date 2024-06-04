@@ -248,6 +248,9 @@ export default {
         time:'最后降水时间:',
         amount:'最近降水量:',
         source:'警告来源:',
-        details:'警告信息:'
+        details:'警告信息:',
+        noWarning: "没有天气预警",
+        updateTimeText: "更新时间：",
+        WarningTitle: "气象灾害预警"
     }
 }
