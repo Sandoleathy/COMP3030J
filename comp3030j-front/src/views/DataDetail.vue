@@ -9,18 +9,18 @@
                     <el-header>
                         <el-header>
                             <el-tabs v-model="pageNum">
-                                <el-tab-pane label="Energy" name='0'></el-tab-pane>
-                                <el-tab-pane label="Finance" name='1'></el-tab-pane>
-                                <el-tab-pane label="Weather" name='2'></el-tab-pane>
-                                <el-tab-pane label="Hotel" name='3'></el-tab-pane>
-                                <el-tab-pane label="User" name="4"></el-tab-pane>
-                                <el-tab-pane label="Config" name="config"></el-tab-pane>
-                                <el-tab-pane label="Dept" name="dept"></el-tab-pane>
-                                <el-tab-pane label="Dict" name="dict"></el-tab-pane>
-                                <el-tab-pane label="Menu" name="menu"></el-tab-pane>
-                                <el-tab-pane label="Notice" name="notice"></el-tab-pane>
-                                <el-tab-pane label="Post" name="post"></el-tab-pane>
-                                <el-tab-pane label="Role" name="role"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.energy')" name='0'></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.finance')" name='1'></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.weather')" name='2'></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.hotel')" name='3'></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.user')" name="4"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.config')" name="config"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.dept')" name="dept"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.dict')" name="dict"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.menu')" name="menu"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.notice')" name="notice"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.post')" name="post"></el-tab-pane>
+                                <el-tab-pane :label="t('dataDetail.role')" name="role"></el-tab-pane>
                             </el-tabs>
                         </el-header>
                     </el-header>
@@ -29,7 +29,7 @@
                           <div style="max-width: 100vw;">
                             <el-row>
                               <el-col :span="24" style="font-weight: bolder;font-size: 32px; text-align: center;color: black;">
-                                Park Energy Information Detail
+                                {{ t('dataDetail.park') }}
                               </el-col>
                             </el-row>
                             <totalDetail></totalDetail>
@@ -109,6 +109,8 @@ import systemRole from '@/components/system/role/index.vue';
 import totalDetail from '@/components/ParkInformationBlock/TotalDetail.vue'
 import { connectWebSocket } from '@/chartData/EnergyDetail.ts'
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const pageNum = ref('0')
 const activeNames = ref([])

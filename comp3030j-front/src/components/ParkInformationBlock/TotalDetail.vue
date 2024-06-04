@@ -88,13 +88,13 @@ const createChart = () => {
         maintainAspectRatio: false,
         scales: {
           y: {
-            display: false,
+            display: true,
             grid: {
               display: false
             }
           },
           x: {
-            display: false,
+            display: true,
             grid: {
               display: false
             }
@@ -143,9 +143,11 @@ onMounted(() => {
 <style scoped>
 .container1{
   width: 100%;
-  //max-height: 500px;
   border: 1px solid black;
   min-width: 0;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 #totalPieChart{
   max-height: 200px;

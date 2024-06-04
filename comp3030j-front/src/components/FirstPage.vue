@@ -10,18 +10,18 @@
                     />
                     <div class="logo_word">
                         <el-row>
-                            <h3 class="styled-heading" style="font-size: 40px;">Yishan</h3>
+                            <h3 class="styled-heading" style="font-size: 40px;">{{ t('firstPage.yishan') }}</h3>
                         </el-row>
                         <el-row>
-                            <h3 class="styled-heading" style="font-size: 25px;">Mountain Villa</h3>
+                            <h3 class="styled-heading" style="font-size: 25px;">{{ t('firstPage.mountainVilla') }}</h3>
                         </el-row>
                     </div>
                 </el-menu-item>
                 <div class="flex-grow" />
-                <el-menu-item class="menu-item" index="1" @click="scrollToSection('aboutUs')">About Us</el-menu-item>
-                <el-menu-item class="menu-item" index="2" @click="goToViewPage">Overview</el-menu-item>
-                <el-menu-item class="menu-item" index="3" @click="scrollToSection('news')">News & Notices</el-menu-item>
-                <el-menu-item class="menu-item" index="4" @click="scrollToSection('minsu')" style="margin-right: 20px;">Hotel</el-menu-item>
+                <el-menu-item class="menu-item" index="1" @click="scrollToSection('aboutUs')">{{ t('firstPage.aboutUs') }}</el-menu-item>
+                <el-menu-item class="menu-item" index="2" @click="goToViewPage">{{ t('firstPage.overview') }}</el-menu-item>
+                <el-menu-item class="menu-item" index="3" @click="scrollToSection('news')">{{ t('firstPage.news') }}</el-menu-item>
+                <el-menu-item class="menu-item" index="4" @click="scrollToSection('minsu')" style="margin-right: 20px;">{{ t('firstPage.hotel') }}</el-menu-item>
             </el-menu>
         </el-header>
     </el-container>
@@ -37,24 +37,22 @@
     <div style="width: 80%; margin: auto;">
         <div class="aboutUs" ref="aboutUsSection">
             <h1 class="line1"></h1>
-            <h1 class="header">About Us</h1>
-            <h3 class="welcome">- Welcome to our park -</h3>
-            <h4 class="context">With a mission to achieve economic, social and ecological sustainability, we are committed to creating a unique and welcoming living space in this quiet and vibrant countryside.
-                Here, you will experience the charm and comfort of rural life and enjoy the gifts of nature. Our homestay will provide you with comfortable accommodation, so that you can spend a pleasant time in the quiet country; Health care service center will provide you with intimate health care and love; The Sustainable Energy Center will lead you to a green life and experience the charm of clean energy.
-                We welcome your arrival, let us explore this beautiful land together, feel the warmth and tolerance of the countryside, and create a better future together!</h4>
-            <h3 class="ending" style="margin-bottom: 50px">Looking forward to your visit!</h3>
+            <h1 class="header">{{ t('firstPage.aboutUs') }}</h1>
+            <h3 class="welcome">{{ t('firstPage.welcome') }}</h3>
+            <h4 class="context">{{ t('firstPage.text1') }}</h4>
+            <h3 class="ending" style="margin-bottom: 50px">{{ t('firstPage.look') }}</h3>
         </div>
 
         <div class="news" ref="newsSection">
           <el-divider></el-divider>
-            <h1 class="minsu-head" style="margin-top: 60px">News & Notices</h1>
+            <h1 class="minsu-head" style="margin-top: 60px">{{ t('firstPage.news') }}</h1>
             <div class="news-container">
                 <div class="news-text">
                     <div class="title-date">
-                        <h3>Yishan Villa May farm activities updated!</h3>
+                        <h3>{{ t('firstPage.farm') }}</h3>
                         <span class="date">2024/04/19</span>
                     </div>
-                    <h4>Peach picking can be experienced at the farm every weekend from 10:00 am to 16:00 PM</h4>
+                    <h4>{{ t('firstPage.peach') }}</h4>
                     <hr>
                 </div>
             </div>
@@ -62,28 +60,19 @@
 
         <div class="minsu" ref="minsuSection">
             <h1 class="line1"></h1>
-            <h1 class="minsu-head">Hotel</h1>
-            <h3 class="minsu-head">Welcome to our guesthouse, the ideal place for country living！</h3>
+            <h1 class="minsu-head">{{ t('firstPage.hotel') }}</h1>
+            <h3 class="minsu-head">{{ t('firstPage.living') }}</h3>
             <el-row gutter={50}>
                 <el-col :span="12" class="image-column">
                     <img class="minsu-pic" src="/images/hotel.png" alt="hotel-pic">
                 </el-col>
                 <el-col :span="12" class="text-column">
                     <div class="text-content">
-                        <p>Our guesthouse is situated in a lush mountain forest,
-                          with a quiet environment, fresh air and simple, comfortable rooms.
-                          Here you can enjoy quiet time away from the hustle and bustle.
-                          In the morning, you will be awakened by the dawn,
-                          the birdsong in the valley and the clear spring to accompany you to welcome a new day.
-                          During the day, you can stroll along the country roads and experience nature's artistry.
-                          At night, you can look up at the stars and share a good time with family and friends.
-                        <br><br>Our hotel also offers you a wide range of activities and experiences.
-                          You can take part in farm picking activities to savour fresh produce,
-                          or participate in handicraft making to experience the charm of traditional craftsmanship.
-                        <br><br> Whether you want to relax and unwind or experience the countryside,
-                          we will be happy to provide you with the best service to make your holiday a memorable one!
+                        <p>{{ t('firstPage.our') }}
+                        <br><br>{{ t('firstPage.also') }}
+                        <br><br> {{ t('firstPage.weather') }}
                         </p>
-                        <el-button type="primary" class="reservation-button" @click="goToAboutPage">Reservation</el-button>
+                        <el-button type="primary" class="reservation-button" @click="goToAboutPage">{{ t('firstPage.reservation') }}</el-button>
                     </div>
                 </el-col>
             </el-row>
@@ -255,7 +244,8 @@
 <script setup>
 import { ref, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const router = useRouter();
 const activeBadge = ref('');
 

@@ -107,5 +107,123 @@ export default {
         confirmStatusChange: "您确定要{status} \"{userName}\" 吗？",
         statusChangeSuccess: "{status} 成功",
         actionFailed: "操作失败"
+    },
+    reservationMenu:{
+        home:'主页',
+        order:'我的订单',
+        weather:'天气',
+        user:'用户'
+    },
+    firstPage:{
+        yishan:'依山',
+        mountainVilla:'山庄别墅',
+        aboutUs:'关于我们',
+        overview:'概述',
+        news:'新闻 & 通知',
+        hotel:'民宿',
+        welcome:'- 欢迎来到我们的公园 -',
+        text1:'以实现经济、社会和生态的可持续发展为使命，我们致力于在这个宁静而充满活力的乡村创造一个独特而温馨的生活空间。\n' +
+            '在这里，您将体验到乡村生活的魅力和舒适，享受大自然的馈赠。我们的寄宿家庭将为您提供舒适的住宿，让您在宁静的乡村度过一段愉快的时光;保健服务中心，为您提供贴心的保健与关爱;可持续能源中心将带您走进绿色生活，感受清洁能源的魅力。\n' +
+            '欢迎您的到来，让我们一起探索这片美丽的土地，感受农村的温暖与包容，共同创造美好的未来!',
+        farm:'依山别墅五月农家活动更新!',
+        peach:'每个周末上午10点到下午16点可以在农场体验采摘桃子',
+        look:'期待您的光临!',
+        living:'欢迎来到我们的宾馆，乡村生活的理想场所!',
+        reservation:'预订',
+        our:'我们的宾馆坐落在郁郁葱葱的山林中，\n' +
+            '                          拥有安静的环境，新鲜的空气和简单，舒适的房间。\n' +
+            '                          在这里你可以享受远离喧嚣的宁静时光。\n' +
+            '                          到了早晨，你必被晨光唤醒，\n' +
+            '                          山谷里的鸟鸣，清泉陪你迎接新的一天。\n' +
+            '                          白天，你可以沿着乡间小路漫步，体验大自然的艺术。\n' +
+            '                          晚上，你可以仰望星空，与家人和朋友共度美好时光。',
+        also:'我们酒店还为您提供各种各样的活动和体验。\n' +
+            '                          你可以参加农场采摘活动，品尝新鲜农产品，\n' +
+            '                          或参与手工制作，体验传统手工艺的魅力。',
+        weather:'无论你是想放松身心，还是想体验乡村，\n' +
+            '                         我们将竭诚为您提供最优质的服务，使您的假期难忘!'
+    },
+    loginBar:{
+        signIn:'登录',
+        signUp:'注册',
+        profile:'个人资料',
+        logout:'登出',
+    },
+    myInformation:{
+        account:'账号',
+        name:'用户名',
+        phoneNumber:'电话',
+        email:'邮箱',
+        chooseSex:'选择性别',
+        edit:'编辑',
+        save:'保存',
+        cancel:'取消',
+        sex:'性别',
+        female:'女',
+        male:'男',
+        unknown:'未知'
+    },
+    mySidebar:{
+        home:'主页',
+        order:'订单',
+        info:'常规信息',
+        trav:'常见的旅行者',
+        address:'常见的地址',
+        contacts:'常见的联系人',
+        myInfo:'我的信息'
+    },
+    order:{
+        detail:'预订详情',
+        found:'没有发现订单',
+    },
+    reservationSearchBar:{
+        day:'日期',
+        room:'房间：',
+        guest:'顾客：',
+        roomType:'房间类型:',
+    },
+    roonItems:{
+        view:'查看房间信息',
+        breakfast:'早餐',
+        free:'30分钟免费取消',
+        book:'现在订阅',
+    },
+    dataDetail:{
+        park:'园林能源信息详情',
+        energy:'能源',
+        finance:'财务',
+        weather:'天气',
+        hotel:'民宿',
+        user:'用户',
+        config:'配置',
+        dept:'部门',
+        dict:'字典',
+        menu:'菜单',
+        notice:'通知',
+        post:'推送',
+        role:'职位'
+    },
+    dataOverview:{
+        yishan:'依山',
+        mountainVilla:'山庄别墅',
+        aboutUs:'关于我们',
+        overview:'概述',
+        news:'新闻 & 通知',
+        hotel:'民宿',
+        threeD:'⬅ 3D 模型',
+        of:'园林的',
+        roll:'滚动鼠标滚轮调节距离',
+        drag:'拖动鼠标可调整透视图',
+        weather:'天气',
+        energy:'能源消耗',
+
+    },
+    error:{
+        error:'错误'
+    },
+    employeeView:{
+        reservation:'预订',
+        checkIn:'入住',
+        checkOut:'搬出'
     }
 }

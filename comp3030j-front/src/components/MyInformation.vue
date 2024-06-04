@@ -1,58 +1,136 @@
 <template>
-    <el-form  label-width="100px">
-        <el-form-item label="个人信息登记:">
-        </el-form-item>
+  <el-card class="box-card" shadow="hover">
+    <el-form label-width="100px" v-loading="isLoadingInfo">
+      <el-row>
+        <el-col :span="12">
+          <el-form-item>
+            <h2>Profile</h2>
+            <el-divider></el-divider>
+          </el-form-item>
 
-        <el-form-item label="AccountNumber:">
-            <template v-if="!isEditing">
-                <p>{{ userName }}</p>
-            </template>
-            <el-input v-else v-model="userName" placeholder="Account Number"></el-input>
-        </el-form-item>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="t('myInformation.account')">
+                <template v-if="!isEditing">
+                  <p>{{ userName }}</p>
+                </template>
+                <el-input v-else v-model="userName" :placeholder="t('myInformation.account')"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item label="Name:">
-            <template v-if="!isEditing">
-                <p>{{ name }}</p>
-            </template>
-            <el-input v-else v-model="name" placeholder="Name"></el-input>
-        </el-form-item>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="t('myInformation.name')">
+                <template v-if="!isEditing">
+                  <p>{{ name }}</p>
+                </template>
+                <el-input v-else v-model="name" :placeholder="t('myInformation.name')"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item label="PhoneNumber:">
-            <template v-if="!isEditing">
-                <p>{{ phoneNumber }}</p>
-            </template>
-            <el-input v-else v-model="phoneNumber" placeholder="Phone Number"></el-input>
-        </el-form-item>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="t('myInformation.phoneNumber')">
+                <template v-if="!isEditing">
+                  <p>{{ phoneNumber }}</p>
+                </template>
+                <el-input v-else v-model="phoneNumber" :placeholder="t('myInformation.phoneNumber')"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item label="Email:">
-            <template v-if="!isEditing">
-                <p>{{ email }}</p>
-            </template>
-            <el-input v-else v-model="email" placeholder="Email"></el-input>
-        </el-form-item>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="t('myInformation.email')">
+                <template v-if="!isEditing">
+                  <p>{{ email }}</p>
+                </template>
+                <el-input v-else v-model="email" :placeholder="t('myInformation.email')"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item label="Sex:">
-            <template v-if="!isEditing">
-                <p>{{ sexText }}</p>
-            </template>
-            <el-select v-else v-model="sex" placeholder="Select sex">
-                <el-option label="男" value="0"></el-option>
-                <el-option label="女" value="1"></el-option>
-                <el-option label="未知" value="unknown"></el-option>
-            </el-select>
-        </el-form-item>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item :label="t('myInformation.sex')">
+                <template v-if="!isEditing">
+                  <p>{{ sexText }}</p>
+                </template>
+                <el-select v-else v-model="sex" :placeholder="t('myInformation.chooseSex')">
+                  <el-option :label="t('myInformation.male')" value="0"></el-option>
+                  <el-option :label="t('myInformation.female')" value="1"></el-option>
+                  <el-option :label="t('myInformation.unknown')" value="unknown"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item>
-            <el-button v-if="!isEditing" type="primary" @click="isEditing = true">Edit</el-button>
-            <el-button v-if="isEditing" type="success" @click="saveChanges">Save</el-button>
-            <el-button v-if="isEditing" type="default" @click="cancelChanges">Cancel</el-button>
-        </el-form-item>
+          <el-divider></el-divider>
+
+          <el-row>
+            <el-col :span="24">
+              <el-form-item>
+                <el-button v-if="!isEditing" type="primary" @click="isEditing = true">
+                  <el-icon><Edit /></el-icon> Edit
+                </el-button>
+                <el-button v-if="isEditing" type="success" @click="saveChanges">
+                  <el-icon><Check /></el-icon> Save
+                </el-button>
+                <el-button v-if="isEditing" type="default" @click="cancelChanges">
+                  <el-icon><Close /></el-icon> Cancel
+                </el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="12">
+          <div class="avatar_div">
+            <el-avatar :size="280" :src="avatarPath"></el-avatar>
+            <el-icon v-if="isEditing" class="avatar_icon" @click="isUploadDialogVisible = true">
+              <Avatar />
+            </el-icon>
+          </div>
+        </el-col>
+      </el-row>
+      <el-dialog title="Upload File" v-model="isUploadDialogVisible">
+        <el-upload
+            action="/api/user/profile/avatar"
+            list-type="text"
+            :limit="1"
+            :on-exceed="handleExceed"
+            :auto-upload="false"
+            drag
+            accept="image/*"
+            ref="upload"
+            :on-success="handleUploadSuccess"
+            :on-error="handleUploadError"
+        >
+          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+          <div class="el-upload__text">
+            Drop file here or <em>click to upload</em>
+          </div>
+          <template #tip>
+            <div class="el-upload__tip">
+              jpg/png files with a size less than 500kb
+            </div>
+          </template>
+        </el-upload>
+        <el-button type="success" @click="submitUpload">Upload</el-button>
+      </el-dialog>
     </el-form>
+  </el-card>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import axios from "axios";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
+import { genFileId } from 'element-plus'
+import { UploadFilled } from '@element-plus/icons-vue'
 
 let phoneNumber = ref('');
 let email = ref('');
@@ -60,16 +138,41 @@ let name = ref('');
 let userName = ref('');
 let sex = ref('');
 let isEditing = ref(false);
+let avatarPath = ref("");
+
+let isLoadingInfo = ref(false); //用于加载动画
+let isUploadDialogVisible = ref(false);
 
 const sexText = computed(() => {
-    return sex.value === "0" ? "男" : sex.value === "1" ? "女" : "未知";
+    return sex.value === "0" ? "male" : sex.value === "1" ? "female" : "unknown";
 });
 
 onMounted(() => {
     getMyInfo();
 });
 
+const upload = ref<UploadInstance>()
+//处理图片上传的方法
+const submitUpload = () => {
+  console.log(upload.value)
+  upload.value?.submit()
+}
+//删除多余文件保证只有一个文件
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
+}
+const handleUploadSuccess = (response:any, file:any, fileList:any) => {
+  console.log('Upload success:', response, file, fileList);
+}
+const handleUploadError = (error:any, file:any, fileList:any) => {
+  console.error('Upload failed:', error, file, fileList);
+}
+
 const getMyInfo = async () => {
+    isLoadingInfo.value = true;
     try {
         const token = sessionStorage.getItem("token");
         //console.log("Token is:", token);
@@ -86,8 +189,11 @@ const getMyInfo = async () => {
         email.value = data.data.email;
         userName.value = data.data.userName;
         sex.value = data.data.sex.toString();
+        avatarPath.value = data.data.avatar;
+        isLoadingInfo.value = false;
     } catch (error) {
         console.error('Error fetching data:', error);
+        isLoadingInfo.value = false;
     }
 };
 
@@ -137,6 +243,10 @@ const cancelChanges = () => {
     getMyInfo();
     isEditing.value = false;
 };
+
+const uploadClick = () => {
+  isUploadDialogVisible.value = true;
+}
 </script>
 
 <style scoped>
@@ -192,6 +302,33 @@ const cancelChanges = () => {
 
 .el-button-default {
     background-color: #dcdfe6;
+}
+.box-card {
+  margin: 20px;
+  padding: 20px;
+}
+.avatar_div{
+  text-align: center;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+.avatar_icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
 }
 </style>
 
