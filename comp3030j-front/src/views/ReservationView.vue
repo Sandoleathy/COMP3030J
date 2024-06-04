@@ -3,7 +3,7 @@ import { ref, onMounted,watch } from 'vue';
 import reservationPage from '../components/ReservationMenu.vue';
 import reservationSearchBar from '../components/ReservationSearchBar.vue';
 import roomItems from '../components/RoonItems.vue';
-import axios from "axios";
+import axios from "@/axios";
 
 
 const rooms = ref([]);

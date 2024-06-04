@@ -10,7 +10,7 @@
 <script setup>
 import { ref , onMounted } from 'vue';
 import { ElContainer, ElMain, ElHeader , ElMessage } from 'element-plus';
-import axios from 'axios';
+import axios from '@/axios';
 import WeatherForcastChart from './Charts/WeatherForecastChart.vue'
 
 const temperature = ref(0)

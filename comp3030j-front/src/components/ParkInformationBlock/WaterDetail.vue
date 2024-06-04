@@ -63,7 +63,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import {ElContainer, ElMain, ElCol, ElRow, ElSwitch} from 'element-plus'
-import axios from 'axios'
 import {Chart,registerables} from 'chart.js'
 import { waterWattCarbon, waterLevel, waterFlowRate, energyDataSets } from '@/chartData/EnergyDetail.ts'
 

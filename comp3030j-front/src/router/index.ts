@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type NavigationGuardNext } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
+import axios from '@/axios'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

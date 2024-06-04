@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 民宿预订Controller
+ * B&B bookingController
  *
  * @author paru
  * @date 2024-04-09
@@ -41,7 +41,7 @@ public class HsReservationController extends BaseController {
     private IHsGuestService hsGuestService;
 
     /**
-     * 查询民宿预订列表
+     * 查询B&B booking列表
      */
     @RequiresPermissions("homestay:reservation:list")
     @GetMapping("/list")
@@ -52,19 +52,19 @@ public class HsReservationController extends BaseController {
     }
 
     /**
-     * 导出民宿预订列表
+     * 导出B&B booking列表
      */
     @RequiresPermissions("homestay:reservation:export")
-    @Log(title = "民宿预订", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B booking", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsReservation hsReservation) {
         List<ReservationDTO> list = hsReservationService.select(hsReservation);
         ExcelUtil<ReservationDTO> util = new ExcelUtil<ReservationDTO>(ReservationDTO.class);
-        util.exportExcel(response, list, "民宿预订数据");
+        util.exportExcel(response, list, "B&B booking数据");
     }
 
     /**
-     * 获取民宿预订详细信息
+     * 获取B&B booking详细信息
      */
     @RequiresPermissions("homestay:reservation:query")
     @GetMapping(value = "/{id}")
@@ -73,10 +73,10 @@ public class HsReservationController extends BaseController {
     }
 
     /**
-     * 新增民宿预订
+     * 新增B&B booking
      */
     @RequiresPermissions("homestay:reservation:add")
-    @Log(title = "民宿预订", businessType = BusinessType.INSERT)
+    @Log(title = "B&B booking", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public List<AjaxResult> add(@RequestBody AddReservationDTO addReservationDTO) {
         List<AjaxResult> results = new ArrayList<>();
@@ -104,20 +104,20 @@ public class HsReservationController extends BaseController {
 
 
     /**
-     * 修改民宿预订
+     * 修改B&B booking
      */
     @RequiresPermissions("homestay:reservation:edit")
-    @Log(title = "民宿预订", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B booking", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsReservation hsReservation) {
         return toAjax(hsReservationService.updateHsReservation(hsReservation));
     }
 
     /**
-     * 删除民宿预订
+     * 删除B&B booking
      */
     @RequiresPermissions("homestay:reservation:remove")
-    @Log(title = "民宿预订", businessType = BusinessType.DELETE)
+    @Log(title = "B&B booking", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public List<AjaxResult> remove(@PathVariable Long[] ids) {
         List<AjaxResult> results = new ArrayList<>();
@@ -132,7 +132,7 @@ public class HsReservationController extends BaseController {
      * 支付订单
      */
     @RequiresPermissions("homestay:reservation:pay")
-    @Log(title = "民宿预订", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B booking", businessType = BusinessType.UPDATE)
     @PostMapping("/pay")
     public AjaxResult updateReservationStatusToPaid(Long id, String description) {
         return toAjax(hsReservationService.updateReservationStatusToPaid(id, description));

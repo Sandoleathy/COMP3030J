@@ -141,7 +141,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
      *
      * @param endDate 最后时间
      * @param startTime 开始时间
-     * @return 时间差（天/小时/分钟）
+     * @return 时间差（sky/Hour/minute）
      */
     public static String timeDistance(Date endDate, Date startTime)
     {
@@ -151,15 +151,15 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
         // long ns = 1000;
         // 获得两个时间的毫秒时间差异
         long diff = endDate.getTime() - startTime.getTime();
-        // 计算差多少天
+        // 计算差多少sky
         long day = diff / nd;
-        // 计算差多少小时
+        // 计算差多少Hour
         long hour = diff % nd / nh;
-        // 计算差多少分钟
+        // 计算差多少minute
         long min = diff % nd % nh / nm;
         // 计算差多少秒//输出结果
         // long sec = diff % nd % nh % nm / ns;
-        return day + "天" + hour + "小时" + min + "分钟";
+        return day + "sky" + hour + "Hour" + min + "minute";
     }
 
     /**

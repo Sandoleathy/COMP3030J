@@ -26,7 +26,7 @@ import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * 民宿员工表Controller
+ * B&B staff listController
  * 
  * @author paru
  * @date 2024-04-25
@@ -39,7 +39,7 @@ public class HsStaffController extends BaseController
     private IHsStaffService hsStaffService;
 
     /**
-     * 查询民宿员工表列表
+     * 查询B&B staff list列表
      */
     @RequiresPermissions("homestay:staff:list")
     @GetMapping("/list")
@@ -51,20 +51,20 @@ public class HsStaffController extends BaseController
     }
 
     /**
-     * 导出民宿员工表列表
+     * 导出B&B staff list列表
      */
     @RequiresPermissions("homestay:staff:export")
-    @Log(title = "民宿员工表", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B staff list", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, SelectStaffDTO hsStaff)
     {
         List<HsStaffDTO> list = hsStaffService.selectHsStaffList(hsStaff);
         ExcelUtil<HsStaffDTO> util = new ExcelUtil<HsStaffDTO>(HsStaffDTO.class);
-        util.exportExcel(response, list, "民宿员工表数据");
+        util.exportExcel(response, list, "B&B staff list数据");
     }
 
     /**
-     * 获取民宿员工表详细信息
+     * 获取B&B staff list详细信息
      */
     @RequiresPermissions("homestay:staff:query")
     @GetMapping(value = "/{id}")
@@ -74,10 +74,10 @@ public class HsStaffController extends BaseController
     }
 
     /**
-     * 新增民宿员工表
+     * 新增B&B staff list
      */
     @RequiresPermissions("homestay:staff:add")
-    @Log(title = "民宿员工表", businessType = BusinessType.INSERT)
+    @Log(title = "B&B staff list", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HsStaffDTO hsStaffDTO)
     {
@@ -85,10 +85,10 @@ public class HsStaffController extends BaseController
     }
 
     /**
-     * 修改民宿员工表
+     * 修改B&B staff list
      */
     @RequiresPermissions("homestay:staff:edit")
-    @Log(title = "民宿员工表", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B staff list", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsStaff hsStaff)
     {
@@ -96,10 +96,10 @@ public class HsStaffController extends BaseController
     }
 
     /**
-     * 删除民宿员工表
+     * 删除B&B staff list
      */
     @RequiresPermissions("homestay:staff:remove")
-    @Log(title = "民宿员工表", businessType = BusinessType.DELETE)
+    @Log(title = "B&B staff list", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

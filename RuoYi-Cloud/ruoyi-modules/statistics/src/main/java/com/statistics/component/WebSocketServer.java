@@ -44,17 +44,17 @@ public class WebSocketServer
         if (!semaphoreFlag)
         {
             // 未获取到信号量
-            LOGGER.error("\n 当前在线人数超过限制数- {}", socketMaxOnlineCount);
-            WebSocketUsers.sendMessageToUserByText(session, "当前在线人数超过限制数：" + socketMaxOnlineCount);
+            LOGGER.error("\n The number of people online currently exceeds the limit - {}", socketMaxOnlineCount);
+            WebSocketUsers.sendMessageToUserByText(session, "The number of people online currently exceeds the limit:" + socketMaxOnlineCount);
             session.close();
         }
         else
         {
             // 添加用户
             WebSocketUsers.put(session.getId(), session);
-            LOGGER.info("\n 建立连接 - {}", session);
-            LOGGER.info("\n 当前人数 - {}", WebSocketUsers.getUsers().size());
-            WebSocketUsers.sendMessageToUserByText(session, "连接成功");
+            LOGGER.info("\n Establish connection - {}", session);
+            LOGGER.info("\n Current number of people - {}", WebSocketUsers.getUsers().size());
+            WebSocketUsers.sendMessageToUserByText(session, "connection succeeded");
         }
     }
 
@@ -64,7 +64,7 @@ public class WebSocketServer
     @OnClose
     public void onClose(Session session)
     {
-        LOGGER.info("\n 关闭连接 - {}", session);
+        LOGGER.info("\n Close connection - {}", session);
         // 移除用户
         WebSocketUsers.remove(session.getId());
         // 获取到信号量则需释放
@@ -83,8 +83,8 @@ public class WebSocketServer
             session.close();
         }
         String sessionId = session.getId();
-        LOGGER.info("\n 连接异常 - {}", sessionId);
-        LOGGER.info("\n 异常信息 - {}", exception);
+        LOGGER.info("\n Connection exception - {}", sessionId);
+        LOGGER.info("\nException information - {}", exception);
         // 移出用户
         WebSocketUsers.remove(sessionId);
         // 获取到信号量则需释放
@@ -97,7 +97,7 @@ public class WebSocketServer
     @OnMessage
     public void onMessage(String message, Session session)
     {
-        String msg = message.replace("你", "我").replace("吗", "");
+        String msg = message.replace("you", "I").replace("?", "");
         WebSocketUsers.sendMessageToUserByText(session, msg);
     }
 }

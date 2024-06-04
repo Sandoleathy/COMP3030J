@@ -4,7 +4,7 @@
 <script setup>
 import {Chart,registerables} from 'chart.js'
 import {ref,onMounted} from 'vue'
-import axios from 'axios'
+import axios from '@/axios'
 import {ElMessage} from 'element-plus'
 import 'chartjs-plugin-datalabels';//图表插件
 

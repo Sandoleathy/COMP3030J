@@ -25,7 +25,7 @@ import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * 民宿消费Controller
+ * B&B consumptionController
  * 
  * @author paru
  * @date 2024-04-13
@@ -38,7 +38,7 @@ public class HsConsumptionController extends BaseController
     private IHsConsumptionService hsConsumptionService;
 
     /**
-     * 查询民宿消费列表
+     * 查询B&B consumption列表
      */
     @RequiresPermissions("homestay:consumption:list")
     @GetMapping("/list")
@@ -50,20 +50,20 @@ public class HsConsumptionController extends BaseController
     }
 
     /**
-     * 导出民宿消费列表
+     * 导出B&B consumption列表
      */
     @RequiresPermissions("homestay:consumption:export")
-    @Log(title = "民宿消费", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B consumption", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, SelectConsumptionDTO selectConsumptionDTO)
     {
         List<ConsumptionDTO> list = hsConsumptionService.selectHsConsumptionList(selectConsumptionDTO);
         ExcelUtil<ConsumptionDTO> util = new ExcelUtil<ConsumptionDTO>(ConsumptionDTO.class);
-        util.exportExcel(response, list, "民宿消费数据");
+        util.exportExcel(response, list, "B&B consumption数据");
     }
 
     /**
-     * 获取民宿消费详细信息
+     * 获取B&B consumption详细信息
      */
     @RequiresPermissions("homestay:consumption:query")
     @GetMapping(value = "/{id}")
@@ -73,10 +73,10 @@ public class HsConsumptionController extends BaseController
     }
 
     /**
-     * 新增民宿消费
+     * 新增B&B consumption
      */
     @RequiresPermissions("homestay:consumption:add")
-    @Log(title = "民宿消费", businessType = BusinessType.INSERT)
+    @Log(title = "B&B consumption", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody HsConsumption hsConsumption)
     {
@@ -84,10 +84,10 @@ public class HsConsumptionController extends BaseController
     }
 
     /**
-     * 修改民宿消费
+     * 修改B&B consumption
      */
     @RequiresPermissions("homestay:consumption:edit")
-    @Log(title = "民宿消费", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B consumption", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsConsumption hsConsumption)
     {
@@ -95,10 +95,10 @@ public class HsConsumptionController extends BaseController
     }
 
     /**
-     * 删除民宿消费
+     * 删除B&B consumption
      */
     @RequiresPermissions("homestay:consumption:remove")
-    @Log(title = "民宿消费", businessType = BusinessType.DELETE)
+    @Log(title = "B&B consumption", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

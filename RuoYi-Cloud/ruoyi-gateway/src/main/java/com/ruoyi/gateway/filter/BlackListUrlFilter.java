@@ -24,7 +24,7 @@ public class BlackListUrlFilter extends AbstractGatewayFilterFactory<BlackListUr
             String url = exchange.getRequest().getURI().getPath();
             if (config.matchBlacklist(url))
             {
-                return ServletUtils.webFluxResponseWriter(exchange.getResponse(), "请求地址不允许访问");
+                return ServletUtils.webFluxResponseWriter(exchange.getResponse(), "Access to the requested address is not allowed");
             }
 
             return chain.filter(exchange);

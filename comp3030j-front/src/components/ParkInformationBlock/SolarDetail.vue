@@ -45,7 +45,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ElContainer, ElMain, ElHeader, ElCol, ElRow } from 'element-plus'
-import axios from "axios";
+
 import {Chart,registerables} from 'chart.js'
 import { solarWattCarbon, solarElectricLight, energyDataSets } from '@/chartData/EnergyDetail.ts'
 

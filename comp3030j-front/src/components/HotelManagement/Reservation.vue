@@ -225,7 +225,7 @@
 
 <script setup>
 import { Edit, Download, Search, Refresh } from '@element-plus/icons-vue';
-import axios from 'axios';
+import axios from '@/axios';
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus';
 

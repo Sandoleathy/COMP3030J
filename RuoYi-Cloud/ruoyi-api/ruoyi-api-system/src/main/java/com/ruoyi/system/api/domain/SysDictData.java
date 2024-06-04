@@ -18,24 +18,24 @@ public class SysDictData extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** 字典编码 */
-    @Excel(name = "字典编码", cellType = ColumnType.NUMERIC)
+    /** dictionary encoding */
+    @Excel(name = "dictionary encoding", cellType = ColumnType.NUMERIC)
     private Long dictCode;
 
-    /** 字典排序 */
-    @Excel(name = "字典排序", cellType = ColumnType.NUMERIC)
+    /** Dictionary sort */
+    @Excel(name = "Dictionary sort", cellType = ColumnType.NUMERIC)
     private Long dictSort;
 
-    /** 字典标签 */
-    @Excel(name = "字典标签")
+    /** dictionary tag */
+    @Excel(name = "dictionary tag")
     private String dictLabel;
 
-    /** 字典键值 */
-    @Excel(name = "字典键值")
+    /** Dictionary key */
+    @Excel(name = "Dictionary key")
     private String dictValue;
 
-    /** 字典类型 */
-    @Excel(name = "字典类型")
+    /** dictionary type */
+    @Excel(name = "dictionary type")
     private String dictType;
 
     /** 样式属性（其他样式扩展） */
@@ -44,12 +44,12 @@ public class SysDictData extends BaseEntity
     /** 表格字典样式 */
     private String listClass;
 
-    /** 是否默认（Y是 N否） */
-    @Excel(name = "是否默认", readConverterExp = "Y=是,N=否")
+    /** Is it the default（Y是 N否） */
+    @Excel(name = "Is it the default", readConverterExp = "Y=yes,N=no")
     private String isDefault;
 
-    /** 状态（0正常 1停用） */
-    @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
+    /** state（0正常 1停用） */
+    @Excel(name = "state", readConverterExp = "0=normal, 1=disabled")
     private String status;
 
     public Long getDictCode()
@@ -72,8 +72,8 @@ public class SysDictData extends BaseEntity
         this.dictSort = dictSort;
     }
 
-    @NotBlank(message = "字典标签不能为空")
-    @Size(min = 0, max = 100, message = "字典标签长度不能超过100个字符")
+    @NotBlank(message = "dictionary tag不能为空")
+    @Size(min = 0, max = 100, message = "dictionary tag长度不能超过100个字符")
     public String getDictLabel()
     {
         return dictLabel;
@@ -84,8 +84,8 @@ public class SysDictData extends BaseEntity
         this.dictLabel = dictLabel;
     }
 
-    @NotBlank(message = "字典键值不能为空")
-    @Size(min = 0, max = 100, message = "字典键值长度不能超过100个字符")
+    @NotBlank(message = "Dictionary key不能为空")
+    @Size(min = 0, max = 100, message = "Dictionary key长度不能超过100个字符")
     public String getDictValue()
     {
         return dictValue;
@@ -96,8 +96,8 @@ public class SysDictData extends BaseEntity
         this.dictValue = dictValue;
     }
 
-    @NotBlank(message = "字典类型不能为空")
-    @Size(min = 0, max = 100, message = "字典类型长度不能超过100个字符")
+    @NotBlank(message = "dictionary type不能为空")
+    @Size(min = 0, max = 100, message = "dictionary type长度不能超过100个字符")
     public String getDictType()
     {
         return dictType;
@@ -108,7 +108,7 @@ public class SysDictData extends BaseEntity
         this.dictType = dictType;
     }
 
-    @Size(min = 0, max = 100, message = "样式属性长度不能超过100个字符")
+    @Size(min = 0, max = 100, message = "Style attribute length cannot exceed 100 characters")
     public String getCssClass()
     {
         return cssClass;

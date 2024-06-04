@@ -21,21 +21,21 @@ public class HsFinance extends BaseEntity
     /** id */
     private Long id;
 
-    /** 时间 */
+    /** time */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "time", width = 30, dateFormat = "yyyy-MM-dd")
     private Date time;
 
-    /** 类型（收入/支出） */
-    @Excel(name = "类型", readConverterExp = "收=入/支出")
+    /** type（收入/支出） */
+    @Excel(name = "type", readConverterExp = "Income = income/expense")
     private String type;
 
-    /** 金额 */
-    @Excel(name = "金额")
+    /** Amount */
+    @Excel(name = "Amount")
     private BigDecimal num;
 
-    /** 描述 */
-    @Excel(name = "描述")
+    /** describe */
+    @Excel(name = "describe")
     private String description;
 
     public void setId(Long id) 

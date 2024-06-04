@@ -85,17 +85,17 @@ public class SysMenuController extends BaseController
      * 新增菜单
      */
     @RequiresPermissions("system:menu:add")
-    @Log(title = "菜单管理", businessType = BusinessType.INSERT)
+    @Log(title = "Menu management", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysMenu menu)
     {
         if (!menuService.checkMenuNameUnique(menu))
         {
-            return error("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+            return error("Add menu'" + menu.getMenuName() + "'Failed, menu name already exists");
         }
         else if (UserConstants.YES_FRAME.equals(menu.getIsFrame()) && !StringUtils.ishttp(menu.getPath()))
         {
-            return error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+            return error("Add menu'" + menu.getMenuName() + "'Failed, the address must start with http(s)://");
         }
         menu.setCreateBy(SecurityUtils.getUsername());
         return toAjax(menuService.insertMenu(menu));
@@ -105,21 +105,21 @@ public class SysMenuController extends BaseController
      * 修改菜单
      */
     @RequiresPermissions("system:menu:edit")
-    @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
+    @Log(title = "Menu management", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysMenu menu)
     {
         if (!menuService.checkMenuNameUnique(menu))
         {
-            return error("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
+            return error("Modify menu'" + menu.getMenuName() + "'Failed, menu name already exists");
         }
         else if (UserConstants.YES_FRAME.equals(menu.getIsFrame()) && !StringUtils.ishttp(menu.getPath()))
         {
-            return error("修改菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
+            return error("Modify menu'" + menu.getMenuName() + "'Failed, the address must start with http(s)://");
         }
         else if (menu.getMenuId().equals(menu.getParentId()))
         {
-            return error("修改菜单'" + menu.getMenuName() + "'失败，上级菜单不能选择自己");
+            return error("Modify menu'" + menu.getMenuName() + "'Failed, the upper-level menu cannot select itself");
         }
         menu.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(menuService.updateMenu(menu));
@@ -129,17 +129,17 @@ public class SysMenuController extends BaseController
      * 删除菜单
      */
     @RequiresPermissions("system:menu:remove")
-    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+    @Log(title = "Menu management", businessType = BusinessType.DELETE)
     @DeleteMapping("/{menuId}")
     public AjaxResult remove(@PathVariable("menuId") Long menuId)
     {
         if (menuService.hasChildByMenuId(menuId))
         {
-            return warn("存在子菜单,不允许删除");
+            return warn("Submenu exists and is not allowed to be deleted");
         }
         if (menuService.checkMenuExistRole(menuId))
         {
-            return warn("菜单已分配,不允许删除");
+            return warn("The menu has been assigned and cannot be deleted");
         }
         return toAjax(menuService.deleteMenuById(menuId));
     }

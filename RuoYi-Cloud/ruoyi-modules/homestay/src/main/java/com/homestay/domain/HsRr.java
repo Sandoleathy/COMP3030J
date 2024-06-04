@@ -18,12 +18,12 @@ public class HsRr extends BaseEntity
     /** id */
     private Long id;
 
-    /** 订单id */
-    @Excel(name = "订单id")
+    /** order id */
+    @Excel(name = "order id")
     private Long reservationId;
 
-    /** 房间id */
-    @Excel(name = "房间id")
+    /** room id */
+    @Excel(name = "room id")
     private Long roomId;
 
     public void setId(Long id) 

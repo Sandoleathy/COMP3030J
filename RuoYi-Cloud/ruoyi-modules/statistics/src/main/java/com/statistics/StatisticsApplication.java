@@ -20,7 +20,7 @@ public class StatisticsApplication
     public static void main(String[] args)
     {
         SpringApplication.run(StatisticsApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  数据统计模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ The data statistics module started successfully ლ(´ڡ`ლ)ﾞ \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

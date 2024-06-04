@@ -27,7 +27,7 @@ public class InnerAuthAspect implements Ordered
         // 内部请求验证
         if (!StringUtils.equals(SecurityConstants.INNER, source))
         {
-            throw new InnerAuthException("没有内部访问权限，不允许访问");
+            throw new InnerAuthException("No internal access, access not allowed");
         }
 
         String userid = ServletUtils.getRequest().getHeader(SecurityConstants.DETAILS_USER_ID);
@@ -35,7 +35,7 @@ public class InnerAuthAspect implements Ordered
         // 用户信息验证
         if (innerAuth.isUser() && (StringUtils.isEmpty(userid) || StringUtils.isEmpty(username)))
         {
-            throw new InnerAuthException("没有设置用户信息，不允许访问 ");
+            throw new InnerAuthException("No user information is set, access is not allowed");
         }
         return point.proceed();
     }

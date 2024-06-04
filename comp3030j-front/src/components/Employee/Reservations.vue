@@ -1,5 +1,5 @@
-<script setup lang="ts">
-import axios from 'axios'
+<script setup>
+import axios from '@/axios'
 import { ref, onMounted } from "vue";
 
 const queryParams = {

@@ -142,7 +142,7 @@ public class SysConfigServiceImpl implements ISysConfigService
             SysConfig config = selectConfigById(configId);
             if (StringUtils.equals(UserConstants.YES, config.getConfigType()))
             {
-                throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
+                throw new ServiceException(String.format("The built-in parameter [%1$s] cannot be deleted", config.getConfigKey()));
             }
             configMapper.deleteConfigById(configId);
             redisService.deleteObject(getCacheKey(config.getConfigKey()));

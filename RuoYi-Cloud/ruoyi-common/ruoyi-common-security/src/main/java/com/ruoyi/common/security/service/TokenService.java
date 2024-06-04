@@ -110,7 +110,7 @@ public class TokenService
         }
         catch (Exception e)
         {
-            log.error("获取用户信息异常'{}'", e.getMessage());
+            log.error("Exception '{}' in obtaining user information", e.getMessage());
         }
         return user;
     }

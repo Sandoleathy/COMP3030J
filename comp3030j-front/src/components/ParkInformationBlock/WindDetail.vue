@@ -58,7 +58,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router';
 import {Chart,registerables} from 'chart.js'
 import { windTurbineWattCarbon, windTurbineRPMTorque, energyDataSets} from '@/chartData/EnergyDetail.ts'
-import axios from "axios";
 
 Chart.register(...registerables); //记得注册！教程里都没写！3.0版本以上的chart.js需要手动注册控制器！
 

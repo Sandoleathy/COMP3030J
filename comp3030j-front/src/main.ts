@@ -5,7 +5,6 @@ import App from './App.vue'
 import router from './router'
 import ElementPlus from 'element-plus'  //引入element ui
 import 'element-plus/dist/index.css'
-import axios from 'axios';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 // @ts-ignore
@@ -36,7 +35,6 @@ import TreeSelect from '@/components/TreeSelect/index.vue'
 // 字典标签组件
 import DictTag from '@/components/DictTag/index.vue'
 const app = createApp(App)
-app.config.globalProperties.$axios = axios;
 
 // 全局方法挂载
 app.config.globalProperties.useDict = useDict

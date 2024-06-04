@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 民宿床类型Controller
+ * B&B bed typeController
  *
  * @author paru
  * @date 2024-04-10
@@ -31,7 +31,7 @@ public class HsBedTypeController extends BaseController {
     private IHsBedTypeService hsBedTypeService;
 
     /**
-     * 查询民宿床类型列表
+     * 查询B&B bed type列表
      */
     @RequiresPermissions("homestay:type:list")
     @GetMapping("/list")
@@ -42,19 +42,19 @@ public class HsBedTypeController extends BaseController {
     }
 
     /**
-     * 导出民宿床类型列表
+     * 导出B&B bed type列表
      */
     @RequiresPermissions("homestay:type:export")
-    @Log(title = "民宿床类型", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B bed type", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, SelectBedTypeDTO selectBedTypeDTO) {
         List<BedTypeDTO> list = hsBedTypeService.selectHsBedTypeList(selectBedTypeDTO);
         ExcelUtil<BedTypeDTO> util = new ExcelUtil<BedTypeDTO>(BedTypeDTO.class);
-        util.exportExcel(response, list, "民宿床类型数据");
+        util.exportExcel(response, list, "B&B bed type数据");
     }
 
     /**
-     * 获取民宿床类型详细信息
+     * 获取B&B bed type详细信息
      */
     @RequiresPermissions("homestay:type:query")
     @GetMapping(value = "/{id}")
@@ -63,30 +63,30 @@ public class HsBedTypeController extends BaseController {
     }
 
     /**
-     * 新增民宿床类型
+     * 新增B&B bed type
      */
     @RequiresPermissions("homestay:type:add")
-    @Log(title = "民宿床类型", businessType = BusinessType.INSERT)
+    @Log(title = "B&B bed type", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody HsBedType hsBedType) {
         return toAjax(hsBedTypeService.insertHsBedType(hsBedType));
     }
 
     /**
-     * 修改民宿床类型
+     * 修改B&B bed type
      */
     @RequiresPermissions("homestay:type:edit")
-    @Log(title = "民宿床类型", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B bed type", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsBedType hsBedType) {
         return toAjax(hsBedTypeService.updateHsBedType(hsBedType));
     }
 
     /**
-     * 删除民宿床类型
+     * 删除B&B bed type
      */
     @RequiresPermissions("homestay:type:remove")
-    @Log(title = "民宿床类型", businessType = BusinessType.DELETE)
+    @Log(title = "B&B bed type", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public List<AjaxResult> remove(@PathVariable Long[] ids) {
         List<AjaxResult> ajaxResults = new ArrayList<>();

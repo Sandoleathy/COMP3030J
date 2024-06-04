@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 床图片Controller
+ * bed picturesController
  *
  * @author paru
  * @date 2024-04-14
@@ -40,7 +40,7 @@ public class HsBedImageController extends BaseController {
     private RemoteFileService remoteFileService;
 
     /**
-     * 查询床图片列表
+     * 查询bed pictures列表
      */
     @RequiresPermissions("homestay:bedImage:list")
     @GetMapping("/list")
@@ -51,19 +51,19 @@ public class HsBedImageController extends BaseController {
     }
 
     /**
-     * 导出床图片列表
+     * 导出bed pictures列表
      */
     @RequiresPermissions("homestay:bedImage:export")
-    @Log(title = "床图片", businessType = BusinessType.EXPORT)
+    @Log(title = "bed pictures", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsBedImage hsBedImage) {
         List<HsBedImage> list = hsBedImageService.selectHsBedImageList(hsBedImage);
         ExcelUtil<HsBedImage> util = new ExcelUtil<HsBedImage>(HsBedImage.class);
-        util.exportExcel(response, list, "床图片数据");
+        util.exportExcel(response, list, "bed pictures数据");
     }
 
     /**
-     * 获取床图片详细信息
+     * 获取bed pictures详细信息
      */
     @RequiresPermissions("homestay:bedImage:query")
     @GetMapping(value = "/{id}")
@@ -72,10 +72,10 @@ public class HsBedImageController extends BaseController {
     }
 
     /**
-     * 新增床图片
+     * 新增bed pictures
      */
     @RequiresPermissions("homestay:bedImage:add")
-    @Log(title = "床图片", businessType = BusinessType.INSERT)
+    @Log(title = "bed pictures", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(HsBedImageDTO hsBedImageDTO) {
         MultipartFile file = hsBedImageDTO.getImage();
@@ -103,10 +103,10 @@ public class HsBedImageController extends BaseController {
     }
 
     /**
-     * 修改床图片
+     * 修改bed pictures
      */
     @RequiresPermissions("homestay:bedImage:edit")
-    @Log(title = "床图片", businessType = BusinessType.UPDATE)
+    @Log(title = "bed pictures", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(HsBedImageDTO hsBedImageDTO) {
         MultipartFile file = hsBedImageDTO.getImage();
@@ -134,10 +134,10 @@ public class HsBedImageController extends BaseController {
     }
 
     /**
-     * 删除床图片
+     * 删除bed pictures
      */
     @RequiresPermissions("homestay:bedImage:remove")
-    @Log(title = "床图片", businessType = BusinessType.DELETE)
+    @Log(title = "bed pictures", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(hsBedImageService.deleteHsBedImageByIds(ids));

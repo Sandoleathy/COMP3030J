@@ -41,7 +41,7 @@ public class SysFileController
         }
         catch (Exception e)
         {
-            log.error("上传文件失败", e);
+            log.error("File upload failed", e);
             return R.fail(e.getMessage());
         }
     }

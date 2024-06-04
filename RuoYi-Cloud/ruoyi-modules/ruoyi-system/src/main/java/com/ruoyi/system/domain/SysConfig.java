@@ -17,24 +17,24 @@ public class SysConfig extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** 参数主键 */
-    @Excel(name = "参数主键", cellType = ColumnType.NUMERIC)
+    /** Parameter primary key */
+    @Excel(name = "Parameter primary key", cellType = ColumnType.NUMERIC)
     private Long configId;
 
-    /** 参数名称 */
-    @Excel(name = "参数名称")
+    /** parameter name */
+    @Excel(name = "parameter name")
     private String configName;
 
-    /** 参数键名 */
-    @Excel(name = "参数键名")
+    /** Parameter key name */
+    @Excel(name = "Parameter key name")
     private String configKey;
 
-    /** 参数键值 */
-    @Excel(name = "参数键值")
+    /** Parameter key value */
+    @Excel(name = "Parameter key value")
     private String configValue;
 
-    /** 系统内置（Y是 N否） */
-    @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
+    /** System built-in（Y是 N否） */
+    @Excel(name = "System built-in", readConverterExp = "Y=yes,N=no")
     private String configType;
 
     public Long getConfigId()
@@ -47,8 +47,8 @@ public class SysConfig extends BaseEntity
         this.configId = configId;
     }
 
-    @NotBlank(message = "参数名称不能为空")
-    @Size(min = 0, max = 100, message = "参数名称不能超过100个字符")
+    @NotBlank(message = "parameter name不能为空")
+    @Size(min = 0, max = 100, message = "parameter name不能超过100个字符")
     public String getConfigName()
     {
         return configName;
@@ -59,8 +59,8 @@ public class SysConfig extends BaseEntity
         this.configName = configName;
     }
 
-    @NotBlank(message = "参数键名长度不能为空")
-    @Size(min = 0, max = 100, message = "参数键名长度不能超过100个字符")
+    @NotBlank(message = "Parameter key name长度不能为空")
+    @Size(min = 0, max = 100, message = "Parameter key name长度不能超过100个字符")
     public String getConfigKey()
     {
         return configKey;
@@ -71,8 +71,8 @@ public class SysConfig extends BaseEntity
         this.configKey = configKey;
     }
 
-    @NotBlank(message = "参数键值不能为空")
-    @Size(min = 0, max = 500, message = "参数键值长度不能超过500个字符")
+    @NotBlank(message = "Parameter key value不能为空")
+    @Size(min = 0, max = 500, message = "Parameter key value长度不能超过500个字符")
     public String getConfigValue()
     {
         return configValue;

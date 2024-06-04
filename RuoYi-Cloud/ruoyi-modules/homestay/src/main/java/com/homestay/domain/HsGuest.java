@@ -18,12 +18,12 @@ public class HsGuest extends BaseEntity
     /** id */
     private Long id;
 
-    /** user表id */
-    @Excel(name = "user表id")
+    /** user table id */
+    @Excel(name = "user table id")
     private Long guestId;
 
-    /** 预定表id */
-    @Excel(name = "预定表id")
+    /** Reservation table id */
+    @Excel(name = "Reservation table id")
     private Long reservationId;
 
     public void setId(Long id) 

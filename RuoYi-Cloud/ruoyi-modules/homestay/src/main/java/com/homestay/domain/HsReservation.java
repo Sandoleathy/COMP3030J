@@ -20,47 +20,47 @@ public class HsReservation extends BaseEntity
     /** id */
     private Long id;
 
-    /** 客户联系方式 */
-    @Excel(name = "客户联系方式")
+    /** Customer contact information */
+    @Excel(name = "Customer contact information")
     private String contactInformation;
 
-    /** 入住时间 */
+    /** check in time */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "入住时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "check in time", width = 30, dateFormat = "yyyy-MM-dd")
     private Date checkinTime;
 
-    /** 退房时间 */
+    /** check-out time */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "退房时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "check-out time", width = 30, dateFormat = "yyyy-MM-dd")
     private Date checkoutTime;
 
-    /** 客户数量 */
-    @Excel(name = "客户数量")
+    /** number of clients */
+    @Excel(name = "number of clients")
     private Long numberOfGuests;
 
-    /** 房间数量 */
-    @Excel(name = "房间数量")
+    /** The number of rooms */
+    @Excel(name = "The number of rooms")
     private Long numberOfRooms;
 
-    /** 订单创建/结束时间 */
+    /** Order creation/end time */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "订单创建/结束时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "Order creation/end time", width = 30, dateFormat = "yyyy-MM-dd")
     private Date reservationTime;
 
-    /** 备注 */
-    @Excel(name = "备注")
+    /** Remark */
+    @Excel(name = "Remark")
     private String requests;
 
-    /** 总价格 */
-    @Excel(name = "总价格")
+    /** Total cost */
+    @Excel(name = "Total cost")
     private Long totalPrice;
 
-    /** 是否支付 */
-    @Excel(name = "是否支付")
+    /** Whether to pay */
+    @Excel(name = "Whether to pay")
     private Integer pay;
 
-    /** 订单状态 */
-    @Excel(name = "订单状态")
+    /** Order Status */
+    @Excel(name = "Order Status")
     private String reservationStatus;
 
     public void setId(Long id) 

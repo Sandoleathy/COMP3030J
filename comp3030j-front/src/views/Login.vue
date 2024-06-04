@@ -36,7 +36,7 @@
 <script setup>
 import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
-import axios from 'axios';
+import axios from '@/axios';
 import { useRouter } from 'vue-router';
 import {Loading} from "@element-plus/icons-vue";
 import {setToken} from "@/utils/auth.js";

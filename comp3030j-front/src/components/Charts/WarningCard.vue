@@ -2,7 +2,7 @@
     <p>111</p>
 </template>
 <script setup>
-import axios from 'axios'
+import axios from '@/axios'
 import { onMounted, ref } from 'vue'
 
 let location = "117.13,40.29";

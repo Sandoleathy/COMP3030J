@@ -30,7 +30,7 @@
 import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import axios from '@/axios';
 
 const router = useRouter();
 

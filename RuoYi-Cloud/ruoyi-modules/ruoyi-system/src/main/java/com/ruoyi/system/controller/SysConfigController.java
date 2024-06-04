@@ -47,14 +47,14 @@ public class SysConfigController extends BaseController
         return getDataTable(list);
     }
 
-    @Log(title = "参数管理", businessType = BusinessType.EXPORT)
+    @Log(title = "Parameter management", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:config:export")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysConfig config)
     {
         List<SysConfig> list = configService.selectConfigList(config);
         ExcelUtil<SysConfig> util = new ExcelUtil<SysConfig>(SysConfig.class);
-        util.exportExcel(response, list, "参数数据");
+        util.exportExcel(response, list, "parameter data");
     }
 
     /**
@@ -79,13 +79,13 @@ public class SysConfigController extends BaseController
      * 新增参数配置
      */
     @RequiresPermissions("system:config:add")
-    @Log(title = "参数管理", businessType = BusinessType.INSERT)
+    @Log(title = "Parameter management", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysConfig config)
     {
         if (!configService.checkConfigKeyUnique(config))
         {
-            return error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            return error("New parameter'" + config.getConfigName() + "'Failed, parameter key name already exists");
         }
         config.setCreateBy(SecurityUtils.getUsername());
         return toAjax(configService.insertConfig(config));
@@ -95,13 +95,13 @@ public class SysConfigController extends BaseController
      * 修改参数配置
      */
     @RequiresPermissions("system:config:edit")
-    @Log(title = "参数管理", businessType = BusinessType.UPDATE)
+    @Log(title = "Parameter management", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysConfig config)
     {
         if (!configService.checkConfigKeyUnique(config))
         {
-            return error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            return error("Change parameters'" + config.getConfigName() + "'Failed, parameter key name already exists");
         }
         config.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(configService.updateConfig(config));
@@ -111,7 +111,7 @@ public class SysConfigController extends BaseController
      * 删除参数配置
      */
     @RequiresPermissions("system:config:remove")
-    @Log(title = "参数管理", businessType = BusinessType.DELETE)
+    @Log(title = "Parameter management", businessType = BusinessType.DELETE)
     @DeleteMapping("/{configIds}")
     public AjaxResult remove(@PathVariable Long[] configIds)
     {
@@ -123,7 +123,7 @@ public class SysConfigController extends BaseController
      * 刷新参数缓存
      */
     @RequiresPermissions("system:config:remove")
-    @Log(title = "参数管理", businessType = BusinessType.CLEAN)
+    @Log(title = "Parameter management", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
     public AjaxResult refreshCache()
     {

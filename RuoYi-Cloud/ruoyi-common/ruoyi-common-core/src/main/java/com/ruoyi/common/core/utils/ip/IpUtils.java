@@ -281,7 +281,7 @@ public class IpUtils
         catch (UnknownHostException e)
         {
         }
-        return "未知";
+        return "unknown";
     }
 
     /**
@@ -309,10 +309,10 @@ public class IpUtils
     }
 
     /**
-     * 检测给定字符串是否为未知，多用于检测HTTP请求相关
+     * 检测给定字符串是否为unknown，多用于检测HTTP请求相关
      *
      * @param checkString 被检测的字符串
-     * @return 是否未知
+     * @return 是否unknown
      */
     public static boolean isUnknown(String checkString)
     {

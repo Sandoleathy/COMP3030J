@@ -23,7 +23,7 @@ import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * 民宿栋类型Controller
+ * B&B building typeController
  * 
  * @author paru
  * @date 2024-04-09
@@ -36,7 +36,7 @@ public class HsBuildingTypeController extends BaseController
     private IHsBuildingTypeService hsBuildingTypeService;
 
     /**
-     * 查询民宿栋类型列表
+     * 查询B&B building type列表
      */
     @RequiresPermissions("homestay:buildingType:list")
     @GetMapping("/list")
@@ -48,20 +48,20 @@ public class HsBuildingTypeController extends BaseController
     }
 
     /**
-     * 导出民宿栋类型列表
+     * 导出B&B building type列表
      */
     @RequiresPermissions("homestay:buildingType:export")
-    @Log(title = "民宿栋类型", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B building type", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsBuildingType hsBuildingType)
     {
         List<HsBuildingType> list = hsBuildingTypeService.selectHsBuildingTypeList(hsBuildingType);
         ExcelUtil<HsBuildingType> util = new ExcelUtil<HsBuildingType>(HsBuildingType.class);
-        util.exportExcel(response, list, "民宿栋类型数据");
+        util.exportExcel(response, list, "B&B building type数据");
     }
 
     /**
-     * 获取民宿栋类型详细信息
+     * 获取B&B building type详细信息
      */
     @RequiresPermissions("homestay:buildingType:query")
     @GetMapping(value = "/{id}")
@@ -71,10 +71,10 @@ public class HsBuildingTypeController extends BaseController
     }
 
     /**
-     * 新增民宿栋类型
+     * 新增B&B building type
      */
     @RequiresPermissions("homestay:buildingType:add")
-    @Log(title = "民宿栋类型", businessType = BusinessType.INSERT)
+    @Log(title = "B&B building type", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody HsBuildingType hsBuildingType)
     {
@@ -82,10 +82,10 @@ public class HsBuildingTypeController extends BaseController
     }
 
     /**
-     * 修改民宿栋类型
+     * 修改B&B building type
      */
     @RequiresPermissions("homestay:buildingType:edit")
-    @Log(title = "民宿栋类型", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B building type", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsBuildingType hsBuildingType)
     {
@@ -93,10 +93,10 @@ public class HsBuildingTypeController extends BaseController
     }
 
     /**
-     * 删除民宿栋类型
+     * 删除B&B building type
      */
     @RequiresPermissions("homestay:buildingType:remove")
-    @Log(title = "民宿栋类型", businessType = BusinessType.DELETE)
+    @Log(title = "B&B building type", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

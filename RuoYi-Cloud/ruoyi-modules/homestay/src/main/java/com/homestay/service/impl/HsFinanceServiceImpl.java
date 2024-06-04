@@ -98,16 +98,16 @@ public class HsFinanceServiceImpl implements IHsFinanceService {
         float income = 0;
         float outcome = 0;
         for (HsFinance hsFinance : finances) {
-            if (hsFinance.getType().equals("收入")) {
+            if (hsFinance.getType().equals("income")) {
                 income += hsFinance.getNum().floatValue();
             }
-            if (hsFinance.getType().equals("支出")) {
+            if (hsFinance.getType().equals("expenditure")) {
                 outcome += hsFinance.getNum().floatValue();
             }
         }
-        results.put("净收入", income - outcome);
-        results.put("收入", income);
-        results.put("支出", outcome);
+        results.put("净income", income - outcome);
+        results.put("income", income);
+        results.put("expenditure", outcome);
         return new FinanceDTO(results, finances);
     }
 
@@ -118,16 +118,16 @@ public class HsFinanceServiceImpl implements IHsFinanceService {
         float income = 0;
         float outcome = 0;
         for (HsFinance hsFinance : finances) {
-            if (hsFinance.getType().equals("收入")) {
+            if (hsFinance.getType().equals("income")) {
                 income += hsFinance.getNum().floatValue();
             }
-            if (hsFinance.getType().equals("支出")) {
+            if (hsFinance.getType().equals("expenditure")) {
                 outcome += hsFinance.getNum().floatValue();
             }
         }
-        results.put("净收入", income - outcome);
-        results.put("收入", income);
-        results.put("支出", outcome);
+        results.put("净income", income - outcome);
+        results.put("income", income);
+        results.put("expenditure", outcome);
         return new FinanceDTO(results, finances);
     }
 

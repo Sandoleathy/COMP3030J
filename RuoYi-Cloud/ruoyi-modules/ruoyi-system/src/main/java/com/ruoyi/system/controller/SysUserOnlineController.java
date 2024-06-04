@@ -24,7 +24,7 @@ import com.ruoyi.system.domain.SysUserOnline;
 import com.ruoyi.system.service.ISysUserOnlineService;
 
 /**
- * 在线用户监控
+ * online user监控
  * 
  * @author ruoyi
  */
@@ -74,7 +74,7 @@ public class SysUserOnlineController extends BaseController
      * 强退用户
      */
     @RequiresPermissions("monitor:online:forceLogout")
-    @Log(title = "在线用户", businessType = BusinessType.FORCE)
+    @Log(title = "online user", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
     public AjaxResult forceLogout(@PathVariable String tokenId)
     {
