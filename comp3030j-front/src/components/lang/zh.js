@@ -161,7 +161,9 @@ export default {
         sex:'性别',
         female:'女',
         male:'男',
-        unknown:'未知'
+        unknown:'未知',
+        logout: '注销账号',
+        logoutTips: '确认注销账号？'
     },
     mySidebar:{
         home:'主页',

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, onMounted } from 'vue'
+import axios from 'axios'
 import router from "@/router";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -13,7 +14,27 @@ function goToMainView() {
 function goToWeatherView() {
     router.push({ name: 'weather' });
 }
+const avatarPath = ref("")
+const getUserInformation = async () => {
+  try {
+    const token = sessionStorage.getItem("token");
+    //console.log("Token is:", token);
+    const response = await axios.get("/api/system/user/profile", {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
 
+    const data = response.data;
+    console.log(data)
+    avatarPath.value = data.data.avatar;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+onMounted(() => {
+  getUserInformation()
+})
 </script>
 
 <template>
@@ -36,7 +57,7 @@ function goToWeatherView() {
         <el-menu-item index="3" @click="goToWeatherView">{{ t('reservationMenu.weather') }}</el-menu-item>
         <el-menu-item index="4">
             <div class="demo-type">
-                <el-avatar @click="goToMyView">  </el-avatar>
+                <el-avatar @click="goToMyView" :src="avatarPath">  </el-avatar>
             </div>
         </el-menu-item>
 

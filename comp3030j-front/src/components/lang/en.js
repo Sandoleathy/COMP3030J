@@ -74,7 +74,9 @@ export default {
         sex:'Gender',
         female:'female',
         male:'male',
-        unknown:'unknown'
+        unknown:'unknown',
+        logout: 'Logout',
+        logoutTips: 'Are you sure to logout?'
     },
     mySidebar:{
         home:'Home',
