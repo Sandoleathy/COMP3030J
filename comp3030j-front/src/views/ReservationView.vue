@@ -8,7 +8,9 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 const rooms = ref([]);
-const filteredRooms = ref([]);// 储存房间数据的响应式变量
+const filteredRooms = ref([]);
+const selectedDateRange = ref([]);
+const selectedBuildingType = ref(null);// 储存房间数据的响应式变量
 
 onMounted(() => {
     fetchRooms();
@@ -25,6 +27,8 @@ const typeMap = {
 
 function handleSearch(dateRange, buildingType) {
     console.log('Handling search for date range:', dateRange, 'and building type:', buildingType);
+    selectedDateRange.value = dateRange;
+    selectedBuildingType.value = buildingType;
     const startDate = dateRange[0];
     const endDate = dateRange[1];
     const dbType = parseInt(typeMap[buildingType], 10);
@@ -110,8 +114,11 @@ async function fetchFilteredRooms(startDate, endDate, buildingType) {
             </el-header>
             <el-main class="main">
                 <reservationSearchBar @search="handleSearch"></reservationSearchBar>
-                <roomItems v-for="room in filteredRooms" :key="room.id" :roomData="room.hsRoom"></roomItems>
-
+                <roomItems v-for="room in filteredRooms" :key="room.id" :roomData="room.hsRoom" :dateRange="selectedDateRange"
+                           :buildingType="selectedBuildingType"></roomItems>
+                <div class="el-backtop">
+                    <el-backtop :right="30" :bottom="100" />
+                </div>
             </el-main>
         </el-container>
     </div>
@@ -139,4 +146,13 @@ async function fetchFilteredRooms(startDate, endDate, buildingType) {
     padding: 0;
 }
 
+.el-backtop {
+    z-index: 1000; /* 确保它在页面上的其他元素之上 */
+    opacity: 0.7; /* 稍微透明显示 */
+    transition: opacity 0.3s;
+}
+
+.el-backtop:hover {
+    opacity: 1; /* 鼠标悬停时完全不透明 */
+}
 </style>
