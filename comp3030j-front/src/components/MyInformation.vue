@@ -96,7 +96,7 @@
       </el-row>
       <el-dialog title="Upload File" v-model="isUploadDialogVisible">
         <el-upload
-            action="/api/user/profile/avatar"
+            action="/api/system/user/profile/avatar"
             list-type="text"
             :limit="1"
             :on-exceed="handleExceed"
@@ -106,6 +106,7 @@
             ref="upload"
             :on-success="handleUploadSuccess"
             :on-error="handleUploadError"
+            :before-upload="beforeUpload"
         >
           <el-icon class="el-icon--upload"><upload-filled /></el-icon>
           <div class="el-upload__text">
@@ -169,6 +170,39 @@ const handleUploadSuccess = (response:any, file:any, fileList:any) => {
 }
 const handleUploadError = (error:any, file:any, fileList:any) => {
   console.error('Upload failed:', error, file, fileList);
+}
+const fileList:any = []
+const beforeUpload = (file:any) => {
+  const formData = new FormData();
+  const token = sessionStorage.getItem('token')
+  formData.append('avatarfile', file);
+
+
+  // 自定义上传请求
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/system/user/profile/avatar', true);
+
+  // 设置自定义HTTP头部参数
+  xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+  // 监听上传过程
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      handleUploadSuccess(JSON.parse(xhr.responseText), file , fileList);
+    } else {
+      handleUploadError(xhr.statusText, file , fileList);
+    }
+  };
+
+  xhr.onerror = () => {
+    handleUploadError(xhr.statusText, file, fileList);
+  };
+
+  // 发送请求
+  xhr.send(formData);
+
+  // 返回 false 阻止默认的上传行为
+  return false;
 }
 
 const getMyInfo = async () => {
