@@ -1,21 +1,21 @@
 <template>
     <div class="weather-container" style="background-image: url('public/images/sky.jpeg');">
         <div class="small-container">
-        <h2>Current Weather Status and Precipitation Data</h2>
-        <p>Last Updated: {{ updateTime }}</p>
-        <p>Total Precipitation: {{ totalPrecip }} mm</p>
-        <p>Last Precipitation Time: {{ latestPrecipTime }}</p>
-        <p>Last Precipitation Amount: {{ latestPrecipAmount }} mm</p>
+        <h2> {{ t('weatherInfo.current') }}</h2>
+        <p>{{ t('weatherInfo.last') }} {{ updateTime }}</p>
+        <p>{{ t('weatherInfo.total') }} {{ totalPrecip }} mm</p>
+        <p>{{ t('weatherInfo.time') }} {{ latestPrecipTime }}</p>
+        <p>{{ t('weatherInfo.amount') }} {{ latestPrecipAmount }} mm</p>
         <template v-if="warnings.length > 0">
             <div v-for="(warning, index) in warnings" :key="index">
-                <p>Warning Source: {{ warning.source }}</p>
-                <p>Warning Details: {{ warning.content }}</p>
+                <p>{{ t('weatherInfo.source') }} {{ warning.source }}</p>
+                <p>{{ t('weatherInfo.details') }} {{ warning.content }}</p>
             </div>
         </template>
         <template v-else>
-            <p>No weather warnings currently</p>
+            <p>{{ t('weatherInfo.no') }}</p>
         </template>
-        <el-button type="primary" @click="refreshData">Refresh</el-button>
+        <el-button type="primary" @click="refreshData">{{ t('weatherInfo.refresh') }}</el-button>
         </div>
     </div>
 </template>
@@ -23,6 +23,8 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { ElButton, ElMessage } from 'element-plus';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const location = "117.13,40.29";
 const key = "76cbdc094c49493b9a1c3f7f6d659ff4";

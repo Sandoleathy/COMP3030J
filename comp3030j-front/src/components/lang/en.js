@@ -138,5 +138,26 @@ export default {
         reservation:'Reservation',
         checkIn:'Check In',
         checkOut:'Check Out'
+    },
+    register:{
+        username:'Username',
+        password:'Password',
+        signUp:'Sign up',
+        logIn:'Already have account? Log in',
+
+    },
+    roomDetail:{
+        choose:'Choose Room',
+    },
+    weatherInfo:{
+        current:'Current Weather Status and Precipitation Data',
+        no:'No weather warnings currently',
+        refresh:'Refresh',
+        last:'Last Updated: ',
+        total:'Total Precipitation:',
+        time:'Last Precipitation Time:',
+        amount:'Last Precipitation Amount:',
+        source:'Warning Source:',
+        details:'Warning Details:'
     }
 }
