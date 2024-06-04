@@ -10,7 +10,6 @@
                         <el-header>
                             <el-tabs v-model="pageNum">
                                 <el-tab-pane :label="t('dataDetail.energy')" name='0'></el-tab-pane>
-                                <el-tab-pane :label="t('dataDetail.finance')" name='1'></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.weather')" name='2'></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.hotel')" name='3'></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.user')" name="4"></el-tab-pane>

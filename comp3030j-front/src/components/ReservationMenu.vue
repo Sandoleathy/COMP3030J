@@ -14,26 +14,9 @@ function goToMainView() {
 function goToWeatherView() {
     router.push({ name: 'weather' });
 }
-const avatarPath = ref("")
-const getUserInformation = async () => {
-  try {
-    const token = sessionStorage.getItem("token");
-    //console.log("Token is:", token);
-    const response = await axios.get("/api/system/user/profile", {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    });
-
-    const data = response.data;
-    console.log(data)
-    avatarPath.value = data.data.avatar;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
+const avatarPath = ref()
 onMounted(() => {
-  getUserInformation()
+  avatarPath.value = sessionStorage.getItem("avatar")
 })
 </script>
 

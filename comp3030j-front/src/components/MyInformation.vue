@@ -149,8 +149,10 @@ const { t } = useI18n();
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 import { genFileId } from 'element-plus'
 import { UploadFilled } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
 
 const isLoggingOut = ref(false)
+const router = useRouter();
 
 let phoneNumber = ref('');
 let email = ref('');
@@ -227,7 +229,7 @@ const beforeUpload = (file:any) => {
 const logout = () => {
   sessionStorage.removeItem("token")
   sessionStorage.removeItem("username")
-  window.location.reload()
+  router.push({ name: 'login' })
   isLoggingOut.value = false
 }
 
