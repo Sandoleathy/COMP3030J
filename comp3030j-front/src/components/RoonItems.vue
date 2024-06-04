@@ -1,6 +1,6 @@
-<script lang="ts" setup>
-import {computed, defineProps, onMounted, ref, watchEffect, reactive} from 'vue';
-import axios from "axios";
+<script setup lang="ts">
+import { computed, defineProps, ref, watchEffect, reactive } from 'vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -15,120 +15,141 @@ const props = defineProps({
 const roomType = ref('');
 const price = ref('');
 const bedType = ref('');
-const smoking=ref('');
-const breakfastIncludes = ref(''); // 存储早餐信息
+const smoking = ref('');
+const breakfastIncludes = ref('');
 const gridData = ref([]);
 
-// 使用 computed 属性确保任何 props.roomData 的更新都能被捕捉和处理
+const dialogFormVisible = ref(false);
+const form = reactive({
+    userName: '',
+    phoneNum: '',
+
+    hsReservation: {
+        contactInformation: '',
+        checkinTime: '',
+        checkoutTime: '',
+        numberOfGuests: 0,
+        numberOfRooms: 0,
+        reservationTime: '',
+        requests: '',
+        totalPrice: 0,
+        pay: 0,
+        reservationStatus: ''
+    },
+    roomIds: [],
+    userIds: [],
+
+});
+
 watchEffect(() => {
-    // console.log('Received room data in roomItems:', props.roomData);
-    roomType.value = props.roomData ? props.roomData.roomType : 'Undefined';
+    roomType.value = props.roomData ? props.roomData.roomType : '未定义';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
-    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'Unknown';
+    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : '未知';
     if (props.roomData && props.roomData.buildingType) {
         fetchBuildingTypeData(props.roomData.buildingType);
     }
-    console.log('Received dateRange:', props.dateRange);
-    console.log('Received buildingType:', props.buildingType);
     if (props.dateRange && props.dateRange.length >= 2) {
         gridData.value = [
             {
                 Start_Date: formatDate(props.dateRange[0]),
-                End_Date: formatDate(props.dateRange[1]),
-                Building_Type: props.buildingType || 'N/A'
+                End_Date: formatDate(props.dateRange[1]), // 退房时间
+                Building_Type: props.buildingType || '无'
             },
         ];
+        form.hsReservation.checkinTime = props.dateRange[0];  // 使用 formatDate 来格式化日期
+        form.hsReservation.checkoutTime = props.dateRange[1];
+        form.hsReservation.reservationTime=props.dateRange[0];
     } else {
         gridData.value = [
             {
-                Start_Date: 'N/A',
-                End_Date: 'N/A',
-                Building_Type: 'N/A'
+                Start_Date: '无',
+                End_Date: '无',
+                Building_Type: '无'
             }
         ];
     }
+    form.roomIds=[2];
+    form.userIds=[1];
+    form.hsReservation.contactInformation="abc"
+    form.hsReservation.requests="abc"
+    form.hsReservation.reservationStatus="abc"
+    form.hsReservation.reservationTime=getCurrentTime()
+
 });
+
+function getCurrentTime() {
+    return new Date().toISOString();
+}
+
 function fetchBuildingTypeData(buildingTypeId) {
     axios.get(`/api/homestay/buildingType/${buildingTypeId}`, {
         headers: {
             'Authorization': 'Bearer ' + sessionStorage.getItem("token")
         }
-    })
-        .then(response => {
-            // 假设API返回的数据中有一个字段是breakfast，表明是否包含早餐
-            breakfastIncludes.value = response.data.data.breakfast;
-            const smokingStatus = response.data.data.allowSmoking;
-            smoking.value = smokingStatus === 1 ? "no smoking" : "can smoking";
-
-            console.log('Building Type Data:', response.data.data.breakfast);
-        })
-        .catch(error => {
-            console.error('Failed to fetch building type data:', error);
-        });
+    }).then(response => {
+        breakfastIncludes.value = response.data.data.breakfast;
+        smoking.value = response.data.data.allowSmoking === 1 ? "禁烟" : "可吸烟";
+    }).catch(error => {
+        console.error('获取建筑类型数据失败:', error);
+    });
 }
+
 function formatDate(dateString) {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' }); // 获取月份的缩写
+    const month = date.toLocaleString('default', { month: 'short' });
     const year = date.getFullYear();
-    return `${day} ${month} ${year}`; // 格式: 12 Jun 2024
+    return `${day} ${month} ${year}`;
 }
 
-
-
 const bedtype = computed(() => {
-    return bedType.value === "0" ? "twin beds" : bedType.value === "1" ? "One king-size bed" : "Unknown";
+    return bedType.value === "0" ? "双床" : bedType.value === "1" ? "大床" : "未知";
 });
 
 function goToRoomDetails() {
     router.push('/roomdetails');
 }
 
-const dialogFormVisible = ref(false)
-
-const form = reactive({
-    userName: '',
-    phoneNum: '',
-})
-
 const getMyInfo = async () => {
     try {
         const token = sessionStorage.getItem("token");
-        //console.log("Token is:", token);
         const response = await axios.get("/api/system/user/profile", {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
         });
-
-        const data = response.data;
-        console.log(data)
-        form.phoneNum= data.data.phonenumber;
-        form.userName = data.data.userName;
+        form.phoneNum = response.data.data.phonenumber;
+        form.userName = response.data.data.userName;
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('获取用户信息失败:', error);
     }
 };
 
-getMyInfo();
-
 const confirmReservation = async () => {
+    console.log('Preparing to send reservation:', form.hsReservation, form.roomIds, form.userIds);
     try {
         const token = sessionStorage.getItem("token");
-        const response = await axios.post('/homestay/reservation/add', form, {
+        const payload = {
+            hsReservation: form.hsReservation,
+            roomIds: form.roomIds,
+            userIds: form.userIds,
+        };
+        console.log('Put:', payload);
+        const response = await axios.post('/api/homestay/reservation/add', payload, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
         });
-        console.log('Reservation added successfully:', response.data);
-        dialogFormVisible.value = false;  // 关闭对话框
+        console.log('预订成功:', response.data);
+        dialogFormVisible.value = false;
     } catch (error) {
-        console.error('Failed to add reservation:', error);
-        // 根据需要处理错误，比如显示错误消息
+        console.error('添加预订失败:', error);
     }
 };
 
+getMyInfo();
 </script>
+
 
 
 <template>
@@ -182,12 +203,12 @@ const confirmReservation = async () => {
                                 </el-table-column>
                                 <el-table-column property="Building_Type" label="Building Type" />
                             </el-table>
-                            <el-form-item label="Promotion name" :label-width="200">
+                            <el-form-item label="Name" :label-width="200">
                                 <el-input v-model="form.userName" autocomplete="off" />
                             </el-form-item>
-                            <el-form-item label="Zones" :label-width="200">
-                                <el-input-number v-model="form.phoneNum" autocomplete="off">
-                                </el-input-number>
+                            <el-form-item label="Phone Number" :label-width="200">
+                                <el-input v-model="form.phoneNum" autocomplete="off">
+                                </el-input>
                             </el-form-item>
                         </el-form>
                         <template #footer>
