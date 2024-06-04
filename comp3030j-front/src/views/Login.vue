@@ -64,7 +64,7 @@ const handleLogin = async () => {
             password: password.value  
         });
         const data = response.data;
-        console.log(data)
+        //console.log(data)
         if(data.code == 200){
             ElMessage.success(t('login.success'))
             //登陆成功,进行后续处理

@@ -162,7 +162,9 @@ export default {
         sex:'性别',
         female:'女',
         male:'男',
-        unknown:'未知'
+        unknown:'未知',
+        logout: '注销账号',
+        logoutTips: '确认注销账号？'
     },
     mySidebar:{
         home:'主页',
@@ -226,5 +228,29 @@ export default {
         reservation:'预订',
         checkIn:'入住',
         checkOut:'搬出'
+    },
+    register:{
+        username:'用户名',
+        password:'密码',
+        signUp:'注册',
+        logIn:'已有账号？登录',
+
+    },
+    roomDetail:{
+        choose:'选择房间',
+    },
+    weatherInfo:{
+        current:'现时天气状况及降水资料',
+        no:'现时没有天气警告',
+        refresh:'刷新',
+        last:'最后更新:',
+        total:'总降水量：',
+        time:'最后降水时间:',
+        amount:'最近降水量:',
+        source:'警告来源:',
+        details:'警告信息:',
+        noWarning: "没有天气预警",
+        updateTimeText: "更新时间：",
+        WarningTitle: "气象灾害预警"
     }
 }

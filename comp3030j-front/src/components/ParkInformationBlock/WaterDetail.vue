@@ -40,7 +40,7 @@
               <el-row>
                 <el-col :span="10" >
                   <el-icon class="is-loading" style="margin-top: 70px;">
-                    <img src="../../../public/images/turbine.png" alt="turbine" style="max-height: 100px;" class="is-loading"/>
+                    <img src="/images/turbine.png" alt="turbine" style="max-height: 100px;" class="is-loading"/>
                   </el-icon>
 
                 </el-col>

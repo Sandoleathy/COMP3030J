@@ -1,62 +1,155 @@
-<script lang="ts" setup>
-import {computed, defineProps, onMounted, ref, watchEffect} from 'vue';
-import axios from "@/axios";
+<script setup lang="ts">
+import { computed, defineProps, ref, watchEffect, reactive } from 'vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 const router = useRouter();
 const props = defineProps({
-    roomData: Object
+    roomData: Object,
+    dateRange: Array,
+    buildingType: String
 });
 
 const roomType = ref('');
 const price = ref('');
 const bedType = ref('');
-const smoking=ref('');
-const breakfastIncludes = ref(''); // 存储早餐信息
+const smoking = ref('');
+const breakfastIncludes = ref('');
+const gridData = ref([]);
 
+const dialogFormVisible = ref(false);
+const form = reactive({
+    userName: '',
+    phoneNum: '',
 
-// 使用 computed 属性确保任何 props.roomData 的更新都能被捕捉和处理
+    hsReservation: {
+        contactInformation: '',
+        checkinTime: '',
+        checkoutTime: '',
+        numberOfGuests: 0,
+        numberOfRooms: 0,
+        reservationTime: '',
+        requests: '',
+        totalPrice: 0,
+        pay: 0,
+        reservationStatus: ''
+    },
+    roomIds: [],
+    userIds: [],
+
+});
+
 watchEffect(() => {
-    console.log('Received room data in roomItems:', props.roomData);
-    roomType.value = props.roomData ? props.roomData.roomType : 'Undefined';
+    roomType.value = props.roomData ? props.roomData.roomType : '未定义';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
-    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'Unknown';
+    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : '未知';
     if (props.roomData && props.roomData.buildingType) {
         fetchBuildingTypeData(props.roomData.buildingType);
     }
+    if (props.dateRange && props.dateRange.length >= 2) {
+        gridData.value = [
+            {
+                Start_Date: formatDate(props.dateRange[0]),
+                End_Date: formatDate(props.dateRange[1]), // 退房时间
+                Building_Type: props.buildingType || '无'
+            },
+        ];
+        form.hsReservation.checkinTime = props.dateRange[0];  // 使用 formatDate 来格式化日期
+        form.hsReservation.checkoutTime = props.dateRange[1];
+        form.hsReservation.reservationTime=props.dateRange[0];
+    } else {
+        gridData.value = [
+            {
+                Start_Date: '无',
+                End_Date: '无',
+                Building_Type: '无'
+            }
+        ];
+    }
+    form.roomIds=[2];
+    form.userIds=[1];
+    form.hsReservation.contactInformation="abc"
+    form.hsReservation.requests="abc"
+    form.hsReservation.reservationStatus="abc"
+    form.hsReservation.reservationTime=getCurrentTime()
+
 });
+
+function getCurrentTime() {
+    return new Date().toISOString();
+}
+
 function fetchBuildingTypeData(buildingTypeId) {
     axios.get(`/api/homestay/buildingType/${buildingTypeId}`, {
         headers: {
             'Authorization': 'Bearer ' + sessionStorage.getItem("token")
         }
-    })
-        .then(response => {
-            // 假设API返回的数据中有一个字段是breakfast，表明是否包含早餐
-            breakfastIncludes.value = response.data.data.breakfast;
-            const smokingStatus = response.data.data.allowSmoking;
-            smoking.value = smokingStatus === 1 ? "no smoking" : "can smoking";
-
-
-            console.log('Building Type Data:', response.data.data.breakfast);
-        })
-        .catch(error => {
-            console.error('Failed to fetch building type data:', error);
-        });
+    }).then(response => {
+        breakfastIncludes.value = response.data.data.breakfast;
+        smoking.value = response.data.data.allowSmoking === 1 ? "禁烟" : "可吸烟";
+    }).catch(error => {
+        console.error('获取建筑类型数据失败:', error);
+    });
 }
 
-
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+}
 
 const bedtype = computed(() => {
-    return bedType.value === "0" ? "twin beds" : bedType.value === "1" ? "One king-size bed" : "Unknown";
+    return bedType.value === "0" ? "双床" : bedType.value === "1" ? "大床" : "未知";
 });
 
 function goToRoomDetails() {
     router.push('/roomdetails');
 }
+
+const getMyInfo = async () => {
+    try {
+        const token = sessionStorage.getItem("token");
+        const response = await axios.get("/api/system/user/profile", {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        form.phoneNum = response.data.data.phonenumber;
+        form.userName = response.data.data.userName;
+    } catch (error) {
+        console.error('获取用户信息失败:', error);
+    }
+};
+
+const confirmReservation = async () => {
+    console.log('Preparing to send reservation:', form.hsReservation, form.roomIds, form.userIds);
+    try {
+        const token = sessionStorage.getItem("token");
+        const payload = {
+            hsReservation: form.hsReservation,
+            roomIds: form.roomIds,
+            userIds: form.userIds,
+        };
+        console.log('Put:', payload);
+        const response = await axios.post('/api/homestay/reservation/add', payload, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        console.log('预订成功:', response.data);
+        dialogFormVisible.value = false;
+    } catch (error) {
+        console.error('添加预订失败:', error);
+    }
+};
+
+getMyInfo();
 </script>
+
 
 
 <template>
@@ -97,7 +190,36 @@ function goToRoomDetails() {
             <el-col :span="6" class="column">
                 <div>
                     <h3>¥{{price}}</h3>
-                    <el-button>{{ t('roonItems.book') }}</el-button>
+                    <el-button plain @click="dialogFormVisible = true">Book Now</el-button>
+                    <el-dialog v-model="dialogFormVisible" title="Reservation Confirm" width="500">
+                        <el-form :model="form">
+                            <el-table :data="gridData">
+                                <el-table-column property="Start_Date" label="Start Date" width="150" />
+                                <el-table-column property="End_Date" label="End Date" width="200" />
+                                <el-table-column label="Room Type">
+                                    <template #default="scope">
+                                        {{ roomType }}
+                                    </template>
+                                </el-table-column>
+                                <el-table-column property="Building_Type" label="Building Type" />
+                            </el-table>
+                            <el-form-item label="Name" :label-width="200">
+                                <el-input v-model="form.userName" autocomplete="off" />
+                            </el-form-item>
+                            <el-form-item label="Phone Number" :label-width="200">
+                                <el-input v-model="form.phoneNum" autocomplete="off">
+                                </el-input>
+                            </el-form-item>
+                        </el-form>
+                        <template #footer>
+                            <div class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                                <el-button type="primary" @click="confirmReservation">
+                                    Confirm
+                                </el-button>
+                            </div>
+                        </template>
+                    </el-dialog>
                 </div>
             </el-col>
         </el-row>
@@ -140,5 +262,6 @@ function goToRoomDetails() {
     align-items: center; /* 垂直居中 */
     justify-content: space-evenly; /* 水平平分空间 */
 }
+
 
 </style>
