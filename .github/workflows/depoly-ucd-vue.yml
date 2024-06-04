@@ -23,7 +23,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -p ${{ secrets.SERVER_PORT }} student@csi6220-1-vm2.ucd.ie << EOF
             export PATH=\$PATH:/home/linuxbrew/.linuxbrew/bin
-            cd ~/vue/COMP3030J/RuoYi-Cloud/comp3030j-front
+            cd ~/vue/COMP3030J/comp3030j-front
             git fetch
             git reset --hard origin/main
             npm install
