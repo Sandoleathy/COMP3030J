@@ -4,7 +4,8 @@ import reservationPage from '../components/ReservationMenu.vue';
 import reservationSearchBar from '../components/ReservationSearchBar.vue';
 import roomItems from '../components/RoonItems.vue';
 import axios from "axios";
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const rooms = ref([]);
 const filteredRooms = ref([]);// 储存房间数据的响应式变量

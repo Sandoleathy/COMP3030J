@@ -4,20 +4,20 @@
         <el-container class="register-container">
             <el-form ref="registerForm" :model="registerForm" class="register-form" label-position="top">
                 <h2>Register</h2>
-                <el-form-item label="Username">
-                    <el-input v-model="username" placeholder="Username"></el-input>
+                <el-form-item :label="t('register.username')">
+                    <el-input v-model="username" :placeholder="t('register.username')"></el-input>
                 </el-form-item>
-                <el-form-item label="Password">
-                    <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
+                <el-form-item :label="t('register.password')">
+                    <el-input type="password" v-model="password" :placeholder="t('register.password')" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
                     <el-button class="register-button" type="primary" @click="handleRegister" :disabled="isLoading">
-                        <span v-if="!isLoading">Sign up</span>
+                        <span v-if="!isLoading"> {{ t('register.signUp') }}</span>
                         <el-icon v-if="isLoading" class="is-loading">
                             <Loading />
                         </el-icon>
                     </el-button>
-                    <el-button type="text" class="login-link" @click="goToLoginPage">Already have account? Log in</el-button>
+                    <el-button type="text" class="login-link" @click="goToLoginPage">{{ t('register.logIn') }}</el-button>
                     <!-- <a href="#/register" class="register-link">Register</a> -->
                 </el-form-item>
             </el-form>
@@ -31,6 +31,8 @@ import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const router = useRouter();
 

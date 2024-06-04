@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import {ref} from "vue";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const imageUrls = ref([
     '/images/RD_pic1.png',
@@ -22,7 +24,7 @@ function goBack() {
                 <img :src="imageUrl" alt="carousel image" style="width: 100vw; height: 100vh; object-fit: fill;">
             </el-carousel-item>
         </el-carousel>
-        <button class="choose-room-btn" @click="goBack">Choose Room</button>
+        <button class="choose-room-btn" @click="goBack"> {{ t('roomDetail.choose') }}</button>
     </div>
 </template>
 
