@@ -2,6 +2,8 @@
 import {computed, defineProps, onMounted, ref, watchEffect} from 'vue';
 import axios from "axios";
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const router = useRouter();
 const props = defineProps({
@@ -63,7 +65,7 @@ function goToRoomDetails() {
             <el-col :span="5" class="column">
                 <img src="/images/pic4.png" alt="Room Information" style="width: 35vh; height: 25vh;">
                 <div>
-                    <el-link @click="goToRoomDetails">View Room Information</el-link>
+                    <el-link @click="goToRoomDetails"> {{ t('roonItems.view') }}</el-link>
                 </div>
             </el-col>
             <el-col :span="4" class="column">
@@ -87,15 +89,15 @@ function goToRoomDetails() {
             </el-col>
 
             <el-col :span="3" class="column">
-                <h3>Includes {{ breakfastIncludes }} Breakfasts</h3>
+                <h3>Includes {{ breakfastIncludes }} {{ t('roonItems.breakfast') }}</h3>
             </el-col>
             <el-col :span="4" class="column">
-                <h3>Free Cancellation within 30 Minutes</h3>
+                <h3>{{ t('roonItems.free') }}</h3>
             </el-col>
             <el-col :span="6" class="column">
                 <div>
                     <h3>¥{{price}}</h3>
-                    <el-button>Book Now</el-button>
+                    <el-button>{{ t('roonItems.book') }}</el-button>
                 </div>
             </el-col>
         </el-row>

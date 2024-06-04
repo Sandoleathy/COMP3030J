@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { ref, nextTick } from 'vue'
 import router from "@/router";
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 function goToMyView() {
     router.push({ name: 'my' });
 }
@@ -30,12 +31,12 @@ function goToWeatherView() {
             </div>
         </el-menu-item>
         <div class="flex-grow" />
-        <el-menu-item index="1" @click="goToMainView">Home</el-menu-item>
-        <el-menu-item index="2">My Order</el-menu-item>
-        <el-menu-item index="3" @click="goToWeatherView">Weather</el-menu-item>
+        <el-menu-item index="1" @click="goToMainView"> {{ t('reservationMenu.home') }}</el-menu-item>
+        <el-menu-item index="2">{{ t('reservationMenu.order') }}</el-menu-item>
+        <el-menu-item index="3" @click="goToWeatherView">{{ t('reservationMenu.weather') }}</el-menu-item>
         <el-menu-item index="4">
             <div class="demo-type">
-                <el-avatar @click="goToMyView"> user </el-avatar>
+                <el-avatar @click="goToMyView">  </el-avatar>
             </div>
         </el-menu-item>
 

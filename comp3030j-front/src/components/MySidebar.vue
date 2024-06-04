@@ -1,20 +1,22 @@
 <template>
     <el-menu :default-active="activeIndex" mode="vertical"
              :ellipsis="false" @select="handleSelect">
-        <el-menu-item class="menu-item" index="0">Home</el-menu-item>
-        <el-menu-item class="menu-item" index="1">Order</el-menu-item>
+        <el-menu-item class="menu-item" index="0"> {{ t('mySidebar.home') }}</el-menu-item>
+        <el-menu-item class="menu-item" index="1">{{ t('mySidebar.order') }}</el-menu-item>
         <el-sub-menu class="menu-item" index="2">
-            <template #title>Common Information</template>
-            <el-menu-item index="2-1">Common Travelers</el-menu-item>
-            <el-menu-item index="2-2">Common Address</el-menu-item>
-            <el-menu-item index="2-3">Common Contacts</el-menu-item>
+            <template #title>{{ t('mySidebar.info') }}</template>
+            <el-menu-item index="2-1">{{ t('mySidebar.trav') }}</el-menu-item>
+            <el-menu-item index="2-2">{{ t('mySidebar.address') }}</el-menu-item>
+            <el-menu-item index="2-3">{{ t('mySidebar.contacts') }}</el-menu-item>
         </el-sub-menu>
-        <el-menu-item class="menu-item" index="3">My Information</el-menu-item>
+        <el-menu-item class="menu-item" index="3">{{ t('mySidebar.myInfo') }}</el-menu-item>
     </el-menu>
 </template>
 
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const props = defineProps({
     activeIndex: String

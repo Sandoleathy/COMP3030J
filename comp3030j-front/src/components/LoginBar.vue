@@ -3,7 +3,7 @@
         <el-row justify="end">
             <el-col v-if="!isLogin" :span="3" style="text-align: right; margin-top: 10px;">
                 <div style="cursor:default;">
-                    <span class="clickable" @click="goToLoginPage">Sign in</span> | <span class="clickable" @click="SignUp">Sign up</span>
+                    <span class="clickable" @click="goToLoginPage">{{ t('loginBar.signIn') }}</span> | <span class="clickable" @click="SignUp">{{ t('loginBar.signUp') }}</span>
                 </div>
             </el-col>
             <el-col :span="3" v-if="isLogin">
@@ -19,10 +19,10 @@
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item command="a">
-                                    Profile
+                                  {{ t('loginBar.profile') }}
                                 </el-dropdown-item>
                                 <el-dropdown-item command="b">
-                                    Log out
+                                  {{ t('loginBar.logout') }}
                                 </el-dropdown-item>
                             </el-dropdown-menu>
                         </template>
@@ -49,7 +49,8 @@ import { ref, onMounted } from 'vue'
 import { ElAvatar, ElText, ElDropdownMenu, ElDropdown, ElDropdownItem, ElMessage } from 'element-plus';
 import { ArrowDown } from '@element-plus/icons-vue'
 import axios from 'axios'
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const props= defineProps({
   barColor: {
     type: String,

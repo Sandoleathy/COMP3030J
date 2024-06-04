@@ -15,18 +15,18 @@
                         />
                         <div class="logo_word">
                             <el-row>
-                                <h3 class="styled-heading" style="font-size: 40px;">Yishan</h3>
+                                <h3 class="styled-heading" style="font-size: 40px;"> {{ t('dataOverview.yishan') }}</h3>
                             </el-row>
                             <el-row>
-                                <h3 class="styled-heading" style="font-size: 25px;">Mountain Villa</h3>
+                                <h3 class="styled-heading" style="font-size: 25px;">{{ t('dataOverview.mountainVilla') }}</h3>
                             </el-row>
                         </div>
                     </el-menu-item>
                     <div class="flex-grow" />
-                    <el-menu-item class="menu-item" index="1" @click="backToEntry('aboutUs')">About Us</el-menu-item>
-                    <el-menu-item class="menu-item" index="2" @click="goToViewPage">Overview</el-menu-item>
-                    <el-menu-item class="menu-item" index="3" @click="backToEntry('news')">News & Notices</el-menu-item>
-                    <el-menu-item class="menu-item" index="4" @click="backToEntry('minsu')" style="margin-right: 36px;">Hotel</el-menu-item>
+                    <el-menu-item class="menu-item" index="1" @click="backToEntry('aboutUs')">{{ t('dataOverview.aboutUs') }}</el-menu-item>
+                    <el-menu-item class="menu-item" index="2" @click="goToViewPage">{{ t('dataOverview.overview') }}</el-menu-item>
+                    <el-menu-item class="menu-item" index="3" @click="backToEntry('news')">{{ t('dataOverview.news') }}</el-menu-item>
+                    <el-menu-item class="menu-item" index="4" @click="backToEntry('minsu')" style="margin-right: 36px;">{{ t('dataOverview.hotel') }}</el-menu-item>
                 </el-menu>
 
             <div class="model-block">
@@ -34,17 +34,17 @@
                     <parkModel></parkModel>
                 </div>
                 <div class="model-intro">
-                  <p style="margin-top: 40px; margin-left: 10px; font-weight: bold; font-size: 30px;">⬅ 3D model</p>
-                  <p style="margin-left: 40px; font-weight: bold; font-size: 20px;">of the park</p>
-                  <p style="margin-top: 20px; margin-left: 40px; margin-right: 30px; font-size: 15px;">Roll the mouse wheel to adjust distance</p>
-                  <p style="margin-top: 10px; margin-left: 40px; margin-right: 30px; font-size: 15px;">Drag the mouse to adjust the perspective</p>
+                  <p style="margin-top: 40px; margin-left: 10px; font-weight: bold; font-size: 30px;">{{ t('dataOverview.threeD') }}</p>
+                  <p style="margin-left: 40px; font-weight: bold; font-size: 20px;">{{ t('dataOverview.of') }}</p>
+                  <p style="margin-top: 20px; margin-left: 40px; margin-right: 30px; font-size: 15px;">{{ t('dataOverview.roll') }}</p>
+                  <p style="margin-top: 10px; margin-left: 40px; margin-right: 30px; font-size: 15px;">{{ t('dataOverview.drag') }}</p>
                 </div>
             </div>
 
             <el-main>
                 <!--Weather-->
                 <el-divider class="divider"></el-divider>
-                <h1 class="block-head">Weather</h1>
+                <h1 class="block-head">{{ t('dataOverview.weather') }}</h1>
                 <div class="weather-block">
                     <el-row>
                       <WeatherOverview></WeatherOverview>
@@ -57,7 +57,7 @@
 
                 <!--Energy Consumption-->
                 <el-divider class="divider"></el-divider>
-                <h1 class="block-head">Energy Consumption</h1>
+                <h1 class="block-head">{{ t('dataOverview.energy') }}</h1>
                 <div class="energy-block">
                     <el-row>
                         <el-col :span="24">
@@ -81,6 +81,8 @@ import parkModel from '../components/ParkModel.vue'
 import energyCard from '../components/ParkInformationBlock/EnergyOverviewCard.vue'
 import {ElContainer, ElMain, ElHeader, ElCol, ElRow, ElIcon, ElDivider, ElFooter} from 'element-plus';
 import Footer from '../components/Footer.vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 import { onMounted, ref } from "vue";
 import { useRouter } from 'vue-router';

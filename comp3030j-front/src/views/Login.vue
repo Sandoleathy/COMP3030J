@@ -8,22 +8,22 @@
         <el-container class="login-container">
 
             <el-form class="login-form" label-position="top">
-                <h2>Log In</h2>
+                <h2>{{ t('login.logIn') }}</h2>
                 <lang-select class="set-language" />
-                <el-form-item label="Username">
-                    <el-input v-model="username" placeholder="Username"></el-input>
+                <el-form-item :label="t('login.username')">
+                    <el-input v-model="username" :placeholder="t('login.username')"></el-input>
                 </el-form-item>
-                <el-form-item label="Password">
-                    <el-input type="password" v-model="password" placeholder="Password" show-password></el-input>
+                <el-form-item :label="t('login.password')">
+                    <el-input type="password" v-model="password" :placeholder="t('login.password')" show-password></el-input>
                 </el-form-item>
                 <el-form-item class="action-items">
                     <el-button class="login-button" type="primary" @click="handleLogin" :disabled="isLoading" @keyup.enter="handleLogin">
-                        <span v-if="!isLoading">Log in</span>
+                        <span v-if="!isLoading">{{ t('login.logIn') }}</span>
                         <el-icon v-if="isLoading" class="is-loading">
                             <Loading />
                         </el-icon>
                     </el-button>
-                    <router-link class="link" to="register" style="margin-left: 20px;">Register</router-link>
+                    <router-link class="link" to="register" style="margin-left: 20px;">{{ t('login.register') }}</router-link>
                 </el-form-item>
                 
             </el-form>
@@ -40,7 +40,8 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import {Loading} from "@element-plus/icons-vue";
 import {setToken} from "@/utils/auth.js";
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 var username = ref("")
 var password = ref("")
 const router = useRouter();
@@ -65,7 +66,7 @@ const handleLogin = async () => {
         const data = response.data;
         console.log(data)
         if(data.code == 200){
-            ElMessage.success("Login successful! Welcome back ")
+            ElMessage.success(t('login.success'))
             //登陆成功,进行后续处理
             sessionStorage.setItem("token" , data.data.access_token)
             setToken(data.data.access_token)
@@ -113,11 +114,11 @@ const getUserType = async (token) => {
 const checkInput = () => {
     var isValid = true
     if(username.value == ""){
-        ElMessage.warning("Username can not be empty!")
+        ElMessage.warning(t('login.username')+t('login.notEmpty'))
         isValid = false
     }
     if(password.value == ""){
-        ElMessage.warning("Password can not be empty!")
+        ElMessage.warning(t('login.password')+t('login.notEmpty'))
         isValid = false
     }
     return isValid

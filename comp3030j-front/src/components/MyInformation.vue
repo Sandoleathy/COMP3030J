@@ -10,58 +10,58 @@
 
           <el-row>
             <el-col :span="24">
-              <el-form-item label="AccountNumber:">
+              <el-form-item :label="t('myInformation.account')">
                 <template v-if="!isEditing">
                   <p>{{ userName }}</p>
                 </template>
-                <el-input v-else v-model="userName" placeholder="Account Number"></el-input>
+                <el-input v-else v-model="userName" :placeholder="t('myInformation.account')"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="24">
-              <el-form-item label="Name:">
+              <el-form-item :label="t('myInformation.name')">
                 <template v-if="!isEditing">
                   <p>{{ name }}</p>
                 </template>
-                <el-input v-else v-model="name" placeholder="Name"></el-input>
+                <el-input v-else v-model="name" :placeholder="t('myInformation.name')"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="24">
-              <el-form-item label="PhoneNumber:">
+              <el-form-item :label="t('myInformation.phoneNumber')">
                 <template v-if="!isEditing">
                   <p>{{ phoneNumber }}</p>
                 </template>
-                <el-input v-else v-model="phoneNumber" placeholder="Phone Number"></el-input>
+                <el-input v-else v-model="phoneNumber" :placeholder="t('myInformation.phoneNumber')"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="24">
-              <el-form-item label="Email:">
+              <el-form-item :label="t('myInformation.email')">
                 <template v-if="!isEditing">
                   <p>{{ email }}</p>
                 </template>
-                <el-input v-else v-model="email" placeholder="Email"></el-input>
+                <el-input v-else v-model="email" :placeholder="t('myInformation.email')"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
 
           <el-row>
             <el-col :span="24">
-              <el-form-item label="Sex:">
+              <el-form-item :label="t('myInformation.sex')">
                 <template v-if="!isEditing">
                   <p>{{ sexText }}</p>
                 </template>
-                <el-select v-else v-model="sex" placeholder="Select sex">
-                  <el-option label="male" value="0"></el-option>
-                  <el-option label="female" value="1"></el-option>
-                  <el-option label="unknown" value="unknown"></el-option>
+                <el-select v-else v-model="sex" :placeholder="t('myInformation.chooseSex')">
+                  <el-option :label="t('myInformation.male')" value="0"></el-option>
+                  <el-option :label="t('myInformation.female')" value="1"></el-option>
+                  <el-option :label="t('myInformation.unknown')" value="unknown"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -126,6 +126,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import axios from "axios";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 import { genFileId } from 'element-plus'
 import { UploadFilled } from '@element-plus/icons-vue'
