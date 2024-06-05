@@ -17,6 +17,7 @@ const price = ref('');
 const bedType = ref('');
 const smoking = ref('');
 const breakfastIncludes = ref('');
+const roomId=ref('');
 const gridData = ref([]);
 
 const dialogFormVisible = ref(false);
@@ -42,6 +43,7 @@ const form = reactive({
 });
 
 watchEffect(() => {
+    console.log("Room Data:", props.roomData);
     roomType.value = props.roomData ? props.roomData.roomType : '未定义';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
     bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : '未知';
@@ -51,13 +53,13 @@ watchEffect(() => {
     if (props.dateRange && props.dateRange.length >= 2) {
         gridData.value = [
             {
-                Start_Date: formatDate(props.dateRange[0]),
-                End_Date: formatDate(props.dateRange[1]), // 退房时间
+                Start_Date: formatDateOnly(props.dateRange[0]),
+                End_Date: formatDateOnly(props.dateRange[1]), // 退房时间
                 Building_Type: props.buildingType || '无'
             },
         ];
-        form.hsReservation.checkinTime = props.dateRange[0];  // 使用 formatDate 来格式化日期
-        form.hsReservation.checkoutTime = props.dateRange[1];
+        form.hsReservation.checkinTime = formatDate(props.dateRange[0]);  // 使用 formatDate 来格式化日期
+        form.hsReservation.checkoutTime = formatDate(props.dateRange[1]);
         form.hsReservation.reservationTime=props.dateRange[0];
     } else {
         gridData.value = [
@@ -68,12 +70,16 @@ watchEffect(() => {
             }
         ];
     }
-    form.roomIds=[2];
-    form.userIds=[1];
-    form.hsReservation.contactInformation="abc"
-    form.hsReservation.requests="abc"
-    form.hsReservation.reservationStatus="abc"
-    form.hsReservation.reservationTime=getCurrentTime()
+    if (props.roomData) {
+        form.roomIds = [props.roomData.id];
+        form.hsReservation.numberOfRooms=props.roomData.roomNumber;
+    } else {
+        console.error("Invalid room ID:");
+    }
+    form.hsReservation.totalPrice = Number(price.value);
+    form.hsReservation.reservationTime=getCurrentTime();
+    form.hsReservation.reservationStatus="Successful booking";
+
 
 });
 
@@ -96,10 +102,23 @@ function fetchBuildingTypeData(buildingTypeId) {
 
 function formatDate(dateString) {
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' });
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
+    // const day = date.getDate();
+    // const month = date.toLocaleString('default', { month: 'short' });
+
+    const localIsoString = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1).toISOString();
+    // 截取日期部分
+    // return localIsoString.slice(0, 10);
+    return localIsoString;
+}
+function formatDateOnly(dateString) {
+    const date = new Date(dateString);
+    // const day = date.getDate();
+    // const month = date.toLocaleString('default', { month: 'short' });
+
+    const localIsoString = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1).toISOString();
+    // 截取日期部分
+    return localIsoString.slice(0, 10);
+
 }
 
 const bedtype = computed(() => {
@@ -118,15 +137,21 @@ const getMyInfo = async () => {
                 'Authorization': 'Bearer ' + token
             }
         });
-        form.phoneNum = response.data.data.phonenumber;
-        form.userName = response.data.data.userName;
+        if (response.data && response.data.data) {
+            form.phoneNum = response.data.data.phonenumber;
+            form.userName = response.data.data.userName;
+            form.userIds = [response.data.data.userId];
+            console.log("User Info Loaded:", form.userName, form.phoneNum, form.userIds);
+        } else {
+            console.error('No user data received');
+        }
     } catch (error) {
         console.error('获取用户信息失败:', error);
     }
 };
 
 const confirmReservation = async () => {
-    console.log('Preparing to send reservation:', form.hsReservation, form.roomIds, form.userIds);
+    console.log('Preparing to send reservation:', form.hsReservation, "Room IDs:", form.roomIds, "User IDs:", form.userIds);
     try {
         const token = sessionStorage.getItem("token");
         const payload = {
@@ -134,7 +159,7 @@ const confirmReservation = async () => {
             roomIds: form.roomIds,
             userIds: form.userIds,
         };
-        console.log('Put:', payload);
+        console.log('Payload to send:', payload);
         const response = await axios.post('/api/homestay/reservation/add', payload, {
             headers: {
                 'Authorization': 'Bearer ' + token
