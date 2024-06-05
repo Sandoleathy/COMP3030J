@@ -82,7 +82,7 @@ public class HsReservationController extends BaseController {
         List<AjaxResult> results = new ArrayList<>();
         HsReservation hsReservation = addReservationDTO.getHsReservation();
         Long[] rooms = addReservationDTO.getRoomIds();
-        Long[] users = addReservationDTO.getRoomIds();
+        Long[] users = addReservationDTO.getUserIds();
 
         results.add(toAjax(hsReservationService.insertHsReservation(hsReservation)));
         if (results.get(0).isSuccess()) {
