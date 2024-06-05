@@ -1,5 +1,5 @@
 <template>
-    <!--园区信息展示-用户-->
+    <!--Park information display-user-->
     <container class="container">
         <div class="background"><el-container >
             <el-header style="padding: 0;">

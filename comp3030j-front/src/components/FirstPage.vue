@@ -42,7 +42,7 @@
             <h4 class="context">{{ t('firstPage.text1') }}</h4>
             <h3 class="ending" style="margin-bottom: 50px">{{ t('firstPage.look') }}</h3>
         </div>
-        <!--新闻-->
+        <!--news-->
         <div class="news" ref="newsSection">
           <el-divider></el-divider>
           <newsCard></newsCard>

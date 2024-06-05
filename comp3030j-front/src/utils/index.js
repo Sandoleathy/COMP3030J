@@ -1,7 +1,7 @@
 import { parseTime } from './ruoyi'
 
 /**
- * 表格时间格式化
+ * 表格hour间格式化
  */
 export function formatDate(cellValue) {
   if (cellValue == null || cellValue == "") return "";
@@ -32,14 +32,14 @@ export function formatTime(time, option) {
   const diff = (now - d) / 1000
 
   if (diff < 30) {
-    return '刚刚'
+    return 'just'
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前'
+    return Math.ceil(diff / 60) + 'minutes ago'
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前'
+    return Math.ceil(diff / 3600) + 'An hour ago'
   } else if (diff < 3600 * 24 * 2) {
-    return '1天前'
+    return '1Days ago'
   }
   if (option) {
     return parseTime(time, option)
@@ -47,13 +47,13 @@ export function formatTime(time, option) {
     return (
       d.getMonth() +
       1 +
-      '月' +
+      'moon' +
       d.getDate() +
-      '日' +
+      'day' +
       d.getHours() +
-      '时' +
+      'hour' +
       d.getMinutes() +
-      '分'
+      'point'
     )
   }
 }
@@ -219,10 +219,10 @@ export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
 
   const later = function() {
-    // 据上一次触发时间间隔
+    // 据上一次触发hour间间隔
     const last = +new Date() - timestamp
 
-    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
+    // 上次被包装函数被调用hour间间隔 last 小于设定hour间间隔 wait
     if (last < wait && last > 0) {
       timeout = setTimeout(later, wait - last)
     } else {
@@ -239,7 +239,7 @@ export function debounce(func, wait, immediate) {
     context = this
     timestamp = +new Date()
     const callNow = immediate && !timeout
-    // 如果延时不存在，重新设定延时
+    // 如果延hour不存在，重新设定延hour
     if (!timeout) timeout = setTimeout(later, wait)
     if (callNow) {
       result = func.apply(context, args)

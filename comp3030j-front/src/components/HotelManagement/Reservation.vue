@@ -1,6 +1,6 @@
 <template>
     <el-container>
-    <!-- 搜索 -->
+    <!-- search -->
       <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="150px">
         <el-row :gutter="10">
           <el-col :span="8">
@@ -92,7 +92,7 @@
       </el-form>
     </el-container>
 
-    <!-- 修改或下载选项 -->
+    <!-- Edit or download options -->
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
@@ -118,7 +118,7 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <!-- 表格 -->
+    <!-- sheet -->
     <el-table v-loading="loading" :data="reservationList.value" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="hsReservation.id" />
@@ -162,11 +162,11 @@
         @pagination="getList"
     />
 
-    <!-- 显示时间的格式 --> <!-- 待修改 -->
+    <!-- Display time format --> <!-- To be modified -->
 <!--    <p>check in time {{ checkinTime }}</p>
     <p>check out time{{ checkoutTime }}</p>-->
 
-    <!-- 修改的对话框 -->
+    <!-- Modified dialog box -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="Contact Information" prop="contactInformation">
@@ -265,7 +265,7 @@ var title = "";
 var open = false;
 //选中数组
 var ids = [];
-//表格的列
+//sheet的列
 var cols = {
     id: '0',
     checkinTime: '2024-05-01',
@@ -295,7 +295,7 @@ var queryParams = {
     pay: null,
     reservationStatus: null
 }
-//表格数据
+//sheet数据
 var reservationList = [];
 //总条数
 var total = ref(0);
@@ -327,7 +327,7 @@ const getList = () => {
     });*/
 };
 
-/** 搜索按钮操作 */
+/** search按钮操作 */
 const handleQuery = () => {
     pageNum = 1;
     getList();

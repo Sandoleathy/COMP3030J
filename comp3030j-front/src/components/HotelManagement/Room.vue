@@ -1,6 +1,6 @@
 <template>
     <el-container>
-    <!-- 搜索 -->
+    <!-- search -->
       <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="100px" class="custom-form">
         <el-row :gutter="10">
           <el-col :span="6">
@@ -70,7 +70,7 @@
       </el-form>
     </el-container>
 
-    <!-- 修改或下载选项 -->
+    <!-- Edit or download options -->
     <el-row :gutter="10" class="mb8">
         <el-col :span="1.5">
             <el-button
@@ -96,17 +96,17 @@
         <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <!-- 表单 -->
+    <!-- form -->
     <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
       <el-table-column label="Room Number" align="center" prop="roomNumber" />
       <el-table-column label="Room Type" align="center" prop="roomType" />
-      <el-table-column label="Room Volume" align="center" prop="buildingType" /> <!-- 待改 -->
+      <el-table-column label="Room Volume" align="center" prop="buildingType" /> <!-- To be changed -->
       <el-table-column label="Bed Type" align="center" prop="bedType" />
-      <el-table-column label="Bed Length" align="center" prop="roomPrice" />  <!-- 待改 -->
-      <el-table-column label="Bed Width" align="center" prop="roomPrice" />  <!-- 待改 -->
-      <el-table-column label="Room Picture" align="center" prop="roomPrice" />  <!-- 待改 -->
+      <el-table-column label="Bed Length" align="center" prop="roomPrice" />  <!-- To be changed -->
+      <el-table-column label="Bed Width" align="center" prop="roomPrice" />  <!-- To be changed -->
+      <el-table-column label="Room Picture" align="center" prop="roomPrice" />  <!-- To be changed -->
       <el-table-column label="Operation" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -115,14 +115,14 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['homestay:room:edit']"
-          >修改</el-button>
+          >Revise</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['homestay:room:remove']"
-          >删除</el-button>
+          >delete</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -134,7 +134,7 @@
         :limit.sync="pageSize"
         @pagination="getList"/>
 
-    <!-- 修改的对话框 -->
+    <!-- Modified dialog box -->
     
 
 </template>
@@ -184,7 +184,7 @@ const getList = () => {
     })
 };
 
-/** 搜索按钮操作 */
+/** search按钮操作 */
 const handleQuery = () => {
     pageNum = 1;
     getList();
@@ -195,7 +195,7 @@ const resetQuery = () => {
     handleQuery();
 };
 
-/** 修改按钮操作 */
+/** Revise按钮操作 */
 const handleUpdate = (row) => {
     reset();
     const id = row.id || ids
