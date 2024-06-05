@@ -17,7 +17,7 @@ const router = createRouter({
       //网站入口
       path: '/',
       name: 'entry',
-      component: () => import('../views/MainView.vue')
+      component: () => import('../views/UserMainMenu.vue')
     },
     {
       path: '/overview',

@@ -42,20 +42,10 @@
             <h4 class="context">{{ t('firstPage.text1') }}</h4>
             <h3 class="ending" style="margin-bottom: 50px">{{ t('firstPage.look') }}</h3>
         </div>
-
+        <!--新闻-->
         <div class="news" ref="newsSection">
           <el-divider></el-divider>
-            <h1 class="minsu-head" style="margin-top: 60px">{{ t('firstPage.news') }}</h1>
-            <div class="news-container">
-                <div class="news-text">
-                    <div class="title-date">
-                        <h3>{{ t('firstPage.farm') }}</h3>
-                        <span class="date">2024/04/19</span>
-                    </div>
-                    <h4>{{ t('firstPage.peach') }}</h4>
-                    <hr>
-                </div>
-            </div>
+          <newsCard></newsCard>
         </div>
 
         <div class="minsu" ref="minsuSection">
@@ -214,14 +204,7 @@
     margin-bottom: -15px; /* 下边距*/
 }
 
-.news-container {
-    width: 90%; /* 或根据实际需要调整宽度 */
-    margin: 20px auto; /* 居中显示，并添加外边距 */
-    padding: 20px; /* 内边距 */
-    border: 1px solid #ccc; /* 边框样式 */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 轻微的阴影效果 */
-    background: #fff; /* 背景颜色 */
-}
+
 
 .news-text .title-date {
     display: flex;
@@ -245,6 +228,7 @@
 import { ref, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import newsCard from '@/components/NewsCard.vue'
 const { t } = useI18n();
 const router = useRouter();
 const activeBadge = ref('');
