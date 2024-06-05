@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, ref, watchEffect, reactive } from 'vue';
+import { computed, defineProps, ref, watchEffect, reactive, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -172,10 +172,32 @@ const confirmReservation = async () => {
     }
 };
 
-const getImages = () => {
-  
+const totalImage = ref(0)
+const images = ref([])
+const getImages = async () => {
+  const roomParams = {
+    id: "",
+    imageDesc: "",
+    image: "",
+    roomId: props.roomData.id
+  }
+  const token = sessionStorage.getItem("token");
+  axios.get('/api/homestay/roomImage/list' ,{
+    params: roomParams,
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  }).then(response => {
+    const data = response.data
+    images.value = data.rows
+    totalImage.value = data.total
+    console.log(data)
+  }).catch(error =>{
+    console.log(error)
+  })
 }
 
+getImages();
 getMyInfo();
 </script>
 
@@ -185,7 +207,12 @@ getMyInfo();
     <div class="page-container">
         <el-row class="row-container">
             <el-col :span="5" class="column">
-                <img src="/images/pic4.png" alt="Room Information" style="width: 35vh; height: 25vh;">
+                <el-carousel height="25vh" :interval="3000" arrow="hover" v-if="totalImage !== 0" style="width: 35vh;">
+                  <el-carousel-item v-for="image in images">
+                    <img :src="image.image" alt="room image" />
+                  </el-carousel-item>
+                </el-carousel>
+                <img src="/images/pic4.png" alt="Room Information" style="width: 35vh; height: 25vh;" v-if="totalImage === 0">
                 <div>
                     <el-link @click="goToRoomDetails"> {{ t('roonItems.view') }}</el-link>
                 </div>
