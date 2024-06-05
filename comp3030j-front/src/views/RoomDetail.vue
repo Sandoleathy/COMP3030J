@@ -1,11 +1,13 @@
 <script setup>
-import {ref} from "vue";
+import {onMounted,ref} from "vue";
 import { useI18n } from 'vue-i18n';
+
 import { useRouter } from 'vue-router';
 import axios from "axios";
 
 const { t } = useI18n();
 const router = useRouter();
+const roomId = ref(router.currentRoute.value.query.roomId);
 
 function goBack() {
     router.push('reservation');
@@ -14,11 +16,12 @@ function goBack() {
 const totalImage = ref(0)
 const images = ref([])
 const getImages = async () => {
+  console.log(roomId.value)
   const roomParams = {
     id: "",
     imageDesc: "",
     image: "",
-    roomId: props.roomData.id
+    roomId: roomId.value
   }
   const token = sessionStorage.getItem("token");
   axios.get('/api/homestay/roomImage/list' ,{
@@ -45,7 +48,8 @@ getImages()
                 <img :src="image.image" alt="carousel image" style="width: 100vw; height: 100vh; object-fit: fill;">
             </el-carousel-item>
         </el-carousel>
-        <button class="choose-room-btn" @click="goBack"> {{ t('roomDetail.choose') }}</button>
+        <button class="choose-room-btn" @click="goBack">{{ t('roomDetail.choose') }}</button>
+
     </div>
 </template>
 
