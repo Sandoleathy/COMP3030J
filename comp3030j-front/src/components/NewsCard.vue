@@ -4,10 +4,12 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import { listNotice } from "@/api/system/notice";
 import { onMounted, ref } from "vue";
+import {ElMessage} from "element-plus";
 
 onMounted( () => {
   getNews()
 })
+const isLoading = ref(false)
 
 const activeNum = ref(0)
 
@@ -15,12 +17,16 @@ const pageSize = ref(4);
 const total = ref(0)
 const noticeList = ref([])
 const getNews = () => {
+  isLoading.value = true
   listNotice().then(response => {
     noticeList.value = response.rows;
     noticeList.value = noticeList.value.reverse()
     total.value = response.total;
     console.log(noticeList.value)
-    // loading.value = false;
+    isLoading.value = false;
+  }).catch(error => {
+    ElMessage.error("Error fetching news")
+    isLoading.value = false;
   });
 }
 const currentPage = ref(1);
@@ -41,7 +47,9 @@ const handlePageChange = (page) => {
 
   <div class="news-container" v-if="total !== 0">
     <el-card class="fixed-height-card">
-      <div class="card-content">
+      <el-skeleton :rows="5" animated v-if="isLoading">
+      </el-skeleton>
+      <div class="card-content" v-if="!isLoading">
         <el-collapse v-model="activeNum">
           <el-collapse-item :name="news.noticeId" v-for="news in paginatedNoticeList">
             <template #title>
