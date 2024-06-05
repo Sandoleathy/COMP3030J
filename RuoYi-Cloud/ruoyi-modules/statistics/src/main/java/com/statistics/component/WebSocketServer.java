@@ -97,6 +97,7 @@ public class WebSocketServer
     @OnMessage
     public void onMessage(String message, Session session)
     {
+        LOGGER.info("\n Get message  {} from {}", message,session);
         String msg = message.replace("you", "I").replace("?", "");
         WebSocketUsers.sendMessageToUserByText(session, msg);
     }
