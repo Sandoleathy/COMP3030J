@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {ref} from "vue";
+import {onMounted,ref} from "vue";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
@@ -11,9 +11,23 @@ const imageUrls = ref([
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const roomId = ref(router.currentRoute.value.query.roomId);
 
 function goBack() {
     router.push('reservation');
+}
+onMounted(() => {
+    fetchRoomImages();
+});
+
+function fetchRoomImages() {
+    // Simulating fetching images based on room ID
+    // This part should interact with your backend or service to get images based on roomId.value
+    imageUrls.value = [
+        `/images/room_${roomId.value}_1.png`,
+        `/images/room_${roomId.value}_2.png`,
+        `/images/room_${roomId.value}_3.png`,
+    ];
 }
 </script>
 
@@ -24,7 +38,8 @@ function goBack() {
                 <img :src="imageUrl" alt="carousel image" style="width: 100vw; height: 100vh; object-fit: fill;">
             </el-carousel-item>
         </el-carousel>
-        <button class="choose-room-btn" @click="goBack"> {{ t('roomDetail.choose') }}</button>
+        <button class="choose-room-btn" @click="goBack">{{ t('roomDetail.choose') }}</button>
+
     </div>
 </template>
 

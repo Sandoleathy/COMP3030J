@@ -9,7 +9,8 @@ const router = useRouter();
 const props = defineProps({
     roomData: Object,
     dateRange: Array,
-    buildingType: String
+    buildingType: String,
+    guestCount: Number
 });
 
 const roomType = ref('');
@@ -17,7 +18,6 @@ const price = ref('');
 const bedType = ref('');
 const smoking = ref('');
 const breakfastIncludes = ref('');
-const roomId=ref('');
 const gridData = ref([]);
 
 const dialogFormVisible = ref(false);
@@ -55,12 +55,11 @@ watchEffect(() => {
             {
                 Start_Date: formatDateOnly(props.dateRange[0]),
                 End_Date: formatDateOnly(props.dateRange[1]), // 退房时间
-                Building_Type: props.buildingType || 'none'
+                Building_Type: props.roomData.buildingType
             },
         ];
         form.hsReservation.checkinTime = formatDate(props.dateRange[0]);  // 使用 formatDate 来格式化日期
         form.hsReservation.checkoutTime = formatDate(props.dateRange[1]);
-        form.hsReservation.reservationTime=props.dateRange[0];
     } else {
         gridData.value = [
             {
@@ -73,12 +72,14 @@ watchEffect(() => {
     if (props.roomData) {
         form.roomIds = [props.roomData.id];
         form.hsReservation.numberOfRooms=props.roomData.roomNumber;
+
     } else {
         console.error("Invalid room ID:");
     }
     form.hsReservation.totalPrice = Number(price.value);
     form.hsReservation.reservationTime=getCurrentTime();
     form.hsReservation.reservationStatus="Successful booking";
+    form.hsReservation.numberOfGuests = props.guestCount || 1;
 
 
 });
@@ -126,7 +127,10 @@ const bedtype = computed(() => {
 });
 
 function goToRoomDetails() {
-    router.push('/roomdetails');
+    router.push({
+        path: '/roomdetails',
+        query: {roomId: props.roomData.id}
+    });
 }
 
 const getMyInfo = async () => {
