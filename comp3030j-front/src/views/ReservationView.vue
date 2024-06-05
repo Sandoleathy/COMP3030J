@@ -10,7 +10,8 @@ const { t } = useI18n();
 const rooms = ref([]);
 const filteredRooms = ref([]);
 const selectedDateRange = ref([]);
-const selectedBuildingType = ref(null);// 储存房间数据的响应式变量
+const selectedBuildingType = ref(null);
+const selectedGuestCount = ref(null);// 储存房间数据的响应式变量
 
 onMounted(() => {
     fetchRooms();
@@ -25,20 +26,21 @@ const typeMap = {
     '4': '4'
 };
 
-function handleSearch(dateRange, buildingType) {
-    console.log('Handling search for date range:', dateRange, 'and building type:', buildingType);
+function handleSearch(dateRange, buildingType,guestCount) {
+    console.log('Handling search with date range:', dateRange, 'building type:', buildingType, 'guest count:', guestCount);
     selectedDateRange.value = dateRange;
     selectedBuildingType.value = buildingType;
+    selectedGuestCount.value = guestCount;
     const startDate = dateRange[0];
     const endDate = dateRange[1];
     const dbType = parseInt(typeMap[buildingType], 10);
 
-    if (startDate && endDate && !isNaN(dbType)) {
-        fetchFilteredRooms(startDate, endDate, dbType);
-    } else {
-        console.error('Invalid date or building type provided, showing all rooms');
-        filteredRooms.value = rooms.value;
+    if (!startDate || !endDate) {
+        console.error('Date range is required for searching');
+        return;
     }
+
+    fetchFilteredRooms(startDate, endDate, dbType, guestCount);
 }
 
 
@@ -67,40 +69,81 @@ function fetchRooms() {
         });
 }
 
-async function fetchFilteredRooms(startDate, endDate, buildingType) {
+async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) {
     const token = sessionStorage.getItem("token");
     console.log('Using already fetched rooms:', rooms.value);
 
-        const availableRooms = [];
-        for (let room of rooms.value) {
-            console.log('room:', room.hsRoom.id);
-            // 确保 room.hsRoom 存在并且 room.hsRoom.buildingType 与 buildingType 匹配
-            if (room.hsRoom && room.hsRoom.buildingType === buildingType) {
-                const reservationsResponse = await axios.get(`/api/homestay/rr/queryByRoomId/${room.hsRoom.id}`, {
-                    headers: { 'Authorization': 'Bearer ' + token }
-                });
-                console.log(`Checking reservations for room ID ${room.hsRoom.id}:`, reservationsResponse.data.data);
-                if (Array.isArray(reservationsResponse.data.data)) {
-                    const isBooked = reservationsResponse.data.data.some(reservation =>
-                        new Date(reservation.checkinTime) <= new Date(endDate) &&
-                        new Date(reservation.checkoutTime) >= new Date(startDate)
-                    );
-                    if (!isBooked) {
-                        console.log(`Room ID ${room.id} is available`);
-                        availableRooms.push(room);
-                    }
-                } else {
-                    console.error(`Failed to fetch reservations or incorrect data type for room ID ${room.hsRoom.id}`);
-                }
-            } else {
-                // 在这里处理 room.hsRoom 不存在的情况
-                console.log(`Room or room.hsRoom not properly defined for room ID: ${room.id}`);
-            }
+    const availableRooms = [];
+    for (let room of rooms.value) {
+        if (!room.hsRoom) {
+            console.log(`Room or room.hsRoom not properly defined for room ID: ${room.id}`);
+            continue;
         }
 
-        filteredRooms.value = availableRooms;
-        console.log('Available rooms after filtering by date and type:', filteredRooms.value);
+        console.log('room:', room.hsRoom.id);
+
+        let isTypeMatch = false;
+        let isGuestCountMatch = false;
+
+        // 设置最大容纳人数基于 buildingType
+        const maxGuests = room.hsRoom.buildingType === 3 ? 10 : 2;
+
+        if (guestCount > 2) {
+
+
+            // 如果人数大于2，只考虑 buildingType 为 3 的房间
+            if(buildingType){
+                if (buildingType !== 3) {
+                    // 如果指定了buildingType并且不为3，直接跳过当前房间
+                    continue;
+                }
+                if (buildingType === 3) {
+                    // 如果指定了buildingType并且不为3，直接跳过当前房间
+                    isTypeMatch = room.hsRoom.buildingType === 3; // 确保房间类型为3
+                    isGuestCountMatch = maxGuests >= guestCount;
+                }
+            }else{
+                isTypeMatch = room.hsRoom.buildingType === 3; // 确保房间类型为3
+                isGuestCountMatch = maxGuests >= guestCount;
+            }
+
+        } else if (guestCount <= 2) {
+            // 如果人数小于等于2
+            isTypeMatch = buildingType === null || room.hsRoom.buildingType === buildingType;
+            isGuestCountMatch = maxGuests >= guestCount;
+        } else {
+            // 如果没有指定guestCount，只根据 buildingType 进行筛选
+            isTypeMatch = buildingType === null || room.hsRoom.buildingType === buildingType;
+            isGuestCountMatch = true;  // 不考虑人数限制
+        }
+
+        if (!isTypeMatch || !isGuestCountMatch) continue;
+
+        const reservationsResponse = await axios.get(`/api/homestay/rr/queryByRoomId/${room.hsRoom.id}`, {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+
+        if (Array.isArray(reservationsResponse.data.data)) {
+            const isBooked = reservationsResponse.data.data.some(reservation =>
+                new Date(reservation.checkinTime) <= new Date(endDate) &&
+                new Date(reservation.checkoutTime) >= new Date(startDate)
+            );
+            if (!isBooked) {
+                availableRooms.push(room);
+            }
+        } else {
+            console.error(`Failed to fetch reservations or incorrect data type for room ID ${room.hsRoom.id}`);
+        }
+    }
+
+    filteredRooms.value = availableRooms;
+    console.log('Available rooms after filtering by date, type, and guest count:', filteredRooms.value);
 }
+
+
+
+
+
 
 
 
