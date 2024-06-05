@@ -2,7 +2,9 @@
     <div class="navigation_bar" :style="{ backgroundColor: barColor }">
 
         <el-row justify="end">
-            <lang-select></lang-select>
+            <el-col :span="3" style="text-align: right; margin-top: 10px;">
+              <lang-select></lang-select>
+            </el-col>
 
             <el-col v-if="!isLogin" :span="3" style="text-align: right; margin-top: 10px;">
                 <div style="cursor:default;">

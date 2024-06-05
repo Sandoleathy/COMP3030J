@@ -6,8 +6,13 @@
                 <el-dropdown-item :disabled="language === 'en'" command="en">English</el-dropdown-item>
             </el-dropdown-menu>
         </template>
-        <div>
-            <router-link   to>Language/语言</router-link>
+        <div >
+            <router-link   to class="international1">
+              Language/语言
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </router-link>
         </div>
     </el-dropdown>
 </template>
@@ -18,6 +23,7 @@ import { ElMessage } from 'element-plus';
 import { changeLanguage } from "@/api/login";
 import SvgIcon from '@/components/SvgIcon'; // 确保你有这个组件或相应地调整
 import Cookies from 'js-cookie';
+import {ArrowDown} from "@element-plus/icons-vue";
 
 const { t } = useI18n();
 const appStore = useAppStore();
@@ -37,4 +43,11 @@ const handleSetLanguage = async (value) => {
     window.location.reload();
 }
 </script>
+<style>
+.international1{
+  color: white;
+  vertical-align: center;
+  margin: auto;
+}
+</style>
 

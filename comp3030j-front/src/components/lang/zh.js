@@ -222,7 +222,14 @@ export default {
 
     },
     error:{
-        error:'错误'
+        error:'错误',
+        errorTipsTitle: '抱歉，出现了一些问题',
+        errorReasonTip: '问题可能是由以下原因导致：',
+        errorReason1: '服务器出现了故障',
+        errorReason2: '您的账号被封禁',
+        errorReason3: '网络没有连接',
+        errorLinkTip: '您可以尝试点击以下链接前往主页：',
+        errorLink: '返回主页'
     },
     employeeView:{
         reservation:'预订',

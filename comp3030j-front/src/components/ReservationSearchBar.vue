@@ -5,8 +5,6 @@ import { differenceInCalendarDays } from 'date-fns'  // 使用 date-fns 来计�
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }
@@ -20,10 +18,13 @@ const handleChange = (value: number) => {
 const value = ref('');  // 假设这里是你选中的 building type 的值
 const emits = defineEmits(['search']);  // 定义一个事件发射器
 const handleIconClick = () => {
-    console.log('Icon clicked, emitting search with date range and building type:', value1.value, value.value);
-    emits('search', value1.value, value.value); // 第一个参数现在是 dateRange, 第二个参数是 buildingType
+    if (!value1.value || value1.value.length < 2) {
+        alert(t('reservationSearchBar.dateRequired'));
+        return;
+    }
+    console.log('Icon clicked, emitting search with date range, room type, and guest count:', value1.value, value.value, num2.value);
+    emits('search', value1.value, value.value, num2.value);
 }
-
 
 const value1 = ref('')
 const size = ref<'default' | 'large' | 'small'>('default')
@@ -86,14 +87,6 @@ const options = [
                 </el-col>
 
             </el-row>
-        <el-row >
-                <div class="block">
-                    <span class="demonstration">{{ t('reservationSearchBar.room') }}</span>
-                    <el-input-number v-model="num1" :min="1" :max="10" @change="handleChange" />
-
-                </div>
-
-        </el-row>
         <el-row >
                   <div class="block">
                       <span class="demonstration">{{ t('reservationSearchBar.guest') }}</span>

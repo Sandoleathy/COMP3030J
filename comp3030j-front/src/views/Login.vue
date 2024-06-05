@@ -80,6 +80,7 @@ const handleLogin = async () => {
                 router.push('/')
             }
         }else{
+            isLoading.value = false
             ElMessage.error(data.msg)
         }
     } catch (error) {
