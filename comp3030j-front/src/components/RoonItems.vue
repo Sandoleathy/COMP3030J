@@ -211,11 +211,7 @@ getMyInfo();
     <div class="page-container">
         <el-row class="row-container">
             <el-col :span="5" class="column">
-                <el-carousel height="25vh" :interval="3000" arrow="hover" v-if="totalImage !== 0" style="width: 35vh;">
-                  <el-carousel-item v-for="image in images">
-                    <img :src="image.image" alt="room image" />
-                  </el-carousel-item>
-                </el-carousel>
+                <img :src="images[0].image" alt="room image" v-if="totalImage !== 0"/>
                 <img src="/images/pic4.png" alt="Room Information" style="width: 35vh; height: 25vh;" v-if="totalImage === 0">
                 <div>
                     <el-link @click="goToRoomDetails"> {{ t('roonItems.view') }}</el-link>
