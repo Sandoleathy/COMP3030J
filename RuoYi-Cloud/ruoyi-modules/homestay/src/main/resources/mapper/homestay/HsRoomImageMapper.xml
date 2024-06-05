@@ -17,7 +17,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectHsRoomImageList" parameterType="HsRoomImage" resultMap="HsRoomImageResult">
         <include refid="selectHsRoomImageVo"/>
-        <where>  
+        <where>
+            <if test="id != null  and id != ''"> and id = #{id}</if>
             <if test="imageDesc != null  and imageDesc != ''"> and image_desc = #{imageDesc}</if>
             <if test="image != null  and image != ''"> and image = #{image}</if>
             <if test="roomId != null "> and room_id = #{roomId}</if>
