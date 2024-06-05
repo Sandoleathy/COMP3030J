@@ -25,7 +25,7 @@ const reservations = ref([
     numberOfGuests: 2,
     numberOfRooms: 1,
     reservationTime: '2024-04-15 10:00',
-    requests: '无特殊要求',
+    requests: '无special requirements',
     totalPrice: 200,
     pay: 0,
     reservationStatus: '已预订',
@@ -60,25 +60,25 @@ onMounted(() => {
   <div class="reservations">
     <div>
       <el-table :data="reservations" style="width: 100%">
-        <el-table-column prop="contactInformation" label="联系信息"></el-table-column>
-        <el-table-column prop="checkinTime" label="入住时间"></el-table-column>
-        <el-table-column prop="checkoutTime" label="退房时间"></el-table-column>
-        <el-table-column prop="numberOfGuests" label="客人数"></el-table-column>
-        <el-table-column prop="numberOfRooms" label="房间数"></el-table-column>
-        <el-table-column prop="reservationTime" label="预订时间"></el-table-column>
-        <el-table-column prop="requests" label="特殊要求"></el-table-column>
-        <el-table-column prop="totalPrice" label="总价格"></el-table-column>
-        <el-table-column prop="pay" label="支付状态">
+        <el-table-column prop="contactInformation" label="contact information"></el-table-column>
+        <el-table-column prop="checkinTime" label="check in time"></el-table-column>
+        <el-table-column prop="checkoutTime" label="check-out time"></el-table-column>
+        <el-table-column prop="numberOfGuests" label="Number of guests"></el-table-column>
+        <el-table-column prop="numberOfRooms" label="number of rooms"></el-table-column>
+        <el-table-column prop="reservationTime" label="Booking time"></el-table-column>
+        <el-table-column prop="requests" label="special requirements"></el-table-column>
+        <el-table-column prop="totalPrice" label="Total cost"></el-table-column>
+        <el-table-column prop="pay" label="Payment status">
           <template v-slot="scope">
-            {{ scope.row.pay === 0 ? '未支付' : '已支付' }}
+            {{ scope.row.pay === 0 ? 'unpaid' : 'Paid' }}
           </template>
         </el-table-column>
-        <el-table-column prop="reservationStatus" label="预订状态"></el-table-column>
-        <el-table-column prop="userId" label="用户的唯一标识符"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column prop="reservationStatus" label="Booking status"></el-table-column>
+        <el-table-column prop="userId" label="User's unique identifier"></el-table-column>
+        <el-table-column label="operate">
           <template v-slot="scope">
-            <el-button @click="handleEdit(scope.row)" type="primary" size="small">修改</el-button>
-            <el-button @click="handleDelete(scope.row)" type="danger" size="small">删除</el-button>
+            <el-button @click="handleEdit(scope.row)" type="primary" size="small">Revise</el-button>
+            <el-button @click="handleDelete(scope.row)" type="danger" size="small">delete</el-button>
           </template>
         </el-table-column>
       </el-table>

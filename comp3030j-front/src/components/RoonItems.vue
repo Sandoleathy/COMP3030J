@@ -44,9 +44,9 @@ const form = reactive({
 
 watchEffect(() => {
     console.log("Room Data:", props.roomData);
-    roomType.value = props.roomData ? props.roomData.roomType : '未定义';
+    roomType.value = props.roomData ? props.roomData.roomType : 'undefined';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
-    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : '未知';
+    bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'unknown';
     if (props.roomData && props.roomData.buildingType) {
         fetchBuildingTypeData(props.roomData.buildingType);
     }
@@ -55,7 +55,7 @@ watchEffect(() => {
             {
                 Start_Date: formatDateOnly(props.dateRange[0]),
                 End_Date: formatDateOnly(props.dateRange[1]), // 退房时间
-                Building_Type: props.buildingType || '无'
+                Building_Type: props.buildingType || 'none'
             },
         ];
         form.hsReservation.checkinTime = formatDate(props.dateRange[0]);  // 使用 formatDate 来格式化日期
@@ -64,9 +64,9 @@ watchEffect(() => {
     } else {
         gridData.value = [
             {
-                Start_Date: '无',
-                End_Date: '无',
-                Building_Type: '无'
+                Start_Date: 'none',
+                End_Date: 'none',
+                Building_Type: 'none'
             }
         ];
     }
@@ -94,9 +94,9 @@ function fetchBuildingTypeData(buildingTypeId) {
         }
     }).then(response => {
         breakfastIncludes.value = response.data.data.breakfast;
-        smoking.value = response.data.data.allowSmoking === 1 ? "禁烟" : "可吸烟";
+        smoking.value = response.data.data.allowSmoking === 1 ? "No smoking" : "Smoking allowed";
     }).catch(error => {
-        console.error('获取建筑类型数据失败:', error);
+        console.error('Failed to obtain building type data:', error);
     });
 }
 
@@ -122,7 +122,7 @@ function formatDateOnly(dateString) {
 }
 
 const bedtype = computed(() => {
-    return bedType.value === "0" ? "双床" : bedType.value === "1" ? "大床" : "未知";
+    return bedType.value === "0" ? "Twin bed" : bedType.value === "1" ? "big bed" : "unknown";
 });
 
 function goToRoomDetails() {
@@ -146,7 +146,7 @@ const getMyInfo = async () => {
             console.error('No user data received');
         }
     } catch (error) {
-        console.error('获取用户信息失败:', error);
+        console.error('Failed to obtain user information:', error);
     }
 };
 
@@ -165,10 +165,10 @@ const confirmReservation = async () => {
                 'Authorization': 'Bearer ' + token
             }
         });
-        console.log('预订成功:', response.data);
+        console.log('booking succeed:', response.data);
         dialogFormVisible.value = false;
     } catch (error) {
-        console.error('添加预订失败:', error);
+        console.error('Failed to add reservation:', error);
     }
 };
 

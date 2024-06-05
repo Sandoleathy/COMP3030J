@@ -5,7 +5,7 @@
  * Copyright (c) 2019 ruoyi
  */
 
-// 日期格式化
+// day期格式化
 export function parseTime(time, pattern) {
   if (arguments.length === 0 || !time) {
     return null
@@ -37,7 +37,7 @@ export function parseTime(time, pattern) {
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
+    if (key === 'a') { return ['day', 'one', 'two', 'three', 'Four', 'five', 'six'][value] }
     if (result.length > 0 && value < 10) {
       value = '0' + value
     }
@@ -53,7 +53,7 @@ export function resetForm(refName) {
   }
 }
 
-// 添加日期范围
+// 添加day期范围
 export function addDateRange(params, dateRange, propName) {
   let search = params;
   search.params = typeof (search.params) === 'object' && search.params !== null && !Array.isArray(search.params) ? search.params : {};

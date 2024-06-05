@@ -1,6 +1,6 @@
 <template>
   <div class="user-info-head" @click="editCropper()">
-    <img :src="options.img" title="点击上传头像" class="img-circle img-lg" />
+    <img :src="options.img" title="Click to upload avatar" class="img-circle img-lg" />
     <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened" @close="closeDialog">
       <el-row>
         <el-col :xs="24" :md="12" :style="{ height: '350px' }">
@@ -33,7 +33,7 @@
             :before-upload="beforeUpload"
           >
             <el-button>
-              选择
+              choose
               <el-icon class="el-icon--right"><Upload /></el-icon>
             </el-button>
           </el-upload>
@@ -51,7 +51,7 @@
           <el-button icon="RefreshRight" @click="rotateRight()"></el-button>
         </el-col>
         <el-col :lg="{ span: 2, offset: 6 }" :md="2">
-          <el-button type="primary" @click="uploadImg()">提 交</el-button>
+          <el-button type="primary" @click="uploadImg()">Submit</el-button>
         </el-col>
       </el-row>
     </el-dialog>
@@ -69,7 +69,7 @@ const { proxy } = getCurrentInstance();
 
 const open = ref(false);
 const visible = ref(false);
-const title = ref("修改头像");
+const title = ref("Modify avatar");
 
 //图片裁剪数据
 const options = reactive({
@@ -109,7 +109,7 @@ function changeScale(num) {
 /** 上传预处理 */
 function beforeUpload(file) {
   if (file.type.indexOf("image/") == -1) {
-    proxy.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
+    proxy.$modal.msgError("File format error，Please upload image type,like：JPG，PNGfile with suffix。");
   } else {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -128,7 +128,7 @@ function uploadImg() {
       open.value = false;
       options.img = import.meta.env.VITE_APP_BASE_API + response.imgUrl;
       userStore.avatar = options.img;
-      proxy.$modal.msgSuccess("修改成功");
+      proxy.$modal.msgSuccess("Successfully modified");
       visible.value = false;
     });
   });

@@ -11,13 +11,13 @@
         <el-main>
             <el-row>
                 <el-col :span="12">
-                    <!-- 折线图 -->
+                    <!-- line chart -->
                     <div class="chart-container">
                         <canvas ref="lineChart"></canvas>
                     </div>
                 </el-col>
                 <el-col :span="12">
-                    <!-- 饼图 -->
+                    <!-- pie chart -->
                     <div class="chart-container">
                         <canvas ref="pieChart"></canvas>
                     </div>
@@ -66,7 +66,7 @@ export default {
         this.createAlarmChart();
         setInterval(() => {
             this.createBarChart(); // 更新条形图数据
-            this.createPieChart(); // 重新创建折线图以更新数据
+            this.createPieChart(); // 重新创建line chart以更新数据
         }, 5000);
     },
     setup() {

@@ -20,7 +20,7 @@
             />
          </el-form-item>
          <el-form-item label="Type" prop="noticeType">
-            <el-select v-model="queryParams.noticeType" placeholder="公告类型" clearable style="width: 200px">
+            <el-select v-model="queryParams.noticeType" placeholder="Announcement type" clearable style="width: 200px">
                <el-option
                   v-for="dict in sys_notice_type"
                   :key="dict.value"
@@ -70,9 +70,9 @@
 
       <el-table v-loading="loading" :data="noticeList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="序号" align="center" prop="noticeId" width="100" />
+         <el-table-column label="serial number" align="center" prop="noticeId" width="100" />
          <el-table-column
-            label="公告标题"
+            label="Announcement title"
             align="center"
             prop="noticeTitle"
             :show-overflow-tooltip="true"
@@ -109,7 +109,7 @@
          @pagination="getList"
       />
 
-      <!-- 添加或修改公告对话框 -->
+      <!-- Add or modify announcement dialog box -->
       <el-dialog :title="title" v-model="open" width="780px" append-to-body>
          <el-form ref="noticeRef" :model="form" :rules="rules" label-width="80px">
             <el-row>

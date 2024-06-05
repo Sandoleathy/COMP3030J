@@ -99,7 +99,7 @@
       </el-row>
 
 
-      <!--弹窗-->
+      <!--Pop-ups-->
       <el-dialog title="Upload File" v-model="isUploadDialogVisible">
         <el-upload
             action="/api/system/user/profile/avatar"

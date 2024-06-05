@@ -14,24 +14,24 @@
       class="upload-file-uploader"
       ref="fileUpload"
     >
-      <!-- 上传按钮 -->
-      <el-button type="primary">选取文件</el-button>
+      <!-- upload button -->
+      <el-button type="primary">Select file</el-button>
     </el-upload>
-    <!-- 上传提示 -->
+    <!-- Upload tips -->
     <div class="el-upload__tip" v-if="showTip">
-      请上传
-      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
-      的文件
+      Please upload
+      <template v-if="fileSize"> Size does not exceed <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
+      <template v-if="fileType"> The format is <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      document
     </div>
-    <!-- 文件列表 -->
+    <!-- File List -->
     <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
       <li :key="file.uid" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
         <el-link :href="`${baseUrl}${file.url}`" :underline="false" target="_blank">
           <span class="el-icon-document"> {{ getFileName(file.name) }} </span>
         </el-link>
         <div class="ele-upload-list__item-content-action">
-          <el-link :underline="false" @click="handleDelete(index)" type="danger">删除</el-link>
+          <el-link :underline="false" @click="handleDelete(index)" type="danger">delete</el-link>
         </div>
       </li>
     </transition-group>
@@ -104,7 +104,7 @@ function handleBeforeUpload(file) {
     const fileExt = fileName[fileName.length - 1];
     const isTypeOk = props.fileType.indexOf(fileExt) >= 0;
     if (!isTypeOk) {
-      proxy.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join("/")}格式文件!`);
+      proxy.$modal.msgError(`File format is incorrect, Please upload${props.fileType.join("/")}format file!`);
       return false;
     }
   }
@@ -112,23 +112,23 @@ function handleBeforeUpload(file) {
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
+      proxy.$modal.msgError(`Upload file size cannot exceed ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy.$modal.loading("正在上传文件，请稍候...");
+  proxy.$modal.loading("Uploading file，Please wait...");
   number.value++;
   return true;
 }
 
-// 文件个数超出
+// 文件indivual数超出
 function handleExceed() {
-  proxy.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+  proxy.$modal.msgError(`The number of uploaded files cannot exceed ${props.limit} indivual!`);
 }
 
 // 上传失败
 function handleUploadError(err) {
-  proxy.$modal.msgError("上传文件失败");
+  proxy.$modal.msgError("File upload failed");
 }
 
 // 上传成功回调
@@ -145,7 +145,7 @@ function handleUploadSuccess(res, file) {
   }
 }
 
-// 删除文件
+// delete文件
 function handleDelete(index) {
   fileList.value.splice(index, 1);
   emit("update:modelValue", listToString(fileList.value));

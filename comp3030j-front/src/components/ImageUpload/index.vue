@@ -19,21 +19,21 @@
     >
       <el-icon class="avatar-uploader-icon"><plus /></el-icon>
     </el-upload>
-    <!-- 上传提示 -->
+    <!-- Upload tips -->
     <div class="el-upload__tip" v-if="showTip">
-      请上传
+      Please upload
       <template v-if="fileSize">
-        大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b>
+        Size does not exceed <b style="color: #f56c6c">{{ fileSize }}MB</b>
       </template>
       <template v-if="fileType">
-        格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
+        The format is <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
       </template>
-      的文件
+      document
     </div>
 
     <el-dialog
       v-model="dialogVisible"
-      title="预览"
+      title="Preview"
       width="800px"
       append-to-body
     >
@@ -125,24 +125,24 @@ function handleBeforeUpload(file) {
   }
   if (!isImg) {
     proxy.$modal.msgError(
-      `文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`
+      `File format is incorrect, Please upload${props.fileType.join("/")}Picture format file!`
     );
     return false;
   }
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传头像图片大小不能超过 ${props.fileSize} MB!`);
+      proxy.$modal.msgError(`The size of the uploaded avatar image cannot exceed ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy.$modal.loading("正在上传图片，请稍候...");
+  proxy.$modal.loading("Uploading pictures，Please wait...");
   number.value++;
 }
 
-// 文件个数超出
+// 文件indivual数超出
 function handleExceed() {
-  proxy.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+  proxy.$modal.msgError(`The number of uploaded files cannot exceed ${props.limit} indivual!`);
 }
 
 // 上传成功回调
@@ -182,11 +182,11 @@ function uploadedSuccessfully() {
 
 // 上传失败
 function handleUploadError() {
-  proxy.$modal.msgError("上传图片失败");
+  proxy.$modal.msgError("Failed to upload image");
   proxy.$modal.closeLoading();
 }
 
-// 预览
+// Preview
 function handlePictureCardPreview(file) {
   dialogImageUrl.value = file.url;
   dialogVisible.value = true;

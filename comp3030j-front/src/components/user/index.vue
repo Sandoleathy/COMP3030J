@@ -1,7 +1,7 @@
 <template>
    <div class="app-container">
       <el-row :gutter="20">
-         <!--部门数据-->
+         <!--Department data-->
          <el-col :span="4" :xs="24">
             <div class="head-container">
                <el-input
@@ -26,7 +26,7 @@
                />
             </div>
          </el-col>
-         <!--用户数据-->
+         <!--User data-->
          <el-col :span="20" :xs="24">
             <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="110px">
                <el-form-item :label="t('user.userName')" prop="userName">
@@ -178,13 +178,13 @@
          </el-col>
       </el-row>
 
-      <!-- 添加或修改用户配置对话框 -->
+      <!-- Add or modify user configuration dialog box -->
       <el-dialog :title="title" v-model="open" width="600px" append-to-body>
          <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
             <el-row>
                <el-col :span="12">
                   <el-form-item :label="t('user.userNickname')"prop="nickName">
-                     <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
+                     <el-input v-model="form.nickName" placeholder="Please enter user nickname" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -348,7 +348,7 @@ const upload = reactive({
   title: "",
   // 是否禁用上传
   isUploading: false,
-  // 是否更新已经存在的用户数据
+  // 是否更新已经存在的User data
   updateSupport: 0,
   // 设置上传的请求头部
   headers: { Authorization: "Bearer " + getToken() },
@@ -378,9 +378,9 @@ const data = reactive({
     deptId: undefined
   },
   rules: {
-    userName: [{ required: true, message: t('user.userNameRequired'), trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
+    userName: [{ required: true, message: t('user.userNameRequired'), trigger: "blur" }, { min: 2, max: 20, message: "Username length must be between 2 and 20 between", trigger: "blur" }],
     nickName: [{ required: true, message: t('user.nickNameRequired'), trigger: "blur" }],
-    password: [{ required: true, message: t('user.passwordRequired'), trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }, { pattern: /^[^<>"'|\\]+$/, message: "不能包含非法字符：< > \" ' \\\ |", trigger: "blur" }],
+    password: [{ required: true, message: t('user.passwordRequired'), trigger: "blur" }, { min: 5, max: 20, message: "User password length must be between 5 and 20 between", trigger: "blur" }, { pattern: /^[^<>"'|\\]+$/, message: "Cannot contain illegal characters：< > \" ' \\\ |", trigger: "blur" }],
     email: [{ type: "email", message: t('user.validEmail'), trigger: ["blur", "change"] }],
     phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: t('user.validPhoneNumber'), trigger: "blur" }]
   }
@@ -522,7 +522,7 @@ const handleFileSuccess = (response, file, fileList) => {
   upload.open = false;
   upload.isUploading = false;
   proxy.$refs["uploadRef"].handleRemove(file);
-  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
+  proxy.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "Import results", { dangerouslyUseHTMLString: true });
   getList();
 };
 /** 提交上传文件 */
