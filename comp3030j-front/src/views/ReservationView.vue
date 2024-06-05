@@ -158,7 +158,7 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
             <el-main class="main">
                 <reservationSearchBar @search="handleSearch"></reservationSearchBar>
                 <roomItems v-for="room in filteredRooms" :key="room.id" :roomData="room.hsRoom" :dateRange="selectedDateRange"
-                           :buildingType="selectedBuildingType"></roomItems>
+                           :buildingType="selectedBuildingType" :guest-count="selectedGuestCount"></roomItems>
                 <div class="el-backtop">
                     <el-backtop :right="30" :bottom="100" />
                 </div>
