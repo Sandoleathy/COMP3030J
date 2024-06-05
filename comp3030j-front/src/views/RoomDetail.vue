@@ -1,27 +1,48 @@
-<script lang="ts" setup>
+<script setup>
 import {ref} from "vue";
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
-
-const imageUrls = ref([
-    '/images/RD_pic1.png',
-    '/images/RD_pic2.png',
-    '/images/RD_pic3.png',
-]);
 import { useRouter } from 'vue-router';
+import axios from "axios";
 
+const { t } = useI18n();
 const router = useRouter();
 
 function goBack() {
     router.push('reservation');
 }
+
+const totalImage = ref(0)
+const images = ref([])
+const getImages = async () => {
+  const roomParams = {
+    id: "",
+    imageDesc: "",
+    image: "",
+    roomId: props.roomData.id
+  }
+  const token = sessionStorage.getItem("token");
+  axios.get('/api/homestay/roomImage/list' ,{
+    params: roomParams,
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  }).then(response => {
+    const data = response.data
+    images.value = data.rows
+    totalImage.value = data.total
+    console.log(data)
+  }).catch(error =>{
+    console.log(error)
+  })
+}
+getImages()
 </script>
 
 <template>
     <div class="page-container">
         <el-carousel trigger="click" height="100vh" class="picture">
-            <el-carousel-item v-for="(imageUrl, index) in imageUrls" :key="index">
-                <img :src="imageUrl" alt="carousel image" style="width: 100vw; height: 100vh; object-fit: fill;">
+            <el-carousel-item v-for="image in images">
+                <img :src="image.image" alt="carousel image" style="width: 100vw; height: 100vh; object-fit: fill;">
             </el-carousel-item>
         </el-carousel>
         <button class="choose-room-btn" @click="goBack"> {{ t('roomDetail.choose') }}</button>

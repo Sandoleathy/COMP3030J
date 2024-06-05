@@ -143,7 +143,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import axios from "@/axios/index.js";
+import axios from "axios";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'

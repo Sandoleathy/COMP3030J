@@ -90,7 +90,9 @@ export default {
         sex:'Gender',
         female:'female',
         male:'male',
-        unknown:'unknown'
+        unknown:'unknown',
+        logout: 'Logout',
+        logoutTips: 'Confirm logout'
     },
     mySidebar:{
         home:'Home',
