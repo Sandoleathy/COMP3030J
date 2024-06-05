@@ -44,6 +44,7 @@ const form = reactive({
 
 watchEffect(() => {
     console.log("Room Data:", props.roomData);
+    console.log("Guest Num", props.guestCount);
     roomType.value = props.roomData ? props.roomData.roomType : 'undefined';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
     bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'unknown';
