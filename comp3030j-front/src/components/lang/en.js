@@ -256,6 +256,7 @@ export default {
         details:'Warning Details:',
         noWarning: "No weather warning",
         updateTimeText: "Update Time: ",
-        WarningTitle: "Meteorological disaster warning"
+        WarningTitle: "Meteorological disaster warning",
+        sendWarning: 'Release meteorological disaster warning'
     }
 }
