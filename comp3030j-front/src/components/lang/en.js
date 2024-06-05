@@ -1,12 +1,14 @@
 export default {
     login: {
         title: 'RuoYi Login Form',
-        logIn: 'Login in',
+        logIn: 'Login',
         username: 'Username',
         password: 'Password',
         code: 'Code',
         rememberMe: 'Remember Me',
-        register:'Register'
+        success:'Login successful! Welcome back',
+        register:"Register",
+        notEmpty:" can not be empty!"
     },
     tagsView: {
         refresh: 'Refresh',
@@ -22,12 +24,25 @@ export default {
         sidebarLogo: 'Sidebar Logo',
         languageSuccess: 'language change successfully'
     },
+    basicInfo: {
+        title: 'Basic Information',
+        userNickname: 'User Nickname',
+        loginAccount: 'Login Account'
+    },
     reservationMenu:{
         home:'Home',
         order:'My Order',
         weather:'Weather',
         user:'user'
     },
+    roleInfo: {
+        title: 'Role Information',
+        serialNumber: 'Serial Number',
+        roleID: 'Role ID',
+        roleName: 'Role Name',
+        permissionCharacter: 'Permission Character',
+        createTime: 'Creation Time'
+    },    
     firstPage:{
         yishan:'Yishan',
         mountainVilla:'Mountain Villa',
@@ -132,6 +147,76 @@ export default {
         energy:'Energy Consumption',
 
     },
+    user: {
+        departmentData: 'Department Data',
+        enterDepartmentName: 'Enter Department Name',
+        userData: 'User Data',
+        userName: 'User Name',
+        enterUserName: 'Enter User Name',
+        phoneNumber: 'Phone Number',
+        enterPhoneNumber: 'Enter Phone Number',
+        status: 'Status',
+        userStatus: 'User Status',
+        createTime: 'Creation Time',
+        startDate: 'Start Date',
+        endDate: 'End Date',
+        search: 'Search',
+        reset: 'Reset',
+        add: 'Add',
+        modify: 'Modify',
+        delete: 'Delete',
+        import: 'Import',
+        export: 'Export',
+        userNumber: 'User Number',
+        userNickname: 'User Nickname',
+        department: 'Department',
+        switchStatus: 'Switch Status',
+        operate: 'Operate',
+        resetPassword: 'Reset Password',
+        assignRoles: 'Assign Roles',
+        remark: 'Remark',
+        selectDepartment: 'Select Department',
+        email: 'Email',
+        enterEmail: 'Enter Email',
+        userGender: 'User Gender',
+        select: 'Select',
+        roles: 'Roles',
+        jobTitle: 'Job Title',
+        confirmDelete: 'Are you sure you want to delete user number {userIds}?',
+        deleteUserSuccess: 'Delete Successful',
+        importUser: 'Import User',
+        uploadResult: 'Upload Result',
+        updateUserSuccess: 'Update Successful',
+        addUserSuccess: 'Add Successful',
+        newPwdIs: 'New password is: ',
+        inputNewPwd: 'Enter new password for "{userName}"',
+        illegalCharacters: 'Cannot contain illegal characters: < > " \' \\ |',
+        passwordLength: 'Password length must be between 5 and 20 characters',
+        password: 'Password',
+        enterPassword: 'Enter Password',
+        gender: 'Gender',
+        role: 'Role',
+        enterRemark: 'Enter Remark',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        dragFilesHereOrClickToUpload: 'Drag files here, or click to upload',
+        updateExistingUserData: 'Update existing user data',
+        onlyXLSXFiles: 'Only .xlsx, .xls files are allowed',
+        downloadTemplate: 'Download Template',
+        userNameRequired: "User name cannot be empty",
+        userNameLength: "User name must be between 2 and 20 characters",
+        nickNameRequired: "Nickname cannot be empty",
+        passwordRequired: "Password cannot be empty",
+        validEmail: "Please enter a valid email address",
+        validPhoneNumber: "Please enter a valid phone number",
+        activate: "Activate",
+        deactivate: "Deactivate",
+        confirmStatusChange: "Are you sure you want to {status} \"{userName}\"?",
+        statusChangeSuccess: "{status} successful",
+        actionFailed: "Action failed"
+
+
+    },
     error:{
         error:'Error'
     },
@@ -159,6 +244,9 @@ export default {
         time:'Last Precipitation Time:',
         amount:'Last Precipitation Amount:',
         source:'Warning Source:',
-        details:'Warning Details:'
+        details:'Warning Details:',
+        noWarning: "No weather warning",
+        updateTimeText: "Update Time: ",
+        WarningTitle: "Meteorological disaster warning"
     }
 }

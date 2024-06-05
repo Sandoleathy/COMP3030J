@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import api from '../api'
+
 import {onMounted} from 'vue'
 import loginBar from '../components/LoginBar.vue'
 import firstPage from '../components/FirstPage.vue'

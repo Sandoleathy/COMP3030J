@@ -29,7 +29,7 @@ import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * 民宿财务表Controller
+ * B&B financial statementController
  *
  * @author paru
  * @date 2024-04-24
@@ -44,7 +44,7 @@ public class HsFinanceController extends BaseController {
     private IHsStaffService hsStaffService;
 
     /**
-     * 查询民宿财务表列表
+     * 查询B&B financial statement列表
      */
     @RequiresPermissions("homestay:finance:list")
     @GetMapping("/list")
@@ -55,19 +55,19 @@ public class HsFinanceController extends BaseController {
     }
 
     /**
-     * 导出民宿财务表列表
+     * 导出B&B financial statement列表
      */
     @RequiresPermissions("homestay:finance:export")
-    @Log(title = "民宿财务表", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B financial statement", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsFinance hsFinance) {
         List<HsFinance> list = hsFinanceService.selectHsFinanceList(hsFinance);
         ExcelUtil<HsFinance> util = new ExcelUtil<HsFinance>(HsFinance.class);
-        util.exportExcel(response, list, "民宿财务表数据");
+        util.exportExcel(response, list, "B&B financial statement数据");
     }
 
     /**
-     * 获取民宿财务表详细信息
+     * 获取B&B financial statement详细信息
      */
     @RequiresPermissions("homestay:finance:query")
     @GetMapping(value = "/{id}")
@@ -76,37 +76,37 @@ public class HsFinanceController extends BaseController {
     }
 
     /**
-     * 新增民宿财务表
+     * 新增B&B financial statement
      */
     @RequiresPermissions("homestay:finance:add")
-    @Log(title = "民宿财务表", businessType = BusinessType.INSERT)
+    @Log(title = "B&B financial statement", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody HsFinance hsFinance) {
         return toAjax(hsFinanceService.insertHsFinance(hsFinance));
     }
 
     /**
-     * 修改民宿财务表
+     * 修改B&B financial statement
      */
     @RequiresPermissions("homestay:finance:edit")
-    @Log(title = "民宿财务表", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B financial statement", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsFinance hsFinance) {
         return toAjax(hsFinanceService.updateHsFinance(hsFinance));
     }
 
     /**
-     * 删除民宿财务表
+     * 删除B&B financial statement
      */
     @RequiresPermissions("homestay:finance:remove")
-    @Log(title = "民宿财务表", businessType = BusinessType.DELETE)
+    @Log(title = "B&B financial statement", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(hsFinanceService.deleteHsFinanceByIds(ids));
     }
 
     /**
-     * 获取民宿财务表某日的详细信息
+     * 获取B&B financial statement某日的详细信息
      */
     @RequiresPermissions("homestay:finance:queryByDate")
     @GetMapping("/queryByDate")
@@ -115,7 +115,7 @@ public class HsFinanceController extends BaseController {
     }
 
     /**
-     * 获取民宿财务表某个时间段的详细信息
+     * 获取B&B financial statement某个时间段的详细信息
      */
     @RequiresPermissions("homestay:finance:queryByPeriod")
     @GetMapping("/queryByPeriod")
@@ -124,10 +124,10 @@ public class HsFinanceController extends BaseController {
     }
 
     /**
-     * 支付员工工资
+     * Pay employees wages
      */
     @RequiresPermissions("homestay:finance:pay")
-    @Log(title = "民宿财务表", businessType = BusinessType.INSERT)
+    @Log(title = "B&B financial statement", businessType = BusinessType.INSERT)
     @PostMapping("/pay/{ids}")
     public AjaxResult pay(@PathVariable Long[] ids) {
         HsFinance hsFinance = new HsFinance();
@@ -138,9 +138,9 @@ public class HsFinanceController extends BaseController {
             outcome = hsStaffService.selectSalaryByIds(ids);
 
         }
-        hsFinance.setType("支出");
+        hsFinance.setType("expenditure");
         hsFinance.setNum(new BigDecimal(outcome));
-        hsFinance.setDescription("支付员工工资");
+        hsFinance.setDescription("Pay employees wages");
         hsFinance.setTime(new Date());
         return success(hsFinanceService.insertHsFinance(hsFinance));
     }

@@ -72,12 +72,12 @@ public class AuthLogic
         String token = SecurityUtils.getToken();
         if (token == null)
         {
-            throw new NotLoginException("未提供token");
+            throw new NotLoginException("No token provided");
         }
         LoginUser loginUser = SecurityUtils.getLoginUser();
         if (loginUser == null)
         {
-            throw new NotLoginException("无效的token");
+            throw new NotLoginException("Invalid token");
         }
         return loginUser;
     }

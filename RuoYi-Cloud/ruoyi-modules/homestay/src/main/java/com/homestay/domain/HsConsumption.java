@@ -20,25 +20,25 @@ public class HsConsumption extends BaseEntity
     /** id */
     private Long id;
 
-    /** 消费详情 */
-    @Excel(name = "消费详情")
+    /** Consumption details */
+    @Excel(name = "Consumption details")
     private String datail;
 
-    /** 价格 */
-    @Excel(name = "价格")
+    /** price */
+    @Excel(name = "price")
     private Long price;
 
-    /** 消费时间 */
+    /** consumption time */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "消费时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "consumption time", width = 30, dateFormat = "yyyy-MM-dd")
     private Date time;
 
-    /** 预订id */
-    @Excel(name = "预订id")
+    /** booking id */
+    @Excel(name = "booking id")
     private Long rid;
 
-    /** 用户id */
-    @Excel(name = "用户id")
+    /** user id */
+    @Excel(name = "user id")
     private Long uid;
 
     public void setId(Long id) 

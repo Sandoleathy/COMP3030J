@@ -27,7 +27,7 @@ public class ImageUtils
         }
         catch (Exception e)
         {
-            log.error("图片加载异常 {}", e);
+            log.error("Image loading exception {}", e);
             return null;
         }
         finally
@@ -46,7 +46,7 @@ public class ImageUtils
         }
         catch (Exception e)
         {
-            log.error("获取图片异常 {}", e);
+            log.error("Exception in getting image {}", e);
         }
         return null;
     }
@@ -73,7 +73,7 @@ public class ImageUtils
         }
         catch (Exception e)
         {
-            log.error("访问文件异常 {}", e);
+            log.error("File access exception {}", e);
             return null;
         }
         finally

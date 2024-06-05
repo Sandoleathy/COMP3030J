@@ -270,7 +270,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导入Excel异常{}", e.getMessage());
+            log.error("Import Excel exception{}", e.getMessage());
             throw new UtilException(e.getMessage());
         }
         finally
@@ -309,7 +309,7 @@ public class ExcelUtil<T>
         Sheet sheet = StringUtils.isNotEmpty(sheetName) ? wb.getSheet(sheetName) : wb.getSheetAt(0);
         if (sheet == null)
         {
-            throw new IOException("文件sheet不存在");
+            throw new IOException("File sheet does not exist");
         }
 
         // 获取最后一个非空行的行下标，比如总行数为n，则返回的为n-1
@@ -515,7 +515,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导出Excel异常{}", e.getMessage());
+            log.error("Export Excel exception{}", e.getMessage());
         }
         finally
         {
@@ -859,7 +859,7 @@ public class ExcelUtil<T>
      */
     public void setDataValidation(Excel attr, Row row, int column)
     {
-        if (attr.name().indexOf("注：") >= 0)
+        if (attr.name().indexOf("Note:") >= 0)
         {
             sheet.setColumnWidth(column, 6000);
         }
@@ -936,7 +936,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("导出Excel失败{}", e);
+            log.error("Export to Excel failed{}", e);
         }
         return cell;
     }
@@ -1121,13 +1121,13 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("不能格式化数据 " + excel.handler(), e.getMessage());
+            log.error("Unable to format data" + excel.handler(), e.getMessage());
         }
         return Convert.toStr(value);
     }
 
     /**
-     * 合计统计信息
+     * total统计信息
      */
     private void addStatisticsData(Integer index, String text, Excel entity)
     {
@@ -1160,7 +1160,7 @@ public class ExcelUtil<T>
             Set<Integer> keys = statistics.keySet();
             Cell cell = row.createCell(0);
             cell.setCellStyle(styles.get("total"));
-            cell.setCellValue("合计");
+            cell.setCellValue("total");
 
             for (Integer key : keys)
             {
@@ -1494,7 +1494,7 @@ public class ExcelUtil<T>
         }
         catch (Exception e)
         {
-            log.error("获取对象异常{}", e.getMessage());
+            log.error("Get object exception {}", e.getMessage());
         }
         return method;
     }

@@ -17,7 +17,7 @@ public class RuoYiAuthApplication
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiAuthApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  认证授权中心启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ The certification and authorization center was started successfully ლ(´ڡ`ლ)ﾞ \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

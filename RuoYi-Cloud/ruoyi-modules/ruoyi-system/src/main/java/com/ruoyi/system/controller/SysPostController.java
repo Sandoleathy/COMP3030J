@@ -47,14 +47,14 @@ public class SysPostController extends BaseController
         return getDataTable(list);
     }
 
-    @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
+    @Log(title = "Position management", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:post:export")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysPost post)
     {
         List<SysPost> list = postService.selectPostList(post);
         ExcelUtil<SysPost> util = new ExcelUtil<SysPost>(SysPost.class);
-        util.exportExcel(response, list, "岗位数据");
+        util.exportExcel(response, list, "Job data");
     }
 
     /**
@@ -71,17 +71,17 @@ public class SysPostController extends BaseController
      * 新增岗位
      */
     @RequiresPermissions("system:post:add")
-    @Log(title = "岗位管理", businessType = BusinessType.INSERT)
+    @Log(title = "Position management", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysPost post)
     {
         if (!postService.checkPostNameUnique(post))
         {
-            return error("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
+            return error("New positions'" + post.getPostName() + "'Failed, the position name already exists");
         }
         else if (!postService.checkPostCodeUnique(post))
         {
-            return error("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
+            return error("New positions'" + post.getPostName() + "'Failed, the position code already exists");
         }
         post.setCreateBy(SecurityUtils.getUsername());
         return toAjax(postService.insertPost(post));
@@ -91,17 +91,17 @@ public class SysPostController extends BaseController
      * 修改岗位
      */
     @RequiresPermissions("system:post:edit")
-    @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
+    @Log(title = "Position management", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysPost post)
     {
         if (!postService.checkPostNameUnique(post))
         {
-            return error("修改岗位'" + post.getPostName() + "'失败，岗位名称已存在");
+            return error("Modify position'" + post.getPostName() + "'Failed, the position name already exists");
         }
         else if (!postService.checkPostCodeUnique(post))
         {
-            return error("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
+            return error("Modify position'" + post.getPostName() + "'Failed, the position code already exists");
         }
         post.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(postService.updatePost(post));
@@ -111,7 +111,7 @@ public class SysPostController extends BaseController
      * 删除岗位
      */
     @RequiresPermissions("system:post:remove")
-    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
+    @Log(title = "Position management", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
     public AjaxResult remove(@PathVariable Long[] postIds)
     {

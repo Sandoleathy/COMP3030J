@@ -6,8 +6,13 @@
                 <el-dropdown-item :disabled="language === 'en'" command="en">English</el-dropdown-item>
             </el-dropdown-menu>
         </template>
-        <div>
-            <router-link   to>Language/语言</router-link>
+        <div >
+            <router-link   to class="international1">
+              Language/语言
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </router-link>
         </div>
     </el-dropdown>
 </template>
@@ -17,27 +22,32 @@ import  useAppStore  from '@/store/modules/app.js';
 import { ElMessage } from 'element-plus';
 import { changeLanguage } from "@/api/login";
 import SvgIcon from '@/components/SvgIcon'; // 确保你有这个组件或相应地调整
+import Cookies from 'js-cookie';
+import {ArrowDown} from "@element-plus/icons-vue";
 
 const { t } = useI18n();
 const appStore = useAppStore();
 const language = computed(() => appStore.language);
 
-ElMessage({ message: t('settings.languageSuccess'), type: 'success' });
+if(Cookies.get("showChangeMessage")){
+    ElMessage({ message: t('settings.languageSuccess'), type: 'success' });
+    Cookies.remove("showChangeMessage")
+}
+
 
 const handleSetLanguage = async (value) => {
 
 
     appStore.setLanguage(value); // 假设 setLanguage 方法会更新 Pinia 中的状态并处理 Cookie
-
-    try {
-        await changeLanguage(value);
-        window.location.reload();
-
-    } catch (error) {
-        console.error('Error changing language:', error);
-        ElMessage({ message: t('errors.changeLanguageFailed'), type: 'error' });
-    }
-
+    Cookies.set("showChangeMessage",true)
+    window.location.reload();
 }
 </script>
+<style>
+.international1{
+  color: white;
+  vertical-align: center;
+  margin: auto;
+}
+</style>
 

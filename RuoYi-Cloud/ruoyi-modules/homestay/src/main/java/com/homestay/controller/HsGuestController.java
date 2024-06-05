@@ -23,7 +23,7 @@ import com.ruoyi.common.core.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.web.page.TableDataInfo;
 
 /**
- * 民宿客户表Controller
+ * B&B customer formController
  * 
  * @author paru
  * @date 2024-04-09
@@ -36,7 +36,7 @@ public class HsGuestController extends BaseController
     private IHsGuestService hsGuestService;
 
     /**
-     * 查询民宿客户表列表
+     * 查询B&B customer form列表
      */
     @RequiresPermissions("homestay:guest:list")
     @GetMapping("/list")
@@ -48,20 +48,20 @@ public class HsGuestController extends BaseController
     }
 
     /**
-     * 导出民宿客户表列表
+     * 导出B&B customer form列表
      */
     @RequiresPermissions("homestay:guest:export")
-    @Log(title = "民宿客户表", businessType = BusinessType.EXPORT)
+    @Log(title = "B&B customer form", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsGuest hsGuest)
     {
         List<HsGuest> list = hsGuestService.selectHsGuestList(hsGuest);
         ExcelUtil<HsGuest> util = new ExcelUtil<HsGuest>(HsGuest.class);
-        util.exportExcel(response, list, "民宿客户表数据");
+        util.exportExcel(response, list, "B&B customer form数据");
     }
 
     /**
-     * 获取民宿客户表详细信息
+     * 获取B&B customer form详细信息
      */
     @RequiresPermissions("homestay:guest:query")
     @GetMapping(value = "/{id}")
@@ -71,7 +71,7 @@ public class HsGuestController extends BaseController
     }
 
     /**
-     * 根据预订ID查询民宿客户表列表
+     * 根据预订ID查询B&B customer form列表
      */
     @RequiresPermissions("homestay:guest:queryByReservationId")
     @GetMapping(value = "/queryByReservationId/{reservationId}")
@@ -91,10 +91,10 @@ public class HsGuestController extends BaseController
     }
 
     /**
-     * 新增民宿客户表
+     * 新增B&B customer form
      */
     @RequiresPermissions("homestay:guest:add")
-    @Log(title = "民宿客户表", businessType = BusinessType.INSERT)
+    @Log(title = "B&B customer form", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody HsGuest hsGuest)
     {
@@ -102,10 +102,10 @@ public class HsGuestController extends BaseController
     }
 
     /**
-     * 修改民宿客户表
+     * 修改B&B customer form
      */
     @RequiresPermissions("homestay:guest:edit")
-    @Log(title = "民宿客户表", businessType = BusinessType.UPDATE)
+    @Log(title = "B&B customer form", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsGuest hsGuest)
     {
@@ -113,10 +113,10 @@ public class HsGuestController extends BaseController
     }
 
     /**
-     * 删除民宿客户表
+     * 删除B&B customer form
      */
     @RequiresPermissions("homestay:guest:remove")
-    @Log(title = "民宿客户表", businessType = BusinessType.DELETE)
+    @Log(title = "B&B customer form", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

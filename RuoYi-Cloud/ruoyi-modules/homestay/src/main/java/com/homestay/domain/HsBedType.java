@@ -18,20 +18,20 @@ public class HsBedType extends BaseEntity
     /** id */
     private Long id;
 
-    /** 床名称 */
-    @Excel(name = "床名称")
+    /** bed name */
+    @Excel(name = "bed name")
     private String bedName;
 
-    /** 最大人数 */
-    @Excel(name = "最大人数")
+    /** maximum number of people */
+    @Excel(name = "maximum number of people")
     private Long maxPeople;
 
-    /** 宽 */
-    @Excel(name = "宽")
+    /** Width */
+    @Excel(name = "Width")
     private Long width;
 
-    /** 长 */
-    @Excel(name = "长")
+    /** long */
+    @Excel(name = "long")
     private Long length;
 
     public void setId(Long id) 

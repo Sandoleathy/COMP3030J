@@ -20,7 +20,7 @@ public class RuoYiSystemApplication
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiSystemApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  系统模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ The system module started successfully ლ(´ڡ`ლ)ﾞ \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

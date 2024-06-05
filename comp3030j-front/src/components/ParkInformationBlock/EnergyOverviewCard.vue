@@ -44,7 +44,7 @@
     </div>
 </template>
 <script setup>
-import axios from 'axios'
+import axios from '@/axios'
 import { ref, onMounted } from 'vue'
 import energyChart from '../Charts/EnergyOverviewChart.vue'
 import { ElMessage } from "element-plus";

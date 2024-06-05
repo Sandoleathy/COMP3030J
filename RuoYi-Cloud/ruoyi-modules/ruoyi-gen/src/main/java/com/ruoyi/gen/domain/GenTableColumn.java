@@ -33,7 +33,7 @@ public class GenTableColumn extends BaseEntity
     private String javaType;
 
     /** JAVA字段名 */
-    @NotBlank(message = "Java属性不能为空")
+    @NotBlank(message = "Java properties cannot be empty")
     private String javaField;
 
     /** 是否主键（1是） */

@@ -15,7 +15,7 @@ public class RuoYiGatewayApplication
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiGatewayApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  若依网关启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ Ruoyi gateway started successfully ლ(´ڡ`ლ)ﾞ \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

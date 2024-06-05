@@ -16,31 +16,31 @@ public class SysJobLog extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** ID */
-    @Excel(name = "日志序号")
+    @Excel(name = "Log serial number")
     private Long jobLogId;
 
-    /** 任务名称 */
-    @Excel(name = "任务名称")
+    /** mission name */
+    @Excel(name = "mission name")
     private String jobName;
 
-    /** 任务组名 */
-    @Excel(name = "任务组名")
+    /** Task group name */
+    @Excel(name = "Task group name")
     private String jobGroup;
 
-    /** 调用目标字符串 */
-    @Excel(name = "调用目标字符串")
+    /** call target string */
+    @Excel(name = "call target string")
     private String invokeTarget;
 
-    /** 日志信息 */
-    @Excel(name = "日志信息")
+    /** Log information */
+    @Excel(name = "Log information")
     private String jobMessage;
 
-    /** 执行状态（0正常 1失败） */
-    @Excel(name = "执行状态", readConverterExp = "0=正常,1=失败")
+    /** Execution status（0正常 1失败） */
+    @Excel(name = "Execution status", readConverterExp = "0=normal, 1=failed")
     private String status;
 
-    /** 异常信息 */
-    @Excel(name = "异常信息")
+    /** Exception information */
+    @Excel(name = "Exception information")
     private String exceptionInfo;
 
     /** 开始时间 */

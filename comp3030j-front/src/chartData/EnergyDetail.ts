@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export interface completeEnergySystemData {
     generatorSpeed: number;
     generatorTorque: number;
@@ -402,7 +400,7 @@ export function connectWebSocket(wsUrl: string): WebSocket {
     };
   
     socket.onmessage = (event) => {
-      //console.log('Message from server:', event.data);
+      console.log('Message from server:', event.data);
       try{
           const parsedData = parseData(event.data);
           if (parsedData) {

@@ -124,7 +124,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
             SysDictType dictType = selectDictTypeById(dictId);
             if (dictDataMapper.countDictDataByType(dictType.getDictType()) > 0)
             {
-                throw new ServiceException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
+                throw new ServiceException(String.format("%1$s has been allocated and cannot be deleted", dictType.getDictName()));
             }
             dictTypeMapper.deleteDictTypeById(dictId);
             DictUtils.removeDictCache(dictType.getDictType());

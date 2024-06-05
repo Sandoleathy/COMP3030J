@@ -32,7 +32,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import axios from 'axios';
+import axios from '@/axios';
 import { ElTable, ElTableColumn } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();

@@ -18,16 +18,16 @@ public class HsBedImage extends BaseEntity
     /** id */
     private Long id;
 
-    /** 图片描述 */
-    @Excel(name = "图片描述")
+    /** image description */
+    @Excel(name = "image description")
     private String imageDesc;
 
-    /** base64图片 */
-    @Excel(name = "base64图片")
+    /** base64 pictures */
+    @Excel(name = "base64 pictures")
     private String imageData;
 
-    /** 床类型id */
-    @Excel(name = "床类型id")
+    /** bed type id */
+    @Excel(name = "bed type id")
     private Long bedId;
 
     public void setId(Long id) 

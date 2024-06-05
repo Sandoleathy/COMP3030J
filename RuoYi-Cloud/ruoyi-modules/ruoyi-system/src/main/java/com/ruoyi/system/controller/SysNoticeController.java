@@ -34,7 +34,7 @@ public class SysNoticeController extends BaseController
     private ISysNoticeService noticeService;
 
     /**
-     * 获取通知公告列表
+     * 获取announcement列表
      */
     @RequiresPermissions("system:notice:list")
     @GetMapping("/list")
@@ -46,7 +46,7 @@ public class SysNoticeController extends BaseController
     }
 
     /**
-     * 根据通知公告编号获取详细信息
+     * 根据announcement编号获取详细信息
      */
     @RequiresPermissions("system:notice:query")
     @GetMapping(value = "/{noticeId}")
@@ -56,10 +56,10 @@ public class SysNoticeController extends BaseController
     }
 
     /**
-     * 新增通知公告
+     * 新增announcement
      */
     @RequiresPermissions("system:notice:add")
-    @Log(title = "通知公告", businessType = BusinessType.INSERT)
+    @Log(title = "announcement", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysNotice notice)
     {
@@ -68,10 +68,10 @@ public class SysNoticeController extends BaseController
     }
 
     /**
-     * 修改通知公告
+     * 修改announcement
      */
     @RequiresPermissions("system:notice:edit")
-    @Log(title = "通知公告", businessType = BusinessType.UPDATE)
+    @Log(title = "announcement", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysNotice notice)
     {
@@ -80,10 +80,10 @@ public class SysNoticeController extends BaseController
     }
 
     /**
-     * 删除通知公告
+     * 删除announcement
      */
     @RequiresPermissions("system:notice:remove")
-    @Log(title = "通知公告", businessType = BusinessType.DELETE)
+    @Log(title = "announcement", businessType = BusinessType.DELETE)
     @DeleteMapping("/{noticeIds}")
     public AjaxResult remove(@PathVariable Long[] noticeIds)
     {

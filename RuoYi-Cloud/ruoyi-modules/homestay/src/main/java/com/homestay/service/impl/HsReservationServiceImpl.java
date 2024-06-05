@@ -137,7 +137,7 @@ public class HsReservationServiceImpl implements IHsReservationService {
         if (hsReservation != null) {
             HsFinance hsFinance = new HsFinance();
             hsFinance.setTime(hsReservation.getReservationTime());
-            hsFinance.setType("收入");
+            hsFinance.setType("income");
             hsFinance.setNum(new BigDecimal(hsReservation.getTotalPrice()));
             hsFinance.setDescription(description);
             hsFinanceMapper.insertHsFinance(hsFinance);

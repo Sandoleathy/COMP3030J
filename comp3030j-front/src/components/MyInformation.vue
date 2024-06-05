@@ -10,7 +10,7 @@
 
           <el-row>
             <el-col :span="24">
-              <el-form-item :label="t('myInformation.account')">
+              <el-form-item :label="t('myInformation.account')" label-width="150px">
                 <template v-if="!isEditing">
                   <p>{{ userName }}</p>
                 </template>
@@ -32,7 +32,7 @@
 
           <el-row>
             <el-col :span="24">
-              <el-form-item :label="t('myInformation.phoneNumber')">
+              <el-form-item :label="t('myInformation.phoneNumber')" label-width="150px">
                 <template v-if="!isEditing">
                   <p>{{ phoneNumber }}</p>
                 </template>
@@ -75,6 +75,9 @@
                 <el-button v-if="!isEditing" type="primary" @click="isEditing = true">
                   <el-icon><Edit /></el-icon> Edit
                 </el-button>
+                <el-button v-if="!isEditing" type="danger" @click="isLoggingOut = true">
+                  {{ t('myInformation.logout') }}
+                </el-button>
                 <el-button v-if="isEditing" type="success" @click="saveChanges">
                   <el-icon><Check /></el-icon> Save
                 </el-button>
@@ -94,6 +97,9 @@
           </div>
         </el-col>
       </el-row>
+
+
+      <!--弹窗-->
       <el-dialog title="Upload File" v-model="isUploadDialogVisible">
         <el-upload
             action="/api/system/user/profile/avatar"
@@ -122,16 +128,31 @@
       </el-dialog>
     </el-form>
   </el-card>
+  <el-dialog v-model="isLoggingOut" :title="t('myInformation.logout')">
+    <span>{{t("myInformation.logoutTips")}}</span>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="isLoggingOut = false">Cancel</el-button>
+        <el-button type="danger" @click="logout">
+          Confirm
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import axios from "axios";
+import axios from "@/axios/index.js";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 import { genFileId } from 'element-plus'
 import { UploadFilled } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
+
+const isLoggingOut = ref(false)
+const router = useRouter();
 
 let phoneNumber = ref('');
 let email = ref('');
@@ -203,6 +224,13 @@ const beforeUpload = (file:any) => {
 
   // 返回 false 阻止默认的上传行为
   return false;
+}
+
+const logout = () => {
+  sessionStorage.removeItem("token")
+  sessionStorage.removeItem("username")
+  router.push({ name: 'login' })
+  isLoggingOut.value = false
 }
 
 const getMyInfo = async () => {
@@ -278,9 +306,6 @@ const cancelChanges = () => {
     isEditing.value = false;
 };
 
-const uploadClick = () => {
-  isUploadDialogVisible.value = true;
-}
 </script>
 
 <style scoped>

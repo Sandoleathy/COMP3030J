@@ -50,18 +50,18 @@ public class SysDictDataController extends BaseController
         return getDataTable(list);
     }
 
-    @Log(title = "字典数据", businessType = BusinessType.EXPORT)
+    @Log(title = "dictionary data", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:dict:export")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysDictData dictData)
     {
         List<SysDictData> list = dictDataService.selectDictDataList(dictData);
         ExcelUtil<SysDictData> util = new ExcelUtil<SysDictData>(SysDictData.class);
-        util.exportExcel(response, list, "字典数据");
+        util.exportExcel(response, list, "dictionary data");
     }
 
     /**
-     * 查询字典数据详细
+     * 查询dictionary data详细
      */
     @RequiresPermissions("system:dict:query")
     @GetMapping(value = "/{dictCode}")
@@ -71,7 +71,7 @@ public class SysDictDataController extends BaseController
     }
 
     /**
-     * 根据字典类型查询字典数据信息
+     * 根据dictionary type查询dictionary data信息
      */
     @GetMapping(value = "/type/{dictType}")
     public AjaxResult dictType(@PathVariable String dictType)
@@ -85,10 +85,10 @@ public class SysDictDataController extends BaseController
     }
 
     /**
-     * 新增字典类型
+     * 新增dictionary type
      */
     @RequiresPermissions("system:dict:add")
-    @Log(title = "字典数据", businessType = BusinessType.INSERT)
+    @Log(title = "dictionary data", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDictData dict)
     {
@@ -97,10 +97,10 @@ public class SysDictDataController extends BaseController
     }
 
     /**
-     * 修改保存字典类型
+     * 修改保存dictionary type
      */
     @RequiresPermissions("system:dict:edit")
-    @Log(title = "字典数据", businessType = BusinessType.UPDATE)
+    @Log(title = "dictionary data", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDictData dict)
     {
@@ -109,10 +109,10 @@ public class SysDictDataController extends BaseController
     }
 
     /**
-     * 删除字典类型
+     * 删除dictionary type
      */
     @RequiresPermissions("system:dict:remove")
-    @Log(title = "字典类型", businessType = BusinessType.DELETE)
+    @Log(title = "dictionary type", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictCodes}")
     public AjaxResult remove(@PathVariable Long[] dictCodes)
     {

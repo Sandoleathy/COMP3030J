@@ -18,16 +18,16 @@ public class HsStaff extends BaseEntity
     /** id */
     private Long id;
 
-    /** 用户表主键 */
-    @Excel(name = "用户表主键")
+    /** User table primary key */
+    @Excel(name = "User table primary key")
     private Long userId;
 
-    /** 工资 */
-    @Excel(name = "工资")
+    /** salary */
+    @Excel(name = "salary")
     private Long salary;
 
-    /** 考勤 */
-    @Excel(name = "考勤")
+    /** Attendance */
+    @Excel(name = "Attendance")
     private Integer attendance;
 
     public void setId(Long id) 

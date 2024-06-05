@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * 订单客户联合Controller
+ * Order customer unionController
  *
  * @author paru
  * @date 2024-04-10
@@ -43,12 +43,12 @@ public class HsRrController extends BaseController {
      * 导出订单房间联合列表
      */
     @RequiresPermissions("homestay:rr:export")
-    @Log(title = "订单客户联合", businessType = BusinessType.EXPORT)
+    @Log(title = "Order customer union", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, HsRr hsRr) {
         List<HsRrDTO> list = hsRrService.selectHsRrList(hsRr);
         ExcelUtil<HsRrDTO> util = new ExcelUtil<HsRrDTO>(HsRrDTO.class);
-        util.exportExcel(response, list, "订单客户联合数据");
+        util.exportExcel(response, list, "Order customer union数据");
     }
 
     /**
@@ -83,7 +83,7 @@ public class HsRrController extends BaseController {
      * 新增订单房间联合
      */
     @RequiresPermissions("homestay:rr:add")
-    @Log(title = "订单客户联合", businessType = BusinessType.INSERT)
+    @Log(title = "Order customer union", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody HsRr hsRr) {
         return toAjax(hsRrService.insertHsRr(hsRr));
@@ -93,7 +93,7 @@ public class HsRrController extends BaseController {
      * 修改订单房间联合
      */
     @RequiresPermissions("homestay:rr:edit")
-    @Log(title = "订单客户联合", businessType = BusinessType.UPDATE)
+    @Log(title = "Order customer union", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody HsRr hsRr) {
         return toAjax(hsRrService.updateHsRr(hsRr));
@@ -103,7 +103,7 @@ public class HsRrController extends BaseController {
      * 删除订单房间联合
      */
     @RequiresPermissions("homestay:rr:remove")
-    @Log(title = "订单客户联合", businessType = BusinessType.DELETE)
+    @Log(title = "Order customer union", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(hsRrService.deleteHsRrByIds(ids));

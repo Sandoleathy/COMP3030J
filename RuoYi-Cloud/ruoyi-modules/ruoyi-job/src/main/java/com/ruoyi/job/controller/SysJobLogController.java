@@ -20,7 +20,7 @@ import com.ruoyi.job.domain.SysJobLog;
 import com.ruoyi.job.service.ISysJobLogService;
 
 /**
- * 调度日志操作处理
+ * Scheduling log操作处理
  * 
  * @author ruoyi
  */
@@ -32,7 +32,7 @@ public class SysJobLogController extends BaseController
     private ISysJobLogService jobLogService;
 
     /**
-     * 查询定时任务调度日志列表
+     * 查询定时Task scheduling log列表
      */
     @RequiresPermissions("monitor:job:list")
     @GetMapping("/list")
@@ -44,16 +44,16 @@ public class SysJobLogController extends BaseController
     }
 
     /**
-     * 导出定时任务调度日志列表
+     * 导出定时Task scheduling log列表
      */
     @RequiresPermissions("monitor:job:export")
-    @Log(title = "任务调度日志", businessType = BusinessType.EXPORT)
+    @Log(title = "Task scheduling log", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysJobLog sysJobLog)
     {
         List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
         ExcelUtil<SysJobLog> util = new ExcelUtil<SysJobLog>(SysJobLog.class);
-        util.exportExcel(response, list, "调度日志");
+        util.exportExcel(response, list, "Scheduling log");
     }
 
     /**
@@ -67,10 +67,10 @@ public class SysJobLogController extends BaseController
     }
 
     /**
-     * 删除定时任务调度日志
+     * 删除定时Task scheduling log
      */
     @RequiresPermissions("monitor:job:remove")
-    @Log(title = "定时任务调度日志", businessType = BusinessType.DELETE)
+    @Log(title = "定时Task scheduling log", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
     public AjaxResult remove(@PathVariable Long[] jobLogIds)
     {
@@ -78,10 +78,10 @@ public class SysJobLogController extends BaseController
     }
 
     /**
-     * 清空定时任务调度日志
+     * 清空定时Task scheduling log
      */
     @RequiresPermissions("monitor:job:remove")
-    @Log(title = "调度日志", businessType = BusinessType.CLEAN)
+    @Log(title = "Scheduling log", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public AjaxResult clean()
     {

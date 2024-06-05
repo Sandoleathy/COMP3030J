@@ -36,7 +36,7 @@
 <script setup>
 import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
-import axios from 'axios';
+import axios from '@/axios';
 import { useRouter } from 'vue-router';
 import {Loading} from "@element-plus/icons-vue";
 import {setToken} from "@/utils/auth.js";
@@ -64,7 +64,7 @@ const handleLogin = async () => {
             password: password.value  
         });
         const data = response.data;
-        console.log(data)
+        //console.log(data)
         if(data.code == 200){
             ElMessage.success(t('login.success'))
             //登陆成功,进行后续处理
@@ -80,6 +80,7 @@ const handleLogin = async () => {
                 router.push('/')
             }
         }else{
+            isLoading.value = false
             ElMessage.error(data.msg)
         }
     } catch (error) {

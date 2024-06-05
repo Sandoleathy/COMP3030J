@@ -65,7 +65,7 @@
     </el-container>
 </template>
 <script setup>
-import axios from 'axios'
+import axios from '@/axios'
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElRow, ElCol, ElDivider } from 'element-plus';
 import arrow from '../Arrow.vue'

@@ -1,6 +1,11 @@
 <template>
     <div class="navigation_bar" :style="{ backgroundColor: barColor }">
+
         <el-row justify="end">
+            <el-col :span="3" style="text-align: right; margin-top: 10px;">
+              <lang-select></lang-select>
+            </el-col>
+
             <el-col v-if="!isLogin" :span="3" style="text-align: right; margin-top: 10px;">
                 <div style="cursor:default;">
                     <span class="clickable" @click="goToLoginPage">{{ t('loginBar.signIn') }}</span> | <span class="clickable" @click="SignUp">{{ t('loginBar.signUp') }}</span>
@@ -48,7 +53,8 @@ import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue'
 import { ElAvatar, ElText, ElDropdownMenu, ElDropdown, ElDropdownItem, ElMessage } from 'element-plus';
 import { ArrowDown } from '@element-plus/icons-vue'
-import axios from 'axios'
+import axios from '@/axios'
+import LangSelect from '@/components/LangSelect'
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const props= defineProps({

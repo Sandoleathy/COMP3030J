@@ -30,9 +30,9 @@
 import { ref } from 'vue';
 import { ElForm, ElFormItem, ElInput, ElButton, ElContainer, ElMessage, ElIcon } from 'element-plus';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
+import axios from '@/axios';
 
 const router = useRouter();
 

@@ -18,24 +18,24 @@ public class HsRoom extends BaseEntity
     /** id */
     private Long id;
 
-    /** 房间类型 */
-    @Excel(name = "房间类型")
+    /** Room type */
+    @Excel(name = "Room type")
     private String roomType;
 
-    /** 房间号 */
-    @Excel(name = "房间号")
+    /** room number */
+    @Excel(name = "room number")
     private Long roomNumber;
 
-    /** 栋类型 */
-    @Excel(name = "栋类型")
+    /** Building type */
+    @Excel(name = "Building type")
     private Long buildingType;
 
-    /** 床类型 */
-    @Excel(name = "床类型")
+    /** bed type */
+    @Excel(name = "bed type")
     private Long bedType;
 
-    /** 价格 */
-    @Excel(name = "价格")
+    /** price */
+    @Excel(name = "price")
     private Long roomPrice;
 
     public void setId(Long id) 

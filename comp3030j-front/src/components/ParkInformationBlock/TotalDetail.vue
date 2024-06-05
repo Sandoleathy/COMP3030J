@@ -1,6 +1,6 @@
 <script setup>
 import {Chart,registerables} from 'chart.js'
-import axios from 'axios'
+import axios from '@/axios'
 import { ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 

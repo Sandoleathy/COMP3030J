@@ -65,7 +65,7 @@ public class SysPasswordService
 
         if (retryCount >= Integer.valueOf(maxRetryCount).intValue())
         {
-            String errMsg = String.format("密码输入错误%s次，帐户锁定%s分钟", maxRetryCount, lockTime);
+            String errMsg = String.format("Password entered incorrectly %s times, account locked for %s minutes", maxRetryCount, lockTime);
             recordLogService.recordLogininfor(username, Constants.LOGIN_FAIL,errMsg);
             throw new ServiceException(errMsg);
         }
@@ -73,11 +73,11 @@ public class SysPasswordService
         if (!matches(user, password))
         {
             retryCount = retryCount + 1;
-            recordLogService.recordLogininfor(username, Constants.LOGIN_FAIL, String.format("密码输入错误%s次", retryCount));
+            recordLogService.recordLogininfor(username, Constants.LOGIN_FAIL, String.format("Password entered incorrectly %s times", retryCount));
             redisService.setCacheObject(getCacheKey(username), retryCount, lockTime, TimeUnit.MINUTES);
             //将IP计入错误输入名单
             recordFailLoginIp();
-            throw new ServiceException("用户不存在/密码错误");
+            throw new ServiceException("User does not exist/password is incorrect");
         }
         else
         {

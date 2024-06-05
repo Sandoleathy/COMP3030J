@@ -20,7 +20,7 @@ public class RuoYiGenApplication
     public static void main(String[] args)
     {
         SpringApplication.run(RuoYiGenApplication.class, args);
-        System.out.println("(♥◠‿◠)ﾉﾞ  代码生成模块启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+        System.out.println("(♥◠‿◠)ﾉﾞ The code generation module started successfully ლ(´ڡ`ლ)ﾞ \n" +
                 " .-------.       ____     __        \n" +
                 " |  _ _   \\      \\   \\   /  /    \n" +
                 " | ( ' )  |       \\  _. /  '       \n" +

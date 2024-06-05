@@ -6,7 +6,7 @@ import com.ruoyi.common.core.annotation.Excel;
 import com.ruoyi.common.core.web.domain.BaseEntity;
 
 /**
- * 民宿栋类型对象 hs_building_type
+ * 民宿Building type对象 hs_building_type
  * 
  * @author paru
  * @date 2024-04-09
@@ -18,28 +18,28 @@ public class HsBuildingType extends BaseEntity
     /** id */
     private Long id;
 
-    /** 栋类型 */
-    @Excel(name = "栋类型")
+    /** Building type */
+    @Excel(name = "Building type")
     private String buildingType;
 
-    /** 是否提供早餐 */
-    @Excel(name = "是否提供早餐")
+    /** Is breakfast provided? */
+    @Excel(name = "Is breakfast provided?")
     private Integer breakfast;
 
-    /** 是否允许抽烟 */
-    @Excel(name = "是否允许抽烟")
+    /** Is smoking allowed? */
+    @Excel(name = "Is smoking allowed?")
     private Integer allowSmoking;
 
-    /** 是否有浴缸 */
-    @Excel(name = "是否有浴缸")
+    /** Is there a bathtub */
+    @Excel(name = "Is there a bathtub")
     private Integer bathtub;
 
-    /** 是否有淋浴设施 */
-    @Excel(name = "是否有淋浴设施")
+    /** Are there shower facilities? */
+    @Excel(name = "Are there shower facilities?")
     private Integer bathroomAmenities;
 
-    /** 面积 */
-    @Excel(name = "面积")
+    /** area */
+    @Excel(name = "area")
     private Integer area;
 
     public void setId(Long id) 

@@ -37,7 +37,7 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler
 
         if (ex instanceof NotFoundException)
         {
-            msg = "服务未找到";
+            msg = "Service not found";
         }
         else if (ex instanceof ResponseStatusException)
         {
@@ -46,10 +46,10 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler
         }
         else
         {
-            msg = "内部服务器错误";
+            msg = "Internal Server Error";
         }
 
-        log.error("[网关异常处理]请求路径:{},异常信息:{}", exchange.getRequest().getPath(), ex.getMessage());
+        log.error("[Gateway Exception Handling] Request path: {}, exception information: {}", exchange.getRequest().getPath(), ex.getMessage());
 
         return ServletUtils.webFluxResponseWriter(response, msg);
     }

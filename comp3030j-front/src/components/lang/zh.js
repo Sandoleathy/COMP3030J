@@ -7,7 +7,7 @@ export default {
         password: '密码',
         code: '验证码',
         rememberMe: '记住密码',
-        register:'注册'
+        register: '注册'
     },
     tagsView: {
         refresh: '刷新',
@@ -162,7 +162,9 @@ export default {
         sex:'性别',
         female:'女',
         male:'男',
-        unknown:'未知'
+        unknown:'未知',
+        logout: '注销账号',
+        logoutTips: '确认注销账号？'
     },
     mySidebar:{
         home:'主页',
@@ -246,6 +248,9 @@ export default {
         time:'最后降水时间:',
         amount:'最近降水量:',
         source:'警告来源:',
-        details:'警告信息:'
+        details:'警告信息:',
+        noWarning: "没有天气预警",
+        updateTimeText: "更新时间：",
+        WarningTitle: "气象灾害预警"
     }
 }

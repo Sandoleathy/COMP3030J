@@ -20,7 +20,7 @@
     </div>
 </template>
 <script setup>
-import axios from 'axios';
+import axios from '@/axios';
 import { onMounted, ref } from 'vue';
 import { ElButton, ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
