@@ -13,10 +13,7 @@
                                 <el-tab-pane :label="t('dataDetail.weather')" name='2'></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.hotel')" name='3'></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.user')" name="4"></el-tab-pane>
-                                <el-tab-pane :label="t('dataDetail.config')" name="config"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.dept')" name="dept"></el-tab-pane>
-                                <el-tab-pane :label="t('dataDetail.dict')" name="dict"></el-tab-pane>
-                                <el-tab-pane :label="t('dataDetail.menu')" name="menu"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.notice')" name="notice"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.post')" name="post"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.role')" name="role"></el-tab-pane>
@@ -58,17 +55,8 @@
                         <div v-if="pageNum ==='4'">
                             <userIndex></userIndex>
                         </div>
-                        <div v-if="pageNum === 'config'">
-                            <system-config></system-config>
-                        </div>
                         <div v-if="pageNum === 'dept'">
                             <system-dept></system-dept>
-                        </div>
-                        <div v-if="pageNum === 'dict'">
-                            <system-dict></system-dict>
-                        </div>
-                        <div v-if="pageNum === 'menu'">
-                            <system-menu></system-menu>
                         </div>
                         <div v-if="pageNum === 'notice'">
                             <system-notice></system-notice>
@@ -98,10 +86,7 @@ import tempretureCard from '../components/Charts/TemperatureCard.vue';
 import warningCard from '../components/Charts/WarningCard.vue';
 import hotelInfo from '../components/HotelManagement/HotelInfo.vue';
 import userIndex from '../components/user/index.vue'
-import systemConfig from '@/components/system/config/index.vue';
 import systemDept from '@/components/system/dept/index.vue';
-import systemDict from '@/components/system/dict/index.vue';
-import systemMenu from '@/components/system/menu/index.vue';
 import systemNotice from '@/components/system/notice/index.vue';
 import systemPost from '@/components/system/post/index.vue';
 import systemRole from '@/components/system/role/index.vue';
