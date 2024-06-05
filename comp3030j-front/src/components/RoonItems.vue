@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { computed, defineProps, ref, watchEffect, reactive } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
@@ -171,6 +171,10 @@ const confirmReservation = async () => {
         console.error('添加预订失败:', error);
     }
 };
+
+const getImages = () => {
+  
+}
 
 getMyInfo();
 </script>
