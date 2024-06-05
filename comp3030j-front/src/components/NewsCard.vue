@@ -9,7 +9,7 @@ import {ElMessage} from "element-plus";
 onMounted( () => {
   getNews()
 })
-const isLoading = ref(false)
+const isLoading = ref(true)
 
 const activeNum = ref(0)
 
@@ -22,7 +22,7 @@ const getNews = () => {
     noticeList.value = response.rows;
     noticeList.value = noticeList.value.reverse()
     total.value = response.total;
-    console.log(noticeList.value)
+    // console.log(noticeList.value)
     isLoading.value = false;
   }).catch(error => {
     ElMessage.error("Error fetching news")
@@ -44,11 +44,9 @@ const handlePageChange = (page) => {
 
 <template>
   <h1 class="minsu-head" style="margin-top: 60px">{{ t('firstPage.news') }}</h1>
-
-  <div class="news-container" v-if="total !== 0">
+  <div class="news-container">
+    <el-skeleton :rows="5" animated v-if="isLoading"></el-skeleton>
     <el-card class="fixed-height-card">
-      <el-skeleton :rows="5" animated v-if="isLoading">
-      </el-skeleton>
       <div class="card-content" v-if="!isLoading">
         <el-collapse v-model="activeNum">
           <el-collapse-item :name="news.noticeId" v-for="news in paginatedNoticeList">

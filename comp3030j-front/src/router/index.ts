@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, type NavigationGuardNext } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import axios from '@/axios'
+import axios from 'axios'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -146,7 +146,7 @@ async function checkProfile(next: NavigationGuardNext , targetPath: string) {
       ElMessage.warning("You have not logged in. Please login first");
       next('/login');
     }else{
-      console.log('gogogo');
+      // console.log('gogogo');
       next(targetPath)
     }
   } catch (error) {

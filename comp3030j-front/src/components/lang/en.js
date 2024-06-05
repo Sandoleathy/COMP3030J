@@ -218,7 +218,14 @@ export default {
 
     },
     error:{
-        error:'Error'
+        error:'Error',
+        errorTipsTitle: 'Sorry, there\'s been a problem',
+        errorReasonTip: 'Problems can be caused by:',
+        errorReason1: 'The server is faulty',
+        errorReason2: 'Your account has been suspended',
+        errorReason3: 'The network is not connected',
+        errorLinkTip: 'You can try clicking on the following link to go to the home page:',
+        errorLink: 'Back to Home page'
     },
     employeeView:{
         reservation:'Reservation',
