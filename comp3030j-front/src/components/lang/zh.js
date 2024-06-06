@@ -259,6 +259,7 @@ export default {
         noWarning: "没有天气预警",
         updateTimeText: "更新时间：",
         WarningTitle: "气象灾害预警",
-        sendWarning: '发布气象灾害预警'
+        sendWarning: '发布气象灾害预警',
+        sendSuccessful: '灾害预警已发布'
     }
 }

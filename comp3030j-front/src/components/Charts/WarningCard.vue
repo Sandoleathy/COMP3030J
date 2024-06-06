@@ -36,6 +36,7 @@ import axios from '@/axios'
 import { onMounted, ref } from 'vue'
 import {useI18n} from "vue-i18n";
 import { addNotice } from "@/api/system/notice";
+import {ElMessage} from "element-plus";
 const { t } = useI18n();
 
 let location = "117.13,40.29";
@@ -51,8 +52,9 @@ onMounted( () => {
 })
 
 const addWarningNotice = (index) => {
-  const title = warnings[index].title
-  const content = warnings[index].content
+  console.log(warnings.value[0])
+  const title = warnings.value[index].title
+  const content = warnings.value[index].text
   const form = {
     noticeId: undefined,
     noticeTitle: title,
@@ -60,11 +62,12 @@ const addWarningNotice = (index) => {
     noticeContent: content,
     status: "0"
   };
-  /*addNotice(form).then(response => {
+  addNotice(form).then(response => {
     console.log(response.data)
+    ElMessage.success(t('weatherInfo.sendSuccessful'))
   }).catch(error => {
     console.log(error)
-  })*/
+  })
 }
 const getWarningInfo = () => {
     axios.get('https://devapi.qweather.com/v7/warning/now' , {
