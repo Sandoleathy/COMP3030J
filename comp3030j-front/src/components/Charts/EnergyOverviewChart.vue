@@ -18,13 +18,47 @@ export default {
     data() {
         return {
           chart1: Chart,
-          isLoading: false
+          isLoading: false,
+
+          planetChartData: {
+            type: 'pie',
+            data: {
+              labels: ['Wind Turbine', 'Solar Panel', 'Hydraulic Generator'],
+              datasets: [
+                {
+                  label: 'Carbon reduced(kg)',
+                  data: [1,2,3],
+                  borderWidth: 1
+                },
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                  display: false,
+                  grid: {
+                    display: false
+                  }
+                },
+                x: {
+                  display: false,
+                  grid: {
+                    display: false
+                  }
+                }
+              }
+            },
+          }
+
+
         }
     },
     mounted(){
-        GetEnergyData()
+        //GetEnergyData()
         const ctx = document.getElementById("chart")
-        this.chart1 = new Chart(ctx, planetChartData)
+        this.chart1 = new Chart(ctx, this.planetChartData)
         this.updateData()
     },
     methods: {

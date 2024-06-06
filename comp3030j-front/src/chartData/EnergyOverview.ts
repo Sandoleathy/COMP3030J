@@ -1,4 +1,4 @@
-import axios from '@/axios/index.js'
+import axios from 'axios'
 
 export const planetChartData = {
     type: 'pie',
@@ -39,7 +39,7 @@ export function GetEnergyData(){
         headers: {
             'Authorization': 'Bearer ' + token
         }
-    }).then((response) => {
+    }).then((response:any) => {
         console.log(response.data)
         const data = response.data;
         const dataset: number[] = []

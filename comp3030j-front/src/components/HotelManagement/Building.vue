@@ -231,13 +231,13 @@ const submitForm = () => {
           <el-button
               size="small"
               type="text"
-              icon="el-icon-edit"
+              icon="edit"
               @click="handleUpdate(scope.row)"
           >修改</el-button>
           <el-button
               size="small"
               type="text"
-              icon="el-icon-delete"
+              icon="delete"
               @click="handleDelete(scope.row)"
           >删除</el-button>
         </template>
