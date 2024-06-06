@@ -18,7 +18,7 @@ const queryParams = ref({
   bathroomAmenities: null,
   functionalAmenities: null
 })
-const ids = ref([])
+
 const buildingTypeList = ref([])
 const showSearch = ref(true)
 const loading = ref(false)
@@ -50,11 +50,6 @@ const resetQuery = () => {
   this.resetForm("queryForm");
   handleQuery();
 }
-const handleAdd = () => {
-  reset();
-  open.value = true;
-  title.value = "添加民宿栋类型";
-}
 const handleUpdate = (row) => {
   reset();
   const id = row.id || ids.value
@@ -62,26 +57,6 @@ const handleUpdate = (row) => {
     form.value = response.data;
     open.value = true;
     title.value = "修改民宿栋类型";
-  });
-}
-const handleExport = () => {
-  this.download('homestay/buildingType/export', {
-    ...queryParams.value
-  }, `buildingType_${new Date().getTime()}.xlsx`)
-}
-const handleDelete = (row) => {
-  const ids = row.id || this.ids.value;
-  ElMessageBox.confirm(`是否确认删除民宿栋类型编号为"${ids}"的数据项？`, '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  }).then(() => {
-    return delBuildingType(ids);
-  }).then(() => {
-    getList();
-    ElMessage.success('删除成功');
-  }).catch(() => {
-    // 处理取消的情况或其他错误
   });
 }
 const getList = () => {
@@ -175,48 +150,6 @@ const submitForm = () => {
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-            type="primary"
-            plain
-            icon="Plus"
-            size="small"
-            @click="handleAdd"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-            type="success"
-            plain
-            icon="Edit"
-            size="small"
-            :disabled="single"
-            @click="handleUpdate"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-            type="danger"
-            plain
-            icon="Delete"
-            size="small"
-            :disabled="multiple"
-            @click="handleDelete"
-        >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-            type="warning"
-            plain
-            icon="Download"
-            size="small"
-            @click="handleExport"
-        >导出</el-button>
-      </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
-    </el-row>
-
     <el-table v-loading="loading" :data="buildingTypeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
@@ -234,12 +167,6 @@ const submitForm = () => {
               icon="edit"
               @click="handleUpdate(scope.row)"
           >修改</el-button>
-          <el-button
-              size="small"
-              type="text"
-              icon="delete"
-              @click="handleDelete(scope.row)"
-          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>

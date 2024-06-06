@@ -136,6 +136,8 @@ html, body {
     --el-button-hover-border-color: grey;
     --el-button-active-bg-color: #1f1f1f;
     --el-button-active-border-color: #1f1f1f;
+    --el-button-disabled-bg-color: #1f1f1f;
+    --el-button-disabled-border-color: #1f1f1f;
 }
 .login-link {
     color: #1f1f1f; /* Element UI */

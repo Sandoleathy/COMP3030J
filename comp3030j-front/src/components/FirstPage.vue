@@ -167,6 +167,8 @@
     --el-button-border-color: #7b996e;
     --el-button-hover-bg-color: #dce3d8;
     --el-button-hover-border-color: #dce3d8;
+    --el-button-active-bg-color: #596D50;
+    --el-button-active-border-color: #596D50;
 }
 
 .minsu {
