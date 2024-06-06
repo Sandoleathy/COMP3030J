@@ -89,8 +89,8 @@ const getData = () => {
 </script>
 <style scoped>
 .energy-data-table{
-    width: 100%;
-    height:100%;
+    width: 80%;
+    height: 50%;
     text-align: center;
 }
 .energy-chart{
@@ -105,6 +105,10 @@ const getData = () => {
     background: rgba(0, 0, 0, 0); /* 背景颜色 */
     text-align: center;
     margin: 5px auto auto 80px;
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 35vh; /* 可以根据需要调整 */
 }
 
 table {
@@ -120,7 +124,7 @@ caption {
     border-bottom: 2px solid #444;
 }
 th, td {
-    padding: 15px;
+    padding: 10px;
     text-align: center;
 }
 tr:nth-child(odd) {
