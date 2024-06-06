@@ -22,13 +22,6 @@
                 @click="changePage(2)">
               Building
             </el-button>
-            <el-button
-                class="section"
-                :class="{ active: pageNum === 3 }"
-                type="primary"
-                @click="changePage(3)">
-              Employee
-            </el-button>
         </el-header>
         <el-main>
             <div v-if="pageNum=='0'">
@@ -38,18 +31,16 @@
                 <room></room>
             </div>
             <div v-if="pageNum=='2'">
-                <p>buiding</p>
-            </div>
-            <div v-if="pageNum=='3'">
-                <p>emoloyee</p>
+              <building></building>
             </div>
         </el-main>
     </el-container>
 </template>
-  
+
 <script setup>
 import reservation from './Reservation.vue'
 import room from './Room.vue'
+import building from './Building.vue'
 import { ref } from 'vue';
 
 const pageNum = ref(0);
@@ -76,4 +67,3 @@ function changePage(index) {
   --el-button-active-bg-color: rgba(64, 158, 255, 1);
 }
 </style>
-  

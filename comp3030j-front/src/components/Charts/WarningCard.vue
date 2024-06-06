@@ -81,7 +81,7 @@ const getWarningInfo = () => {
         warnings.value = data.warning
         updateTime.value = data.updateTime
         //console.log(data)
-      
+
     }).catch(error => {
         console.log(error)
     })
