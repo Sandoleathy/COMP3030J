@@ -5,6 +5,8 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
+const loading = ref(true)
+
 const router = useRouter();
 const props = defineProps({
     roomData: Object,
@@ -48,6 +50,7 @@ watchEffect(() => {
     roomType.value = props.roomData ? props.roomData.roomType : 'undefined';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
     bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'unknown';
+
     if (props.roomData && props.roomData.buildingType) {
         fetchBuildingTypeData(props.roomData.buildingType);
     }
@@ -85,6 +88,15 @@ watchEffect(() => {
 
 });
 
+const roomtype = computed(() => {
+    if (!props.roomData || !props.roomData.roomType) {
+        return t('roonItems.undefined'); // Make sure to define this key in your i18n files
+    }
+    // Assuming roomType is a predictable, controlled string like "single", "double", "suite"
+    const key = `roonItems.${props.roomData.roomType}`;
+    return t(key);
+});
+
 function getCurrentTime() {
     return new Date().toISOString();
 }
@@ -96,9 +108,11 @@ function fetchBuildingTypeData(buildingTypeId) {
         }
     }).then(response => {
         breakfastIncludes.value = response.data.data.breakfast;
-        smoking.value = response.data.data.allowSmoking === 1 ? "No smoking" : "Smoking allowed";
+        smoking.value = response.data.data.allowSmoking === 1 ? t('roonItems.nonsmoking') : t('roonItems.smoking');
+        loading.value = false;
     }).catch(error => {
         console.error('Failed to obtain building type data:', error);
+        loading.value = false;
     });
 }
 
@@ -124,7 +138,15 @@ function formatDateOnly(dateString) {
 }
 
 const bedtype = computed(() => {
-    return bedType.value === "0" ? "Twin bed" : bedType.value === "1" ? "big bed" : "unknown";
+    if (bedType.value === "5") {
+        return t('roonItems.single_bed');  // Assuming 'roonItems.single_bed' is defined in your localization files
+    } else if (bedType.value === "1") {
+        return t('roonItems.king_size_bed');  // Assuming 'roonItems.king_size_bed' is defined in your localization files
+    } else if (bedType.value === "3") {
+        return t('roonItems.many_king_size_bed');
+    } else {
+        return t('roonItems.unknown');  // Assuming 'roonItems.unknown' is defined in your localization files
+    }
 });
 
 function goToRoomDetails() {
@@ -156,6 +178,7 @@ const getMyInfo = async () => {
 };
 
 const confirmReservation = async () => {
+    loading.value=true;
     console.log('Preparing to send reservation:', form.hsReservation, "Room IDs:", form.roomIds, "User IDs:", form.userIds);
     try {
         const token = sessionStorage.getItem("token");
@@ -169,6 +192,12 @@ const confirmReservation = async () => {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
+        });
+        loading.value=false;
+        ElMessage({
+            message: 'booking succeed',
+            type: 'success',
+            duration: 5000
         });
         console.log('booking succeed:', response.data);
         dialogFormVisible.value = false;
@@ -202,6 +231,37 @@ const getImages = async () => {
   })
 }
 
+const getBuildingTypeIcon = () => {
+    if (props.roomData.buildingType === 3) {
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" style="cursor: pointer; width: 20px; height: 20px; fill: currentColor;"><path fill="currentColor" d="M512 128 128 447.936V896h255.936V640H640v256h255.936V447.936z"></path></svg>`;
+    }else {
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" style="cursor: pointer; width: 20px; height: 20px; fill: currentColor;">
+            <path fill="currentColor" d="M288 320a224 224 0 1 0 448 0 224 224 0 1 0-448 0m544 608H160a32 32 0 0 1-32-32v-96a160 160 0 0 1 160-160h448a160 160 0 0 1 160 160v96a32 32 0 0 1-32 32z"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" style="cursor: pointer; width: 20px; height: 20px; fill: currentColor;">
+            <path fill="currentColor" d="M288 320a224 224 0 1 0 448 0 224 224 0 1 0-448 0m544 608H160a32 32 0 0 1-32-32v-96a160 160 0 0 1 160-160h448a160 160 0 0 1 160 160v96a32 32 0 0 1-32 32z"></path>
+            </svg>`;
+    }
+};
+
+import { ElMessage } from 'element-plus';
+
+const openDialogAndCheckDates = () => {
+    // Check if the dates in gridData are valid
+    const hasInvalidDates = gridData.value.some(item => item.Start_Date === 'none' || item.End_Date === 'none');
+    if (hasInvalidDates) {
+        // Display an error message if dates are invalid
+        ElMessage.error('日期不能为空，请选择日期');
+        // Close the dialog
+        dialogFormVisible.value = false;
+    } else {
+        // Open the dialog if dates are valid
+        dialogFormVisible.value = true;
+    }
+}
+
+
+
 getImages();
 getMyInfo();
 </script>
@@ -209,7 +269,7 @@ getMyInfo();
 
 
 <template>
-    <div class="page-container">
+    <div class="page-container" v-loading="loading" element-loading-background="rgba(122, 122, 122, 0.2)">
         <el-row class="row-container">
             <el-col :span="5" class="column">
                 <img :src="images[0].image" alt="room image" v-if="totalImage !== 0"/>
@@ -220,26 +280,22 @@ getMyInfo();
             </el-col>
             <el-col :span="4" class="column">
                 <div>
-                    <h2>{{roomType}}</h2>
+                    <h2>{{roomtype}}</h2>
                     <h4>{{bedtype}}</h4>
-                    <h4>Area: 34m²</h4>
-                    <h4>With Window</h4>
+
+                    <h4>{{t('roonItems.window')}}</h4>
                     <h4>{{smoking}}</h4>
                 </div>
             </el-col>
             <el-col :span="2" class="column">
                 <div class="icons-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" style="cursor: pointer; width: 20px; height: 20px; fill: currentColor;">
-                        <path fill="currentColor" d="M288 320a224 224 0 1 0 448 0 224 224 0 1 0-448 0m544 608H160a32 32 0 0 1-32-32v-96a160 160 0 0 1 160-160h448a160 160 0 0 1 160 160v96a32 32 0 0 1-32 32z"></path>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" style="cursor: pointer; width: 20px; height: 20px; fill: currentColor;">
-                        <path fill="currentColor" d="M288 320a224 224 0 1 0 448 0 224 224 0 1 0-448 0m544 608H160a32 32 0 0 1-32-32v-96a160 160 0 0 1 160-160h448a160 160 0 0 1 160 160v96a32 32 0 0 1-32 32z"></path>
-                    </svg>
+                    <div v-html="getBuildingTypeIcon()"></div>
+
                 </div>
             </el-col>
 
             <el-col :span="3" class="column">
-                <h3>Includes {{ breakfastIncludes }} {{ t('roonItems.breakfast') }}</h3>
+                <h3>{{t('roonItems.include')}} {{ breakfastIncludes }} {{ t('roonItems.breakfast') }}</h3>
             </el-col>
             <el-col :span="4" class="column">
                 <h3>{{ t('roonItems.free') }}</h3>
@@ -247,7 +303,7 @@ getMyInfo();
             <el-col :span="6" class="column">
                 <div>
                     <h3>¥{{price}}</h3>
-                    <el-button plain @click="dialogFormVisible = true">Book Now</el-button>
+                    <el-button plain @click="openDialogAndCheckDates">{{t('roonItems.book')}}</el-button>
                     <el-dialog v-model="dialogFormVisible" title="Reservation Confirm" width="500">
                         <el-form :model="form">
                             <el-table :data="gridData">
@@ -271,7 +327,7 @@ getMyInfo();
                         <template #footer>
                             <div class="dialog-footer">
                                 <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                                <el-button type="primary" @click="confirmReservation">
+                                <el-button type="primary" @click="confirmReservation" v-loading="loading">
                                     Confirm
                                 </el-button>
                             </div>

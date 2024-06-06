@@ -111,8 +111,7 @@ export default {
     },
     reservationMenu:{
         home:'主页',
-        order:'我的订单',
-        weather:'天气',
+        overview:'园区总览',
         user:'用户'
     },
     firstPage:{
@@ -187,9 +186,22 @@ export default {
     },
     roonItems:{
         view:'查看房间信息',
-        breakfast:'早餐',
+        include:'包含',
+        breakfast:'份早餐',
         free:'30分钟免费取消',
-        book:'现在订阅',
+        book:'预定',
+        window:'有窗户',
+        single_bed:'两张单人床',
+        king_size_bed:'一张双人床',
+        many_king_size_bed:'四张双人床',
+        nonsmoking:'禁止吸烟',
+        smoking:'可以吸烟',
+
+        Double_Room: '大床房',
+        Twin_Room: '双床房',
+        Deluxe_Double_Room: '豪华大床房',
+        Family_Room:'家庭房',
+        undefined:'未知',
     },
     dataDetail:{
         park:'园林能源信息详情',

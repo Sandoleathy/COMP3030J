@@ -6,12 +6,15 @@ import roomItems from '../components/RoonItems.vue';
 import axios from "@/axios";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
+import { ElMessage } from 'element-plus';
+
 
 const rooms = ref([]);
 const filteredRooms = ref([]);
 const selectedDateRange = ref([]);
 const selectedBuildingType = ref(null);
-const selectedGuestCount = ref(null);// 储存房间数据的响应式变量
+const selectedGuestCount = ref(1);// 储存房间数据的响应式变量
+const loading = ref(true)
 
 onMounted(() => {
     fetchRooms();
@@ -27,6 +30,7 @@ const typeMap = {
 };
 
 function handleSearch(dateRange, buildingType,guestCount) {
+    loading.value=true;
     console.log('Handling search with date range:', dateRange, 'building type:', buildingType, 'guest count:', guestCount);
     selectedDateRange.value = dateRange;
     selectedBuildingType.value = buildingType;
@@ -39,7 +43,7 @@ function handleSearch(dateRange, buildingType,guestCount) {
         console.error('Date range is required for searching');
         return;
     }
-
+    loading.value=true;
     fetchFilteredRooms(startDate, endDate, dbType, guestCount);
 }
 
@@ -52,6 +56,7 @@ watch(filteredRooms, (newVal, oldVal) => {
 }, { deep: true });
 
 function fetchRooms() {
+    loading.value=true;
     const token = sessionStorage.getItem("token");
     axios.get('/api/homestay/room/list', {
         headers: {
@@ -62,7 +67,7 @@ function fetchRooms() {
             rooms.value = response.data.rows;
             console.log('Initial room fetch done, rooms:', rooms.value);
             filteredRooms.value = response.data.rows;  // 初始时显示所有房间
-
+            loading.value=false;
         })
         .catch(error => {
             console.error('Failed to fetch rooms:', error);
@@ -70,11 +75,13 @@ function fetchRooms() {
 }
 
 async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) {
+    loading.value=true;
     const token = sessionStorage.getItem("token");
     console.log('Using already fetched rooms:', rooms.value);
 
     const availableRooms = [];
     for (let room of rooms.value) {
+
         if (!room.hsRoom) {
             console.log(`Room or room.hsRoom not properly defined for room ID: ${room.id}`);
             continue;
@@ -101,20 +108,26 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
                     // 如果指定了buildingType并且不为3，直接跳过当前房间
                     isTypeMatch = room.hsRoom.buildingType === 3; // 确保房间类型为3
                     isGuestCountMatch = maxGuests >= guestCount;
+                    loading.value=false;
                 }
             }else{
                 isTypeMatch = room.hsRoom.buildingType === 3; // 确保房间类型为3
                 isGuestCountMatch = maxGuests >= guestCount;
+                loading.value=false;
             }
 
-        } else if (guestCount <= 2) {
+        } else if (guestCount <= 2 ) {
+            if(buildingType){
+                isTypeMatch = room.hsRoom.buildingType === buildingType;
+                isGuestCountMatch = true;
+                loading.value=false;
+            }else{
+                isTypeMatch = true;
+                isGuestCountMatch = true;
+                loading.value=false;
+            }
             // 如果人数小于等于2
-            isTypeMatch = buildingType === null || room.hsRoom.buildingType === buildingType;
-            isGuestCountMatch = maxGuests >= guestCount;
-        } else {
-            // 如果没有指定guestCount，只根据 buildingType 进行筛选
-            isTypeMatch = buildingType === null || room.hsRoom.buildingType === buildingType;
-            isGuestCountMatch = true;  // 不考虑人数限制
+
         }
 
         if (!isTypeMatch || !isGuestCountMatch) continue;
@@ -134,7 +147,16 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
         } else {
             console.error(`Failed to fetch reservations or incorrect data type for room ID ${room.hsRoom.id}`);
         }
+        if(availableRooms.length === 0){
+            ElMessage({
+                message: '当前条件下无可用房间，请更改搜索条件再试。',
+                type: 'warning',
+                duration: 5000
+            });
+        }
     }
+
+
 
     filteredRooms.value = availableRooms;
     console.log('Available rooms after filtering by date, type, and guest count:', filteredRooms.value);
@@ -155,10 +177,12 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
             <el-header class="header">
                 <reservationPage></reservationPage>
             </el-header>
-            <el-main class="main">
-                <reservationSearchBar @search="handleSearch"></reservationSearchBar>
-                <roomItems v-for="room in filteredRooms" :key="room.id" :roomData="room.hsRoom" :dateRange="selectedDateRange"
-                           :buildingType="selectedBuildingType" :guest-count="selectedGuestCount"></roomItems>
+            <el-main class="main" >
+                <reservationSearchBar @search="handleSearch" v-loading="loading" element-loading-background="rgba(122, 122, 122, 0.2)"></reservationSearchBar>
+                <div class="roomitem">
+                    <roomItems v-for="room in filteredRooms" :key="room.id" :roomData="room.hsRoom" :dateRange="selectedDateRange"
+                               :buildingType="selectedBuildingType" :guest-count="selectedGuestCount" v-loading="loading" element-loading-background="rgba(122, 122, 122, 0.2)"></roomItems>
+                </div>
                 <div class="el-backtop">
                     <el-backtop :right="30" :bottom="100" />
                 </div>

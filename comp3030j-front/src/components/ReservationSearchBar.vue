@@ -48,11 +48,11 @@ const options = [
     },
     {
         value: '3',
-        label: 'Mountain Room',
+        label: 'Family Room',
     },
     {
         value: '4',
-        label: 'Family Room',
+        label: 'Mountain Room',
     },
 
 ]
@@ -90,7 +90,7 @@ const options = [
         <el-row >
                   <div class="block">
                       <span class="demonstration">{{ t('reservationSearchBar.guest') }}</span>
-                      <el-input-number v-model="num2" :min="1" :max="10" @change="handleChange" />
+                      <el-input-number v-model="num2" :min="1" :max="8" @change="handleChange" />
                   </div>
 
 
@@ -113,7 +113,7 @@ const options = [
         </el-row>
 
 
-        <div class="block">
+        <div class="block" >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1024 1024"

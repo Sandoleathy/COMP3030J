@@ -11,9 +11,11 @@ function goToMyView() {
 function goToMainView() {
     router.push({ name: 'entry' });
 }
-function goToWeatherView() {
-    router.push({ name: 'weather' });
+
+function goToOverviewView() {
+    router.push({ name: 'overview' });
 }
+
 const avatarPath = ref()
 onMounted(() => {
   avatarPath.value = sessionStorage.getItem("avatar")
@@ -36,8 +38,7 @@ onMounted(() => {
         </el-menu-item>
         <div class="flex-grow" />
         <el-menu-item index="1" @click="goToMainView"> {{ t('reservationMenu.home') }}</el-menu-item>
-        <el-menu-item index="2">{{ t('reservationMenu.order') }}</el-menu-item>
-        <el-menu-item index="3" @click="goToWeatherView">{{ t('reservationMenu.weather') }}</el-menu-item>
+        <el-menu-item index="2" @click="goToOverviewView">{{ t('reservationMenu.overview') }}</el-menu-item>
         <el-menu-item index="4">
             <div class="demo-type">
                 <el-avatar @click="goToMyView" :src="avatarPath">  </el-avatar>

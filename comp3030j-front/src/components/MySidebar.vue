@@ -1,14 +1,7 @@
 <template>
     <el-menu :default-active="activeIndex" mode="vertical"
              :ellipsis="false" @select="handleSelect">
-        <el-menu-item class="menu-item" index="0"> {{ t('mySidebar.home') }}</el-menu-item>
         <el-menu-item class="menu-item" index="1">{{ t('mySidebar.order') }}</el-menu-item>
-        <el-sub-menu class="menu-item" index="2">
-            <template #title>{{ t('mySidebar.info') }}</template>
-            <el-menu-item index="2-1">{{ t('mySidebar.trav') }}</el-menu-item>
-            <el-menu-item index="2-2">{{ t('mySidebar.address') }}</el-menu-item>
-            <el-menu-item index="2-3">{{ t('mySidebar.contacts') }}</el-menu-item>
-        </el-sub-menu>
         <el-menu-item class="menu-item" index="3">{{ t('mySidebar.myInfo') }}</el-menu-item>
     </el-menu>
 </template>

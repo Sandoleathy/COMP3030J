@@ -33,7 +33,8 @@ export default {
         home:'Home',
         order:'My Order',
         weather:'Weather',
-        user:'user'
+        user:'user',
+        overview:'Overview',
     },
     roleInfo: {
         title: 'Role Information',
@@ -115,9 +116,13 @@ export default {
     },
     roonItems:{
         view:'View Room Information',
+        include:'Include',
         breakfast:'Breakfasts',
         free:'Free Cancellation within 30 Minutes',
         book:'Book Now',
+        single_bed:'Two Single Beds',
+        king_size_bed:'One King-size Bed',
+        many_king_size_bed:'Four King-size Beds',
     },
     dataDetail:{
         park:'Park Energy Information Detail',
