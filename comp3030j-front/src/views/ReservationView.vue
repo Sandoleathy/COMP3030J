@@ -108,23 +108,19 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
                     // 如果指定了buildingType并且不为3，直接跳过当前房间
                     isTypeMatch = room.hsRoom.buildingType === 3; // 确保房间类型为3
                     isGuestCountMatch = maxGuests >= guestCount;
-                    loading.value=false;
                 }
             }else{
                 isTypeMatch = room.hsRoom.buildingType === 3; // 确保房间类型为3
                 isGuestCountMatch = maxGuests >= guestCount;
-                loading.value=false;
             }
 
         } else if (guestCount <= 2 ) {
             if(buildingType){
                 isTypeMatch = room.hsRoom.buildingType === buildingType;
                 isGuestCountMatch = true;
-                loading.value=false;
             }else{
                 isTypeMatch = true;
                 isGuestCountMatch = true;
-                loading.value=false;
             }
             // 如果人数小于等于2
 
@@ -157,7 +153,7 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
     }
 
 
-
+    loading.value=false;
     filteredRooms.value = availableRooms;
     console.log('Available rooms after filtering by date, type, and guest count:', filteredRooms.value);
 }
@@ -178,8 +174,8 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
                 <reservationPage></reservationPage>
             </el-header>
             <el-main class="main" >
-                <reservationSearchBar @search="handleSearch" v-loading="loading" element-loading-background="rgba(122, 122, 122, 0.2)"></reservationSearchBar>
-                <div class="roomitem">
+                <reservationSearchBar @search="handleSearch" v-loading="false" element-loading-background="rgba(122, 122, 122, 0.2)"></reservationSearchBar>
+                <div class="roomitem" v-loading="loading" style="min-height: 500px">
                     <roomItems v-for="room in filteredRooms" :key="room.id" :roomData="room.hsRoom" :dateRange="selectedDateRange"
                                :buildingType="selectedBuildingType" :guest-count="selectedGuestCount" v-loading="loading" element-loading-background="rgba(122, 122, 122, 0.2)"></roomItems>
                 </div>
