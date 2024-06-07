@@ -158,6 +158,7 @@ export default {
         mountain:'Mountain Building',
         booksuccess:'Booking success',
         dateempty:'Date cannot be empty, please select date',
+        bookTips: 'Please select time and press search button to book the room'
     },
     dataDetail:{
         park:'Park Energy Information Detail',

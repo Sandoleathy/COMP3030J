@@ -230,6 +230,7 @@ export default {
         mountain:'观景民宿',
         booksuccess:'预定成功',
         dateempty:'日期不能为空，请选择日期',
+        bookTips: '请选择时间并按搜索键预订房间',
     },
     dataDetail:{
         park:'园林能源信息详情',
