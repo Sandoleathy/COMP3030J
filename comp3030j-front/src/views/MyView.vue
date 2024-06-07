@@ -60,7 +60,7 @@ const updateIndex = (index: string) => {
     height: 100%;
 }
 .main{
-    background: #f2f2f2;
+  background-image: url('/images/user-bg.png'); /* 设置背景图片 */
 }
 
 @media (max-width: 1024px) {

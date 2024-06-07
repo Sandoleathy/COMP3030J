@@ -4,8 +4,9 @@
       <el-row>
         <el-col :span="12">
           <el-form-item>
+            <div style="font-size: 20px;">
             <h2>{{t('myInformation.profile')}}</h2>
-
+            </div>
           </el-form-item>
 
           <el-row>
