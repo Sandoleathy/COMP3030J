@@ -268,6 +268,7 @@ export default {
         errorReason1: '服务器出现了故障',
         errorReason2: '您的账号被封禁',
         errorReason3: '网络没有连接',
+        errorReason4: '您没有足够的权限访问当前页面',
         errorLinkTip: '您可以尝试点击以下链接前往主页：',
         errorLink: '返回主页'
     },

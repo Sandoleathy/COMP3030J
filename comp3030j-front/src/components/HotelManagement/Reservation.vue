@@ -31,7 +31,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item :label="t('Reservation.roomNumber')" prop="numberOfRooms" label-width="100px">
+          <el-form-item :label="t('Reservation.roomNumber')" prop="numberOfRooms" label-width="150px">
             <el-input
                 v-model="queryParams.numberOfRooms"
                 :placeholder="t('Reservation.inputRoomNum')"

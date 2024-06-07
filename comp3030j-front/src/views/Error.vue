@@ -6,6 +6,7 @@
       <li>{{ t('error.errorReason1') }}</li>
       <li>{{ t('error.errorReason2') }}</li>
       <li>{{ t('error.errorReason3') }}</li>
+      <li>{{ t('error.errorReason4') }}</li>
     </ul>
     <p>{{ t('error.errorLinkTip') }}</p>
     <router-link to="/">{{ t('error.errorLink') }}</router-link>

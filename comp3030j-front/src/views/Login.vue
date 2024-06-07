@@ -65,7 +65,7 @@ const handleLogin = async () => {
         });
         const data = response.data;
         //console.log(data)
-        if(data.code == 200){
+        if(data.code === 200){
             ElMessage.success(t('login.success'))
             //登陆成功,进行后续处理
             sessionStorage.setItem("token" , data.data.access_token)
@@ -74,10 +74,15 @@ const handleLogin = async () => {
             await getUserType(data.data.access_token) // 等待 getUserType 方法执行完成
             isLoading.value = false
             //console.log(isAdmin.value)
-            if(isAdmin.value == true){
+            if(isAdmin.value === true){
                 router.push('/admin')
             }else{
-                router.push('/')
+                console.log()
+                if(sessionStorage.getItem("isEmployee") === 'true'){
+                  router.push('/employee')
+                }else {
+                  router.push('/')
+                }
             }
         }else{
             isLoading.value = false
@@ -105,6 +110,11 @@ const getUserType = async (token) => {
             isAdmin.value = true
         }else{
             sessionStorage.setItem("isAdmin" , false)
+        }
+        if(data.data.roles[0].roleId == 100){
+          sessionStorage.setItem("isEmployee" , true)
+        }else{
+          sessionStorage.setItem("isEmployee" , false)
         }
         //console.log(sessionStorage.getItem("isAdmin"))
     } catch (error) {

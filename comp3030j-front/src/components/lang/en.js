@@ -266,6 +266,7 @@ export default {
         errorReason1: 'The server is faulty',
         errorReason2: 'Your account has been suspended',
         errorReason3: 'The network is not connected',
+        errorReason4: 'You do not have sufficient permissions to access the current page',
         errorLinkTip: 'You can try clicking on the following link to go to the home page:',
         errorLink: 'Back to Home page'
     },
