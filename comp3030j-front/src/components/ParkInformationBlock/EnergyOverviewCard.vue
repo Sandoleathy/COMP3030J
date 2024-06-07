@@ -91,7 +91,7 @@ const getData = () => {
 .energy-data-table{
     margin: 5px 70px 20px 70px;
     text-align: center;
-}giti
+}
 .energy-chart{
     height: 35vh;
     max-height: 35vh;
