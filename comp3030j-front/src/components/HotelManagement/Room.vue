@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item :label="t('Room.roomType')" prop="roomType">
+      <el-form-item :label="t('Room.roomType')" prop="roomType" label-width="100px">
         <el-input
             v-model="queryParams.roomType"
             :placeholder="t('Room.inputRoomType')"
@@ -9,7 +9,7 @@
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item :label="t('Room.roomNumber')" prop="roomNumber">
+      <el-form-item :label="t('Room.roomNumber')" prop="roomNumber" label-width="100px">
         <el-input
             v-model="queryParams.roomNumber"
             :placeholder="t('Room.inputRoomNumber')"
@@ -17,7 +17,7 @@
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item :label="t('Room.buildingType')" prop="buildingType">
+      <el-form-item :label="t('Room.buildingType')" prop="buildingType" label-width="100px">
         <el-input
             v-model="queryParams.buildingType"
             :placeholder="t('Room.inputBuildingType')"
@@ -25,7 +25,7 @@
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item :label="t('Room.bedType')" prop="bedType">
+      <el-form-item :label="t('Room.bedType')" prop="bedType" label-width="100px">
         <el-input
             v-model="queryParams.bedType"
             :placeholder="t('inputBedType')"
@@ -33,7 +33,7 @@
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item :label="t('Room.price')" prop="roomPrice">
+      <el-form-item :label="t('Room.price')" prop="roomPrice" label-width="100px">
         <el-input
             v-model="queryParams.roomPrice"
             :placeholder="t('Room.inputPrice')"
@@ -41,10 +41,12 @@
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="search" size="small" @click="handleQuery">{{ t('Room.search') }}</el-button>
-        <el-button icon="refresh" size="small" @click="resetQuery">{{ t('Room.reset') }}</el-button>
-      </el-form-item>
+      <el-row>
+        <el-form-item>
+          <el-button type="primary" icon="search" size="small" @click="handleQuery">{{ t('Room.search') }}</el-button>
+          <el-button icon="refresh" size="small" @click="resetQuery">{{ t('Room.reset') }}</el-button>
+        </el-form-item>
+      </el-row>
     </el-form>
 
 

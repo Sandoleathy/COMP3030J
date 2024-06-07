@@ -15,7 +15,6 @@
                                 <el-tab-pane :label="t('dataDetail.user')" name="4"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.dept')" name="dept"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.notice')" name="notice"></el-tab-pane>
-                                <el-tab-pane :label="t('dataDetail.post')" name="post"></el-tab-pane>
                                 <el-tab-pane :label="t('dataDetail.role')" name="role"></el-tab-pane>
                             </el-tabs>
                         </el-header>
@@ -60,9 +59,6 @@
                         </div>
                         <div v-if="pageNum === 'notice'">
                             <system-notice></system-notice>
-                        </div>
-                        <div v-if="pageNum === 'post'">
-                            <system-post></system-post>
                         </div>
                         <div v-if="pageNum === 'role'">
                             <system-role></system-role>

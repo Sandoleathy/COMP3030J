@@ -1,7 +1,7 @@
 <template>
    <div class="app-container">
       <el-form :model="queryParams" ref="queryRef" v-show="showSearch" :inline="true" label-width="68px">
-         <el-form-item label="Role Name" prop="roleName">
+         <el-form-item label="Role Name" prop="roleName" label-width="100px">
             <el-input
                v-model="queryParams.roleName"
                placeholder="Please enter a role name"
@@ -10,7 +10,7 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="permission characters" prop="roleKey">
+         <el-form-item label="permission characters" prop="roleKey" label-width="150px">
             <el-input
                v-model="queryParams.roleKey"
                placeholder="Please enter permission characters"
@@ -19,7 +19,7 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="state" prop="status">
+         <el-form-item label="state" prop="status" label-width="100px">
             <el-select
                v-model="queryParams.status"
                placeholder="character status"
@@ -34,7 +34,7 @@
                />
             </el-select>
          </el-form-item>
-         <el-form-item label="creation time" style="width: 308px">
+         <el-form-item label="creation time" style="width: 308px" label-width="100px">
             <el-date-picker
                v-model="dateRange"
                value-format="YYYY-MM-DD"
@@ -44,10 +44,12 @@
                end-placeholder="end date"
             ></el-date-picker>
          </el-form-item>
-         <el-form-item>
+        <el-row>
+          <el-form-item>
             <el-button type="primary" icon="Search" @click="handleQuery">search</el-button>
             <el-button icon="Refresh" @click="resetQuery">reset</el-button>
-         </el-form-item>
+          </el-form-item>
+        </el-row>
       </el-form>
       <el-row :gutter="10" class="mb8">
          <el-col :span="1.5">

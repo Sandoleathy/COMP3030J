@@ -1,67 +1,87 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item :label="t('Reservation.checkInTime')" prop="checkinTime">
-        <el-date-picker clearable
-                        v-model="queryParams.checkinTime"
-                        type="date"
-                        :placeholder="t('Reservation.selectCheckInTime')">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item :label="t('Reservation.checkOutTime')" prop="checkoutTime">
-        <el-date-picker clearable
-                        v-model="queryParams.checkoutTime"
-                        type="date"
-                        :placeholder="t('Reservation.selectCheckOutTime')">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item :label="t('Reservation.guestNumber')" prop="numberOfGuests">
-        <el-input
-            v-model="queryParams.numberOfGuests"
-            :placeholder="t('Reservation.inputGuestNum')"
-            clearable
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item :label="t('Reservation.roomNumber')" prop="numberOfRooms">
-        <el-input
-            v-model="queryParams.numberOfRooms"
-            :placeholder="t('Reservation.inputRoomNum')"
-            clearable
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item :label="t('Reservation.reservationTime')" prop="reservationTime">
-        <el-date-picker clearable
-                        v-model="queryParams.reservationTime"
-                        type="date"
-                        :placeholder="t('Reservation.selectReservationTime')">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item :label="t('Reservation.price')" prop="totalPrice">
-        <el-input
-            v-model="queryParams.totalPrice"
-            :placeholder="t('Reservation.inputPrice')"
-            clearable
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item :label="t('Reservation.isPay')" prop="pay">
-        <el-input
-            v-model="queryParams.pay"
-            :placeholder="t('Reservation.inputIsPay')"
-            clearable
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item :label="t('Reservation.orderStatus')" prop="reservationStatus">
-        <el-input
-            v-model="queryParams.reservationStatus"
-            :placeholder="t('Reservation.inputOrderStatus')"
-            clearable
-            @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.checkInTime')" prop="checkinTime" label-width="100px">
+            <el-date-picker clearable
+                            v-model="queryParams.checkinTime"
+                            type="date"
+                            :placeholder="t('Reservation.selectCheckInTime')">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.checkOutTime')" prop="checkoutTime" label-width="100px">
+            <el-date-picker clearable
+                            v-model="queryParams.checkoutTime"
+                            type="date"
+                            :placeholder="t('Reservation.selectCheckOutTime')">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.guestNumber')" prop="numberOfGuests" label-width="100px">
+            <el-input
+                v-model="queryParams.numberOfGuests"
+                :placeholder="t('Reservation.inputGuestNum')"
+                clearable
+                @keyup.enter.native="handleQuery"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.roomNumber')" prop="numberOfRooms" label-width="100px">
+            <el-input
+                v-model="queryParams.numberOfRooms"
+                :placeholder="t('Reservation.inputRoomNum')"
+                clearable
+                @keyup.enter.native="handleQuery"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.reservationTime')" prop="reservationTime" label-width="150px">
+            <el-date-picker clearable
+                            v-model="queryParams.reservationTime"
+                            type="date"
+                            :placeholder="t('Reservation.selectReservationTime')">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.price')" prop="totalPrice" label-width="100px">
+            <el-input
+                v-model="queryParams.totalPrice"
+                :placeholder="t('Reservation.inputPrice')"
+                clearable
+                @keyup.enter.native="handleQuery"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.isPay')" prop="pay" label-width="100px">
+            <el-input
+                v-model="queryParams.pay"
+                :placeholder="t('Reservation.inputIsPay')"
+                clearable
+                @keyup.enter.native="handleQuery"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="t('Reservation.orderStatus')" prop="reservationStatus" label-width="100px">
+            <el-input
+                v-model="queryParams.reservationStatus"
+                :placeholder="t('Reservation.inputOrderStatus')"
+                clearable
+                @keyup.enter.native="handleQuery"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item>
         <el-button type="primary" icon="search" size="mini" @click="handleQuery">{{ t('Reservation.search') }}</el-button>
         <el-button icon="refresh" size="mini" @click="resetQuery">{{ t('Reservation.reset') }}</el-button>
