@@ -168,6 +168,7 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
 </script>
 
 <template>
+  <div id="background">
     <div class="navigation_bar" style="width: 100%;">
         <el-container class="container">
             <el-header class="header">
@@ -185,9 +186,22 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
             </el-main>
         </el-container>
     </div>
+  </div>
 </template>
 
 <style scoped>
+#background{
+  background-color: #f0f0f0; /* 设置背景颜色 */
+  background-image: url('/images/user-bg.png'); /* 设置背景图片 */
+  background-size: cover; /* 图片尺寸适应 */
+  background-repeat: no-repeat; /* 不重复平铺 */
+
+  position: absolute; /* 设置绝对定位 */
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+
 .container {
     top:0;
     left: 0;

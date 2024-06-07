@@ -302,6 +302,10 @@ export default {
         sendWarning: '发布气象灾害预警',
         sendSuccessful: '灾害预警已发布'
     },
+    building:{
+        buildingtype:'栋类型'
+
+    },
     Reservation:{
         checkInTime: '入住时间',
         selectCheckInTime: '请选择入住时间',

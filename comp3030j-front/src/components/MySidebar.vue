@@ -1,6 +1,6 @@
 <template>
     <el-menu :default-active="activeIndex" mode="vertical"
-             :ellipsis="false" @select="handleSelect">
+             :ellipsis="false" @select="handleSelect" class="menu">
 
         <el-menu-item class="menu-item" index="1">{{ t('mySidebar.order') }}</el-menu-item>
         <el-menu-item class="menu-item" index="3">{{ t('mySidebar.myInfo') }}</el-menu-item>
@@ -25,11 +25,13 @@ const handleSelect = (index: string) => {
 
 
 <style scoped>
-.item{
+
+.menu-item{
     color: dimgray;
     font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
-    margin-left: 15px;
+    margin-left: 30px;
+    --el-menu-hover-bg-color: #dce3d8;
 }
 </style>

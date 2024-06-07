@@ -300,6 +300,10 @@ export default {
         sendWarning: 'Release meteorological disaster warning',
         sendSuccessful: 'Warning released'
     },
+    building:{
+        buildingtype:'Building Type'
+
+    },
     Reservation:{
         checkInTime: 'Check In Time',
         selectCheckInTime: 'Select check in time',
