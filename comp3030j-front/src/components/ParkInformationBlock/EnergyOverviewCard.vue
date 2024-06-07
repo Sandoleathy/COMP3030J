@@ -37,7 +37,7 @@
                 </table>
                 </div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="12" style="">
                 <energyChart class="energy-chart"></energyChart>
             </el-col>
         </el-row>
@@ -95,6 +95,10 @@ const getData = () => {
 .energy-chart{
     height: 35vh;
     max-height: 35vh;
+    display: flex;
+  align-items: center;
+  vertical-align: center;
+  margin-top: 25px;
 }
 .table-container {
     border-style: solid;
@@ -107,7 +111,7 @@ const getData = () => {
     display: flex;
     justify-content: center; /* 水平居中 */
     align-items: center; /* 垂直居中 */
-    height: 35vh; /* 可以根据需要调整 */
+    height: 40vh; /* 可以根据需要调整 */
 }
 
 table {
@@ -123,6 +127,7 @@ caption {
     border-bottom: 2px solid #444;
 }
 th, td {
+    font-size: 12px;
     padding: 10px;
     text-align: center;
 }
