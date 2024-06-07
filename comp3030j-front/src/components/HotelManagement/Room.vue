@@ -1,49 +1,49 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="房间类型" prop="roomType">
+      <el-form-item :label="t('Room.roomType')" prop="roomType">
         <el-input
             v-model="queryParams.roomType"
-            placeholder="请输入房间类型"
+            :placeholder="t('Room.inputRoomType')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="房间号" prop="roomNumber">
+      <el-form-item :label="t('Room.roomNumber')" prop="roomNumber">
         <el-input
             v-model="queryParams.roomNumber"
-            placeholder="请输入房间号"
+            :placeholder="t('Room.inputRoomNumber')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="栋类型" prop="buildingType">
+      <el-form-item :label="t('Room.buildingType')" prop="buildingType">
         <el-input
             v-model="queryParams.buildingType"
-            placeholder="请输入栋类型"
+            :placeholder="t('Room.inputBuildingType')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="床类型" prop="bedType">
+      <el-form-item :label="t('Room.bedType')" prop="bedType">
         <el-input
             v-model="queryParams.bedType"
-            placeholder="请输入床类型"
+            :placeholder="t('inputBedType')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="价格" prop="roomPrice">
+      <el-form-item :label="t('Room.price')" prop="roomPrice">
         <el-input
             v-model="queryParams.roomPrice"
-            placeholder="请输入价格"
+            :placeholder="t('Room.inputPrice')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="search" size="small" @click="handleQuery">搜索</el-button>
-        <el-button icon="refresh" size="small" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="search" size="small" @click="handleQuery">{{ t('Room.search') }}</el-button>
+        <el-button icon="refresh" size="small" @click="resetQuery">{{ t('Room.reset') }}</el-button>
       </el-form-item>
     </el-form>
 
@@ -52,19 +52,19 @@
     <el-table v-loading="loading" :data="roomList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="hsRoom.id" />
-      <el-table-column label="房间类型" align="center" prop="hsRoom.roomType" />
-      <el-table-column label="房间号" align="center" prop="hsRoom.roomNumber" />
-      <el-table-column label="栋类型" align="center" prop="hsRoom.buildingType" />
-      <el-table-column label="床类型" align="center" prop="hsRoom.bedType" />
-      <el-table-column label="价格" align="center" prop="hsRoom.roomPrice" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column :label="t('Room.roomType')" align="center" prop="hsRoom.roomType" />
+      <el-table-column :label="t('Room.roomNumber')" align="center" prop="hsRoom.roomNumber" />
+      <el-table-column :label="t('Room.buildingType')" align="center" prop="hsRoom.buildingType" />
+      <el-table-column :label="t('Room.bedType')" align="center" prop="hsRoom.bedType" />
+      <el-table-column :label="t('Room.price')" align="center" prop="hsRoom.roomPrice" />
+      <el-table-column :label="t('Room.operation')" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button
               size="mini"
               type="text"
               icon="edit"
               @click="handleUpdate(scope.row.hsRoom)"
-          >修改</el-button>
+          >{{ t('Room.edit') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -80,25 +80,25 @@
     <!-- 添加或修改民宿房间对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="房间类型" prop="roomType">
-          <el-input v-model="form.roomType" placeholder="请输入房间类型" />
+        <el-form-item :label="t('Room.roomType')" prop="roomType">
+          <el-input v-model="form.roomType" :placeholder="t('Room.inputRoomType')" />
         </el-form-item>
-        <el-form-item label="房间号" prop="roomNumber">
-          <el-input v-model="form.roomNumber" placeholder="请输入房间号" />
+        <el-form-item :label="t('Room.roomNumber')" prop="roomNumber">
+          <el-input v-model="form.roomNumber" :placeholder="t('Room.inputRoomNumber')" />
         </el-form-item>
-        <el-form-item label="栋类型" prop="buildingType">
-          <el-input v-model="form.buildingType" placeholder="请输入栋类型" />
+        <el-form-item :label="t('Room.buildingType')" prop="buildingType">
+          <el-input v-model="form.buildingType" :placeholder="t('Room.inputBuildingType')" />
         </el-form-item>
-        <el-form-item label="床类型" prop="bedType">
-          <el-input v-model="form.bedType" placeholder="请输入床类型" />
+        <el-form-item :label="t('Room.bedType')" prop="bedType">
+          <el-input v-model="form.bedType" :placeholder="t('inputBedType')" />
         </el-form-item>
-        <el-form-item label="价格" prop="roomPrice">
-          <el-input v-model="form.roomPrice" placeholder="请输入价格" />
+        <el-form-item :label="t('Room.price')" prop="roomPrice">
+          <el-input v-model="form.roomPrice" :placeholder="t('Room.inputPrice')" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">{{ t('Room.confirm') }}</el-button>
+        <el-button @click="cancel">{{ t('Room.cancel') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -106,6 +106,7 @@
 
 <script>
 import { listRoom, getRoom, delRoom, addRoom, updateRoom } from "@/api/homestay/room";
+import { useI18n } from 'vue-i18n';
 
 export default {
   name: "Room",
@@ -144,10 +145,10 @@ export default {
       // 表单校验
       rules: {
         buildingType: [
-          { required: true, message: "栋类型不能为空", trigger: "blur" }
+          { required: true, message: this.t('Room.buildingIsEmpty'), trigger: "blur" }
         ],
         bedType: [
-          { required: true, message: "床类型不能为空", trigger: "blur" }
+          { required: true, message: this.t('Room.bedIsEmpty'), trigger: "blur" }
         ],
       }
     };
@@ -203,7 +204,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加民宿房间";
+      this.title = this.t('Room.addRoom');
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -213,7 +214,7 @@ export default {
       getRoom(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改民宿房间";
+        this.title = this.t('Room.editRoom');
       });
     },
     /** 提交按钮 */
@@ -222,13 +223,13 @@ export default {
         if (valid) {
           if (this.form.id != null) {
             updateRoom(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess(this.t('Room.editSuccess'));
               this.open = false;
               this.getList();
             });
           } else {
             addRoom(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess(this.t('Room.addSuccess'));
               this.open = false;
               this.getList();
             });
@@ -252,6 +253,10 @@ export default {
         ...this.queryParams
       }, `room_${new Date().getTime()}.xlsx`)
     }
+  },
+  setup() {
+    const { t } = useI18n();
+    return { t };
   }
 };
 </script>

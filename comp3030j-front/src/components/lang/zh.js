@@ -378,5 +378,7 @@ export default {
         addSuccess: '新增成功',
         confirm: "确定",
         cancel: "取消",
+        buildingIsEmpty: '栋类型不能为空',
+        bedIsEmpty: '床类型不能为空'
     }
 }

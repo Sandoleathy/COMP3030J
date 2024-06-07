@@ -319,7 +319,7 @@ getMyInfo();
             <el-col :span="6" class="column">
                 <div>
                     <h3>¥{{price}}</h3>
-                    <el-button plain @click="openDialogAndCheckDates">{{t('roonItems.book')}}</el-button>
+                    <el-button plain @click="openDialogAndCheckDates" :disabled="dateRange.length === 0">{{t('roonItems.book')}}</el-button>
                     <el-dialog v-model="dialogFormVisible" :title="t('roonItems.reservation')" width="650">
                         <el-form :model="form">
                             <el-table :data="gridData">

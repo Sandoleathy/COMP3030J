@@ -376,6 +376,8 @@ export default {
         addSuccess: 'Add Successful',
         confirm: "confirm",
         cancel: "cancel",
+        buildingIsEmpty: 'Building type cannot be empty',
+        bedIsEmpty: 'Bed type cannot be empty'
     }
 
 }

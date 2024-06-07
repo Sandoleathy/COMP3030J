@@ -1,10 +1,9 @@
 <template>
     <div v-loading="loading">
-        <h1> {{ t('order.detail') }}</h1>
         <el-table
             v-if="reservations.length > 0"
             :data="reservations"
-            style="width: 100%">
+            style="width: 100%;">
             <el-table-column
                 prop="id"
                 :label="t('order.id')"

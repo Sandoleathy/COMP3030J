@@ -71,10 +71,7 @@ const handleUpdate = (row) => {
   getBuildingType(id).then(response => {
     //dialogForm.value = response.data;
     open.value = true;
-    title.value = t('building.modifybuilding');
-    console.log("get buliding type after")
-    console.log(dialogForm.value)
-    console.log(queryParams.value)
+    title.value = "修改民宿栋类型";
     selectedID.value = id
   });
 }
