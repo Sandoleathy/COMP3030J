@@ -71,7 +71,7 @@ const handleUpdate = (row) => {
   getBuildingType(id).then(response => {
     //dialogForm.value = response.data;
     open.value = true;
-    title.value = "修改民宿栋类型";
+    title.value = t('building.modifybuilding');
     console.log("get buliding type after")
     console.log(dialogForm.value)
     console.log(queryParams.value)
@@ -164,7 +164,7 @@ const getBuildingTypeText = (type) => {
           <el-form-item :label="t('building.buildingtype')" prop="buildingType" label-width="150px">
             <el-input
                 v-model="queryParams.buildingType"
-                placeholder="请输入栋类型"
+                :placeholder="t('building.enterbuilding')"
                 clearable
                 @keyup.enter.native="handleQuery"
                 style="width: 200px"
@@ -172,100 +172,96 @@ const getBuildingTypeText = (type) => {
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="是否提供早餐" prop="breakfast" label-width="150px">
-            <el-select v-model="queryParams.breakfast" placeholder="请选择是否提供早餐" style="width: 200px">
-              <el-option label="是" :value="1" />
-              <el-option label="否" :value="0" />
+          <el-form-item :label="t('building.breakfast')" prop="breakfast" label-width="150px">
+            <el-select v-model="queryParams.breakfast" :placeholder="t('building.choosebreakfast')" style="width: 200px">
+              <el-option :label="t('building.yes')" :value="1" />
+              <el-option :label="t('building.no')" :value="0" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="是否允许抽烟" prop="allowSmoking" label-width="150px">
-            <el-select v-model="queryParams.allowSmoking" placeholder="请选择是否允许抽烟" style="width: 200px">
-              <el-option label="是" :value="1" />
-              <el-option label="否" :value="0" />
+          <el-form-item :label="t('building.smoking')" prop="allowSmoking" label-width="150px">
+            <el-select v-model="queryParams.allowSmoking" :placeholder="t('building.choosesmoking')" style="width: 200px">
+              <el-option :label="t('building.yes')" :value="1" />
+              <el-option :label="t('building.no')" :value="0" />
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="8">
-          <el-form-item label="是否有浴缸" prop="bathtub" label-width="150px">
-            <el-select v-model="queryParams.bathtub" placeholder="请选择是否有浴缸" style="width: 200px">
-              <el-option label="是" :value="1" />
-              <el-option label="否" :value="0" />
+          <el-form-item :label="t('building.bath')" prop="bathtub" label-width="150px">
+            <el-select v-model="queryParams.bathtub" :placeholder="t('building.choosebath')" style="width: 200px">
+              <el-option :label="t('building.yes')" :value="1" />
+              <el-option :label="t('building.no')" :value="0" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="是否有淋浴设施" prop="bathroomAmenities" label-width="150px">
-            <el-select v-model="queryParams.bathroomAmenities" placeholder="请选择是否有淋浴设施" style="width: 200px">
-              <el-option label="是" :value="1" />
-              <el-option label="否" :value="0" />
+          <el-form-item :label="t('building.showerfacilities')" prop="bathroomAmenities" label-width="150px">
+            <el-select v-model="queryParams.bathroomAmenities" :placeholder="t('building.chooseshower')" style="width: 200px">
+              <el-option :label="t('building.yes')" :value="1" />
+              <el-option :label="t('building.no')" :value="0" />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item label="是否有功能性设施" prop="functionalAmenities" label-width="150px">
-            <el-select v-model="queryParams.functionalAmenities" placeholder="请选择是否有功能性设施" style="width: 200px">
-              <el-option label="是" :value="1" />
-              <el-option label="否" :value="0" />
+          <el-form-item :label="t('building.facility')" prop="functionalAmenities" label-width="150px">
+            <el-select v-model="queryParams.functionalAmenities" :placeholder="t('building.choosefacility')" style="width: 200px">
+              <el-option :label="t('building.yes')" :value="1" />
+              <el-option :label="t('building.no')" :value="0" />
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
 
-
-
-
-
       <el-form-item>
-        <el-button type="primary" icon="search" size="small" @click="handleQuery">搜索</el-button>
-        <el-button icon="refresh" size="small" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="search" size="small" @click="handleQuery">{{t('building.search')}}</el-button>
+        <el-button icon="refresh" size="small" @click="resetQuery">{{t('building.reset')}}</el-button>
       </el-form-item>
     </el-form>
 
     <el-table v-loading="loading" :data="buildingTypeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-        <el-table-column label="栋类型" align="center">
+        <el-table-column :label="t('building.buildingtype')" align="center">
             <template #default="scope">
                 {{ getBuildingTypeText(scope.row.buildingType) }}
             </template>
         </el-table-column>
-      <el-table-column label="是否提供早餐" align="center">
+      <el-table-column :label="t('building.breakfast')" align="center">
         <template v-slot="scope">
           <span>{{ scope.row.breakfast ? '√' : '×' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否允许抽烟" align="center">
+      <el-table-column :label="t('building.smoking')" align="center">
         <template v-slot="scope">
           <span>{{ scope.row.allowSmoking ? '√' : '×' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否有浴缸" align="center">
+      <el-table-column :label="t('building.bath')" align="center">
         <template v-slot="scope">
           <span>{{ scope.row.bathtub ? '√' : '×' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否有淋浴设施" align="center">
+      <el-table-column :label="t('building.showerfacilities')"  align="center">
         <template v-slot="scope">
           <span>{{ scope.row.bathroomAmenities ? '√' : '×' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否有功能性设施" align="center">
+      <el-table-column :label="t('building.facility')" align="center">
         <template v-slot="scope">
           <span>{{ scope.row.functionalAmenities ? '√' : '×' }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column :label="t('building.operate')" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button
               size="small"
               type="text"
               icon="edit"
               @click="handleUpdate(scope.row)"
-          >修改</el-button>
+          >{{t('building.modify')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -281,43 +277,43 @@ const getBuildingTypeText = (type) => {
     <!-- 添加或修改民宿栋类型对话框 -->
     <el-dialog :title="title" v-model="open" width="60vw">
       <el-form ref="dialogForm" label-width="80px">
-        <el-form-item label="栋类型" prop="buildingType" label-width="15%">
-          <el-input v-model="buildingType" placeholder="请输入栋类型" minlength="1"/>
+        <el-form-item :label="t('building.buildingtype')" prop="buildingType" label-width="20%">
+          <el-input v-model="buildingType" :placeholder="t('building.enterbuilding')" minlength="1"/>
         </el-form-item>
-        <el-form-item label="是否提供早餐" prop="breakfast" label-width="15%">
-          <el-select v-model="breakfast" placeholder="是否允许抽烟">
-            <el-option label="是" :value="true" />
-            <el-option label="否" :value="false" />
+        <el-form-item :label="t('building.breakfast')" prop="breakfast" label-width="20%">
+          <el-select v-model="breakfast" :placeholder="t('building.choosebrakfast')">
+            <el-option :label="t('building.yes')" :value="true" />
+            <el-option :label="t('building.no')" :value="false" />
           </el-select>
         </el-form-item>
-        <el-form-item label="是否允许抽烟" prop="allowSmoking" label-width="15%">
-          <el-select v-model="allowSmoking" placeholder="是否允许抽烟">
-            <el-option label="是" :value="true" />
-            <el-option label="否" :value="false" />
+        <el-form-item :label="t('building.smoking')" prop="allowSmoking" label-width="20%">
+          <el-select v-model="allowSmoking" :placeholder="t('building.choosesmoking')">
+            <el-option :label="t('building.yes')" :value="true" />
+            <el-option :label="t('building.no')" :value="false" />
           </el-select>
         </el-form-item>
-        <el-form-item label="是否有浴缸" prop="bathtub" label-width="15%">
-          <el-select v-model="bathtub" placeholder="是否有浴缸">
-            <el-option label="是" :value="true" />
-            <el-option label="否" :value="false" />
+        <el-form-item :label="t('building.bath')"  prop="bathtub" label-width="20%">
+          <el-select v-model="bathtub" :placeholder="t('building.choosebath')">
+            <el-option :label="t('building.yes')" :value="true" />
+            <el-option :label="t('building.no')" :value="false" />
           </el-select>
         </el-form-item>
-        <el-form-item label="是否有淋浴设施" prop="bathroomAmenities" label-width="15%">
-          <el-select v-model="bathroomAmenities" placeholder="是否有淋浴设施">
-            <el-option label="是" :value="true" />
-            <el-option label="否" :value="false" />
+        <el-form-item :label="t('building.showerfacilities')"  prop="bathroomAmenities" label-width="20%">
+          <el-select v-model="bathroomAmenities" :placeholder="t('building.chooseshower')">
+            <el-option :label="t('building.yes')" :value="true" />
+            <el-option :label="t('building.no')" :value="false" />
           </el-select>
         </el-form-item>
-        <el-form-item label="是否有功能性设施" prop="functionalAmenities" label-width="15%">
-          <el-select v-model="functionalAmenities" placeholder="请选择是否有功能性设施">
-            <el-option label="是" :value="true" />
-            <el-option label="否" :value="false" />
+        <el-form-item :label="t('building.facility')" prop="functionalAmenities" label-width="20%">
+          <el-select v-model="functionalAmenities" :placeholder="t('building.choosefacility')">
+            <el-option :label="t('building.yes')" :value="true" />
+            <el-option :label="t('building.no')" :value="false" />
           </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">{{t('building.confirm')}}</el-button>
+        <el-button @click="cancel">{{t('building.cancel')}}</el-button>
       </div>
     </el-dialog>
   </div>

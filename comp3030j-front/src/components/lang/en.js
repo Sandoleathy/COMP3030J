@@ -300,9 +300,28 @@ export default {
         sendWarning: 'Release meteorological disaster warning',
         sendSuccessful: 'Warning released'
     },
-    building:{
-        buildingtype:'Building Type'
-
+    building: {
+        buildingtype: 'Building Type ID',
+        enterbuilding: 'Enter Building Type',
+        breakfast: 'Breakfast',
+        choosebreakfast: 'Choose Whether Breakfast is Provided',
+        smoking: 'Smoking Allowed',
+        choosesmoking: 'Choose Whether Smoking is Allowed',
+        yes: 'Yes',
+        no: 'No',
+        bath: 'Bathtub',
+        choosebath: 'Choose Whether a Bathtub is Available',
+        showerfacilities: 'Shower Facilities',
+        chooseshower: 'Choose Whether Shower Facilities are Available',
+        choosefacility: 'Choose Whether Functional Facilities are Available',
+        facility: 'Functional Facilities',
+        search: 'Search',
+        reset: 'Reset',
+        operate: 'Operation',
+        modify: 'Modify',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        modifybuilding:'Modify Building Type',
     },
     Reservation:{
         checkInTime: 'Check In Time',
@@ -358,4 +377,5 @@ export default {
         confirm: "confirm",
         cancel: "cancel",
     }
+
 }

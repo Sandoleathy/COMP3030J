@@ -303,8 +303,27 @@ export default {
         sendSuccessful: '灾害预警已发布'
     },
     building:{
-        buildingtype:'栋类型'
-
+        buildingtype:'栋类型ID',
+        enterbuilding:'请输入栋类型',
+        breakfast:'早餐',
+        choosebreakfast:'请选择是否提供早餐',
+        smoking:'允许抽烟',
+        choosesmoking:'请选择是否允许抽烟',
+        yes:'是',
+        no:'否',
+        bath:'浴缸',
+        choosebath:'请选择是否有浴缸',
+        showerfacilities:'淋浴设施',
+        chooseshower:'请选择是否有淋浴设施',
+        choosefacility:'请选择是否有功能性设施',
+        facility:'功能性设施',
+        search:'搜索',
+        reset:'重置',
+        operate:'操作',
+        modify:'修改',
+        confirm:'确认',
+        cancel:'取消',
+        modifybuilding:'修改民宿栋类型',
     },
     Reservation:{
         checkInTime: '入住时间',
