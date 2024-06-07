@@ -1,70 +1,70 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="入住时间" prop="checkinTime">
+      <el-form-item :label="t('Reservation.checkInTime')" prop="checkinTime">
         <el-date-picker clearable
                         v-model="queryParams.checkinTime"
                         type="date"
-                        placeholder="请选择入住时间">
+                        :placeholder="t('Reservation.selectCheckInTime')">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="退房时间" prop="checkoutTime">
+      <el-form-item :label="t('Reservation.checkOutTime')" prop="checkoutTime">
         <el-date-picker clearable
                         v-model="queryParams.checkoutTime"
                         type="date"
-                        placeholder="请选择退房时间">
+                        :placeholder="t('Reservation.selectCheckOutTime')">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="客户数量" prop="numberOfGuests">
+      <el-form-item :label="t('Reservation.guestNumber')" prop="numberOfGuests">
         <el-input
             v-model="queryParams.numberOfGuests"
-            placeholder="请输入客户数量"
+            :placeholder="t('Reservation.inputGuestNum')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="房间数量" prop="numberOfRooms">
+      <el-form-item :label="t('Reservation.roomNumber')" prop="numberOfRooms">
         <el-input
             v-model="queryParams.numberOfRooms"
-            placeholder="请输入房间数量"
+            :placeholder="t('Reservation.inputRoomNum')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="订单创建/结束时间" prop="reservationTime">
+      <el-form-item :label="t('Reservation.reservationTime')" prop="reservationTime">
         <el-date-picker clearable
                         v-model="queryParams.reservationTime"
                         type="date"
-                        placeholder="请选择订单创建/结束时间">
+                        :placeholder="t('Reservation.selectReservationTime')">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="总价格" prop="totalPrice">
+      <el-form-item :label="t('Reservation.price')" prop="totalPrice">
         <el-input
             v-model="queryParams.totalPrice"
-            placeholder="请输入总价格"
+            :placeholder="t('Reservation.inputPrice')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="是否支付" prop="pay">
+      <el-form-item :label="t('Reservation.isPay')" prop="pay">
         <el-input
             v-model="queryParams.pay"
-            placeholder="请输入是否支付"
+            :placeholder="t('Reservation.inputIsPay')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="订单状态" prop="reservationStatus">
+      <el-form-item :label="t('Reservation.orderStatus')" prop="reservationStatus">
         <el-input
             v-model="queryParams.reservationStatus"
-            placeholder="请输入订单状态"
+            :placeholder="t('Reservation.inputOrderStatus')"
             clearable
             @keyup.enter.native="handleQuery"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="search" size="mini" @click="handleQuery">{{ t('Reservation.search') }}</el-button>
+        <el-button icon="refresh" size="mini" @click="resetQuery">{{ t('Reservation.reset') }}</el-button>
       </el-form-item>
     </el-form>
 
@@ -76,7 +76,7 @@
             icon="plus"
             size="mini"
             @click="handleAdd"
-        >新增</el-button>
+        >{{ t('Reservation.add') }}</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -86,7 +86,7 @@
             size="mini"
             :disabled="single"
             @click="handleUpdate"
-        >修改</el-button>
+        >{{ t('Reservation.edit') }}</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -96,7 +96,7 @@
             size="mini"
             :disabled="multiple"
             @click="handleDelete"
-        >删除</el-button>
+        >{{ t('Reservation.delete') }}</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -104,41 +104,41 @@
     <el-table v-loading="loading" :data="reservationList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="hsReservation.id" />
-      <el-table-column label="入住时间" align="center" prop="hsReservation.checkinTime" width="180">
+      <el-table-column :label="t('Reservation.checkInTime')" align="center" prop="hsReservation.checkinTime" width="180">
         <template v-slot="scope">
           <span>{{ parseTime(scope.row.hsReservation.checkinTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="退房时间" align="center" prop="hsReservation.checkoutTime" width="180">
+      <el-table-column :label="t('Reservation.checkOutTime')" align="center" prop="hsReservation.checkoutTime" width="180">
         <template v-slot="scope">
           <span>{{ parseTime(scope.row.hsReservation.checkoutTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="客户数量" align="center" prop="hsReservation.numberOfGuests" />
-      <el-table-column label="房间数量" align="center" prop="hsReservation.numberOfRooms" />
-      <el-table-column label="订单创建/结束时间" align="center" prop="hsReservation.reservationTime" width="180">
+      <el-table-column :label="t('Reservation.guestNumber')" align="center" prop="hsReservation.numberOfGuests" />
+      <el-table-column :label="t('Reservation.roomNumber')" align="center" prop="hsReservation.numberOfRooms" />
+      <el-table-column :label="t('Reservation.reservationTime')" align="center" prop="hsReservation.reservationTime" width="180">
         <template v-slot="scope">
           <span>{{ parseTime(scope.row.hsReservation.reservationTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="hsReservation.requests" />
-      <el-table-column label="总价格" align="center" prop="hsReservation.totalPrice" />
-      <el-table-column label="是否支付" align="center" prop="hsReservation.pay" />
-      <el-table-column label="订单状态" align="center" prop="hsReservation.reservationStatus" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column :label="t('Reservation.remark')" align="center" prop="hsReservation.requests" />
+      <el-table-column :label="t('Reservation.price')" align="center" prop="hsReservation.totalPrice" />
+      <el-table-column :label="t('Reservation.isPay')" align="center" prop="hsReservation.pay" />
+      <el-table-column :label="t('Reservation.orderStatus')" align="center" prop="hsReservation.reservationStatus" />
+      <el-table-column :label="t('Reservation.operation')" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button
               size="mini"
               type="text"
               icon="edit"
               @click="handleUpdate(scope.row.hsReservation)"
-          >修改</el-button>
+          >{{ t('Reservation.edit') }}</el-button>
           <el-button
               size="mini"
               type="text"
               icon="delete"
               @click="handleDelete(scope.row.hsReservation)"
-          >删除</el-button>
+          >{{ t('Reservation.delete') }}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -154,52 +154,49 @@
     <!-- 添加或修改民宿预订对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="客户联系方式" prop="contactInformation">
-          <el-input v-model="form.contactInformation" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
-        <el-form-item label="入住时间" prop="checkinTime">
+        <el-form-item :label="t('Reservation.checkInTime')" prop="checkinTime">
           <el-date-picker clearable
                           v-model="form.checkinTime"
                           type="date"
-                          placeholder="请选择入住时间">
+                          :placeholder="t('Reservation.selectCheckInTime')">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="退房时间" prop="checkoutTime">
+        <el-form-item :label="t('Reservation.checkOutTime')" prop="checkoutTime">
           <el-date-picker clearable
                           v-model="form.checkoutTime"
                           type="date"
-                          placeholder="请选择退房时间">
+                          :placeholder="t('Reservation.selectCheckOutTime')">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="客户数量" prop="numberOfGuests">
-          <el-input v-model="form.numberOfGuests" placeholder="请输入客户数量" />
+        <el-form-item :label="t('Reservation.guestNumber')" prop="numberOfGuests">
+          <el-input v-model="form.numberOfGuests" :placeholder="t('Reservation.inputGuestNum')" />
         </el-form-item>
-        <el-form-item label="房间数量" prop="numberOfRooms">
-          <el-input v-model="form.numberOfRooms" placeholder="请输入房间数量" />
+        <el-form-item :label="t('Reservation.roomNumber')" prop="numberOfRooms">
+          <el-input v-model="form.numberOfRooms" :placeholder="t('Reservation.inputRoomNum')" />
         </el-form-item>
-        <el-form-item label="订单创建/结束时间" prop="reservationTime">
+        <el-form-item :label="t('Reservation.reservationTime')" prop="reservationTime">
           <el-date-picker clearable
                           v-model="form.reservationTime"
                           type="date"
-                          placeholder="请选择订单创建/结束时间">
+                          :placeholder="t('Reservation.selectReservationTime')">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="备注" prop="requests">
-          <el-input v-model="form.requests" type="textarea" placeholder="请输入内容" />
+        <el-form-item :label="t('Reservation.remark')" prop="requests">
+          <el-input v-model="form.requests" type="textarea" :placeholder="t('Reservation.inputContent')" />
         </el-form-item>
-        <el-form-item label="总价格" prop="totalPrice">
-          <el-input v-model="form.totalPrice" placeholder="请输入总价格" />
+        <el-form-item :label="t('Reservation.price')" prop="totalPrice">
+          <el-input v-model="form.totalPrice" :placeholder="t('Reservation.inputPrice')" />
         </el-form-item>
-        <el-form-item label="是否支付" prop="pay">
-          <el-input v-model="form.pay" placeholder="请输入是否支付" />
+        <el-form-item :label="t('Reservation.isPay')" prop="pay">
+          <el-input v-model="form.pay"  :placeholder="t('Reservation.inputIsPay')" />
         </el-form-item>
-        <el-form-item label="订单状态" prop="reservationStatus">
-          <el-input v-model="form.reservationStatus" placeholder="请输入订单状态" />
+        <el-form-item :label="t('Reservation.orderStatus')" prop="reservationStatus">
+          <el-input v-model="form.reservationStatus" :placeholder="t('Reservation.inputOrderStatus')" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">{{ t('Reservation.confirm') }}</el-button>
+        <el-button @click="cancel">{{ t('Reservation.cancel') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -207,7 +204,8 @@
 
 <script>
 import { listReservation, getReservation, delReservation, addReservation, updateReservation } from "@/api/homestay/reservation";
-import {parseTime} from "../../utils/ruoyi.js";
+import {parseTime} from "@/utils/ruoyi.js";
+import { useI18n } from 'vue-i18n';
 
 export default {
   name: "Reservation",
@@ -318,7 +316,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加民宿预订";
+      this.title = this.t('Reservation.addReservation');
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -328,7 +326,7 @@ export default {
       getReservation(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改民宿预订";
+        this.title = this.t('Reservation.editReservation');
       });
     },
     /** 提交按钮 */
@@ -340,13 +338,13 @@ export default {
         if (valid) {
           if (this.form.id != null) {
             updateReservation(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess(this.t('Reservation.editSuccess'));
               this.open = false;
               this.getList();
             });
           } else {
             addReservation(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess(this.t('Reservation.addSuccess'));
               this.open = false;
               this.getList();
             });
@@ -370,6 +368,10 @@ export default {
         ...this.queryParams
       }, `reservation_${new Date().getTime()}.xlsx`)
     }
+  },
+  setup() {
+    const { t } = useI18n();
+    return { t };
   }
 };
 </script>
