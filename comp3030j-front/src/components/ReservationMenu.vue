@@ -15,6 +15,9 @@ function goToMainView() {
 function goToOverviewView() {
     router.push({ name: 'overview' });
 }
+function goToHotelView() {
+    router.push({ name: 'reservation' });
+}
 
 const avatarPath = ref()
 onMounted(() => {
@@ -39,6 +42,7 @@ onMounted(() => {
         <div class="flex-grow" />
         <el-menu-item index="1" @click="goToMainView"> {{ t('reservationMenu.home') }}</el-menu-item>
         <el-menu-item index="2" @click="goToOverviewView">{{ t('reservationMenu.overview') }}</el-menu-item>
+        <el-menu-item index="3" @click="goToHotelView"> {{ t('reservationMenu.hotel') }}</el-menu-item>
         <el-menu-item index="4">
             <div class="demo-type">
                 <el-avatar @click="goToMyView" :src="avatarPath">  </el-avatar>

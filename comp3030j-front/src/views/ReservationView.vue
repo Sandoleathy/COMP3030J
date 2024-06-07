@@ -143,15 +143,15 @@ async function fetchFilteredRooms(startDate, endDate, buildingType, guestCount) 
         } else {
             console.error(`Failed to fetch reservations or incorrect data type for room ID ${room.hsRoom.id}`);
         }
-        if(availableRooms.length === 0){
-            ElMessage({
-                message: '当前条件下无可用房间，请更改搜索条件再试。',
-                type: 'warning',
-                duration: 5000
-            });
-        }
-    }
 
+    }
+    if(availableRooms.length === 0){
+        ElMessage({
+            message: '当前条件下无可用房间，请更改搜索条件再试。',
+            type: 'warning',
+            duration: 5000
+        });
+    }
 
     loading.value=false;
     filteredRooms.value = availableRooms;

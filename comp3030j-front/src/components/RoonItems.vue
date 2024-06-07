@@ -21,6 +21,7 @@ const bedType = ref('');
 const smoking = ref('');
 const breakfastIncludes = ref('');
 const gridData = ref([]);
+const buildingType=ref('');
 
 const dialogFormVisible = ref(false);
 const form = reactive({
@@ -50,6 +51,7 @@ watchEffect(() => {
     roomType.value = props.roomData ? props.roomData.roomType : 'undefined';
     price.value = props.roomData ? props.roomData.roomPrice : '0';
     bedType.value = props.roomData && props.roomData.bedType ? props.roomData.bedType.toString() : 'unknown';
+    buildingType.value=props.roomData && props.roomData.buildingType ? props.roomData.buildingType.toString() : 'unknown';
 
     if (props.roomData && props.roomData.buildingType) {
         fetchBuildingTypeData(props.roomData.buildingType);
@@ -59,7 +61,7 @@ watchEffect(() => {
             {
                 Start_Date: formatDateOnly(props.dateRange[0]),
                 End_Date: formatDateOnly(props.dateRange[1]), // 退房时间
-                Building_Type: props.roomData.buildingType
+                // Building_Type: props.roomData.buildingType.toString(),
             },
         ];
         form.hsReservation.checkinTime = formatDate(props.dateRange[0]);  // 使用 formatDate 来格式化日期
@@ -149,6 +151,20 @@ const bedtype = computed(() => {
     }
 });
 
+const building = computed(() => {
+    if (buildingType.value === '1') {
+        return t('roonItems.economic');  // Assuming 'roonItems.single_bed' is defined in your localization files
+    } else if (buildingType.value === '2') {
+        return t('roonItems.deluxe');  // Assuming 'roonItems.king_size_bed' is defined in your localization files
+    } else if (buildingType.value === '3') {
+        return t('roonItems.family');
+    } else if (buildingType.value === '4') {
+        return t('roonItems.mountain');
+    }else {
+        return t('roonItems.unknown');  // Assuming 'roonItems.unknown' is defined in your localization files
+    }
+});
+
 function goToRoomDetails() {
     router.push({
         path: '/roomdetails',
@@ -195,7 +211,7 @@ const confirmReservation = async () => {
         });
         loading.value=false;
         ElMessage({
-            message: 'booking succeed',
+            message: t('roonItems.booksuccess'),
             type: 'success',
             duration: 5000
         });
@@ -251,7 +267,7 @@ const openDialogAndCheckDates = () => {
     const hasInvalidDates = gridData.value.some(item => item.Start_Date === 'none' || item.End_Date === 'none');
     if (hasInvalidDates) {
         // Display an error message if dates are invalid
-        ElMessage.error('日期不能为空，请选择日期');
+        ElMessage.error(t('roonItems.dateempty'));
         // Close the dialog
         dialogFormVisible.value = false;
     } else {
@@ -304,31 +320,37 @@ getMyInfo();
                 <div>
                     <h3>¥{{price}}</h3>
                     <el-button plain @click="openDialogAndCheckDates">{{t('roonItems.book')}}</el-button>
-                    <el-dialog v-model="dialogFormVisible" title="Reservation Confirm" width="500">
+                    <el-dialog v-model="dialogFormVisible" :title="t('roonItems.reservation')" width="650">
                         <el-form :model="form">
                             <el-table :data="gridData">
-                                <el-table-column property="Start_Date" label="Start Date" width="150" />
-                                <el-table-column property="End_Date" label="End Date" width="200" />
-                                <el-table-column label="Room Type">
+                                <el-table-column property="Start_Date" :label="t('roonItems.start')" width="150" />
+                                <el-table-column property="End_Date" :label="t('roonItems.end')" width="150" />
+                                <el-table-column :label="t('roonItems.roomtype')">
                                     <template #default="scope">
-                                        {{ roomType }}
+                                        {{ roomtype }}
                                     </template>
                                 </el-table-column>
-                                <el-table-column property="Building_Type" label="Building Type" />
+                                <el-table-column :label="t('roonItems.buildingtype')" >
+                                    <template #default="scope">
+                                        {{ building }}
+                                    </template>
+                                </el-table-column>
                             </el-table>
-                            <el-form-item label="Name" :label-width="200">
+                            <div class="user">
+                            <el-form-item :label="t('roonItems.name')" :label-width="200">
                                 <el-input v-model="form.userName" autocomplete="off" />
                             </el-form-item>
-                            <el-form-item label="Phone Number" :label-width="200">
+                            <el-form-item :label="t('roonItems.phonenum')" :label-width="200">
                                 <el-input v-model="form.phoneNum" autocomplete="off">
                                 </el-input>
                             </el-form-item>
+                            </div>
                         </el-form>
                         <template #footer>
                             <div class="dialog-footer">
-                                <el-button @click="dialogFormVisible = false">Cancel</el-button>
+                                <el-button @click="dialogFormVisible = false">{{t('roonItems.cancel')}}</el-button>
                                 <el-button type="primary" @click="confirmReservation" v-loading="loading">
-                                    Confirm
+                                    {{t('roonItems.confirm')}}
                                 </el-button>
                             </div>
                         </template>
@@ -375,6 +397,30 @@ getMyInfo();
     align-items: center; /* 垂直居中 */
     justify-content: space-evenly; /* 水平平分空间 */
 }
+
+/* Style for the reservation confirmation dialog */
+.el-dialog__reservation-confirm {
+    width: 650px; /* Fixed width as specified */
+    margin: auto; /* Center the dialog horizontally */
+    border-radius: 8px; /* Optional: adds rounded corners to the dialog */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Optional: adds subtle shadow for depth */
+}
+
+/* Style for the form inside the dialog */
+.el-dialog__reservation-confirm .el-form {
+    padding: 20px;
+    background-color: #fff; /* Optional: ensure a white background */
+}
+
+/* Style for buttons in the dialog footer */
+.el-dialog__reservation-confirm .dialog-footer .el-button {
+    margin-right: 10px;
+}
+
+.user{
+    margin: 30px 90px 0px -50px ;
+}
+
 
 
 </style>

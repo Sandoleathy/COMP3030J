@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <h1> {{ t('order.detail') }}</h1>
         <el-table
             v-if="reservations.length > 0"
@@ -7,26 +7,35 @@
             style="width: 100%">
             <el-table-column
                 prop="id"
-                label="Reservation ID"
+                :label="t('order.id')"
                 width="180">
             </el-table-column>
             <el-table-column
                 prop="checkinTime"
-                label="Check-in Date"
+                :label="t('roonItems.start')"
                 width="180">
             </el-table-column>
             <el-table-column
                 prop="checkoutTime"
-                label="Check-out Date"
+                :label="t('roonItems.end')"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="numberOfRooms"
+                :label="t('order.roomnum')"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="totalPrice"
+                :label="t('order.price')"
                 width="180">
             </el-table-column>
             <el-table-column
                 prop="reservationStatus"
-                label="Status"
+                :label="t('order.status')"
                 width="180">
             </el-table-column>
         </el-table>
-        <p v-else>{{ t('order.found') }}</p>
     </div>
 </template>
 
@@ -37,10 +46,13 @@ import { ElTable, ElTableColumn } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
+const loading = ref(true)
+
 const reservations = ref([]);
 
 onMounted(() => {
     fetchUserProfile();
+
 });
 
 function fetchUserProfile() {
@@ -59,6 +71,7 @@ function fetchUserProfile() {
         .catch(error => {
             console.error('Error fetching user profile:', error);
         });
+
 }
 
 function fetchReservations(userId, token) {
@@ -70,13 +83,17 @@ function fetchReservations(userId, token) {
     })
         .then(response => {
             console.log("Reservations fetched successfully:", response.data);
-            reservations.value = response.data.data; // Ensure data structure aligns
+            reservations.value = response.data.data;
+            loading.value = false;// Ensure data structure aligns
         })
         .catch(error => {
             console.error('Error fetching reservations:', error);
         });
+
+
 }
 </script>
+
 
 
 <style scoped>

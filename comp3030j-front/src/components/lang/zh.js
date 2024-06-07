@@ -112,7 +112,8 @@ export default {
     reservationMenu:{
         home:'主页',
         overview:'园区总览',
-        user:'用户'
+        user:'用户',
+        hotel:'民宿'
     },
     firstPage:{
         yishan:'依山',
@@ -150,6 +151,7 @@ export default {
         logout:'登出',
     },
     myInformation:{
+        profile:'个人信息',
         account:'账号',
         name:'用户名',
         phoneNumber:'电话',
@@ -163,7 +165,14 @@ export default {
         male:'男',
         unknown:'未知',
         logout: '注销账号',
-        logoutTips: '确认注销账号？'
+        logoutTips: '确认注销账号？',
+        upload:'上传',
+        uploadfile:'上传文件',
+        confirm:'确认',
+        rule:'小于500kb的Jpg /png文件',
+        clickup:'点击上传',
+        drop:'拖拽文件至此或',
+
     },
     mySidebar:{
         home:'主页',
@@ -172,17 +181,22 @@ export default {
         trav:'常见的旅行者',
         address:'常见的地址',
         contacts:'常见的联系人',
-        myInfo:'我的信息'
+        myInfo:'我的信息',
+
     },
     order:{
         detail:'预订详情',
         found:'没有发现订单',
+        id:'预定ID',
+        roomnum:'房间号',
+        price:'价格',
+        status:'订单状态',
     },
     reservationSearchBar:{
         day:'日期',
         room:'房间：',
         guest:'顾客：',
-        roomType:'房间类型:',
+        roomType:'栋类型:',
     },
     roonItems:{
         view:'查看房间信息',
@@ -196,12 +210,26 @@ export default {
         many_king_size_bed:'四张双人床',
         nonsmoking:'禁止吸烟',
         smoking:'可以吸烟',
-
         Double_Room: '大床房',
         Twin_Room: '双床房',
         Deluxe_Double_Room: '豪华大床房',
         Family_Room:'家庭房',
         undefined:'未知',
+        confirm:'确认',
+        cancel:'取消',
+        name:'用户名',
+        phonenum:'电话号码',
+        buildingtype:'民宿名称',
+        roomtype:'房间名称',
+        start:'入住日期',
+        end:'离店日期',
+        reservation:'预定确认',
+        economic:'经济民宿',
+        deluxe:'豪华民宿',
+        family:'家庭民宿',
+        mountain:'观景民宿',
+        booksuccess:'预定成功',
+        dateempty:'日期不能为空，请选择日期',
     },
     dataDetail:{
         park:'园林能源信息详情',

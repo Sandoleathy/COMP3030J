@@ -1,16 +1,16 @@
 <template>
   <el-card class="box-card" shadow="hover">
-    <el-form label-width="100px" v-loading="isLoadingInfo">
+    <el-form label-width="200px" v-loading="isLoadingInfo">
       <el-row>
         <el-col :span="12">
           <el-form-item>
-            <h2>Profile</h2>
-            <el-divider></el-divider>
+            <h2>{{t('myInformation.profile')}}</h2>
+
           </el-form-item>
 
           <el-row>
             <el-col :span="24">
-              <el-form-item :label="t('myInformation.account')" label-width="150px">
+              <el-form-item :label="t('myInformation.account')" >
                 <template v-if="!isEditing">
                   <p>{{ userName }}</p>
                 </template>
@@ -32,7 +32,7 @@
 
           <el-row>
             <el-col :span="24">
-              <el-form-item :label="t('myInformation.phoneNumber')" label-width="150px">
+              <el-form-item :label="t('myInformation.phoneNumber')" >
                 <template v-if="!isEditing">
                   <p>{{ phoneNumber }}</p>
                 </template>
@@ -67,22 +67,22 @@
             </el-col>
           </el-row>
 
-          <el-divider></el-divider>
+
 
           <el-row>
             <el-col :span="24">
               <el-form-item>
                 <el-button v-if="!isEditing" type="primary" @click="isEditing = true">
-                  <el-icon><Edit /></el-icon> Edit
+                  <el-icon><Edit /></el-icon> {{t('myInformation.edit')}}
                 </el-button>
                 <el-button v-if="!isEditing" type="danger" @click="isLoggingOut = true">
                   {{ t('myInformation.logout') }}
                 </el-button>
                 <el-button v-if="isEditing" type="success" @click="saveChanges">
-                  <el-icon><Check /></el-icon> Save
+                  <el-icon><Check /></el-icon> {{t('myInformation.save')}}
                 </el-button>
                 <el-button v-if="isEditing" type="default" @click="cancelChanges">
-                  <el-icon><Close /></el-icon> Cancel
+                  <el-icon><Close /></el-icon> {{t('myInformation.cancel')}}
                 </el-button>
               </el-form-item>
             </el-col>
@@ -100,7 +100,7 @@
 
 
       <!--Pop-ups-->
-      <el-dialog title="Upload File" v-model="isUploadDialogVisible">
+      <el-dialog :title="t('myInformation.uploadfile')" v-model="isUploadDialogVisible">
         <el-upload
             action="/api/system/user/profile/avatar"
             list-type="text"
@@ -116,15 +116,15 @@
         >
           <el-icon class="el-icon--upload"><upload-filled /></el-icon>
           <div class="el-upload__text">
-            Drop file here or <em>click to upload</em>
+              {{t("myInformation.drop")}} <em>{{t("myInformation.clickup")}}</em>
           </div>
           <template #tip>
             <div class="el-upload__tip">
-              jpg/png files with a size less than 500kb
+              {{t("myInformation.rule")}}
             </div>
           </template>
         </el-upload>
-        <el-button type="success" @click="submitUpload">Upload</el-button>
+        <el-button type="success" @click="submitUpload">{{t('myInformation.upload')}}</el-button>
       </el-dialog>
     </el-form>
   </el-card>
@@ -132,9 +132,9 @@
     <span>{{t("myInformation.logoutTips")}}</span>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="isLoggingOut = false">Cancel</el-button>
+        <el-button @click="isLoggingOut = false">{{ t("myInformation.cancel")}}</el-button>
         <el-button type="danger" @click="logout">
-          Confirm
+            {{ t("myInformation.confirm")}}
         </el-button>
       </div>
     </template>
@@ -166,7 +166,13 @@ let isLoadingInfo = ref(false); //用于加载动画
 let isUploadDialogVisible = ref(false);
 
 const sexText = computed(() => {
-    return sex.value === "0" ? "male" : sex.value === "1" ? "female" : "unknown";
+    if (sex.value === "0") {
+        return t('myInformation.male');
+    } else if (sex.value === "1") {
+        return t('myInformation.female');
+    } else {
+        return t('myInformation.unknown');
+    }
 });
 
 onMounted(() => {
@@ -312,29 +318,34 @@ const cancelChanges = () => {
 .el-form {
     font-family: 'Arial', sans-serif;
     color: #333;
-    font-weight: bold; /* 加粗所有表单内的文字 */
+    font-weight: bold; /* Keeps text bold in form */
     padding: 20px;
     border-radius: 8px;
 }
 
-.el-form-item {
-    margin-bottom: 20px;
+.el-form-item label {
+    color: #333; /* Ensuring readability */
+    font-size: 16px; /* Reducing size for normal usage */
+    font-weight: bold;
+
+    /* Ensuring labels are bold */
+}
+
+.el-form-item p{
     margin-left: 50px;
 }
 
-.el-form-item label {
-    color: white;
-    font-size: 40px; /* 标签字体大小 */
-    font-weight: bold; /* 加粗标签文字 */
+.el-table th, .el-table td {
+    text-align: left; /* Aligns text left in table headers and cells */
+    padding: 10px; /* Adds padding for spacing */
 }
 
 .el-input,
 .el-select {
-    width: 100%;
+    width: 100%; /* Ensures input and select fields use the full available width */
     border: 1px solid #dcdfe6;
     border-radius: 6px;
     padding: 10px 15px;
-    font-weight: bold; /* 加粗输入框和下拉选择框内的文字 */
 }
 
 .el-button {
@@ -342,11 +353,10 @@ const cancelChanges = () => {
     border: none;
     border-radius: 6px;
     transition: background-color 0.3s, box-shadow 0.3s;
-    font-weight: bold; /* 加粗按钮上的文字 */
 }
 
 .el-button:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Subtle shadow on hover for buttons */
 }
 
 .el-button-primary {
@@ -362,32 +372,35 @@ const cancelChanges = () => {
 .el-button-default {
     background-color: #dcdfe6;
 }
+
 .box-card {
-  margin: 20px;
-  padding: 20px;
+    margin: 20px;
+    padding: 20px;
 }
-.avatar_div{
-  text-align: center;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  position: relative;
+
+.avatar_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    text-align: center;
 }
+
 .avatar_icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  padding: 10px;
-  width: 200px;
-  height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    width: 60px; /* Adjusted for proper scaling */
+    height: 60px; /* Adjusted for proper scaling */
 }
 </style>
+
 

@@ -1,6 +1,7 @@
 <template>
     <el-menu :default-active="activeIndex" mode="vertical"
              :ellipsis="false" @select="handleSelect">
+
         <el-menu-item class="menu-item" index="1">{{ t('mySidebar.order') }}</el-menu-item>
         <el-menu-item class="menu-item" index="3">{{ t('mySidebar.myInfo') }}</el-menu-item>
     </el-menu>
