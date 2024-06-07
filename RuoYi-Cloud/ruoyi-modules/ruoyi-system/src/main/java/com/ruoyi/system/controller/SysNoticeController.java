@@ -36,7 +36,6 @@ public class SysNoticeController extends BaseController
     /**
      * 获取announcement列表
      */
-    @RequiresPermissions("system:notice:list")
     @GetMapping("/list")
     public TableDataInfo list(SysNotice notice)
     {

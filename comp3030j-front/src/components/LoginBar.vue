@@ -56,6 +56,9 @@ import { ArrowDown } from '@element-plus/icons-vue'
 import axios from '@/axios'
 import LangSelect from '@/components/LangSelect'
 import { useI18n } from 'vue-i18n';
+import useUserStore from "@/store/modules/user";
+
+const userStore = useUserStore();
 const { t } = useI18n();
 const props= defineProps({
   barColor: {
@@ -125,6 +128,7 @@ const handleCommand = (command) => {
     }else if(command == "b"){
         sessionStorage.removeItem("token")
         sessionStorage.removeItem("username")
+        userStore.logOut()
         window.location.reload()
     }
 }
