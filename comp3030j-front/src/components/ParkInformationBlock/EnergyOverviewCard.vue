@@ -89,8 +89,7 @@ const getData = () => {
 </script>
 <style scoped>
 .energy-data-table{
-    width: 80%;
-    height: 50%;
+    margin: 5px 70px 20px 70px;
     text-align: center;
 }
 .energy-chart{

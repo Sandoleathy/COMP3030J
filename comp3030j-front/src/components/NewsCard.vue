@@ -75,6 +75,9 @@ h1{
   font-weight: bolder;
   color: white;
 }
+.minsu-head {
+  margin-bottom: 50px;
+}
 .news-container{
   border-radius: 5px;
   background-color: white;
