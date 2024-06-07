@@ -3,6 +3,7 @@ import {computed, ref} from 'vue'
 import {options} from "axios";
 import { differenceInCalendarDays } from 'date-fns'  // 使用 date-fns 来计算日期差异
 import { useI18n } from 'vue-i18n';
+import {ElMessage} from "element-plus";
 const { t } = useI18n();
 
 const handleSelect = (key: string, keyPath: string[]) => {
@@ -19,7 +20,7 @@ const value = ref('');  // 假设这里是你选中的 building type 的值
 const emits = defineEmits(['search']);  // 定义一个事件发射器
 const handleIconClick = () => {
     if (!value1.value || value1.value.length < 2) {
-        alert(t('reservationSearchBar.dateRequired'));
+        ElMessage.error(t('roonItems.dateempty'));
         return;
     }
     console.log('Icon clicked, emitting search with date range, room type, and guest count:', value1.value, value.value, num2.value);
@@ -40,19 +41,19 @@ const daysDifference = computed(() => {
 const options = [
     {
         value: '1',
-        label: 'Economic Room',
+        label: t('roonItems.economic'),
     },
     {
         value: '2',
-        label: 'Deluxe Room',
+        label: t('roonItems.deluxe'),
     },
     {
         value: '3',
-        label: 'Family Room',
+        label: t('roonItems.family'),
     },
     {
         value: '4',
-        label: 'Mountain Room',
+        label: t('roonItems.mountain'),
     },
 
 ]
@@ -78,8 +79,8 @@ const options = [
                                 v-model="value1"
                                 type="daterange"
                                 range-separator="To"
-                                start-placeholder="Start date"
-                                end-placeholder="End date"
+                                :start-placeholder="t('roonItems.start')"
+                                :end-placeholder="t('roonItems.end')"
                                 :size="size"
                             />
                         </div>
@@ -100,7 +101,7 @@ const options = [
 
             <div class="block">
                 <span class="demonstration">{{ t('reservationSearchBar.roomType') }}</span>
-                <el-select v-model="value" placeholder="Room Type" style="width: 240px">
+                <el-select v-model="value" :placeholder="t('roonItems.buildingtype')" style="width: 240px">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
