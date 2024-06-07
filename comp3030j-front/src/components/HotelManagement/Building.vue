@@ -2,6 +2,8 @@
 import { listBuildingType, getBuildingType, delBuildingType, addBuildingType, updateBuildingType } from "@/api/homestay/buildingType";
 import { onMounted, ref, reactive } from "vue";
 import {ElMessage, ElMessageBox} from "element-plus";
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const { proxy } = getCurrentInstance();
 onMounted(() => {
@@ -138,6 +140,20 @@ const allowSmoking = ref(false)
 const bathtub = ref(false)
 const bathroomAmenities = ref(false)
 const functionalAmenities = ref(false)
+const getBuildingTypeText = (type) => {
+    switch (type) {
+        case '1':
+            return t('roonItems.economic');
+        case '2':
+            return t('roonItems.deluxe');
+        case '3':
+            return t('roonItems.family');
+        case '4':
+            return t('roonItems.mountain');
+        default:
+            return t('roonItems.unknown');
+    }
+};
 </script>
 
 <template>
@@ -145,7 +161,7 @@ const functionalAmenities = ref(false)
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-row>
         <el-col :span="8">
-          <el-form-item label="栋类型" prop="buildingType" label-width="150px">
+          <el-form-item :label="t('building.buildingtype')" prop="buildingType" label-width="150px">
             <el-input
                 v-model="queryParams.buildingType"
                 placeholder="请输入栋类型"
@@ -212,7 +228,11 @@ const functionalAmenities = ref(false)
     <el-table v-loading="loading" :data="buildingTypeList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="栋类型" align="center" prop="buildingType" />
+        <el-table-column label="栋类型" align="center">
+            <template #default="scope">
+                {{ getBuildingTypeText(scope.row.buildingType) }}
+            </template>
+        </el-table-column>
       <el-table-column label="是否提供早餐" align="center">
         <template v-slot="scope">
           <span>{{ scope.row.breakfast ? '√' : '×' }}</span>

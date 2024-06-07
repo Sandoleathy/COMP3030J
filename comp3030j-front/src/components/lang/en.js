@@ -299,5 +299,9 @@ export default {
         WarningTitle: "Meteorological disaster warning",
         sendWarning: 'Release meteorological disaster warning',
         sendSuccessful: 'Warning released'
+    },
+    building:{
+        buildingtype:'Building Type'
+
     }
 }

@@ -301,5 +301,9 @@ export default {
         WarningTitle: "气象灾害预警",
         sendWarning: '发布气象灾害预警',
         sendSuccessful: '灾害预警已发布'
+    },
+    building:{
+        buildingtype:'栋类型'
+
     }
 }
