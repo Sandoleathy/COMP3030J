@@ -1,4 +1,4 @@
-# COMP3030J - Smart Homestay Management System
+# YiShan Villa - Smart Homestay Management System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![RuoYi](https://img.shields.io/badge/RuoYi-v3.6.3-brightgreen.svg)](http://www.ruoyi.vip)
